@@ -1,0 +1,48 @@
+{
+  "common": {
+    "or": "O",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "tryAgain": "Intentar de nuevo"
+  },
+  "auth": {
+    "login": {
+      "identifierPlaceholder": "Teléfono, usuario o correo electrónico",
+      "passwordPlaceholder": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "logInButton": "Iniciar sesión",
+      "loginWithFacebook": "Iniciar sesión con Facebook",
+      "dontHaveAccount": "¿No tienes una cuenta?",
+      "signUp": "Regístrate.",
+      "invalidCredentials": "Usuario o contraseña incorrectos.",
+      "loginFailed": "Error al iniciar sesión. Intenta nuevamente.",
+      "identifierRequired": "Se requiere teléfono, usuario o correo electrónico.",
+      "passwordRequired": "Se requiere contraseña.",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres."
+    }
+  },
+  "settings": {
+    "theme": "Tema",
+    "language": "Idioma",
+    "system": "Predeterminado del sistema",
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
+  "errors": {
+    "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos.",
+    "EMAIL_ALREADY_EXISTS": "Ya existe una cuenta con este correo.",
+    "USER_NOT_FOUND": "No se encontró ninguna cuenta con este correo.",
+    "VALIDATION_FAILED": "Por favor revisa los campos a continuación.",
+    "DEVICE_TOKEN_REQUIRED": "Se requiere el token del dispositivo.",
+    "TOKEN_REQUIRED": "Autenticación requerida. Por favor inicia sesión.",
+    "TOKEN_EXPIRED": "Tu sesión ha expirado. Por favor inicia sesión nuevamente.",
+    "TOKEN_INVALID": "Sesión inválida. Por favor inicia sesión nuevamente.",
+    "REFRESH_TOKEN_REQUIRED": "Token de sesión faltante. Por favor inicia sesión.",
+    "REFRESH_TOKEN_INVALID": "Token de sesión inválido. Por favor inicia sesión.",
+    "REFRESH_TOKEN_EXPIRED": "Tu sesión ha expirado. Por favor inicia sesión nuevamente.",
+    "SERVER_ERROR": "Algo salió mal. Por favor intenta más tarde.",
+    "FORBIDDEN": "No tienes permiso para hacer esto.",
+    "NETWORK_ERROR": "Sin conexión a internet. Por favor intenta de nuevo.",
+    "UNKNOWN": "Ocurrió un error inesperado."
+  }
+}

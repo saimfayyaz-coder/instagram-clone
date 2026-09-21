@@ -1,0 +1,48 @@
+{
+  "common": {
+    "or": "یا",
+    "loading": "لوڈ ہو رہا ہے...",
+    "error": "ایک خرابی پیش آئی",
+    "tryAgain": "دوبارہ کوشش کریں"
+  },
+  "auth": {
+    "login": {
+      "identifierPlaceholder": "فون نمبر، صارف نام، یا ای میل",
+      "passwordPlaceholder": "پاس ورڈ",
+      "forgotPassword": "پاس ورڈ بھول گئے؟",
+      "logInButton": "لاگ ان کریں",
+      "loginWithFacebook": "فیس بک کے ساتھ لاگ ان کریں",
+      "dontHaveAccount": "اکاؤنٹ نہیں ہے؟",
+      "signUp": "سائن اپ کریں۔",
+      "invalidCredentials": "غلط صارف نام یا پاس ورڈ۔",
+      "loginFailed": "لاگ ان کرنے میں ناکامی۔ براے مہربانی اپنے کریڈنشلز چیک کریں۔",
+      "identifierRequired": "فون نمبر، صارف نام، یا ای میل درکار ہے۔",
+      "passwordRequired": "پاس ورڈ درکار ہے۔",
+      "passwordMinLength": "پاس ورڈ کم از کم 6 حروف پر مشتمل ہونا چاہیے۔"
+    }
+  },
+  "settings": {
+    "theme": "تھیم",
+    "language": "زبان",
+    "system": "سسٹم کے مطابق",
+    "light": "روشن",
+    "dark": "تاریک"
+  },
+  "errors": {
+    "INVALID_CREDENTIALS": "غلط صارف نام یا پاس ورڈ۔",
+    "EMAIL_ALREADY_EXISTS": "اس ای میل سے پہلے سے ایک اکاؤنٹ موجود ہے۔",
+    "USER_NOT_FOUND": "اس ای میل سے کوئی اکاؤنٹ نہیں ملا۔",
+    "VALIDATION_FAILED": "براہ کرم نیچے دیے گئے خانے چیک کریں۔",
+    "DEVICE_TOKEN_REQUIRED": "ڈیوائس ٹوکن درکار ہے۔",
+    "TOKEN_REQUIRED": "تصدیق ضروری ہے۔ براہ کرم لاگ ان کریں۔",
+    "TOKEN_EXPIRED": "آپ کا سیشن ختم ہو گیا۔ دوبارہ لاگ ان کریں۔",
+    "TOKEN_INVALID": "غلط سیشن۔ دوبارہ لاگ ان کریں۔",
+    "REFRESH_TOKEN_REQUIRED": "سیشن ٹوکن غائب ہے۔ دوبارہ لاگ ان کریں۔",
+    "REFRESH_TOKEN_INVALID": "غلط سیشن ٹوکن۔ دوبارہ لاگ ان کریں۔",
+    "REFRESH_TOKEN_EXPIRED": "آپ کا سیشن ختم ہو گیا۔ دوبارہ لاگ ان کریں۔",
+    "SERVER_ERROR": "کچھ غلط ہوا۔ بعد میں دوبارہ کوشش کریں۔",
+    "FORBIDDEN": "آپ کو یہ کرنے کی اجازت نہیں۔",
+    "NETWORK_ERROR": "انٹرنیٹ کنیکشن نہیں ہے۔ دوبارہ کوشش کریں۔",
+    "UNKNOWN": "ایک غیر متوقع خرابی پیش آئی۔"
+  }
+}

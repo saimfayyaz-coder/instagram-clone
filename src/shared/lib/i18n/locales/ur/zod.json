@@ -1,0 +1,22 @@
+{
+  "errors": {
+    "invalid_type_received_undefined": "ضروری ہے",
+    "invalid_type": "{{expected}} درکار ہے، {{received}} ملا",
+    "too_small": {
+      "string": {
+        "inclusive": "{{path}} کم از کم {{minimum}} حروف کا ہونا چاہیے"
+      }
+    },
+    "too_big": {
+      "string": {
+        "inclusive": "{{path}} زیادہ سے زیادہ {{maximum}} حروف کا ہونا چاہیے"
+      }
+    },
+    "invalid_string": {
+      "email": "درست ای میل پتہ درج کریں",
+      "url": "درست لنک درج کریں",
+      "uuid": "درست شناخت درج کریں"
+    },
+    "invalid_enum_value": "غلط قدر"
+  }
+}

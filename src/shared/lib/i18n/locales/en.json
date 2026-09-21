@@ -1,0 +1,48 @@
+{
+  "common": {
+    "or": "OR",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "tryAgain": "Try Again"
+  },
+  "auth": {
+    "login": {
+      "identifierPlaceholder": "Phone number, username, or email",
+      "passwordPlaceholder": "Password",
+      "forgotPassword": "Forgot password?",
+      "logInButton": "Log in",
+      "loginWithFacebook": "Log in with Facebook",
+      "dontHaveAccount": "Don't have an account?",
+      "signUp": "Sign up.",
+      "invalidCredentials": "Invalid username or password.",
+      "loginFailed": "Failed to log in. Please check your network and credentials.",
+      "identifierRequired": "Phone number, username, or email is required.",
+      "passwordRequired": "Password is required.",
+      "passwordMinLength": "Password must be at least 6 characters."
+    }
+  },
+  "settings": {
+    "theme": "Theme",
+    "language": "Language",
+    "system": "System Default",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "errors": {
+    "INVALID_CREDENTIALS": "Invalid username or password.",
+    "EMAIL_ALREADY_EXISTS": "An account with this email already exists.",
+    "USER_NOT_FOUND": "No account found with this email.",
+    "VALIDATION_FAILED": "Please check the fields below.",
+    "DEVICE_TOKEN_REQUIRED": "Device token is required.",
+    "TOKEN_REQUIRED": "Authentication required. Please log in.",
+    "TOKEN_EXPIRED": "Your session has expired. Please log in again.",
+    "TOKEN_INVALID": "Invalid session. Please log in again.",
+    "REFRESH_TOKEN_REQUIRED": "Session token missing. Please log in again.",
+    "REFRESH_TOKEN_INVALID": "Invalid session token. Please log in again.",
+    "REFRESH_TOKEN_EXPIRED": "Your session has expired. Please log in again.",
+    "SERVER_ERROR": "Something went wrong. Please try again later.",
+    "FORBIDDEN": "You don't have permission to do this.",
+    "NETWORK_ERROR": "No internet connection. Please try again.",
+    "UNKNOWN": "An unexpected error occurred."
+  }
+}
