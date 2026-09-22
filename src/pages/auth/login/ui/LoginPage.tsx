@@ -10,5 +10,14 @@ export const LoginPage: React.FC<Props> = ({ navigation }) => {
     navigation.navigate('Signup');
   };
 
-  return <LoginWidget onNavigateToSignUp={handleNavigateToSignUp} />;
+  const handleRequireOtpVerification = (email: string) => {
+    navigation.navigate('OtpVerification', { email });
+  };
+
+  return (
+    <LoginWidget
+      onNavigateToSignUp={handleNavigateToSignUp}
+      onRequireOtpVerification={handleRequireOtpVerification}
+    />
+  );
 };
