@@ -36,6 +36,8 @@
       "confirmPasswordLabel": "Confirm password",
       "confirmPasswordRequired": "Please confirm your password.",
       "passwordMismatch": "Passwords do not match.",
+      "ruleMinLength": "At least 6 characters",
+      "rulePasswordsMatch": "Passwords match",
       "step3Title": "Add your email",
       "step3Subtitle": "Enter the email where you can be reached. No one will see this on your profile.",
       "emailLabel": "Email address",

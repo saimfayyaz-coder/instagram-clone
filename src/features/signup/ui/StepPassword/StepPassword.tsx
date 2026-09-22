@@ -12,6 +12,7 @@ import {
   createStep2PasswordSchema,
   Step2PasswordSchemaType,
 } from '../../model/signupSchemas';
+import { PasswordRulesList } from './PasswordRulesList';
 
 export interface StepPasswordProps {
   initialPassword?: string;
@@ -32,7 +33,7 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    watch,
   } = useForm<Step2PasswordSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -42,13 +43,19 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
     },
   });
 
+  const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
+
+  const hasMinLength = (password?.length ?? 0) >= 6;
+  const passwordsMatch = Boolean(password && confirmPassword && password === confirmPassword);
+  const hasConfirmInput = Boolean(confirmPassword && confirmPassword.length > 0);
+
   const handleNext = handleSubmit((values) => {
     onNext(values.password, values.confirmPassword);
   });
 
   return (
     <View style={styles.container}>
-      {/* ─── LEFT-ALIGNED HEADER ────────────────────────────────────────── */}
       <AppText
         variant="heading"
         weight="bold"
@@ -68,7 +75,6 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
         {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_SUBTITLE)}
       </AppText>
 
-      {/* ─── INPUTS & BUTTON WITH REACT-HOOK-FORM ───────────────────────── */}
       <Controller
         name="password"
         control={control}
@@ -99,6 +105,12 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
             floating
           />
         )}
+      />
+
+      <PasswordRulesList
+        hasMinLength={hasMinLength}
+        passwordsMatch={passwordsMatch}
+        hasConfirmInput={hasConfirmInput}
       />
 
       <Button

@@ -36,6 +36,8 @@
       "confirmPasswordLabel": "Confirmez le mot de passe",
       "confirmPasswordRequired": "Veuillez confirmer votre mot de passe.",
       "passwordMismatch": "Les mots de passe ne correspondent pas.",
+      "ruleMinLength": "Au moins 6 caractères",
+      "rulePasswordsMatch": "Les mots de passe correspondent",
       "step3Title": "Ajoutez votre e-mail",
       "step3Subtitle": "Indiquez l'e-mail où nous pouvons vous joindre.",
       "emailLabel": "Adresse e-mail",

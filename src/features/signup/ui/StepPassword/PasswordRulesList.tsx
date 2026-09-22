@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
-import { AppText } from '@/shared/components/atoms';
+import { useTranslation } from 'react-i18next';
+import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
+import { ms } from '@/shared/theme/scaling';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface PasswordRulesListProps {
   hasMinLength: boolean;
@@ -18,27 +20,15 @@ const RuleCheckItem: React.FC<{ satisfied: boolean; label: string }> = ({
 
   return (
     <View style={styles.ruleItem}>
-      <Svg width={16} height={16} viewBox="0 0 24 24" fill="none">
-        {satisfied ? (
-          <Path
-            d="M5 13l4 4L19 7"
-            stroke="#4BB543"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        ) : (
-          <Path
-            d="M12 8v4m0 4h.01"
-            stroke={theme.colors.textSecondary}
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        )}
-      </Svg>
+      <Icon
+        type="Ionicons"
+        name={satisfied ? 'checkmark-circle' : 'ellipse-outline'}
+        size={16}
+        color={satisfied ? theme.colors.success : theme.colors.textSecondary}
+      />
       <AppText
         variant="caption"
-        color={satisfied ? '#4BB543' : theme.colors.textSecondary}
+        color={satisfied ? theme.colors.success : theme.colors.textSecondary}
         style={styles.ruleLabel}
       >
         {label}
@@ -52,16 +42,18 @@ export const PasswordRulesList: React.FC<PasswordRulesListProps> = ({
   passwordsMatch,
   hasConfirmInput,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <RuleCheckItem
         satisfied={hasMinLength}
-        label="At least 6 characters"
+        label={t(TRANSLATION_KEYS.AUTH_SIGNUP_RULE_MIN_LENGTH)}
       />
       {hasConfirmInput && (
         <RuleCheckItem
           satisfied={passwordsMatch}
-          label={passwordsMatch ? 'Passwords match' : 'Passwords must match'}
+          label={t(TRANSLATION_KEYS.AUTH_SIGNUP_RULE_PASSWORDS_MATCH)}
         />
       )}
     </View>
@@ -70,15 +62,16 @@ export const PasswordRulesList: React.FC<PasswordRulesListProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 12,
-    gap: 6,
+    marginVertical: ms(10),
+    gap: ms(6),
   },
   ruleItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: ms(8),
   },
   ruleLabel: {
-    fontSize: 12,
+    fontSize: ms(12),
+    lineHeight: ms(16),
   },
 });

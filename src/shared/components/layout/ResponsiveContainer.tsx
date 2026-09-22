@@ -4,7 +4,6 @@ import {
   StyleSheet,
   ViewStyle,
   StyleProp,
-  useWindowDimensions,
 } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -16,7 +15,6 @@ export interface ResponsiveContainerProps {
   paddingHorizontal?: number;
 }
 
-
 export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   children,
   maxWidth = 440,
@@ -24,13 +22,10 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   contentStyle,
   paddingHorizontal,
 }) => {
-  const { width } = useWindowDimensions();
   const { theme } = useTheme();
 
   const effectivePadding =
     paddingHorizontal !== undefined ? paddingHorizontal : theme.spacing.lg;
-
-  const containerWidth = Math.min(width, maxWidth);
 
   return (
     <View style={[styles.outer, style]}>
@@ -39,7 +34,6 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
           styles.inner,
           {
             maxWidth,
-            width: width > maxWidth ? containerWidth : '100%',
             paddingHorizontal: effectivePadding,
           },
           contentStyle,

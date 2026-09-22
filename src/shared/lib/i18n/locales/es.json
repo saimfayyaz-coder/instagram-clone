@@ -36,6 +36,8 @@
       "confirmPasswordLabel": "Confirmar contraseña",
       "confirmPasswordRequired": "Confirma tu contraseña.",
       "passwordMismatch": "Las contraseñas no coinciden.",
+      "ruleMinLength": "Al menos 6 caracteres",
+      "rulePasswordsMatch": "Las contraseñas coinciden",
       "step3Title": "Añade tu correo electrónico",
       "step3Subtitle": "Ingresa el correo donde podamos contactarte. Nadie lo verá en tu perfil.",
       "emailLabel": "Correo electrónico",

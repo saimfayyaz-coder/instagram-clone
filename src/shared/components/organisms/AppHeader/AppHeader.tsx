@@ -26,44 +26,26 @@ export interface HeaderActionItem {
 export type HeaderLeftIconType = 'back' | 'close' | 'custom' | 'none';
 
 export interface AppHeaderProps {
-  /** Centered title string */
   title?: string;
-  /** Optional centered subtitle */
   subtitle?: string;
-  /** Custom component for center area (e.g., logo or search bar) */
   titleComponent?: React.ReactNode;
 
-  /** Convenience callback for back/close navigation */
   onPressBack?: () => void;
-  /** Type of left icon: 'back' (chevron), 'close' (X), 'custom', or 'none' */
   leftIconType?: HeaderLeftIconType;
-  /** Custom icon for the left button (used when leftIconType is 'custom' or passed directly) */
   leftIcon?: React.ReactNode;
-  /** Left button press handler (defaults to onPressBack if not explicitly set) */
   onPressLeft?: () => void;
-  /** Text next to left icon or standalone left title (e.g. username on profile or home title) */
   leftText?: string;
-  /** Press handler for left text */
   onPressLeftText?: () => void;
-  /** Completely custom component for the left slot */
   leftComponent?: React.ReactNode;
 
-  /** Array of right action icons (supports 0, 1, or 2 actions with badge support) */
   rightActions?: HeaderActionItem[];
-  /** Completely custom component for the right slot (e.g., a "Next" / "Done" text button) */
   rightComponent?: React.ReactNode;
 
-  /** Whether to apply top safe area inset padding (default: true) */
   withSafeArea?: boolean;
-  /** Whether to show a subtle bottom border divider (default: false) */
   showBottomBorder?: boolean;
-  /** Custom background color override */
   backgroundColor?: string;
-  /** Custom title text style override */
   titleStyle?: StyleProp<TextStyle>;
-  /** Overall container style */
   style?: StyleProp<ViewStyle>;
-  /** Content row style */
   contentStyle?: StyleProp<ViewStyle>;
 }
 
@@ -147,7 +129,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       ]}
     >
       <View style={[styles.contentRow, contentStyle]}>
-        {/* ─── LEFT SLOT ──────────────────────────────────────────────────────── */}
         <View style={styles.leftContainer}>
           {leftComponent ? (
             leftComponent
@@ -226,7 +207,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </View>
         )}
 
-        {/* ─── RIGHT SLOT (0, 1, or 2 actions) ─────────────────────────────────── */}
         <View style={styles.rightContainer}>
           {rightComponent
             ? rightComponent

@@ -36,6 +36,8 @@
       "confirmPasswordLabel": "پاس ورڈ کی تصدیق کریں",
       "confirmPasswordRequired": "براہ کرم پاس ورڈ کی تصدیق کریں۔",
       "passwordMismatch": "پاس ورڈ مماثل نہیں ہیں۔",
+      "ruleMinLength": "کم از کم 6 حروف",
+      "rulePasswordsMatch": "پاس ورڈز مماثل ہیں",
       "step3Title": "اپنا ای میل درج کریں",
       "step3Subtitle": "وہ ای میل درج کریں جہاں آپ سے رابطہ کیا جا سکے۔",
       "emailLabel": "ای میل ایڈریس",

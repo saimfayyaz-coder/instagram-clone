@@ -12,6 +12,7 @@ import {
   createStep3EmailSchema,
   Step3EmailSchemaType,
 } from '../../model/signupSchemas';
+import { TermsNotice } from './TermsNotice';
 
 export interface StepEmailProps {
   initialEmail?: string;
@@ -61,7 +62,6 @@ export const StepEmail: React.FC<StepEmailProps> = ({
 
   return (
     <View style={styles.container}>
-      {/* ─── LEFT-ALIGNED HEADER ────────────────────────────────────────── */}
       <AppText
         variant="heading"
         weight="bold"
@@ -81,7 +81,6 @@ export const StepEmail: React.FC<StepEmailProps> = ({
         {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP3_SUBTITLE)}
       </AppText>
 
-      {/* ─── INPUT & BUTTON WITH REACT-HOOK-FORM ───────────────────────── */}
       <Controller
         name="email"
         control={control}
@@ -110,6 +109,8 @@ export const StepEmail: React.FC<StepEmailProps> = ({
         loading={isLoading}
         style={{ marginTop: theme.spacing.xs }}
       />
+
+      <TermsNotice />
     </View>
   );
 };

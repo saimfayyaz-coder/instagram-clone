@@ -1,5 +1,5 @@
 export enum TRANSLATION_KEYS {
-  // ─── Common ───────────────────────────────────────────────────────────────
+  // Common
   COMMON_OR = 'common.or',
   COMMON_LOADING = 'common.loading',
   COMMON_ERROR = 'common.error',
@@ -7,7 +7,7 @@ export enum TRANSLATION_KEYS {
   COMMON_NEXT = 'common.next',
   COMMON_BACK = 'common.back',
 
-  // ─── Auth › Login ─────────────────────────────────────────────────────────
+  // Auth › Login
   AUTH_LOGIN_IDENTIFIER_PLACEHOLDER = 'auth.login.identifierPlaceholder',
   AUTH_LOGIN_PASSWORD_PLACEHOLDER = 'auth.login.passwordPlaceholder',
   AUTH_LOGIN_FORGOT_PASSWORD = 'auth.login.forgotPassword',
@@ -19,7 +19,7 @@ export enum TRANSLATION_KEYS {
   AUTH_LOGIN_PASSWORD_REQUIRED = 'auth.login.passwordRequired',
   AUTH_LOGIN_PASSWORD_MIN_LENGTH = 'auth.login.passwordMinLength',
 
-  // ─── Auth › Signup ────────────────────────────────────────────────────────
+  // Auth › Signup
   AUTH_SIGNUP_STEP1_TITLE = 'auth.signup.step1Title',
   AUTH_SIGNUP_STEP1_SUBTITLE = 'auth.signup.step1Subtitle',
   AUTH_SIGNUP_USERNAME_LABEL = 'auth.signup.usernameLabel',
@@ -33,6 +33,8 @@ export enum TRANSLATION_KEYS {
   AUTH_SIGNUP_CONFIRM_PASSWORD_LABEL = 'auth.signup.confirmPasswordLabel',
   AUTH_SIGNUP_CONFIRM_PASSWORD_REQUIRED = 'auth.signup.confirmPasswordRequired',
   AUTH_SIGNUP_PASSWORD_MISMATCH = 'auth.signup.passwordMismatch',
+  AUTH_SIGNUP_RULE_MIN_LENGTH = 'auth.signup.ruleMinLength',
+  AUTH_SIGNUP_RULE_PASSWORDS_MATCH = 'auth.signup.rulePasswordsMatch',
   AUTH_SIGNUP_STEP3_TITLE = 'auth.signup.step3Title',
   AUTH_SIGNUP_STEP3_SUBTITLE = 'auth.signup.step3Subtitle',
   AUTH_SIGNUP_EMAIL_LABEL = 'auth.signup.emailLabel',
@@ -42,7 +44,7 @@ export enum TRANSLATION_KEYS {
   AUTH_SIGNUP_TERMS_NOTICE = 'auth.signup.termsNotice',
   AUTH_SIGNUP_ALREADY_HAVE_ACCOUNT = 'auth.signup.alreadyHaveAccount',
 
-  // ─── Auth › OTP ───────────────────────────────────────────────────────────
+  // Auth › OTP
   AUTH_OTP_TITLE = 'auth.otp.title',
   AUTH_OTP_INSTRUCTION = 'auth.otp.instruction',
   AUTH_OTP_LENGTH_ERROR = 'auth.otp.lengthError',
@@ -51,14 +53,14 @@ export enum TRANSLATION_KEYS {
   AUTH_OTP_RESEND_WAIT = 'auth.otp.resendWait',
   AUTH_OTP_CODE_SENT_SUCCESS = 'auth.otp.codeSentSuccess',
 
-  // ─── Settings ─────────────────────────────────────────────────────────────
+  // Settings
   SETTINGS_THEME = 'settings.theme',
   SETTINGS_LANGUAGE = 'settings.language',
   SETTINGS_SYSTEM = 'settings.system',
   SETTINGS_LIGHT = 'settings.light',
   SETTINGS_DARK = 'settings.dark',
 
-  // ─── Errors — mirror server ErrorCodes.js 1-to-1 ─────────────────────────
+  // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',
   ERROR_EMAIL_ALREADY_EXISTS = 'errors.EMAIL_ALREADY_EXISTS',
   ERROR_USERNAME_ALREADY_EXISTS = 'errors.USERNAME_ALREADY_EXISTS',
