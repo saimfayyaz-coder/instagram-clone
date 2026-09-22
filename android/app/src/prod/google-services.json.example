@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "123456789002",
-    "project_id": "instagram-prod",
-    "storage_bucket": "instagram-prod.appspot.com"
+    "project_number": "000000000000",
+    "project_id": "your-firebase-project-prod",
+    "storage_bucket": "your-firebase-project-prod.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123456789002:android:abcdef1234567890prod",
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
         "android_client_info": {
           "package_name": "com.instagram"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyFakeProdApiKeyForConfigTesting1234"
+          "current_key": ""
         }
       ],
       "services": {

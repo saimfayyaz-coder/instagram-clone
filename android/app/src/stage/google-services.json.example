@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "123456789001",
-    "project_id": "instagram-stage",
-    "storage_bucket": "instagram-stage.appspot.com"
+    "project_number": "000000000000",
+    "project_id": "your-firebase-project-stage",
+    "storage_bucket": "your-firebase-project-stage.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123456789001:android:abcdef1234567890stage",
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
         "android_client_info": {
           "package_name": "com.instagram.stage"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyFakeStageApiKeyForConfigTesting123"
+          "current_key": ""
         }
       ],
       "services": {
