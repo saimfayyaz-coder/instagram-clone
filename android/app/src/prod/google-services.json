@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123456789002",
+    "project_id": "instagram-prod",
+    "storage_bucket": "instagram-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789002:android:abcdef1234567890prod",
+        "android_client_info": {
+          "package_name": "com.instagram"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyFakeProdApiKeyForConfigTesting1234"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
