@@ -1,0 +1,85 @@
+import React from 'react';
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
+import { AppHeader } from '@/shared/components/organisms';
+import { ResponsiveContainer } from '@/shared/components/layout/ResponsiveContainer';
+import { isIOS } from '@/shared/constants';
+import { useTheme } from '@/shared/hooks/useTheme';
+import { ms } from '@/shared/theme/scaling';
+import { SignUpStepController, useSignupFlow } from '@/features/signup';
+
+export interface SignUpWidgetProps {
+  onNavigateToLogin: () => void;
+  onSignupSuccess?: () => void;
+}
+
+export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
+  onNavigateToLogin,
+  onSignupSuccess,
+}) => {
+  const { theme } = useTheme();
+  const { currentStep, formData, updateFormData, nextStep, prevStep } =
+    useSignupFlow();
+
+  const isFirstStep = currentStep === 1;
+
+  const handleHeaderAction = () => {
+    if (isFirstStep) {
+      onNavigateToLogin();
+    } else {
+      prevStep();
+    }
+  };
+
+  return (
+    <View style={[styles.root, { backgroundColor: theme.colors.bgPrimary }]}>
+      <AppHeader
+        leftIconType={isFirstStep ? 'close' : 'back'}
+        onPressBack={handleHeaderAction}
+        withSafeArea
+      />
+
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior={isIOS ? 'padding' : undefined}
+      >
+        <ScrollView
+          contentContainerStyle={[
+            styles.scrollContent,
+            { paddingTop: theme.spacing.lg },
+          ]}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          showsVerticalScrollIndicator={false}
+        >
+          <ResponsiveContainer maxWidth={440} paddingHorizontal={theme.spacing.lg}>
+            <SignUpStepController
+              currentStep={currentStep}
+              formData={formData}
+              updateFormData={updateFormData}
+              nextStep={nextStep}
+              onComplete={onSignupSuccess}
+            />
+          </ResponsiveContainer>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  keyboardView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: ms(32),
+  },
+});

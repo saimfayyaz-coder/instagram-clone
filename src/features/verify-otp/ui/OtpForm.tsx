@@ -1,0 +1,177 @@
+import React, { useState, useMemo } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
+import { AppText, Button } from '@/shared/components/atoms';
+import { ErrorAlert } from '@/shared/components/molecules';
+import { parseApiError } from '@/shared/lib/errors';
+import { useTheme } from '@/shared/hooks/useTheme';
+import { ms } from '@/shared/theme/scaling';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { useVerifyOtpMutation, useResendOtpMutation } from '../api/otpApi';
+import { useOtpTimer } from '../model/useOtpTimer';
+import { createOtpSchema, OtpSchemaType } from '../model/otpSchema';
+import { OtpCodeInput } from './OtpCodeInput';
+import { OtpResendTimer } from './OtpResendTimer';
+import { OtpFormProps } from '../model/types';
+
+export const OtpForm: React.FC<OtpFormProps> = ({
+  email,
+  onSuccess,
+}) => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
+
+  const [verifyOtp, { isLoading: isVerifying }] = useVerifyOtpMutation();
+  const [resendOtp, { isLoading: isResending }] = useResendOtpMutation();
+
+  const { secondsLeft, canResend, resetTimer } = useOtpTimer({
+    initialSeconds: 60,
+    autoStart: true,
+  });
+
+  const schema = useMemo(() => createOtpSchema(t), [t]);
+
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { isValid, errors },
+  } = useForm<OtpSchemaType>({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+    defaultValues: { otp: '' },
+  });
+
+  const handleVerify = async (codeToVerify: string) => {
+    setErrorMessage(null);
+    setInfoMessage(null);
+
+    try {
+      const response = await verifyOtp({ email, otp: codeToVerify }).unwrap();
+      if (onSuccess) {
+        onSuccess(response.data);
+      }
+    } catch (err) {
+      const { message } = parseApiError(err);
+      setErrorMessage(message);
+    }
+  };
+
+  const handleResend = async () => {
+    setErrorMessage(null);
+    setInfoMessage(null);
+
+    try {
+      await resendOtp({ email }).unwrap();
+      resetTimer();
+      setInfoMessage(t(TRANSLATION_KEYS.AUTH_OTP_CODE_SENT_SUCCESS));
+    } catch (err) {
+      const { message } = parseApiError(err);
+      setErrorMessage(message);
+    }
+  };
+
+  const onSubmitForm = handleSubmit((values) => {
+    handleVerify(values.otp);
+  });
+
+  const displayError = errorMessage || errors.otp?.message;
+
+  return (
+    <View style={styles.container}>
+      <AppText
+        variant="heading"
+        weight="bold"
+        align="left"
+        color={theme.colors.textPrimary}
+        style={styles.title}
+      >
+        {t(TRANSLATION_KEYS.AUTH_OTP_TITLE)}
+      </AppText>
+
+      <AppText
+        variant="body"
+        color={theme.colors.textSecondary}
+        align="left"
+        style={[styles.instruction, { marginBottom: theme.spacing.md }]}
+      >
+        {t(TRANSLATION_KEYS.AUTH_OTP_INSTRUCTION, { email })}
+      </AppText>
+
+      {displayError ? (
+        <View style={[styles.alertWrapper, { marginBottom: theme.spacing.sm }]}>
+          <ErrorAlert message={displayError} />
+        </View>
+      ) : null}
+
+      {infoMessage ? (
+        <View style={[styles.alertWrapper, { marginBottom: theme.spacing.sm }]}>
+          <AppText
+            variant="caption"
+            weight="semibold"
+            align="center"
+            color={theme.colors.actionPrimary}
+          >
+            {infoMessage}
+          </AppText>
+        </View>
+      ) : null}
+
+      <Controller
+        name="otp"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <OtpCodeInput
+            value={value}
+            onChange={(val) => {
+              onChange(val);
+              if (val.length === 6) {
+                handleVerify(val);
+              }
+            }}
+            hasError={Boolean(displayError)}
+            disabled={isVerifying}
+          />
+        )}
+      />
+
+      <Button
+        title={t(TRANSLATION_KEYS.COMMON_NEXT)}
+        variant="primary"
+        onPress={() => onSubmitForm()}
+        loading={isVerifying}
+        style={{ marginTop: theme.spacing.sm }}
+      />
+
+      <OtpResendTimer
+        secondsLeft={secondsLeft}
+        canResend={canResend}
+        onResend={handleResend}
+        isLoading={isResending}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
+  title: {
+    fontSize: ms(22),
+    lineHeight: ms(28),
+    marginBottom: ms(8),
+  },
+  instruction: {
+    fontSize: ms(14),
+    lineHeight: ms(20),
+  },
+  alertWrapper: {
+    width: '100%',
+  },
+});

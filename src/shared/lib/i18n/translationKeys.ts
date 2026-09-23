@@ -1,13 +1,13 @@
-
-
 export enum TRANSLATION_KEYS {
-  // ─── Common ───────────────────────────────────────────────────────────────
+  // Common
   COMMON_OR = 'common.or',
   COMMON_LOADING = 'common.loading',
   COMMON_ERROR = 'common.error',
   COMMON_TRY_AGAIN = 'common.tryAgain',
+  COMMON_NEXT = 'common.next',
+  COMMON_BACK = 'common.back',
 
-  // ─── Auth › Login ─────────────────────────────────────────────────────────
+  // Auth › Login
   AUTH_LOGIN_IDENTIFIER_PLACEHOLDER = 'auth.login.identifierPlaceholder',
   AUTH_LOGIN_PASSWORD_PLACEHOLDER = 'auth.login.passwordPlaceholder',
   AUTH_LOGIN_FORGOT_PASSWORD = 'auth.login.forgotPassword',
@@ -19,16 +19,56 @@ export enum TRANSLATION_KEYS {
   AUTH_LOGIN_PASSWORD_REQUIRED = 'auth.login.passwordRequired',
   AUTH_LOGIN_PASSWORD_MIN_LENGTH = 'auth.login.passwordMinLength',
 
-  // ─── Settings ─────────────────────────────────────────────────────────────
+  // Auth › Signup
+  AUTH_SIGNUP_STEP1_TITLE = 'auth.signup.step1Title',
+  AUTH_SIGNUP_STEP1_SUBTITLE = 'auth.signup.step1Subtitle',
+  AUTH_SIGNUP_USERNAME_LABEL = 'auth.signup.usernameLabel',
+  AUTH_SIGNUP_USERNAME_REQUIRED = 'auth.signup.usernameRequired',
+  AUTH_SIGNUP_USERNAME_MIN_LENGTH = 'auth.signup.usernameMinLength',
+  AUTH_SIGNUP_USERNAME_MAX_LENGTH = 'auth.signup.usernameMaxLength',
+  AUTH_SIGNUP_USERNAME_INVALID_CHARS = 'auth.signup.usernameInvalidChars',
+  AUTH_SIGNUP_USERNAME_TAKEN = 'auth.signup.usernameTaken',
+  AUTH_SIGNUP_STEP2_TITLE = 'auth.signup.step2Title',
+  AUTH_SIGNUP_STEP2_SUBTITLE = 'auth.signup.step2Subtitle',
+  AUTH_SIGNUP_CONFIRM_PASSWORD_LABEL = 'auth.signup.confirmPasswordLabel',
+  AUTH_SIGNUP_CONFIRM_PASSWORD_REQUIRED = 'auth.signup.confirmPasswordRequired',
+  AUTH_SIGNUP_PASSWORD_MISMATCH = 'auth.signup.passwordMismatch',
+  AUTH_SIGNUP_RULE_MIN_LENGTH = 'auth.signup.ruleMinLength',
+  AUTH_SIGNUP_RULE_PASSWORDS_MATCH = 'auth.signup.rulePasswordsMatch',
+  AUTH_SIGNUP_STEP3_TITLE = 'auth.signup.step3Title',
+  AUTH_SIGNUP_STEP3_SUBTITLE = 'auth.signup.step3Subtitle',
+  AUTH_SIGNUP_EMAIL_LABEL = 'auth.signup.emailLabel',
+  AUTH_SIGNUP_EMAIL_REQUIRED = 'auth.signup.emailRequired',
+  AUTH_SIGNUP_EMAIL_INVALID = 'auth.signup.emailInvalid',
+  AUTH_SIGNUP_NAME_LABEL = 'auth.signup.nameLabel',
+  AUTH_SIGNUP_TERMS_NOTICE = 'auth.signup.termsNotice',
+  AUTH_SIGNUP_ALREADY_HAVE_ACCOUNT = 'auth.signup.alreadyHaveAccount',
+
+  // Auth › OTP
+  AUTH_OTP_TITLE = 'auth.otp.title',
+  AUTH_OTP_INSTRUCTION = 'auth.otp.instruction',
+  AUTH_OTP_LENGTH_ERROR = 'auth.otp.lengthError',
+  AUTH_OTP_DIGITS_ERROR = 'auth.otp.digitsError',
+  AUTH_OTP_RESEND_CODE = 'auth.otp.resendCode',
+  AUTH_OTP_RESEND_WAIT = 'auth.otp.resendWait',
+  AUTH_OTP_CODE_SENT_SUCCESS = 'auth.otp.codeSentSuccess',
+
+  // Settings
   SETTINGS_THEME = 'settings.theme',
   SETTINGS_LANGUAGE = 'settings.language',
   SETTINGS_SYSTEM = 'settings.system',
   SETTINGS_LIGHT = 'settings.light',
   SETTINGS_DARK = 'settings.dark',
 
-  // ─── Errors — mirror server ErrorCodes.js 1-to-1 ─────────────────────────
+  // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',
   ERROR_EMAIL_ALREADY_EXISTS = 'errors.EMAIL_ALREADY_EXISTS',
+  ERROR_USERNAME_ALREADY_EXISTS = 'errors.USERNAME_ALREADY_EXISTS',
+  ERROR_USERNAME_REQUIRED = 'errors.USERNAME_REQUIRED',
+  ERROR_INVALID_USERNAME = 'errors.INVALID_USERNAME',
+  ERROR_EMAIL_NOT_VERIFIED = 'errors.EMAIL_NOT_VERIFIED',
+  ERROR_INVALID_OTP = 'errors.INVALID_OTP',
+  ERROR_OTP_EXPIRED = 'errors.OTP_EXPIRED',
   ERROR_USER_NOT_FOUND = 'errors.USER_NOT_FOUND',
   ERROR_VALIDATION_FAILED = 'errors.VALIDATION_FAILED',
   ERROR_DEVICE_TOKEN_REQUIRED = 'errors.DEVICE_TOKEN_REQUIRED',

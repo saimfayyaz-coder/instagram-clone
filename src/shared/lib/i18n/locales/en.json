@@ -3,11 +3,13 @@
     "or": "OR",
     "loading": "Loading...",
     "error": "An error occurred",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "next": "Next",
+    "back": "Back"
   },
   "auth": {
     "login": {
-      "identifierPlaceholder": "Phone number, username, or email",
+      "identifierPlaceholder": "Username or email",
       "passwordPlaceholder": "Password",
       "forgotPassword": "Forgot password?",
       "logInButton": "Log in",
@@ -16,9 +18,43 @@
       "signUp": "Sign up.",
       "invalidCredentials": "Invalid username or password.",
       "loginFailed": "Failed to log in. Please check your network and credentials.",
-      "identifierRequired": "Phone number, username, or email is required.",
+      "identifierRequired": "Username or email is required.",
       "passwordRequired": "Password is required.",
       "passwordMinLength": "Password must be at least 6 characters."
+    },
+    "signup": {
+      "step1Title": "Choose a username",
+      "step1Subtitle": "You can always change it later.",
+      "usernameLabel": "Username",
+      "usernameRequired": "Username is required.",
+      "usernameMinLength": "Username must be at least 3 characters.",
+      "usernameMaxLength": "Username cannot exceed 30 characters.",
+      "usernameInvalidChars": "Username can only contain letters, numbers, periods, and underscores.",
+      "usernameTaken": "This username is already taken.",
+      "step2Title": "Create a password",
+      "step2Subtitle": "Create a password with at least 6 characters. Make sure it is secure.",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordRequired": "Please confirm your password.",
+      "passwordMismatch": "Passwords do not match.",
+      "ruleMinLength": "At least 6 characters",
+      "rulePasswordsMatch": "Passwords match",
+      "step3Title": "Add your email",
+      "step3Subtitle": "Enter the email where you can be reached. No one will see this on your profile.",
+      "emailLabel": "Email address",
+      "emailRequired": "Email address is required.",
+      "emailInvalid": "Please enter a valid email address.",
+      "nameLabel": "Full name (optional)",
+      "termsNotice": "By tapping Next, you agree to our Terms, Privacy Policy and Cookies Policy.",
+      "alreadyHaveAccount": "Already have an account? Log in"
+    },
+    "otp": {
+      "title": "Enter confirmation code",
+      "instruction": "Enter the 6-digit code we sent to {{email}}",
+      "lengthError": "Confirmation code must be 6 digits.",
+      "digitsError": "Confirmation code must only contain numbers.",
+      "resendCode": "Resend code",
+      "resendWait": "You can request a new code in {{time}}",
+      "codeSentSuccess": "A new confirmation code was sent to your email."
     }
   },
   "settings": {
@@ -31,6 +67,12 @@
   "errors": {
     "INVALID_CREDENTIALS": "Invalid username or password.",
     "EMAIL_ALREADY_EXISTS": "An account with this email already exists.",
+    "USERNAME_ALREADY_EXISTS": "This username is already taken.",
+    "USERNAME_REQUIRED": "Username is required.",
+    "INVALID_USERNAME": "Username can only contain letters, numbers, periods, and underscores.",
+    "EMAIL_NOT_VERIFIED": "Your email is not verified. Please check your email for the confirmation code.",
+    "INVALID_OTP": "Incorrect confirmation code. Please check and try again.",
+    "OTP_EXPIRED": "Confirmation code has expired. Please request a new code.",
     "USER_NOT_FOUND": "No account found with this email.",
     "VALIDATION_FAILED": "Please check the fields below.",
     "DEVICE_TOKEN_REQUIRED": "Device token is required.",

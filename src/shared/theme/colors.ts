@@ -3,6 +3,7 @@ export const palette = {
   bluePressed: '#1877F2',
   blueDisabled: '#0095F680',
   redError: '#ED4956',
+  greenSuccess: '#00BA88',
   white: '#FFFFFF',
   black: '#000000',
   facebookBlue: '#1877F2',
@@ -22,6 +23,7 @@ export const lightColors = {
   actionPrimaryDisabled: '#B2DFFC',
   actionSecondaryText: palette.facebookBlue,
   error: palette.redError,
+  success: palette.greenSuccess,
   divider: '#DBDBDB',
 };
 
@@ -38,6 +40,7 @@ export const darkColors = {
   actionPrimaryDisabled: '#002D4A',
   actionSecondaryText: palette.facebookBlue,
   error: palette.redError,
+  success: palette.greenSuccess,
   divider: '#262626',
 };
 
