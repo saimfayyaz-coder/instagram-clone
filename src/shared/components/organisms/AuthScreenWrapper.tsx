@@ -1,17 +1,9 @@
 import React from 'react';
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../hooks/useTheme';
 import { ResponsiveContainer } from '../layout/ResponsiveContainer';
-
-import { isIOS } from '../../constants';
+import { KeyboardScreenWrapper } from '../layout/KeyboardScreenWrapper';
 
 export interface AuthScreenWrapperProps {
   children: React.ReactNode;
@@ -36,35 +28,26 @@ export const AuthScreenWrapper: React.FC<AuthScreenWrapperProps> = ({
       ]}
       edges={['top', 'bottom']}
     >
-      <KeyboardAvoidingView
-        behavior={isIOS ? 'padding' : 'height'}
-        style={styles.flexOne}
+      <KeyboardScreenWrapper
+        contentContainerStyle={styles.scrollContent}
+        bottomOffset={80}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView
-            contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-          >
-            <ResponsiveContainer
-              maxWidth={maxWidth}
-              paddingHorizontal={theme.spacing.lg}
-              style={styles.flexOne}
-              contentStyle={styles.responsiveContent}
-            >
-              <View style={[styles.mainBody, { paddingVertical: theme.spacing.lg }]}>
-                {header && <View style={styles.headerWrapper}>{header}</View>}
-                <View style={styles.bodyWrapper}>{children}</View>
-              </View>
+        <ResponsiveContainer
+          maxWidth={maxWidth}
+          paddingHorizontal={theme.spacing.lg}
+          style={styles.flexGrowOne}
+          contentStyle={styles.responsiveContent}
+        >
+          <View style={[styles.mainBody, { paddingVertical: theme.spacing.lg }]}>
+            {header && <View style={styles.headerWrapper}>{header}</View>}
+            <View style={styles.bodyWrapper}>{children}</View>
+          </View>
 
-              {footer && (
-                <View style={styles.footerWrapper}>{footer}</View>
-              )}
-            </ResponsiveContainer>
-          </ScrollView>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+          {footer && (
+            <View style={styles.footerWrapper}>{footer}</View>
+          )}
+        </ResponsiveContainer>
+      </KeyboardScreenWrapper>
     </SafeAreaView>
   );
 };
@@ -73,18 +56,19 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
   },
-  flexOne: {
-    flex: 1,
+  flexGrowOne: {
+    flexGrow: 1,
   },
   scrollContent: {
     flexGrow: 1,
+    paddingBottom: 24,
   },
   responsiveContent: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'space-between',
   },
   mainBody: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     width: '100%',
   },

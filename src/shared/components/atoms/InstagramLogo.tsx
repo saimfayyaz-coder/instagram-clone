@@ -8,12 +8,13 @@ import {
 import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
 import { useTheme } from '../../hooks/useTheme';
 import { AppText } from './AppText';
+import { LOGO_VARIANTS, type LogoVariant } from '@/shared/constants';
 
 export interface InstagramLogoProps {
   size?: number;
   width?: number;
   height?: number;
-  variant?: 'icon' | 'wordmark';
+  variant?: LogoVariant;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -21,12 +22,12 @@ export const InstagramLogo: React.FC<InstagramLogoProps> = ({
   size = 68,
   width,
   height,
-  variant = 'icon',
+  variant = LOGO_VARIANTS.ICON,
   style,
 }) => {
   const { theme } = useTheme();
 
-  if (variant === 'wordmark') {
+  if (variant === LOGO_VARIANTS.WORDMARK) {
     return (
       <View
         style={[

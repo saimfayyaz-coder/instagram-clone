@@ -1,10 +1,12 @@
+import { AUTH_ROUTES, ROOT_ROUTES } from '../constants/routes';
+
 export type AuthStackParamList = {
-  Login: undefined;
-  Signup: undefined;
-  OtpVerification: { email: string };
+  [AUTH_ROUTES.LOGIN]: undefined;
+  [AUTH_ROUTES.SIGNUP]: undefined;
+  [AUTH_ROUTES.OTP_VERIFICATION]: { email: string };
 };
 
 export type RootStackParamList = {
-  Auth: undefined;
-  Main: undefined;
+  [ROOT_ROUTES.AUTH]: undefined;
+  [ROOT_ROUTES.MAIN]: undefined;
 };

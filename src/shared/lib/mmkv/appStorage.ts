@@ -7,7 +7,6 @@ export const appStorage = createMMKV({
 export const STORAGE_KEYS = {
   THEME_MODE: 'app:themeMode',
   LANGUAGE: 'app:language',
-  CURRENT_USER: 'user:currentUser',
 } as const;
 
 export const storage = {

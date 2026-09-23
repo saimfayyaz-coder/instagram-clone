@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-  ScrollView,
-} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { AppHeader } from '@/shared/components/organisms';
-import { ResponsiveContainer } from '@/shared/components/layout/ResponsiveContainer';
-import { isIOS } from '@/shared/constants';
+import { ResponsiveContainer, KeyboardScreenWrapper } from '@/shared/components/layout';
+import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme/scaling';
 import { SignUpStepController, useSignupFlow } from '@/features/signup';
@@ -38,44 +33,38 @@ export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
   return (
     <View style={[styles.root, { backgroundColor: theme.colors.bgPrimary }]}>
       <AppHeader
-        leftIconType={isFirstStep ? 'close' : 'back'}
+        leftIconType={
+          isFirstStep
+            ? HEADER_LEFT_ICON_TYPE.CLOSE
+            : HEADER_LEFT_ICON_TYPE.BACK
+        }
         onPressBack={handleHeaderAction}
         withSafeArea
       />
 
-      <KeyboardAvoidingView
-        style={styles.keyboardView}
-        behavior={isIOS ? 'padding' : undefined}
+      <KeyboardScreenWrapper
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: theme.spacing.lg },
+        ]}
+        bottomOffset={24}
       >
-        <ScrollView
-          contentContainerStyle={[
-            styles.scrollContent,
-            { paddingTop: theme.spacing.lg },
-          ]}
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-          showsVerticalScrollIndicator={false}
-        >
-          <ResponsiveContainer maxWidth={440} paddingHorizontal={theme.spacing.lg}>
-            <SignUpStepController
-              currentStep={currentStep}
-              formData={formData}
-              updateFormData={updateFormData}
-              nextStep={nextStep}
-              onComplete={onSignupSuccess}
-            />
-          </ResponsiveContainer>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        <ResponsiveContainer maxWidth={440} paddingHorizontal={theme.spacing.lg}>
+          <SignUpStepController
+            currentStep={currentStep}
+            formData={formData}
+            updateFormData={updateFormData}
+            nextStep={nextStep}
+            onComplete={onSignupSuccess}
+          />
+        </ResponsiveContainer>
+      </KeyboardScreenWrapper>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-  },
-  keyboardView: {
     flex: 1,
   },
   scrollContent: {

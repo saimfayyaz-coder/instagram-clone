@@ -5,7 +5,6 @@ import {
   authStorage,
   useLogoutMutation,
 } from '@/entities/session';
-import { setUser } from '@/entities/user';
 import { baseApi } from '@/shared/api';
 
 export const useLogout = () => {
@@ -22,9 +21,7 @@ export const useLogout = () => {
         await logoutMutation({ refreshToken }).unwrap().catch(() => { });
       }
     } finally {
-      await authStorage.removeRefreshToken();
       dispatch(clearSession());
-      dispatch(setUser(null));
       dispatch(baseApi.util.resetApiState());
       setIsLoggingOut(false);
     }
