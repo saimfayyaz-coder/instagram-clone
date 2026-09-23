@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User, UserState } from './types';
-import { userStorage } from '../lib/userStorage';
+import { userApi } from '../api/userApi';
 
 const initialState: UserState = {
-  currentUser: userStorage.getUser(),
+  currentUser: null,
 };
 
 export const userSlice = createSlice({
@@ -12,12 +12,19 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<User | null>) => {
       state.currentUser = action.payload;
-      if (action.payload) {
-        userStorage.saveUser(action.payload);
-      } else {
-        userStorage.removeUser();
-      }
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase('session/clearSession', (state) => {
+        state.currentUser = null;
+      })
+      .addMatcher(
+        userApi.endpoints.getCurrentUser.matchFulfilled,
+        (state, action) => {
+          state.currentUser = action.payload.data.user;
+        },
+      );
   },
 });
 

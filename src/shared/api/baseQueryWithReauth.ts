@@ -40,9 +40,7 @@ export const baseQueryWithReauth = async (
       try {
         const refreshToken = await authStorage.getRefreshToken();
         if (!refreshToken) {
-          await authStorage.removeRefreshToken();
           api.dispatch({ type: 'session/clearSession' });
-          api.dispatch({ type: 'user/setUser', payload: null });
           return {
             error: {
               status: 401,
@@ -77,9 +75,7 @@ export const baseQueryWithReauth = async (
           onRefreshed(newAccessToken);
           result = await baseQuery(args, api, extraOptions);
         } else {
-          await authStorage.removeRefreshToken();
           api.dispatch({ type: 'session/clearSession' });
-          api.dispatch({ type: 'user/setUser', payload: null });
           return {
             error: {
               status: 401,
@@ -92,9 +88,7 @@ export const baseQueryWithReauth = async (
           };
         }
       } catch (error) {
-        await authStorage.removeRefreshToken();
         api.dispatch({ type: 'session/clearSession' });
-        api.dispatch({ type: 'user/setUser', payload: null });
         return {
           error: {
             status: 401,

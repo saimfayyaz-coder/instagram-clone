@@ -14,6 +14,7 @@ import { baseApi } from '@/shared/api';
 import { sessionReducer } from '@/entities/session';
 import { userReducer } from '@/entities/user';
 import { errorInterceptorMiddleware } from './errorInterceptorMiddleware';
+import { authListenerMiddleware } from './authListenerMiddleware';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -37,7 +38,11 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(baseApi.middleware, errorInterceptorMiddleware),
+    }).concat(
+      baseApi.middleware,
+      authListenerMiddleware.middleware,
+      errorInterceptorMiddleware,
+    ),
 });
 
 export const persistor = persistStore(store);
