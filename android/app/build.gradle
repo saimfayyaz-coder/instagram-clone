@@ -2,6 +2,17 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
+project.ext.envConfigFiles = [
+    devdebug: ".env.development",
+    devrelease: ".env.development",
+    stagedebug: ".env.staging",
+    stagerelease: ".env.staging",
+    proddebug: ".env.production",
+    prodrelease: ".env.production"
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -18,10 +29,7 @@ react {
     // cliFile = file("../../node_modules/react-native/cli.js")
 
     /* Variants */
-    //   The list of variants to that are debuggable. For those we're going to
-    //   skip the bundling of the JS bundle and the assets. Default is "debug", "debugOptimized".
-    //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
-    // debuggableVariants = ["liteDebug", "liteDebugOptimized", "prodDebug", "prodDebugOptimized"]
+    debuggableVariants = ["devDebug", "stageDebug", "prodDebug"]
 
     /* Bundling */
     //   A list containing the node command and its flags. Default is just 'node'.
@@ -85,6 +93,27 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Instagram Dev"
+            resValue "string", "build_config_package", "com.instagram"
+        }
+        stage {
+            dimension "default"
+            applicationIdSuffix ".stage"
+            resValue "string", "app_name", "Instagram Stage"
+            resValue "string", "build_config_package", "com.instagram"
+        }
+        prod {
+            dimension "default"
+            resValue "string", "app_name", "Instagram"
+            resValue "string", "build_config_package", "com.instagram"
+        }
+    }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -92,15 +121,28 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            } else if (file('release.keystore').exists()) {
+                storeFile file('release.keystore')
+                storePassword 'android'
+                keyAlias 'androidreleasekey'
+                keyPassword 'android'
+            } else {
+                signingConfig signingConfigs.debug
+            }
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
@@ -119,3 +161,4 @@ dependencies {
 }
 
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle");
+apply plugin: "com.google.gms.google-services"
