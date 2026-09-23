@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import {
   Pressable,
   PressableProps,
-  ActivityIndicator,
   StyleSheet,
   View,
   Animated,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
 import { AppText } from './AppText';
+import { AppLoader } from './AppLoader';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'facebook';
 
@@ -142,7 +142,7 @@ export const Button: React.FC<ButtonProps> = ({
         ]}
       >
         {loading ? (
-          <ActivityIndicator
+          <AppLoader
             size="small"
             color={variant === 'primary' ? '#FFFFFF' : theme.colors.actionPrimary}
           />

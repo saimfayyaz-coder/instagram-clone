@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button, Icon } from '@/shared/components/atoms';
+import { AppText, Button, Icon, AppLoader } from '@/shared/components/atoms';
 import { FormField } from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme/scaling';
@@ -121,7 +121,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
   const renderRightElement = () => {
     if (isFetching) {
       return (
-        <ActivityIndicator size="small" color={theme.colors.actionPrimary} />
+        <AppLoader size="small" />
       );
     }
     if (isAvailable === true && !errors.username) {
