@@ -2,6 +2,7 @@ import { fetchBaseQuery, type FetchArgs } from '@reduxjs/toolkit/query/react';
 import { authStorage } from './authStorage';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { API_ERROR_CODES } from '@/shared/constants';
 import { BASE_URL } from '@/shared/config';
 
 const baseQuery = fetchBaseQuery({
@@ -47,7 +48,7 @@ export const baseQueryWithReauth = async (
               data: {
                 success: false,
                 message: i18n.t(TRANSLATION_KEYS.ERROR_REFRESH_TOKEN_EXPIRED),
-                code: 'REFRESH_TOKEN_EXPIRED',
+                code: API_ERROR_CODES.REFRESH_TOKEN_EXPIRED,
               },
             },
           };
@@ -82,7 +83,7 @@ export const baseQueryWithReauth = async (
               data: {
                 success: false,
                 message: i18n.t(TRANSLATION_KEYS.ERROR_REFRESH_TOKEN_EXPIRED),
-                code: 'REFRESH_TOKEN_EXPIRED',
+                code: API_ERROR_CODES.REFRESH_TOKEN_EXPIRED,
               },
             },
           };
@@ -95,7 +96,7 @@ export const baseQueryWithReauth = async (
             data: {
               success: false,
               message: i18n.t(TRANSLATION_KEYS.ERROR_TOKEN_INVALID),
-              code: 'TOKEN_INVALID',
+              code: API_ERROR_CODES.TOKEN_INVALID,
             },
           },
         };
@@ -115,11 +116,11 @@ export const baseQueryWithReauth = async (
   if (result.error && !result.error.status) {
     return {
       error: {
-        status: 'FETCH_ERROR',
+        status: API_ERROR_CODES.FETCH_ERROR,
         data: {
           success: false,
           message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
-          code: 'NETWORK_ERROR',
+          code: API_ERROR_CODES.NETWORK_ERROR,
         },
       },
     };

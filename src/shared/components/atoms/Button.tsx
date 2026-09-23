@@ -12,8 +12,9 @@ import {
 import { useTheme } from '../../hooks/useTheme';
 import { AppText } from './AppText';
 import { AppLoader } from './AppLoader';
+import { BUTTON_VARIANTS, ButtonVariant } from '@/shared/constants';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'facebook';
+export type { ButtonVariant };
 
 export interface ButtonProps extends Omit<PressableProps, 'style'> {
   title: string;
@@ -77,7 +78,7 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const getBackgroundColor = () => {
-    if (variant === 'primary') {
+    if (variant === BUTTON_VARIANTS.PRIMARY) {
       return disabled
         ? theme.colors.actionPrimaryDisabled
         : theme.colors.actionPrimary;
@@ -86,7 +87,7 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const getBorderStyles = (): ViewStyle => {
-    if (variant === 'outline') {
+    if (variant === BUTTON_VARIANTS.OUTLINE) {
       return {
         borderWidth: 1.5,
         borderColor: disabled
@@ -99,16 +100,16 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const getTextColor = () => {
-    if (variant === 'primary') {
+    if (variant === BUTTON_VARIANTS.PRIMARY) {
       return '#FFFFFF';
     }
-    if (variant === 'outline') {
+    if (variant === BUTTON_VARIANTS.OUTLINE) {
       return disabled ? theme.colors.textSecondary : theme.colors.actionPrimary;
     }
-    if (variant === 'facebook') {
+    if (variant === BUTTON_VARIANTS.FACEBOOK) {
       return theme.colors.actionSecondaryText;
     }
-    if (variant === 'secondary') {
+    if (variant === BUTTON_VARIANTS.SECONDARY) {
       return theme.colors.textPrimary;
     }
     return theme.colors.textLink;
@@ -131,10 +132,10 @@ export const Button: React.FC<ButtonProps> = ({
             backgroundColor: getBackgroundColor(),
             borderRadius: theme.borderRadius.full,
             paddingVertical:
-              variant === 'ghost' ? theme.spacing.xs : theme.spacing.md,
+              variant === BUTTON_VARIANTS.GHOST ? theme.spacing.xs : theme.spacing.md,
             paddingHorizontal:
-              variant === 'ghost' ? theme.spacing.md : theme.spacing.lg,
-            minHeight: variant === 'ghost' ? 36 : 32,
+              variant === BUTTON_VARIANTS.GHOST ? theme.spacing.md : theme.spacing.lg,
+            minHeight: variant === BUTTON_VARIANTS.GHOST ? 36 : 32,
             transform: [{ scale: scaleAnim }],
             opacity: opacityAnim,
           },
@@ -144,7 +145,7 @@ export const Button: React.FC<ButtonProps> = ({
         {loading ? (
           <AppLoader
             size="small"
-            color={variant === 'primary' ? '#FFFFFF' : theme.colors.actionPrimary}
+            color={variant === BUTTON_VARIANTS.PRIMARY ? '#FFFFFF' : theme.colors.actionPrimary}
           />
         ) : (
           <View style={styles.contentRow}>
@@ -152,7 +153,7 @@ export const Button: React.FC<ButtonProps> = ({
               <View style={{ marginEnd: theme.spacing.sm }}>{leftIcon}</View>
             )}
             <AppText
-              variant={variant === 'ghost' ? 'caption' : 'body'}
+              variant={variant === BUTTON_VARIANTS.GHOST ? 'caption' : 'body'}
               weight="semibold"
               color={getTextColor()}
               align="center"

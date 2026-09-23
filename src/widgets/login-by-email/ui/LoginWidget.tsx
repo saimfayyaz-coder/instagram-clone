@@ -11,6 +11,7 @@ import {
   AuthScreenWrapper,
 } from '@/shared/components/organisms';
 import { parseApiError } from '@/shared/lib/errors';
+import { API_ERROR_CODES, BUTTON_VARIANTS } from '@/shared/constants';
 
 export interface LoginWidgetProps {
   onNavigateToSignUp: () => void;
@@ -35,7 +36,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
     } catch (err: unknown) {
       const anyErr = err as any;
       if (
-        anyErr?.data?.errorCode === 'EMAIL_NOT_VERIFIED' ||
+        anyErr?.data?.errorCode === API_ERROR_CODES.EMAIL_NOT_VERIFIED ||
         anyErr?.data?.data?.requiresVerification
       ) {
         const email = anyErr?.data?.data?.email || values.identifier;
@@ -81,7 +82,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
       footer={
         <AuthFooter
           buttonText="Create new account"
-          buttonVariant="outline"
+          buttonVariant={BUTTON_VARIANTS.OUTLINE}
           onPressButton={onNavigateToSignUp}
         />
       }

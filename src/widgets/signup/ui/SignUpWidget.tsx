@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { AppHeader } from '@/shared/components/organisms';
 import { ResponsiveContainer, KeyboardScreenWrapper } from '@/shared/components/layout';
+import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme/scaling';
 import { SignUpStepController, useSignupFlow } from '@/features/signup';
@@ -32,7 +33,11 @@ export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
   return (
     <View style={[styles.root, { backgroundColor: theme.colors.bgPrimary }]}>
       <AppHeader
-        leftIconType={isFirstStep ? 'close' : 'back'}
+        leftIconType={
+          isFirstStep
+            ? HEADER_LEFT_ICON_TYPE.CLOSE
+            : HEADER_LEFT_ICON_TYPE.BACK
+        }
         onPressBack={handleHeaderAction}
         withSafeArea
       />

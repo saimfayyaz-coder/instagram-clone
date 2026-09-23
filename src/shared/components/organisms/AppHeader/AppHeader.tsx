@@ -13,6 +13,12 @@ import { useTheme } from '../../../hooks/useTheme';
 import { ms } from '../../../theme/scaling';
 import { AppText } from '../../atoms/AppText';
 import { Icon } from '../../atoms/Icon';
+import {
+  HEADER_LEFT_ICON_TYPE,
+  HeaderLeftIconType,
+} from '@/shared/constants';
+
+export type { HeaderLeftIconType };
 
 export interface HeaderActionItem {
   icon: React.ReactNode;
@@ -22,8 +28,6 @@ export interface HeaderActionItem {
   badgeDot?: boolean;
   testID?: string;
 }
-
-export type HeaderLeftIconType = 'back' | 'close' | 'custom' | 'none';
 
 export interface AppHeaderProps {
   title?: string;
@@ -76,12 +80,15 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   const handleLeftPress = onPressLeft || onPressBack;
 
   const resolvedLeftType: HeaderLeftIconType =
-    leftIconType || (onPressBack || leftIcon ? 'back' : 'none');
+    leftIconType ||
+    (onPressBack || leftIcon
+      ? HEADER_LEFT_ICON_TYPE.BACK
+      : HEADER_LEFT_ICON_TYPE.NONE);
 
   const renderLeftIcon = () => {
     if (leftIcon) return leftIcon;
 
-    if (resolvedLeftType === 'close') {
+    if (resolvedLeftType === HEADER_LEFT_ICON_TYPE.CLOSE) {
       return (
         <Icon
           type="Ionicons"
@@ -92,7 +99,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       );
     }
 
-    if (resolvedLeftType === 'back') {
+    if (resolvedLeftType === HEADER_LEFT_ICON_TYPE.BACK) {
       return (
         <Icon
           type="Ionicons"
@@ -110,7 +117,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   const hasLeftAction = Boolean(
     leftComponent ||
       leftText ||
-      (handleLeftPress && resolvedLeftType !== 'none'),
+      (handleLeftPress && resolvedLeftType !== HEADER_LEFT_ICON_TYPE.NONE),
   );
 
   const hasCenter = Boolean(title || titleComponent);
@@ -146,7 +153,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                   style={styles.iconButton}
                   accessibilityRole="button"
                   accessibilityLabel={
-                    resolvedLeftType === 'close' ? 'Close' : 'Back'
+                    resolvedLeftType === HEADER_LEFT_ICON_TYPE.CLOSE ? 'Close' : 'Back'
                   }
                 >
                   {renderLeftIcon()}

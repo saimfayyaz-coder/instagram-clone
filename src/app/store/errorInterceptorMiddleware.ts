@@ -1,6 +1,7 @@
 import { isRejectedWithValue, Middleware } from '@reduxjs/toolkit';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { API_ERROR_CODES } from '@/shared/constants';
 
 /**
  * RTK Query Error Interceptor Middleware
@@ -35,7 +36,7 @@ export const errorInterceptorMiddleware: Middleware =
         // TODO: dispatch(showGlobalBanner({ message: i18n.t(TRANSLATION_KEYS.ERROR_SERVER) }))
       }
 
-      if (status === 'FETCH_ERROR') {
+      if (status === API_ERROR_CODES.FETCH_ERROR) {
         console.warn(
           '[ErrorInterceptor] Network offline:',
           i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
