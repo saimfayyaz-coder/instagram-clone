@@ -14,7 +14,17 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest __tests__/unit",
+    "test:unit": "jest __tests__/unit",
+    "test:features": "jest __tests__/unit/features",
+    "test:features:otp": "jest __tests__/unit/features/otp",
+    "test:features:login": "jest __tests__/unit/features/login",
+    "test:features:signup": "jest __tests__/unit/features/signup",
+    "test:entities": "jest __tests__/unit/entities",
+    "test:reducers": "jest __tests__/unit/entities",
+    "test:shared": "jest __tests__/unit/shared",
+    "test:hooks": "jest --testPathPattern=\"use\"",
+    "test:schemas": "jest --testPathPattern=\"Schema\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
