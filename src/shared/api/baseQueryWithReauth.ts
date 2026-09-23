@@ -2,8 +2,7 @@ import { fetchBaseQuery, type FetchArgs } from '@reduxjs/toolkit/query/react';
 import { authStorage } from './authStorage';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-
-const BASE_URL = 'http://172.16.5.84:5000/api';
+import { BASE_URL } from '@/shared/config';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,

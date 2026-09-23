@@ -32,8 +32,18 @@ local.properties
 *.hprof
 .cxx/
 *.keystore
+*.jks
 !debug.keystore
 .kotlin/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Firebase
+**/google-services.json
+!**/google-services.json.example
 
 # node.js
 #
