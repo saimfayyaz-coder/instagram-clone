@@ -1,4 +1,4 @@
-import { otpSchema } from '@/features/verify-otp/model/otpSchema';
+import { otpSchema } from '@/entities/otp';
 
 describe('otpSchema', () => {
   it('passes with exactly 6 numeric digits', () => {
