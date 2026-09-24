@@ -13,6 +13,7 @@ import {
   KeyboardAwareScrollViewProps,
 } from 'react-native-keyboard-controller';
 import { isIOS } from '@/shared/constants';
+import { commonStyles } from '@/shared/theme';
 
 export interface KeyboardScreenWrapperProps
   extends Partial<Omit<KeyboardAwareScrollViewProps, 'style' | 'children'>> {
@@ -45,8 +46,8 @@ export const KeyboardScreenWrapper: React.FC<KeyboardScreenWrapperProps> = ({
     <>
       {scrollable ? (
         <KeyboardAwareScrollView
-          style={styles.flexOne}
-          contentContainerStyle={[styles.scrollContent, contentContainerStyle]}
+          style={commonStyles.flex1}
+          contentContainerStyle={[commonStyles.flexGrow1, contentContainerStyle]}
           bottomOffset={bottomOffset}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           keyboardDismissMode={keyboardDismissMode}
@@ -59,7 +60,7 @@ export const KeyboardScreenWrapper: React.FC<KeyboardScreenWrapperProps> = ({
               onPress={Keyboard.dismiss}
               accessible={false}
             >
-              <View style={styles.scrollWrapper}>{children}</View>
+              <View style={commonStyles.flexGrow1}>{children}</View>
             </TouchableWithoutFeedback>
           ) : (
             children
@@ -68,19 +69,19 @@ export const KeyboardScreenWrapper: React.FC<KeyboardScreenWrapperProps> = ({
       ) : (
         <KeyboardAvoidingView
           behavior={isIOS ? 'padding' : undefined}
-          style={styles.flexOne}
+          style={commonStyles.flex1}
         >
           {dismissKeyboardOnTap ? (
             <TouchableWithoutFeedback
               onPress={Keyboard.dismiss}
               accessible={false}
             >
-              <View style={[styles.flexOne, contentContainerStyle]}>
+              <View style={[commonStyles.flex1, contentContainerStyle]}>
                 {children}
               </View>
             </TouchableWithoutFeedback>
           ) : (
-            <View style={[styles.flexOne, contentContainerStyle]}>
+            <View style={[commonStyles.flex1, contentContainerStyle]}>
               {children}
             </View>
           )}
@@ -90,7 +91,7 @@ export const KeyboardScreenWrapper: React.FC<KeyboardScreenWrapperProps> = ({
   );
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[commonStyles.flex1, style]}>
       {stickyHeader && <View style={styles.stickyHeader}>{stickyHeader}</View>}
       {content}
       {stickyFooter && <View style={styles.stickyFooter}>{stickyFooter}</View>}
@@ -99,18 +100,6 @@ export const KeyboardScreenWrapper: React.FC<KeyboardScreenWrapperProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  flexOne: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
-  },
-  scrollWrapper: {
-    flexGrow: 1,
-  },
   stickyHeader: {
     zIndex: 10,
   },

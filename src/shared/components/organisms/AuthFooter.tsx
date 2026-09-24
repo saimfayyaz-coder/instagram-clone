@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { AppText } from '../atoms/AppText';
 import { Button, ButtonVariant } from '../atoms/Button';
 import { useTheme } from '../../hooks/useTheme';
+import { commonStyles } from '@/shared/theme';
 
 export interface AuthFooterProps {
   // New modern button action (e.g., "Create new account")
@@ -26,25 +27,20 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
   const { theme } = useTheme();
 
   return (
-    <View
-      style={[
-        styles.container,
-
-      ]}
-    >
+    <View style={[commonStyles.fullWidth, commonStyles.center]}>
       {buttonText && onPressButton ? (
         <Button
           title={buttonText}
           variant={buttonVariant}
           onPress={onPressButton}
-          style={{ width: '100%' }}
+          style={commonStyles.fullWidth}
         />
       ) : null}
 
       {promptText && actionText && onPressAction ? (
         <View
           style={[
-            styles.row,
+            commonStyles.rowCenter,
             buttonText ? { marginTop: theme.spacing.md } : null,
           ]}
         >
@@ -65,16 +61,3 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

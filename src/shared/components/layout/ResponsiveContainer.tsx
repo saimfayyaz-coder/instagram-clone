@@ -6,6 +6,7 @@ import {
   StyleProp,
 } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
+import { commonStyles } from '@/shared/theme';
 
 export interface ResponsiveContainerProps {
   children: React.ReactNode;
@@ -28,9 +29,10 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
     paddingHorizontal !== undefined ? paddingHorizontal : theme.spacing.lg;
 
   return (
-    <View style={[styles.outer, style]}>
+    <View style={[commonStyles.fullWidth, commonStyles.center, style]}>
       <View
         style={[
+          commonStyles.fullWidth,
           styles.inner,
           {
             maxWidth,
@@ -46,13 +48,7 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
 };
 
 const styles = StyleSheet.create({
-  outer: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   inner: {
-    width: '100%',
     alignSelf: 'center',
   },
 });

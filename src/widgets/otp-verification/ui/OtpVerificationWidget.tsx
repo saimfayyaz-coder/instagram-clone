@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {
   AuthScreenWrapper,
@@ -7,6 +7,7 @@ import {
   AppHeader,
 } from '@/shared/components/organisms';
 import { OtpForm, OtpPurpose } from '@/features/verify-otp';
+import { commonStyles } from '@/shared/theme';
 
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
@@ -26,7 +27,7 @@ export const OtpVerificationWidget: React.FC<OtpVerificationWidgetProps> = ({
   const { t } = useTranslation();
 
   return (
-    <View style={styles.root}>
+    <View style={commonStyles.flex1}>
       <AppHeader
         leftIconType="back"
         onPressBack={onNavigateToLogin}
@@ -53,8 +54,3 @@ export const OtpVerificationWidget: React.FC<OtpVerificationWidgetProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});

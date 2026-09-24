@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../hooks/useTheme';
+import { commonStyles } from '@/shared/theme';
 import { ResponsiveContainer } from '../layout/ResponsiveContainer';
 import { KeyboardScreenWrapper } from '../layout/KeyboardScreenWrapper';
 
@@ -23,28 +24,28 @@ export const AuthScreenWrapper: React.FC<AuthScreenWrapperProps> = ({
   return (
     <SafeAreaView
       style={[
-        styles.safeArea,
+        commonStyles.flex1,
         { backgroundColor: theme.colors.bgPrimary },
       ]}
       edges={['top', 'bottom']}
     >
       <KeyboardScreenWrapper
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[commonStyles.flexGrow1, styles.scrollContent]}
         bottomOffset={80}
       >
         <ResponsiveContainer
           maxWidth={maxWidth}
           paddingHorizontal={theme.spacing.lg}
-          style={styles.flexGrowOne}
+          style={commonStyles.flexGrow1}
           contentStyle={styles.responsiveContent}
         >
-          <View style={[styles.mainBody, { paddingVertical: theme.spacing.lg }]}>
-            {header && <View style={styles.headerWrapper}>{header}</View>}
-            <View style={styles.bodyWrapper}>{children}</View>
+          <View style={[commonStyles.flexGrow1, commonStyles.fullWidth, styles.mainBody, { paddingVertical: theme.spacing.lg }]}>
+            {header && <View style={commonStyles.fullWidth}>{header}</View>}
+            <View style={commonStyles.fullWidth}>{children}</View>
           </View>
 
           {footer && (
-            <View style={styles.footerWrapper}>{footer}</View>
+            <View style={[commonStyles.fullWidth, styles.footerWrapper]}>{footer}</View>
           )}
         </ResponsiveContainer>
       </KeyboardScreenWrapper>
@@ -53,14 +54,7 @@ export const AuthScreenWrapper: React.FC<AuthScreenWrapperProps> = ({
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  flexGrowOne: {
-    flexGrow: 1,
-  },
   scrollContent: {
-    flexGrow: 1,
     paddingBottom: 24,
   },
   responsiveContent: {
@@ -68,18 +62,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   mainBody: {
-    flexGrow: 1,
     justifyContent: 'center',
-    width: '100%',
-  },
-  headerWrapper: {
-    width: '100%',
-  },
-  bodyWrapper: {
-    width: '100%',
   },
   footerWrapper: {
-    width: '100%',
     paddingBottom: 8,
   },
 });
