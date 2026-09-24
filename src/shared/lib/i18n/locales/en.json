@@ -55,6 +55,22 @@
       "resendCode": "Resend code",
       "resendWait": "You can request a new code in {{time}}",
       "codeSentSuccess": "A new confirmation code was sent to your email."
+    },
+    "forgotPassword": {
+      "title": "Trouble logging in?",
+      "subtitle": "Enter your username or email and we'll send you a code to get back into your account.",
+      "identifierLabel": "Username or email",
+      "identifierRequired": "Username or email is required",
+      "sendCode": "Send login code",
+      "backToLogin": "Back to login"
+    },
+    "resetPassword": {
+      "title": "Create a strong password",
+      "subtitle": "Your password must be at least 6 characters and should include a combination of numbers and letters.",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Confirm new password",
+      "submitButton": "Reset password",
+      "success": "Password reset successfully"
     }
   },
   "settings": {
@@ -82,6 +98,7 @@
     "REFRESH_TOKEN_REQUIRED": "Session token missing. Please log in again.",
     "REFRESH_TOKEN_INVALID": "Invalid session token. Please log in again.",
     "REFRESH_TOKEN_EXPIRED": "Your session has expired. Please log in again.",
+    "INVALID_RESET_TOKEN": "Reset link or token has expired or is invalid. Please request a new code.",
     "SERVER_ERROR": "Something went wrong. Please try again later.",
     "FORBIDDEN": "You don't have permission to do this.",
     "NETWORK_ERROR": "No internet connection. Please try again.",

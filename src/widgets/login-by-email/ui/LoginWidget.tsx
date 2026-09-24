@@ -13,6 +13,9 @@ import {
 import { parseApiError } from '@/shared/lib/errors';
 import { API_ERROR_CODES, BUTTON_VARIANTS } from '@/shared/constants';
 
+import { useTranslation } from 'react-i18next';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+
 export interface LoginWidgetProps {
   onNavigateToSignUp: () => void;
   onNavigateToForgotPassword?: () => void;
@@ -24,6 +27,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
   onNavigateToForgotPassword,
   onRequireOtpVerification,
 }) => {
+  const { t } = useTranslation();
   const [login] = useLoginMutation();
 
   const handleLoginSubmit = async (
@@ -71,8 +75,6 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
   const handleForgotPassword = () => {
     if (onNavigateToForgotPassword) {
       onNavigateToForgotPassword();
-    } else {
-      Alert.alert('Forgot Password', 'Forgot Password pressed.');
     }
   };
 
@@ -81,7 +83,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
       header={<AuthHeader showLogo />}
       footer={
         <AuthFooter
-          buttonText="Create new account"
+          buttonText={t(TRANSLATION_KEYS.AUTH_LOGIN_SIGN_UP)}
           buttonVariant={BUTTON_VARIANTS.OUTLINE}
           onPressButton={onNavigateToSignUp}
         />

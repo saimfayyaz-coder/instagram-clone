@@ -55,6 +55,22 @@
       "resendCode": "Reenviar código",
       "resendWait": "Puedes solicitar un nuevo código en {{time}}",
       "codeSentSuccess": "Se ha enviado un nuevo código a tu correo electrónico."
+    },
+    "forgotPassword": {
+      "title": "¿Problemas para iniciar sesión?",
+      "subtitle": "Ingresa tu nombre de usuario o correo electrónico y te enviaremos un código para recuperar tu cuenta.",
+      "identifierLabel": "Nombre de usuario o correo electrónico",
+      "identifierRequired": "Se requiere nombre de usuario o correo electrónico",
+      "sendCode": "Enviar código de inicio de sesión",
+      "backToLogin": "Volver a iniciar sesión"
+    },
+    "resetPassword": {
+      "title": "Crea una contraseña segura",
+      "subtitle": "Tu contraseña debe tener al menos 6 caracteres e incluir una combinación de números y letras.",
+      "newPasswordLabel": "Nueva contraseña",
+      "confirmPasswordLabel": "Confirmar nueva contraseña",
+      "submitButton": "Restablecer contraseña",
+      "success": "Contraseña restablecida con éxito"
     }
   },
   "settings": {
@@ -82,6 +98,7 @@
     "REFRESH_TOKEN_REQUIRED": "Falta el token de sesión. Por favor inicia sesión nuevamente.",
     "REFRESH_TOKEN_INVALID": "Token de sesión inválido. Por favor inicia sesión nuevamente.",
     "REFRESH_TOKEN_EXPIRED": "Tu sesión ha expirado. Por favor inicia sesión nuevamente.",
+    "INVALID_RESET_TOKEN": "El código o enlace de restablecimiento ha caducado o no es válido. Solicita un nuevo código.",
     "SERVER_ERROR": "Algo salió mal. Por favor intenta de nuevo más tarde.",
     "FORBIDDEN": "No tienes permiso para hacer esto.",
     "NETWORK_ERROR": "Sin conexión a internet. Intenta nuevamente.",
