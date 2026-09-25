@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,7 @@ import { AppText, Button } from '@/shared/components/atoms';
 import { ErrorAlert } from '@/shared/components/molecules';
 import { parseApiError } from '@/shared/lib/errors';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { ms } from '@/shared/theme/scaling';
+import { authStepStyles, commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { useVerifyOtpMutation, useResendOtpMutation } from '../api/otpApi';
 import { useOtpTimer } from '../model/useOtpTimer';
@@ -83,13 +83,13 @@ export const OtpForm: React.FC<OtpFormProps> = ({
   const displayError = errorMessage || errors.otp?.message;
 
   return (
-    <View style={styles.container}>
+    <View style={authStepStyles.container}>
       <AppText
         variant="heading"
         weight="bold"
         align="left"
         color={theme.colors.textPrimary}
-        style={styles.title}
+        style={authStepStyles.title}
       >
         {t(TRANSLATION_KEYS.AUTH_OTP_TITLE)}
       </AppText>
@@ -98,19 +98,19 @@ export const OtpForm: React.FC<OtpFormProps> = ({
         variant="body"
         color={theme.colors.textSecondary}
         align="left"
-        style={[styles.instruction, { marginBottom: theme.spacing.md }]}
+        style={[authStepStyles.subtitle, { marginBottom: theme.spacing.md }]}
       >
         {t(TRANSLATION_KEYS.AUTH_OTP_INSTRUCTION, { email })}
       </AppText>
 
       {displayError ? (
-        <View style={[styles.alertWrapper, { marginBottom: theme.spacing.sm }]}>
+        <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>
           <ErrorAlert message={displayError} />
         </View>
       ) : null}
 
       {infoMessage ? (
-        <View style={[styles.alertWrapper, { marginBottom: theme.spacing.sm }]}>
+        <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>
           <AppText
             variant="caption"
             weight="semibold"
@@ -158,20 +158,3 @@ export const OtpForm: React.FC<OtpFormProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-  title: {
-    fontSize: ms(22),
-    lineHeight: ms(28),
-    marginBottom: ms(8),
-  },
-  instruction: {
-    fontSize: ms(14),
-    lineHeight: ms(20),
-  },
-  alertWrapper: {
-    width: '100%',
-  },
-});

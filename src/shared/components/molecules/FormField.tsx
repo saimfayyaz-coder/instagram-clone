@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { FloatingInput, FloatingInputProps } from '../atoms/FloatingInput';
 import { Input, InputProps } from '../atoms/Input';
 import { AppText } from '../atoms/AppText';
 import { useTheme } from '../../hooks/useTheme';
+import { commonStyles } from '@/shared/theme';
 
 export interface FormFieldProps
   extends Omit<FloatingInputProps, 'label' | 'onBlur'>,
@@ -32,7 +33,7 @@ export const FormField: React.FC<FormFieldProps> = ({
 
   if (floating) {
     return (
-      <View style={[styles.container, { marginBottom: theme.spacing.md }]}>
+      <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.md }]}>
         <FloatingInput
           label={fieldLabel}
           error={!!errorMessage}
@@ -55,7 +56,7 @@ export const FormField: React.FC<FormFieldProps> = ({
 
   // Classic non-floating variant fallback
   return (
-    <View style={[styles.container, { marginBottom: theme.spacing.md }]}>
+    <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.md }]}>
       {label ? (
         <AppText
           variant="caption"
@@ -84,9 +85,3 @@ export const FormField: React.FC<FormFieldProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-});

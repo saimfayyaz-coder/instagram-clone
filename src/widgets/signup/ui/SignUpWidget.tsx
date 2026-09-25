@@ -4,6 +4,7 @@ import { AppHeader } from '@/shared/components/organisms';
 import { ResponsiveContainer, KeyboardScreenWrapper } from '@/shared/components/layout';
 import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks/useTheme';
+import { commonStyles } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
 import { SignUpStepController, useSignupFlow } from '@/features/signup';
 
@@ -31,7 +32,7 @@ export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
   };
 
   return (
-    <View style={[styles.root, { backgroundColor: theme.colors.bgPrimary }]}>
+    <View style={[commonStyles.flex1, { backgroundColor: theme.colors.bgPrimary }]}>
       <AppHeader
         leftIconType={
           isFirstStep
@@ -44,6 +45,7 @@ export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
 
       <KeyboardScreenWrapper
         contentContainerStyle={[
+          commonStyles.flexGrow1,
           styles.scrollContent,
           { paddingTop: theme.spacing.lg },
         ]}
@@ -64,11 +66,7 @@ export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
 };
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
   scrollContent: {
-    flexGrow: 1,
     paddingBottom: ms(32),
   },
 });

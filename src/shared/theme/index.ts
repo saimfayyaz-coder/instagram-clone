@@ -4,6 +4,8 @@ export * from './spacing';
 export * from './themeTokens';
 export * from './navigationTheme';
 export * from './scaling';
+export * from './commonStyles';
+export * from './authStepStyles';
 
 import { ms } from './scaling';
 import { spacing, borderRadius } from './spacing';

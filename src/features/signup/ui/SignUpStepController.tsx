@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { parseApiError } from '@/shared/lib/errors';
+import { commonStyles } from '@/shared/theme';
 import { OtpForm } from '@/features/verify-otp';
 import { SignupFormData, SignupStep } from '../model/types';
 import { useSignupMutation } from '../api/signupApi';
@@ -62,7 +63,7 @@ export const SignUpStepController: React.FC<SignUpStepControllerProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.fullWidth}>
       {currentStep === 1 && (
         <StepUsername
           initialValue={formData.username}
@@ -98,9 +99,3 @@ export const SignUpStepController: React.FC<SignUpStepControllerProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-});

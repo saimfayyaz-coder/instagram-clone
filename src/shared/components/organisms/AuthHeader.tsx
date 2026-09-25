@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { InstagramLogo } from '../atoms/InstagramLogo';
 import { AppText } from '../atoms/AppText';
 import { useTheme } from '../../hooks/useTheme';
+import { commonStyles } from '@/shared/theme';
 
 export interface AuthHeaderProps {
   showLogo?: boolean;
@@ -24,6 +25,8 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
   return (
     <View
       style={[
+        commonStyles.fullWidth,
+        commonStyles.center,
         styles.container,
         {
           marginTop: theme.spacing.lg,
@@ -46,7 +49,7 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
       )}
 
       {showLogo && (
-        <View style={styles.logoWrapper}>
+        <View style={commonStyles.center}>
           <InstagramLogo size={68} />
         </View>
       )}
@@ -57,17 +60,10 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
     position: 'relative',
   },
   backButton: {
     position: 'absolute',
     padding: 8,
-  },
-  logoWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
