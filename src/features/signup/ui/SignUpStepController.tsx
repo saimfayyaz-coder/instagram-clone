@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { parseApiError } from '@/shared/lib/errors';
 import { commonStyles } from '@/shared/theme';
-import { OtpForm } from '@/features/verify-otp';
+import { OtpForm } from '@/entities/otp';
 import { SignupFormData, SignupStep } from '../model/types';
 import { useSignupMutation } from '../api/signupApi';
 import { StepUsername } from './StepUsername/StepUsername';

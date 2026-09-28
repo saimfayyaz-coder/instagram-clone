@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button, Icon } from '@/shared/components/atoms';
-import { FormField, ErrorAlert } from '@/shared/components/molecules';
+import { Button } from '@/shared/components/atoms';
+import { FormField, ErrorAlert, AuthStepHeader } from '@/shared/components/molecules';
 import { parseApiError } from '@/shared/lib/errors';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { authStepStyles, commonStyles, ms } from '@/shared/theme';
+import { authStepStyles, commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { useForgotPasswordMutation } from '../api/forgotPasswordApi';
 import {
@@ -31,7 +31,6 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
   const {
     control,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<IdentifierSchemaType>({
     resolver: zodResolver(schema),
@@ -48,54 +47,17 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
       }).unwrap();
       onSuccess(response.data.email);
     } catch (err) {
-      const { message, fieldErrors } = parseApiError(err);
-      if (fieldErrors?.identifier?.[0]) {
-        setError('identifier', { message: fieldErrors.identifier[0] });
-      } else {
-        setRootError(message);
-      }
+      const { message } = parseApiError(err);
+      setRootError(message);
     }
   };
 
   return (
     <View style={authStepStyles.container}>
-      <View style={styles.iconContainer}>
-        <View
-          style={[
-            styles.iconCircle,
-            {
-              borderColor: theme.colors.border,
-              backgroundColor: theme.colors.surface,
-            },
-          ]}
-        >
-          <Icon
-            type="Ionicons"
-            name="lock-closed-outline"
-            size={ms(40)}
-            color={theme.colors.textPrimary}
-          />
-        </View>
-      </View>
-
-      <AppText
-        variant="heading"
-        weight="bold"
-        align="center"
-        color={theme.colors.textPrimary}
-        style={styles.title}
-      >
-        {t(TRANSLATION_KEYS.AUTH_FORGOT_PASSWORD_TITLE)}
-      </AppText>
-
-      <AppText
-        variant="body"
-        color={theme.colors.textSecondary}
-        align="center"
-        style={styles.subtitle}
-      >
-        {t(TRANSLATION_KEYS.AUTH_FORGOT_PASSWORD_SUBTITLE)}
-      </AppText>
+      <AuthStepHeader
+        title={t(TRANSLATION_KEYS.AUTH_FORGOT_PASSWORD_TITLE)}
+        subtitle={t(TRANSLATION_KEYS.AUTH_FORGOT_PASSWORD_SUBTITLE)}
+      />
 
       {rootError ? (
         <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>
@@ -129,26 +91,3 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  iconContainer: {
-    alignItems: 'center',
-    marginBottom: ms(16),
-  },
-  iconCircle: {
-    width: ms(84),
-    height: ms(84),
-    borderRadius: ms(42),
-    borderWidth: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    marginBottom: ms(8),
-  },
-  subtitle: {
-    marginBottom: ms(24),
-    paddingHorizontal: ms(12),
-    lineHeight: ms(20),
-  },
-});

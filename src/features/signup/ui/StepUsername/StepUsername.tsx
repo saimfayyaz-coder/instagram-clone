@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppText, Button, Icon, AppLoader } from '@/shared/components/atoms';
-import { FormField } from '@/shared/components/molecules';
+import { FormField, AuthStepHeader } from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -139,24 +139,10 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
   return (
     <View style={authStepStyles.container}>
-      <AppText
-        variant="heading"
-        weight="bold"
-        align="left"
-        color={theme.colors.textPrimary}
-        style={authStepStyles.title}
-      >
-        {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP1_TITLE)}
-      </AppText>
-
-      <AppText
-        variant="body"
-        color={theme.colors.textSecondary}
-        align="left"
-        style={[authStepStyles.subtitle, { marginBottom: theme.spacing.xl }]}
-      >
-        {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP1_SUBTITLE)}
-      </AppText>
+      <AuthStepHeader
+        title={t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP1_TITLE)}
+        subtitle={t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP1_SUBTITLE)}
+      />
 
       <Controller
         name="username"

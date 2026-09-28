@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppText, Button } from '@/shared/components/atoms';
-import { FormField, PasswordRulesList } from '@/shared/components/molecules';
+import { FormField, PasswordRulesList, AuthStepHeader } from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -55,24 +55,10 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
 
   return (
     <View style={authStepStyles.container}>
-      <AppText
-        variant="heading"
-        weight="bold"
-        align="left"
-        color={theme.colors.textPrimary}
-        style={authStepStyles.title}
-      >
-        {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_TITLE)}
-      </AppText>
-
-      <AppText
-        variant="body"
-        color={theme.colors.textSecondary}
-        align="left"
-        style={[authStepStyles.subtitle, { marginBottom: theme.spacing.xl }]}
-      >
-        {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_SUBTITLE)}
-      </AppText>
+      <AuthStepHeader
+        title={t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_TITLE)}
+        subtitle={t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_SUBTITLE)}
+      />
 
       <Controller
         name="password"

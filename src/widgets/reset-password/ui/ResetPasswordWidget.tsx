@@ -1,11 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import {
-  AuthScreenWrapper,
-  AppHeader,
-} from '@/shared/components/organisms';
+import { AuthFlowLayout } from '@/shared/components/organisms';
 import { NewPasswordForm } from '@/features/forgot-password';
-import { commonStyles } from '@/shared/theme';
 
 export interface ResetPasswordWidgetProps {
   email: string;
@@ -21,20 +16,12 @@ export const ResetPasswordWidget: React.FC<ResetPasswordWidgetProps> = ({
   onResetSuccess,
 }) => {
   return (
-    <View style={commonStyles.flex1}>
-      <AppHeader
-        leftIconType="back"
-        onPressBack={onNavigateBack}
-        withSafeArea
+    <AuthFlowLayout onBack={onNavigateBack}>
+      <NewPasswordForm
+        email={email}
+        resetToken={resetToken}
+        onSuccess={onResetSuccess}
       />
-
-      <AuthScreenWrapper>
-        <NewPasswordForm
-          email={email}
-          resetToken={resetToken}
-          onSuccess={onResetSuccess}
-        />
-      </AuthScreenWrapper>
-    </View>
+    </AuthFlowLayout>
   );
 };
