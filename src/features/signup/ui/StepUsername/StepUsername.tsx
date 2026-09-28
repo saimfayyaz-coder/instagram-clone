@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button, Icon, AppLoader } from '@/shared/components/atoms';
+import { Button, Icon, AppLoader } from '@/shared/components/atoms';
 import { FormField, AuthStepHeader } from '@/shared/components/molecules';
-import { useTheme } from '@/shared/hooks/useTheme';
+import { useTheme, useDebouncedCallback } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { useLazyCheckUsernameQuery } from '../../api/signupApi';
@@ -28,7 +28,6 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [triggerCheck, { isFetching }] = useLazyCheckUsernameQuery();
-  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const schema = useMemo(() => createStep1UsernameSchema(t), [t]);
 
@@ -46,42 +45,34 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
     },
   });
 
+  const { debouncedCallback: debouncedCheck, cancel: cancelDebounce } =
+    useDebouncedCallback(async (username: string) => {
+      if (username.length < 3) return;
+
+      try {
+        const res = await triggerCheck(username).unwrap();
+        const available = res.data?.isAvailable ?? false;
+        setIsAvailable(available);
+        if (!available) {
+          setError('username', {
+            type: 'manual',
+            message: t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN),
+          });
+        } else {
+          clearErrors('username');
+        }
+      } catch {
+        setIsAvailable(null);
+      }
+    }, 400);
+
   const checkAvailability = (username: string) => {
     setIsAvailable(null);
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
-
-    if (username.length >= 3) {
-      debounceTimerRef.current = setTimeout(async () => {
-        try {
-          const res = await triggerCheck(username).unwrap();
-          const available = res.data?.isAvailable ?? false;
-          setIsAvailable(available);
-          if (!available) {
-            setError('username', {
-              type: 'manual',
-              message: t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN),
-            });
-          } else {
-            clearErrors('username');
-          }
-        } catch {
-          setIsAvailable(null);
-        }
-      }, 400);
-    }
+    debouncedCheck(username);
   };
 
-  useEffect(() => {
-    return () => {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-    };
-  }, []);
-
-  const handleNext = handleSubmit(async (values) => {
+  const handleNext = handleSubmit(async values => {
+    cancelDebounce();
     const cleanUsername = values.username.trim();
 
     // If already checked and unavailable
@@ -120,9 +111,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
   const renderRightElement = () => {
     if (isFetching) {
-      return (
-        <AppLoader size="small" />
-      );
+      return <AppLoader size="small" />;
     }
     if (isAvailable === true && !errors.username) {
       return (
@@ -154,7 +143,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
           <FormField
             label={t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_LABEL)}
             value={value}
-            onChangeText={(text) => {
+            onChangeText={text => {
               const clean = text.toLowerCase().replace(/\s/g, '');
               onChange(clean);
               checkAvailability(clean);

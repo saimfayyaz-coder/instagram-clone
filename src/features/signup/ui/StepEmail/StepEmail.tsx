@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button } from '@/shared/components/atoms';
+import { Button } from '@/shared/components/atoms';
 import { FormField, AuthStepHeader } from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { authStepStyles } from '@/shared/theme';
@@ -55,7 +55,7 @@ export const StepEmail: React.FC<StepEmailProps> = ({
     }
   }, [serverError, setError]);
 
-  const handleNext = handleSubmit(async (values) => {
+  const handleNext = handleSubmit(async values => {
     clearErrors();
     await onSubmit(values.email.trim(), values.name?.trim() || '');
   });
@@ -70,11 +70,14 @@ export const StepEmail: React.FC<StepEmailProps> = ({
       <Controller
         name="email"
         control={control}
-        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => (
           <FormField
             label={t(TRANSLATION_KEYS.AUTH_SIGNUP_EMAIL_LABEL)}
             value={value}
-            onChangeText={(text) => {
+            onChangeText={text => {
               clearErrors('email');
               onChange(text);
             }}
