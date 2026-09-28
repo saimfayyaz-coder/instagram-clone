@@ -3,17 +3,16 @@ import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button } from '@/shared/components/atoms';
+import { Button } from '@/shared/components/atoms';
 import {
-  ErrorAlert,
   OtpCodeInput,
   OtpResendTimer,
   AuthStepHeader,
 } from '@/shared/components/molecules';
-import { parseApiError } from '@/shared/lib/errors';
-import { useTheme } from '@/shared/hooks/useTheme';
-import { authStepStyles, commonStyles } from '@/shared/theme';
+import { useTheme, useToast } from '@/shared/hooks';
+import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { executeFormMutation } from '@/shared/lib/forms';
 import {
   useVerifyOtpMutation,
   useResendOtpMutation,
@@ -36,9 +35,9 @@ export const OtpForm: React.FC<OtpFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { showToast } = useToast();
 
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [infoMessage, setInfoMessage] = useState<string | null>(null);
+  const [hasError, setHasError] = useState(false);
 
   const [verifyOtp, { isLoading: isVerifying }] = useVerifyOtpMutation();
   const [resendOtp, { isLoading: isResending }] = useResendOtpMutation();
@@ -50,54 +49,49 @@ export const OtpForm: React.FC<OtpFormProps> = ({
 
   const schema = useMemo(() => createOtpSchema(t), [t]);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<OtpSchemaType>({
+  const { control, handleSubmit } = useForm<OtpSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',
     defaultValues: { otp: '' },
   });
 
   const handleVerify = async (codeToVerify: string) => {
-    setErrorMessage(null);
-    setInfoMessage(null);
+    setHasError(false);
 
-    try {
-      const response = await verifyOtp({
+    await executeFormMutation({
+      mutationPromise: verifyOtp({
         email,
         otp: codeToVerify,
         purpose,
-      }).unwrap();
-      if (onSuccess) {
-        onSuccess(response.data);
-      }
-    } catch (err) {
-      const { message } = parseApiError(err);
-      setErrorMessage(message);
-    }
+      }).unwrap(),
+      onSuccess: (response) => {
+        onSuccess?.(response.data);
+      },
+      onError: (err) => {
+        setHasError(true);
+        showToast(err.message);
+      },
+    });
   };
 
   const handleResend = async () => {
-    setErrorMessage(null);
-    setInfoMessage(null);
+    setHasError(false);
 
-    try {
-      await resendOtp({ email, purpose }).unwrap();
-      resetTimer();
-      setInfoMessage(t(TRANSLATION_KEYS.AUTH_OTP_CODE_SENT_SUCCESS));
-    } catch (err) {
-      const { message } = parseApiError(err);
-      setErrorMessage(message);
-    }
+    await executeFormMutation({
+      mutationPromise: resendOtp({ email, purpose }).unwrap(),
+      onSuccess: () => {
+        resetTimer();
+        showToast(t(TRANSLATION_KEYS.AUTH_OTP_CODE_SENT_SUCCESS));
+      },
+      onError: (err) => {
+        showToast(err.message);
+      },
+    });
   };
 
   const onSubmitForm = handleSubmit((values) => {
     handleVerify(values.otp);
   });
-
-  const displayError = errorMessage || errors.otp?.message;
 
   return (
     <View style={authStepStyles.container}>
@@ -106,25 +100,6 @@ export const OtpForm: React.FC<OtpFormProps> = ({
         subtitle={t(TRANSLATION_KEYS.AUTH_OTP_INSTRUCTION, { email })}
       />
 
-      {displayError ? (
-        <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>
-          <ErrorAlert message={displayError} />
-        </View>
-      ) : null}
-
-      {infoMessage ? (
-        <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>
-          <AppText
-            variant="caption"
-            weight="semibold"
-            align="center"
-            color={theme.colors.actionPrimary}
-          >
-            {infoMessage}
-          </AppText>
-        </View>
-      ) : null}
-
       <Controller
         name="otp"
         control={control}
@@ -132,12 +107,13 @@ export const OtpForm: React.FC<OtpFormProps> = ({
           <OtpCodeInput
             value={value}
             onChange={(val) => {
+              setHasError(false);
               onChange(val);
               if (val.length === 6) {
                 handleVerify(val);
               }
             }}
-            hasError={Boolean(displayError)}
+            hasError={hasError}
             disabled={isVerifying}
           />
         )}

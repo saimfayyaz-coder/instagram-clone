@@ -6,6 +6,8 @@ export const palette = {
   greenSuccess: '#00BA88',
   white: '#FFFFFF',
   black: '#000000',
+  gray800: '#262626',
+  gray700: '#363636',
   facebookBlue: '#1877F2',
   transparent: 'transparent',
 };
@@ -25,6 +27,8 @@ export const lightColors = {
   error: palette.redError,
   success: palette.greenSuccess,
   divider: '#DBDBDB',
+  toastBg: palette.gray800,
+  toastText: palette.white,
 };
 
 export const darkColors = {
@@ -42,6 +46,8 @@ export const darkColors = {
   error: palette.redError,
   success: palette.greenSuccess,
   divider: '#262626',
+  toastBg: palette.gray700,
+  toastText: palette.white,
 };
 
 export type ThemeColors = typeof lightColors;

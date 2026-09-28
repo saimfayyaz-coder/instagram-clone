@@ -1,14 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/components/atoms';
-import { FormField, ErrorAlert, AuthStepHeader } from '@/shared/components/molecules';
-import { parseApiError } from '@/shared/lib/errors';
-import { useTheme } from '@/shared/hooks/useTheme';
-import { authStepStyles, commonStyles } from '@/shared/theme';
+import { FormField, AuthStepHeader } from '@/shared/components/molecules';
+import { useTheme } from '@/shared/hooks';
+import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { executeFormMutation } from '@/shared/lib/forms';
 import { useForgotPasswordMutation } from '../api/forgotPasswordApi';
 import {
   createIdentifierSchema,
@@ -23,7 +23,6 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  const [rootError, setRootError] = useState<string | null>(null);
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
   const schema = useMemo(() => createIdentifierSchema(t), [t]);
@@ -31,7 +30,8 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    setError,
+    clearErrors,
   } = useForm<IdentifierSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -39,17 +39,14 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
   });
 
   const onSubmit = async (values: IdentifierSchemaType) => {
-    setRootError(null);
-
-    try {
-      const response = await forgotPassword({
-        identifier: values.identifier,
-      }).unwrap();
-      onSuccess(response.data.email);
-    } catch (err) {
-      const { message } = parseApiError(err);
-      setRootError(message);
-    }
+    await executeFormMutation({
+      mutationPromise: forgotPassword({ identifier: values.identifier }).unwrap(),
+      setError,
+      clearErrors,
+      onSuccess: (response) => {
+        onSuccess(response.data.email);
+      },
+    });
   };
 
   return (
@@ -58,12 +55,6 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
         title={t(TRANSLATION_KEYS.AUTH_FORGOT_PASSWORD_TITLE)}
         subtitle={t(TRANSLATION_KEYS.AUTH_FORGOT_PASSWORD_SUBTITLE)}
       />
-
-      {rootError ? (
-        <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>
-          <ErrorAlert message={rootError} />
-        </View>
-      ) : null}
 
       <Controller
         name="identifier"

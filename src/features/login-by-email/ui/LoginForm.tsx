@@ -4,27 +4,31 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/components/atoms';
-import { FormField, ErrorAlert } from '@/shared/components/molecules';
-import { useTheme } from '@/shared/hooks';
+import { FormField } from '@/shared/components/molecules';
+import { useTheme, useToast } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { executeFormMutation } from '@/shared/lib/forms';
+import { API_ERROR_CODES } from '@/shared/constants';
+import { useLoginMutation } from '../api/loginApi';
 import { createLoginSchema, LoginSchemaType } from '../model/loginSchema';
 
 export interface LoginFormProps {
-  onSubmit: (
-    values: LoginSchemaType,
-    setRootError: (message: string) => void,
-    setFieldError: (name: keyof LoginSchemaType, message: string) => void,
-  ) => Promise<void>;
+  onRequireOtpVerification?: (email: string) => void;
   onForgotPasswordPress?: () => void;
+  onSuccess?: () => void;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({
-  onSubmit,
+  onRequireOtpVerification,
   onForgotPasswordPress,
+  onSuccess,
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { showToast } = useToast();
+
+  const [login, { isLoading }] = useLoginMutation();
 
   const schema = useMemo(() => createLoginSchema(t), [t]);
 
@@ -33,7 +37,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     handleSubmit,
     setError,
     clearErrors,
-    formState: { errors, isSubmitting },
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -43,21 +46,30 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     },
   });
 
-  const setRootError = (message: string) => setError('root', { message });
-  const setFieldError = (name: keyof LoginSchemaType, message: string) =>
-    setError(name, { message });
-
-  const handleLogin = handleSubmit(async (values) => {
-    clearErrors('root');
-    await onSubmit(values, setRootError, setFieldError);
-  });
+  const onSubmit = async (values: LoginSchemaType) => {
+    await executeFormMutation({
+      mutationPromise: login(values).unwrap(),
+      setError,
+      clearErrors,
+      showToast,
+      onSuccess: () => {
+        onSuccess?.();
+      },
+      onError: (err) => {
+        const raw = err.raw as any;
+        if (
+          raw?.data?.errorCode === API_ERROR_CODES.EMAIL_NOT_VERIFIED ||
+          raw?.data?.data?.requiresVerification
+        ) {
+          const email = raw?.data?.data?.email || values.identifier;
+          onRequireOtpVerification?.(email);
+        }
+      },
+    });
+  };
 
   return (
     <View style={[commonStyles.fullWidth, commonStyles.alignCenter]}>
-      {errors.root?.message ? (
-        <ErrorAlert message={errors.root.message} />
-      ) : null}
-
       <Controller
         name="identifier"
         control={control}
@@ -65,12 +77,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <FormField
             label={t(TRANSLATION_KEYS.AUTH_LOGIN_IDENTIFIER_PLACEHOLDER)}
             value={value}
-            onChangeText={(text) => {
-              if (errors.root) clearErrors('root');
-              onChange(text);
-            }}
+            onChangeText={onChange}
             onBlur={onBlur}
-            errorMessage={error?.message || errors.identifier?.message}
+            errorMessage={error?.message}
             autoCapitalize="none"
             autoCorrect={false}
             floating
@@ -85,12 +94,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <FormField
             label={t(TRANSLATION_KEYS.AUTH_LOGIN_PASSWORD_PLACEHOLDER)}
             value={value}
-            onChangeText={(text) => {
-              if (errors.root) clearErrors('root');
-              onChange(text);
-            }}
+            onChangeText={onChange}
             onBlur={onBlur}
-            errorMessage={error?.message || errors.password?.message}
+            errorMessage={error?.message}
             isPassword
             autoCapitalize="none"
             floating
@@ -101,10 +107,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       <Button
         title={t(TRANSLATION_KEYS.AUTH_LOGIN_BUTTON)}
         variant="primary"
-        loading={isSubmitting}
-        onPress={() => {
-          handleLogin();
-        }}
+        loading={isLoading}
+        onPress={() => handleSubmit(onSubmit)()}
         style={{ marginTop: theme.spacing.sm }}
       />
 
@@ -117,4 +121,3 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     </View>
   );
 };
-

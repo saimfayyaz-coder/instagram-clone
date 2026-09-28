@@ -82,6 +82,7 @@
   },
   "errors": {
     "INVALID_CREDENTIALS": "Invalid username or password.",
+    "INCORRECT_PASSWORD": "Incorrect password.",
     "EMAIL_ALREADY_EXISTS": "An account with this email already exists.",
     "USERNAME_ALREADY_EXISTS": "This username is already taken.",
     "USERNAME_REQUIRED": "Username is required.",
@@ -89,7 +90,7 @@
     "EMAIL_NOT_VERIFIED": "Your email is not verified. Please check your email for the confirmation code.",
     "INVALID_OTP": "Incorrect confirmation code. Please check and try again.",
     "OTP_EXPIRED": "Confirmation code has expired. Please request a new code.",
-    "USER_NOT_FOUND": "No account found with this email.",
+    "USER_NOT_FOUND": "No account found with this username or email.",
     "VALIDATION_FAILED": "Please check the fields below.",
     "DEVICE_TOKEN_REQUIRED": "Device token is required.",
     "TOKEN_REQUIRED": "Authentication required. Please log in.",

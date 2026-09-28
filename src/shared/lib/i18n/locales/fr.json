@@ -82,6 +82,7 @@
   },
   "errors": {
     "INVALID_CREDENTIALS": "Identifiants invalides.",
+    "INCORRECT_PASSWORD": "Mot de passe incorrect.",
     "EMAIL_ALREADY_EXISTS": "Un compte existe déjà avec cet e-mail.",
     "USERNAME_ALREADY_EXISTS": "Ce nom d'utilisateur est déjà pris.",
     "USERNAME_REQUIRED": "Le nom d'utilisateur est requis.",
@@ -89,7 +90,7 @@
     "EMAIL_NOT_VERIFIED": "Votre e-mail n'est pas vérifié. Consultez vos e-mails pour obtenir le code.",
     "INVALID_OTP": "Code de confirmation incorrect.",
     "OTP_EXPIRED": "Le code de confirmation a expiré. Demandez un nouveau code.",
-    "USER_NOT_FOUND": "Aucun compte trouvé avec cet e-mail.",
+    "USER_NOT_FOUND": "Aucun compte trouvé avec ce nom d'utilisateur ou cet e-mail.",
     "VALIDATION_FAILED": "Vérifiez les champs ci-dessous.",
     "DEVICE_TOKEN_REQUIRED": "Le jeton d'appareil est requis.",
     "TOKEN_REQUIRED": "Authentification requise. Connectez-vous.",

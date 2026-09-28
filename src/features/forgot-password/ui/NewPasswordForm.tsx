@@ -1,19 +1,18 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button } from '@/shared/components/atoms';
+import { Button } from '@/shared/components/atoms';
 import {
   FormField,
-  ErrorAlert,
   PasswordRulesList,
   AuthStepHeader,
 } from '@/shared/components/molecules';
-import { parseApiError } from '@/shared/lib/errors';
-import { useTheme } from '@/shared/hooks/useTheme';
-import { authStepStyles, commonStyles } from '@/shared/theme';
+import { useTheme, useToast } from '@/shared/hooks';
+import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { executeFormMutation } from '@/shared/lib/forms';
 import {
   createPasswordSchema,
   PasswordSchemaType,
@@ -33,8 +32,8 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { showToast } = useToast();
 
-  const [rootError, setRootError] = useState<string | null>(null);
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const schema = useMemo(() => createPasswordSchema(t), [t]);
@@ -43,6 +42,8 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
     control,
     handleSubmit,
     watch,
+    setError,
+    clearErrors,
   } = useForm<PasswordSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -62,22 +63,19 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
   const hasConfirmInput = Boolean(confirmPassword && confirmPassword.length > 0);
 
   const onSubmit = async (values: PasswordSchemaType) => {
-    setRootError(null);
-
-    try {
-      await resetPassword({
+    await executeFormMutation({
+      mutationPromise: resetPassword({
         email,
         resetToken,
         newPassword: values.password,
-      }).unwrap();
-
-      if (onSuccess) {
-        onSuccess();
-      }
-    } catch (err) {
-      const { message } = parseApiError(err);
-      setRootError(message);
-    }
+      }).unwrap(),
+      setError,
+      clearErrors,
+      showToast,
+      onSuccess: () => {
+        onSuccess?.();
+      },
+    });
   };
 
   return (
@@ -86,12 +84,6 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
         title={t(TRANSLATION_KEYS.AUTH_RESET_PASSWORD_TITLE)}
         subtitle={t(TRANSLATION_KEYS.AUTH_RESET_PASSWORD_SUBTITLE)}
       />
-
-      {rootError ? (
-        <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>
-          <ErrorAlert message={rootError} />
-        </View>
-      ) : null}
 
       <Controller
         name="password"
