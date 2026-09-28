@@ -76,6 +76,7 @@
   "settings": {
     "theme": "Thème",
     "language": "Langue",
+    "selectLanguage": "Sélectionner la langue",
     "system": "Par défaut du système",
     "light": "Clair",
     "dark": "Sombre"

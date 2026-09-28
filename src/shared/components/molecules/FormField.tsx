@@ -8,7 +8,7 @@ import { commonStyles } from '@/shared/theme';
 
 export interface FormFieldProps
   extends Omit<FloatingInputProps, 'label' | 'onBlur'>,
-    Omit<InputProps, 'rightElement' | 'onBlur'> {
+  Omit<InputProps, 'rightElement' | 'onBlur'> {
   label?: string;
   errorMessage?: string;
   isPassword?: boolean;

@@ -5,11 +5,15 @@ import { AppText } from '../atoms/AppText';
 import { useTheme } from '../../hooks/useTheme';
 import { commonStyles } from '@/shared/theme';
 
+import { LanguageDropdownButton } from '../molecules/LanguageSelect';
+
 export interface AuthHeaderProps {
   showLogo?: boolean;
   title?: string;
   subtitle?: string;
   onBackPress?: () => void;
+  showLanguageSelector?: boolean;
+  onLanguagePress?: () => void;
   style?: any;
 }
 
@@ -18,6 +22,8 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
   title,
   subtitle,
   onBackPress,
+  showLanguageSelector = false,
+  onLanguagePress,
   style,
 }) => {
   const { theme } = useTheme();
@@ -48,6 +54,12 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
         </TouchableOpacity>
       )}
 
+      {showLanguageSelector && onLanguagePress && (
+        <View style={[styles.languageWrapper, { marginBottom: theme.spacing.xl }]}>
+          <LanguageDropdownButton onPress={onLanguagePress} />
+        </View>
+      )}
+
       {showLogo && (
         <View style={commonStyles.center}>
           <InstagramLogo size={68} />
@@ -61,6 +73,10 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+  },
+  languageWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   backButton: {
     position: 'absolute',
