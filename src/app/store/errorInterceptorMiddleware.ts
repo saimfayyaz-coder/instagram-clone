@@ -8,9 +8,11 @@ import { showToast } from '@/shared/lib/toast/toastSlice';
 export const errorInterceptorMiddleware: Middleware =
   store => next => action => {
     if (isRejectedWithValue(action)) {
-      const status = (action.payload as any)?.status;
+      const payload = action.payload as any;
+      const status = payload?.status;
+      const errorCode = payload?.data?.code;
 
-      if (status === 403) {
+      if (status === 403 && errorCode !== API_ERROR_CODES.EMAIL_NOT_VERIFIED) {
         console.warn(
           '[ErrorInterceptor] Forbidden:',
           i18n.t(TRANSLATION_KEYS.ERROR_FORBIDDEN),
@@ -30,9 +32,9 @@ export const errorInterceptorMiddleware: Middleware =
         );
       }
 
-      if (status === API_ERROR_CODES.FETCH_ERROR) {
+      if (status === API_ERROR_CODES.FETCH_ERROR || status === API_ERROR_CODES.TIMEOUT_ERROR) {
         console.warn(
-          '[ErrorInterceptor] Network offline:',
+          '[ErrorInterceptor] Network failure:',
           i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
         );
         store.dispatch(

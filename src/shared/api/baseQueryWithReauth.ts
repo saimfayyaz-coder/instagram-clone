@@ -7,6 +7,7 @@ import { BASE_URL } from '@/shared/config';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
+  timeout: 15000,
   prepareHeaders: (headers, { getState }) => {
     const accessToken = (getState() as any)?.session?.accessToken;
     if (accessToken) {
