@@ -103,6 +103,7 @@
     "SERVER_ERROR": "Something went wrong. Please try again later.",
     "FORBIDDEN": "You don't have permission to do this.",
     "NETWORK_ERROR": "No internet connection. Please try again.",
+    "TIMEOUT_ERROR": "Request timed out. Please try again.",
     "UNKNOWN": "An unexpected error occurred."
   }
 }

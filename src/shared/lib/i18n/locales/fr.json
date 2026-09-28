@@ -103,6 +103,7 @@
     "SERVER_ERROR": "Une erreur est survenue. Veuillez réessayer plus tard.",
     "FORBIDDEN": "Vous n'avez pas la permission d'effectuer cette action.",
     "NETWORK_ERROR": "Aucune connexion Internet. Veuillez réessayer.",
+    "TIMEOUT_ERROR": "Délai d'attente dépassé. Veuillez réessayer.",
     "UNKNOWN": "Une erreur inattendue est survenue."
   }
 }

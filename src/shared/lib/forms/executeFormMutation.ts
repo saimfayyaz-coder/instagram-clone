@@ -34,6 +34,7 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
 
     const isGlobalHandled =
       parsed.code === 'NETWORK_ERROR' ||
+      parsed.code === 'TIMEOUT_ERROR' ||
       (typeof parsed.status === 'number' && parsed.status >= 500);
 
     const hasFieldErrors = Boolean(

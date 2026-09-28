@@ -12,10 +12,19 @@ export function parseApiError(error: unknown): ParsedApiError {
   if (typeof error === 'object' && error !== null && 'status' in error) {
     const err = error as any;
 
-    if (err.status === API_ERROR_CODES.FETCH_ERROR || err.status === API_ERROR_CODES.TIMEOUT_ERROR) {
+    if (err.status === API_ERROR_CODES.FETCH_ERROR) {
       return {
         message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
         code: API_ERROR_CODES.NETWORK_ERROR,
+        status: 0,
+        raw: error,
+      };
+    }
+
+    if (err.status === API_ERROR_CODES.TIMEOUT_ERROR) {
+      return {
+        message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
+        code: API_ERROR_CODES.TIMEOUT_ERROR,
         status: 0,
         raw: error,
       };

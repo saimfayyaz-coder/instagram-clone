@@ -32,14 +32,27 @@ export const errorInterceptorMiddleware: Middleware =
         );
       }
 
-      if (status === API_ERROR_CODES.FETCH_ERROR || status === API_ERROR_CODES.TIMEOUT_ERROR) {
+      if (status === API_ERROR_CODES.FETCH_ERROR) {
         console.warn(
-          '[ErrorInterceptor] Network failure:',
+          '[ErrorInterceptor] Network offline:',
           i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
         );
         store.dispatch(
           showToast({
             message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
+            type: 'error',
+          }),
+        );
+      }
+
+      if (status === API_ERROR_CODES.TIMEOUT_ERROR) {
+        console.warn(
+          '[ErrorInterceptor] Request timeout:',
+          i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
+        );
+        store.dispatch(
+          showToast({
+            message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
             type: 'error',
           }),
         );
