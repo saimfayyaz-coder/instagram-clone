@@ -9,9 +9,11 @@ import {
   NativeSyntheticEvent,
   TargetedEvent,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../hooks/useTheme';
 import { ms } from '../../theme';
 import { AppText } from './AppText';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface FloatingInputProps extends Omit<TextInputProps, 'onBlur'> {
   label: string;
@@ -34,6 +36,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
   maxFontSizeMultiplier = 1.3,
   ...props
 }) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -84,12 +87,14 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
   const dynamicInputStyle = useMemo(
     () => ({
       color: theme.colors.textPrimary,
+      fontFamily: theme.typography.fontFamilies.regular,
       fontSize: theme.typography.fontSizes.md,
       paddingTop: isFloating ? theme.spacing.lg : 0,
       paddingBottom: isFloating ? theme.spacing.xs : 0,
     }),
     [
       theme.colors.textPrimary,
+      theme.typography.fontFamilies.regular,
       theme.typography.fontSizes.md,
       isFloating,
       theme.spacing.lg,
@@ -164,7 +169,9 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
             weight="semibold"
             color={theme.colors.textSecondary}
           >
-            {showPassword ? 'Hide' : 'Show'}
+            {showPassword
+              ? t(TRANSLATION_KEYS.COMMON_HIDE)
+              : t(TRANSLATION_KEYS.COMMON_SHOW)}
           </AppText>
         </TouchableOpacity>
       ) : null}

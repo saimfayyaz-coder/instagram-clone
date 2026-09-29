@@ -5,7 +5,9 @@
     "error": "Ocurrió un error",
     "tryAgain": "Intentar de nuevo",
     "next": "Siguiente",
-    "back": "Atrás"
+    "back": "Atrás",
+    "show": "Mostrar",
+    "hide": "Ocultar"
   },
   "auth": {
     "login": {

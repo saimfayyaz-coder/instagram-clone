@@ -9,7 +9,7 @@ export * from './authStepStyles';
 
 import { ms } from './scaling';
 import { spacing, borderRadius } from './spacing';
-import { fontSizes, fontWeights, lineHeights } from './typography';
+import { fontFamilies, fontSizes, fontWeights, lineHeights } from './typography';
 import { palette, lightColors, darkColors } from './colors';
 
 const R = {
@@ -19,6 +19,7 @@ const R = {
   spacing,
   borderRadius,
   typography: {
+    fontFamilies,
     fontSizes,
     fontWeights,
     lineHeights,

@@ -62,6 +62,7 @@ export const Input: React.FC<InputProps> = ({
           styles.input,
           {
             color: theme.colors.textPrimary,
+            fontFamily: theme.typography.fontFamilies.regular,
             fontSize: theme.typography.fontSizes.md,
             paddingStart: theme.spacing.md,
             paddingEnd: rightElement ? theme.spacing.xs : theme.spacing.md,
