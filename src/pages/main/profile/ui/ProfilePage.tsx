@@ -7,13 +7,16 @@ import { AppHeader, headerActions } from '@/shared/components/organisms';
 import { ScreenWrapper } from '@/shared/components/layout';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
+import { useTranslation } from 'react-i18next';
 import { selectCurrentUser } from '@/entities/user';
 import { useLogout } from '@/features/logout';
 import { MAIN_ROUTES } from '@/shared/constants';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
 import { ms } from '@/shared/theme';
 
 export const ProfilePage: React.FC = () => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<MainStackParamList>>();
   const currentUser = useAppSelector(selectCurrentUser);
@@ -31,7 +34,7 @@ export const ProfilePage: React.FC = () => {
     <ScreenWrapper
       header={
         <AppHeader
-          title={currentUser?.username || 'Profile'}
+          title={currentUser?.username || t(TRANSLATION_KEYS.PROFILE_TITLE)}
           rightActions={rightActions}
         />
       }

@@ -83,6 +83,9 @@
     "light": "لائٹ",
     "dark": "ڈارک"
   },
+  "profile": {
+    "title": "پروفائل"
+  },
   "errors": {
     "INVALID_CREDENTIALS": "غلط صارف نام یا پاس ورڈ۔",
     "INCORRECT_PASSWORD": "غلط پاس ورڈ۔",

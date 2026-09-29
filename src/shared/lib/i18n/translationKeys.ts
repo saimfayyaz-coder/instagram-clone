@@ -79,6 +79,9 @@ export enum TRANSLATION_KEYS {
   SETTINGS_LIGHT = 'settings.light',
   SETTINGS_DARK = 'settings.dark',
 
+  // Profile
+  PROFILE_TITLE = 'profile.title',
+
   // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',
   ERROR_INCORRECT_PASSWORD = 'errors.INCORRECT_PASSWORD',
