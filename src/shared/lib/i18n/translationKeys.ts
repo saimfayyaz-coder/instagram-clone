@@ -53,6 +53,22 @@ export enum TRANSLATION_KEYS {
   AUTH_OTP_RESEND_WAIT = 'auth.otp.resendWait',
   AUTH_OTP_CODE_SENT_SUCCESS = 'auth.otp.codeSentSuccess',
 
+  // Auth › Forgot Password
+  AUTH_FORGOT_PASSWORD_TITLE = 'auth.forgotPassword.title',
+  AUTH_FORGOT_PASSWORD_SUBTITLE = 'auth.forgotPassword.subtitle',
+  AUTH_FORGOT_PASSWORD_IDENTIFIER_LABEL = 'auth.forgotPassword.identifierLabel',
+  AUTH_FORGOT_PASSWORD_IDENTIFIER_REQUIRED = 'auth.forgotPassword.identifierRequired',
+  AUTH_FORGOT_PASSWORD_SEND_CODE = 'auth.forgotPassword.sendCode',
+  AUTH_FORGOT_PASSWORD_BACK_TO_LOGIN = 'auth.forgotPassword.backToLogin',
+
+  // Auth › Reset Password
+  AUTH_RESET_PASSWORD_TITLE = 'auth.resetPassword.title',
+  AUTH_RESET_PASSWORD_SUBTITLE = 'auth.resetPassword.subtitle',
+  AUTH_RESET_PASSWORD_NEW_PASSWORD_LABEL = 'auth.resetPassword.newPasswordLabel',
+  AUTH_RESET_PASSWORD_CONFIRM_PASSWORD_LABEL = 'auth.resetPassword.confirmPasswordLabel',
+  AUTH_RESET_PASSWORD_SUBMIT_BUTTON = 'auth.resetPassword.submitButton',
+  AUTH_RESET_PASSWORD_SUCCESS = 'auth.resetPassword.success',
+
   // Settings
   SETTINGS_THEME = 'settings.theme',
   SETTINGS_LANGUAGE = 'settings.language',
@@ -78,6 +94,7 @@ export enum TRANSLATION_KEYS {
   ERROR_REFRESH_TOKEN_REQUIRED = 'errors.REFRESH_TOKEN_REQUIRED',
   ERROR_REFRESH_TOKEN_INVALID = 'errors.REFRESH_TOKEN_INVALID',
   ERROR_REFRESH_TOKEN_EXPIRED = 'errors.REFRESH_TOKEN_EXPIRED',
+  ERROR_INVALID_RESET_TOKEN = 'errors.INVALID_RESET_TOKEN',
   ERROR_SERVER = 'errors.SERVER_ERROR',
   ERROR_FORBIDDEN = 'errors.FORBIDDEN',
   ERROR_NETWORK = 'errors.NETWORK_ERROR',
