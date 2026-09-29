@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '../../atoms/AppText';
-import { Icon } from '../../atoms/Icon';
+import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 import { AVAILABLE_LANGUAGES } from './LanguageSelectModal';

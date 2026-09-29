@@ -7,7 +7,7 @@ import {
   NativeSyntheticEvent,
   TargetedEvent,
 } from 'react-native';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '@/shared/hooks/useTheme';
 
 export interface InputProps extends RNTextInputProps {
   error?: boolean;

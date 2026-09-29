@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '@/shared/hooks/useTheme';
 import { AppText } from './AppText';
 import { LOGO_VARIANTS, type LogoVariant } from '@/shared/constants';
 import { fontFamilies, ms } from '@/shared/theme';

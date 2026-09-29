@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { AppText } from '../atoms/AppText';
-import { useTheme } from '../../hooks/useTheme';
+import { AppText } from '@/shared/components/atoms';
+import { useTheme } from '@/shared/hooks';
 
 export interface ErrorAlertProps {
   message: string;

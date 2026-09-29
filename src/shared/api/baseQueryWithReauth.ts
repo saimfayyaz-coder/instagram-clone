@@ -89,7 +89,7 @@ export const baseQueryWithReauth = async (
             },
           };
         }
-      } catch (error) {
+      } catch {
         api.dispatch({ type: 'session/clearSession' });
         return {
           error: {

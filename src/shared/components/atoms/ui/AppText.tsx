@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text as RNText, TextProps as RNTextProps, StyleSheet } from 'react-native';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '@/shared/hooks/useTheme';
 
 export type TextVariant = 'hero' | 'heading' | 'subheading' | 'body' | 'caption' | 'link' | 'error';
 

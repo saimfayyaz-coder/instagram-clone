@@ -1,5 +1,4 @@
-import React from 'react';
-import { Icon } from '../../atoms/Icon';
+import { Icon } from '@/shared/components/atoms';
 import { HeaderActionItem } from './AppHeader';
 import {
   HEADER_ACTION_TYPES,

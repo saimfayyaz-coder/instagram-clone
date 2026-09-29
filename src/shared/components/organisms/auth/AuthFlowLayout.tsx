@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { AppHeader, HeaderLeftIconType } from './AppHeader';
-import { ResponsiveContainer, KeyboardScreenWrapper } from '../layout';
+import { AppHeader, HeaderLeftIconType } from '../header';
+import { ResponsiveContainer, KeyboardScreenWrapper } from '@/shared/components/layout';
 import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
-import { useTheme } from '../../hooks/useTheme';
-import { commonStyles } from '@/shared/theme';
-import { ms } from '@/shared/theme/scaling';
+import { useTheme } from '@/shared/hooks';
+import { commonStyles, ms } from '@/shared/theme';
 
 export interface AuthFlowLayoutProps {
   children: React.ReactNode;

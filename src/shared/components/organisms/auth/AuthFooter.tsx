@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { AppText } from '../atoms/AppText';
-import { Button, ButtonVariant } from '../atoms/Button';
-import { useTheme } from '../../hooks/useTheme';
+import { AppText, Button, ButtonVariant } from '@/shared/components/atoms';
+import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 
 export interface AuthFooterProps {

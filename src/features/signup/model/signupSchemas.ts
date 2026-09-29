@@ -3,10 +3,7 @@ import type { TFunction } from 'i18next';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
-import {
-  createPasswordSchema,
-  PasswordSchemaType,
-} from '@/entities/password';
+import { createPasswordSchema } from '@/entities/password';
 
 export const USERNAME_REGEX = /^[a-zA-Z0-9._]+$/;
 export const USERNAME_MIN_LENGTH = 3;
