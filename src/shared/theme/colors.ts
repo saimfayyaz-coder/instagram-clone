@@ -29,6 +29,8 @@ export const lightColors = {
   divider: '#DBDBDB',
   toastBg: palette.gray800,
   toastText: palette.white,
+  bottomSheetHandleBar: '#C7C7CC',
+  backdropColor: '#000000',
 };
 
 export const darkColors = {
@@ -48,6 +50,8 @@ export const darkColors = {
   divider: '#262626',
   toastBg: palette.gray700,
   toastText: palette.white,
+  bottomSheetHandleBar: '#545458',
+  backdropColor: '#000000',
 };
 
 export type ThemeColors = typeof lightColors;

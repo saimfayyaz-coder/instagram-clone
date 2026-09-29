@@ -72,6 +72,7 @@ export enum TRANSLATION_KEYS {
   // Settings
   SETTINGS_THEME = 'settings.theme',
   SETTINGS_LANGUAGE = 'settings.language',
+  SETTINGS_SELECT_LANGUAGE = 'settings.selectLanguage',
   SETTINGS_SYSTEM = 'settings.system',
   SETTINGS_LIGHT = 'settings.light',
   SETTINGS_DARK = 'settings.dark',

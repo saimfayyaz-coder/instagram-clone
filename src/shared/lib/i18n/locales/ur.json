@@ -76,6 +76,7 @@
   "settings": {
     "theme": "تھیم",
     "language": "زبان",
+    "selectLanguage": "زبان منتخب کریں",
     "system": "سسٹم ڈیفالٹ",
     "light": "لائٹ",
     "dark": "ڈارک"
