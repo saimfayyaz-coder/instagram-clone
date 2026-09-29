@@ -1,11 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { InstagramLogo } from '../atoms/InstagramLogo';
-import { AppText } from '../atoms/AppText';
-import { useTheme } from '../../hooks/useTheme';
+import { InstagramLogo, AppText } from '@/shared/components/atoms';
+import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
-
-import { LanguageDropdownButton } from '../molecules/LanguageSelect';
+import { LanguageDropdownButton } from '@/shared/components/molecules';
 
 export interface AuthHeaderProps {
   showLogo?: boolean;
@@ -19,8 +17,8 @@ export interface AuthHeaderProps {
 
 export const AuthHeader: React.FC<AuthHeaderProps> = ({
   showLogo = true,
-  title,
-  subtitle,
+  title: _title,
+  subtitle: _subtitle,
   onBackPress,
   showLanguageSelector = false,
   onLanguagePress,

@@ -1,5 +1,2 @@
-export * from './AuthScreenWrapper';
-export * from './AuthFooter';
-export * from './AuthHeader';
-export * from './AppHeader';
-export * from './AuthFlowLayout';
+export * from './header';
+export * from './auth';

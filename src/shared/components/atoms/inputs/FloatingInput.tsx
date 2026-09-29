@@ -10,9 +10,9 @@ import {
   TargetedEvent,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../../hooks/useTheme';
-import { ms } from '../../theme';
-import { AppText } from './AppText';
+import { useTheme } from '@/shared/hooks/useTheme';
+import { ms } from '@/shared/theme';
+import { AppText } from '../ui/AppText';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface FloatingInputProps extends Omit<TextInputProps, 'onBlur'> {

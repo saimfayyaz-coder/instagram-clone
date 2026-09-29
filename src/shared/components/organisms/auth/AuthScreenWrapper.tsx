@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
-import { ResponsiveContainer } from '../layout/ResponsiveContainer';
-import { KeyboardScreenWrapper } from '../layout/KeyboardScreenWrapper';
+import { ResponsiveContainer, KeyboardScreenWrapper } from '@/shared/components/layout';
 
 export interface AuthScreenWrapperProps {
   children: React.ReactNode;

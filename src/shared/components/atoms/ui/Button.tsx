@@ -9,9 +9,9 @@ import {
   ViewStyle,
   GestureResponderEvent,
 } from 'react-native';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '@/shared/hooks/useTheme';
 import { AppText } from './AppText';
-import { AppLoader } from './AppLoader';
+import { AppLoader } from '../loader/AppLoader';
 import { BUTTON_VARIANTS, ButtonVariant } from '@/shared/constants';
 
 export type { ButtonVariant };

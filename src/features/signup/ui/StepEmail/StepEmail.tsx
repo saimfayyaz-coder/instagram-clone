@@ -39,7 +39,6 @@ export const StepEmail: React.FC<StepEmailProps> = ({
     handleSubmit,
     setError,
     clearErrors,
-    formState: { isValid },
   } = useForm<Step3EmailSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',

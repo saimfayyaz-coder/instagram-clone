@@ -1,9 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { FloatingInput, FloatingInputProps } from '../atoms/FloatingInput';
-import { Input, InputProps } from '../atoms/Input';
-import { AppText } from '../atoms/AppText';
-import { useTheme } from '../../hooks/useTheme';
+import {
+  FloatingInput,
+  FloatingInputProps,
+  Input,
+  InputProps,
+  AppText,
+} from '@/shared/components/atoms';
+import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 
 export interface FormFieldProps

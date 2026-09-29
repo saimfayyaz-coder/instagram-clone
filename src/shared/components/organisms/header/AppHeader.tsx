@@ -9,10 +9,9 @@ import {
   TextStyle,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '../../../hooks/useTheme';
-import { ms } from '../../../theme/scaling';
-import { AppText } from '../../atoms/AppText';
-import { Icon } from '../../atoms/Icon';
+import { useTheme } from '@/shared/hooks';
+import { ms } from '@/shared/theme';
+import { AppText, Icon } from '@/shared/components/atoms';
 import {
   HEADER_LEFT_ICON_TYPE,
   HeaderLeftIconType,
