@@ -8,6 +8,7 @@ import {
   FormField,
   ErrorAlert,
   PasswordRulesList,
+  AuthStepHeader,
 } from '@/shared/components/molecules';
 import { parseApiError } from '@/shared/lib/errors';
 import { useTheme } from '@/shared/hooks/useTheme';
@@ -81,24 +82,10 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
 
   return (
     <View style={authStepStyles.container}>
-      <AppText
-        variant="heading"
-        weight="bold"
-        align="left"
-        color={theme.colors.textPrimary}
-        style={authStepStyles.title}
-      >
-        {t(TRANSLATION_KEYS.AUTH_RESET_PASSWORD_TITLE)}
-      </AppText>
-
-      <AppText
-        variant="body"
-        color={theme.colors.textSecondary}
-        align="left"
-        style={[authStepStyles.subtitle, { marginBottom: theme.spacing.xl }]}
-      >
-        {t(TRANSLATION_KEYS.AUTH_RESET_PASSWORD_SUBTITLE)}
-      </AppText>
+      <AuthStepHeader
+        title={t(TRANSLATION_KEYS.AUTH_RESET_PASSWORD_TITLE)}
+        subtitle={t(TRANSLATION_KEYS.AUTH_RESET_PASSWORD_SUBTITLE)}
+      />
 
       {rootError ? (
         <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>

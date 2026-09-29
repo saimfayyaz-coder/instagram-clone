@@ -8,6 +8,7 @@ import {
   ErrorAlert,
   OtpCodeInput,
   OtpResendTimer,
+  AuthStepHeader,
 } from '@/shared/components/molecules';
 import { parseApiError } from '@/shared/lib/errors';
 import { useTheme } from '@/shared/hooks/useTheme';
@@ -16,12 +17,10 @@ import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import {
   useVerifyOtpMutation,
   useResendOtpMutation,
-  useOtpTimer,
-  createOtpSchema,
-  OtpSchemaType,
-  OtpPurpose,
-  VerifyOtpResponseData,
-} from '@/entities/otp';
+} from '../api/otpApi';
+import { useOtpTimer } from '../model/useOtpTimer';
+import { createOtpSchema, OtpSchemaType } from '../model/otpSchema';
+import { OtpPurpose, VerifyOtpResponseData } from '../model/types';
 
 export interface OtpFormProps {
   email: string;
@@ -102,24 +101,10 @@ export const OtpForm: React.FC<OtpFormProps> = ({
 
   return (
     <View style={authStepStyles.container}>
-      <AppText
-        variant="heading"
-        weight="bold"
-        align="left"
-        color={theme.colors.textPrimary}
-        style={authStepStyles.title}
-      >
-        {t(TRANSLATION_KEYS.AUTH_OTP_TITLE)}
-      </AppText>
-
-      <AppText
-        variant="body"
-        color={theme.colors.textSecondary}
-        align="left"
-        style={[authStepStyles.subtitle, { marginBottom: theme.spacing.md }]}
-      >
-        {t(TRANSLATION_KEYS.AUTH_OTP_INSTRUCTION, { email })}
-      </AppText>
+      <AuthStepHeader
+        title={t(TRANSLATION_KEYS.AUTH_OTP_TITLE)}
+        subtitle={t(TRANSLATION_KEYS.AUTH_OTP_INSTRUCTION, { email })}
+      />
 
       {displayError ? (
         <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.sm }]}>

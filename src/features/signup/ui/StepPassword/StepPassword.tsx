@@ -3,8 +3,12 @@ import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button } from '@/shared/components/atoms';
-import { FormField, PasswordRulesList } from '@/shared/components/molecules';
+import { Button } from '@/shared/components/atoms';
+import {
+  FormField,
+  PasswordRulesList,
+  AuthStepHeader,
+} from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -29,11 +33,7 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
 
   const schema = useMemo(() => createStep2PasswordSchema(t), [t]);
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-  } = useForm<Step2PasswordSchemaType>({
+  const { control, handleSubmit, watch } = useForm<Step2PasswordSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',
     defaultValues: {
@@ -46,38 +46,31 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
   const confirmPassword = watch('confirmPassword');
 
   const hasMinLength = (password?.length ?? 0) >= 6;
-  const passwordsMatch = Boolean(password && confirmPassword && password === confirmPassword);
-  const hasConfirmInput = Boolean(confirmPassword && confirmPassword.length > 0);
+  const passwordsMatch = Boolean(
+    password && confirmPassword && password === confirmPassword,
+  );
+  const hasConfirmInput = Boolean(
+    confirmPassword && confirmPassword.length > 0,
+  );
 
-  const handleNext = handleSubmit((values) => {
+  const handleNext = handleSubmit(values => {
     onNext(values.password, values.confirmPassword);
   });
 
   return (
     <View style={authStepStyles.container}>
-      <AppText
-        variant="heading"
-        weight="bold"
-        align="left"
-        color={theme.colors.textPrimary}
-        style={authStepStyles.title}
-      >
-        {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_TITLE)}
-      </AppText>
-
-      <AppText
-        variant="body"
-        color={theme.colors.textSecondary}
-        align="left"
-        style={[authStepStyles.subtitle, { marginBottom: theme.spacing.xl }]}
-      >
-        {t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_SUBTITLE)}
-      </AppText>
+      <AuthStepHeader
+        title={t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_TITLE)}
+        subtitle={t(TRANSLATION_KEYS.AUTH_SIGNUP_STEP2_SUBTITLE)}
+      />
 
       <Controller
         name="password"
         control={control}
-        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => (
           <FormField
             label={t(TRANSLATION_KEYS.AUTH_LOGIN_PASSWORD_PLACEHOLDER)}
             value={value}
@@ -93,7 +86,10 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
       <Controller
         name="confirmPassword"
         control={control}
-        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => (
           <FormField
             label={t(TRANSLATION_KEYS.AUTH_SIGNUP_CONFIRM_PASSWORD_LABEL)}
             value={value}

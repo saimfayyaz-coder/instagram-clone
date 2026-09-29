@@ -4,4 +4,5 @@ export * from './ErrorAlert';
 export * from './OtpCodeInput';
 export * from './OtpResendTimer';
 export * from './PasswordRulesList';
+export * from './AuthStepHeader';
 

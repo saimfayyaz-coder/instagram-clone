@@ -9,14 +9,16 @@ import {
 } from '@/entities/password';
 
 export const USERNAME_REGEX = /^[a-zA-Z0-9._]+$/;
+export const USERNAME_MIN_LENGTH = 3;
+export const USERNAME_MAX_LENGTH = 30;
 
 export const createStep1UsernameSchema = (t: TFunction = i18n.t) =>
   z.object({
     username: z
       .string()
       .trim()
-      .min(3, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_MIN_LENGTH))
-      .max(30, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_MAX_LENGTH))
+      .min(USERNAME_MIN_LENGTH, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_MIN_LENGTH))
+      .max(USERNAME_MAX_LENGTH, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_MAX_LENGTH))
       .regex(USERNAME_REGEX, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_INVALID_CHARS)),
   });
 
