@@ -1,19 +1,41 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppText, Button } from '@/shared/components/atoms';
+import { AppHeader, headerActions } from '@/shared/components/organisms';
+import { ScreenWrapper } from '@/shared/components/layout';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUser } from '@/entities/user';
 import { useLogout } from '@/features/logout';
+import { MAIN_ROUTES } from '@/shared/constants';
+import { MainStackParamList } from '@/shared/types';
+import { ms } from '@/shared/theme';
 
-export const MainPage: React.FC = () => {
+export const ProfilePage: React.FC = () => {
   const { theme } = useTheme();
+  const navigation = useNavigation<NativeStackNavigationProp<MainStackParamList>>();
   const currentUser = useAppSelector(selectCurrentUser);
   const { logout, isLoading } = useLogout();
+  const handleOpenSettings = React.useCallback(() => {
+    navigation.navigate(MAIN_ROUTES.SETTINGS);
+  }, [navigation]);
+
+  const rightActions = React.useMemo(
+    () => [headerActions.menu(handleOpenSettings)],
+    [handleOpenSettings],
+  );
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.bgPrimary }]}>
+    <ScreenWrapper
+      header={
+        <AppHeader
+          title={currentUser?.username || 'Profile'}
+          rightActions={rightActions}
+        />
+      }
+    >
       <View style={styles.container}>
         <AppText variant="heading" align="center" style={styles.welcomeText}>
           Welcome
@@ -38,28 +60,25 @@ export const MainPage: React.FC = () => {
           style={styles.logoutBtn}
         />
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: ms(24),
   },
   welcomeText: {
-    marginBottom: 8,
+    marginBottom: ms(8),
   },
   emailText: {
-    marginBottom: 24,
+    marginBottom: ms(24),
   },
   logoutBtn: {
     width: '100%',
-    maxWidth: 280,
+    maxWidth: ms(280),
   },
 });
