@@ -3,6 +3,11 @@ import type { TFunction } from 'i18next';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
+import {
+  createPasswordSchema,
+  PasswordSchemaType,
+} from '@/entities/password';
+
 export const USERNAME_REGEX = /^[a-zA-Z0-9._]+$/;
 
 export const createStep1UsernameSchema = (t: TFunction = i18n.t) =>
@@ -15,20 +20,7 @@ export const createStep1UsernameSchema = (t: TFunction = i18n.t) =>
       .regex(USERNAME_REGEX, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_INVALID_CHARS)),
   });
 
-export const createStep2PasswordSchema = (t: TFunction = i18n.t) =>
-  z
-    .object({
-      password: z
-        .string()
-        .min(6, t(TRANSLATION_KEYS.AUTH_LOGIN_PASSWORD_MIN_LENGTH)),
-      confirmPassword: z
-        .string()
-        .min(1, t(TRANSLATION_KEYS.AUTH_SIGNUP_CONFIRM_PASSWORD_REQUIRED)),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: t(TRANSLATION_KEYS.AUTH_SIGNUP_PASSWORD_MISMATCH),
-      path: ['confirmPassword'],
-    });
+export const createStep2PasswordSchema = createPasswordSchema;
 
 export const createStep3EmailSchema = (t: TFunction = i18n.t) =>
   z.object({

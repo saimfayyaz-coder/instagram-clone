@@ -9,12 +9,15 @@ export type OtpPurpose =
 export interface VerifyOtpRequest {
   email: string;
   otp: string;
+  purpose?: OtpPurpose;
 }
 
 export interface VerifyOtpResponseData {
-  user: User;
-  accessToken: string;
-  refreshToken: string;
+  user?: User;
+  accessToken?: string;
+  refreshToken?: string;
+  resetToken?: string;
+  email?: string;
 }
 
 export interface VerifyOtpResponse {
@@ -25,16 +28,10 @@ export interface VerifyOtpResponse {
 
 export interface ResendOtpRequest {
   email: string;
+  purpose?: OtpPurpose;
 }
 
 export interface ResendOtpResponse {
   success: boolean;
   message: string;
-}
-
-export interface OtpFormProps {
-  email: string;
-  purpose?: OtpPurpose;
-  onSuccess?: (data?: VerifyOtpResponseData) => void;
-  onBackPress?: () => void;
 }

@@ -6,7 +6,8 @@ import {
   AuthFooter,
   AppHeader,
 } from '@/shared/components/organisms';
-import { OtpForm, OtpPurpose } from '@/features/verify-otp';
+import { OtpForm } from '@/features/verify-otp';
+import { OtpPurpose, VerifyOtpResponseData } from '@/entities/otp';
 import { commonStyles } from '@/shared/theme';
 
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -15,7 +16,7 @@ export interface OtpVerificationWidgetProps {
   email: string;
   purpose?: OtpPurpose;
   onNavigateToLogin: () => void;
-  onVerifiedSuccess?: () => void;
+  onVerifiedSuccess?: (data?: VerifyOtpResponseData) => void;
 }
 
 export const OtpVerificationWidget: React.FC<OtpVerificationWidgetProps> = ({

@@ -4,20 +4,35 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppText, Button } from '@/shared/components/atoms';
-import { ErrorAlert } from '@/shared/components/molecules';
+import {
+  ErrorAlert,
+  OtpCodeInput,
+  OtpResendTimer,
+} from '@/shared/components/molecules';
 import { parseApiError } from '@/shared/lib/errors';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { authStepStyles, commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { useVerifyOtpMutation, useResendOtpMutation } from '../api/otpApi';
-import { useOtpTimer } from '../model/useOtpTimer';
-import { createOtpSchema, OtpSchemaType } from '../model/otpSchema';
-import { OtpCodeInput } from './OtpCodeInput';
-import { OtpResendTimer } from './OtpResendTimer';
-import { OtpFormProps } from '../model/types';
+import {
+  useVerifyOtpMutation,
+  useResendOtpMutation,
+  useOtpTimer,
+  createOtpSchema,
+  OtpSchemaType,
+  OtpPurpose,
+  VerifyOtpResponseData,
+} from '@/entities/otp';
+
+export interface OtpFormProps {
+  email: string;
+  purpose?: OtpPurpose;
+  onSuccess?: (data?: VerifyOtpResponseData) => void;
+  onBackPress?: () => void;
+}
 
 export const OtpForm: React.FC<OtpFormProps> = ({
   email,
+  purpose,
   onSuccess,
 }) => {
   const { t } = useTranslation();
@@ -39,8 +54,7 @@ export const OtpForm: React.FC<OtpFormProps> = ({
   const {
     control,
     handleSubmit,
-    setValue,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<OtpSchemaType>({
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -52,7 +66,11 @@ export const OtpForm: React.FC<OtpFormProps> = ({
     setInfoMessage(null);
 
     try {
-      const response = await verifyOtp({ email, otp: codeToVerify }).unwrap();
+      const response = await verifyOtp({
+        email,
+        otp: codeToVerify,
+        purpose,
+      }).unwrap();
       if (onSuccess) {
         onSuccess(response.data);
       }
@@ -67,7 +85,7 @@ export const OtpForm: React.FC<OtpFormProps> = ({
     setInfoMessage(null);
 
     try {
-      await resendOtp({ email }).unwrap();
+      await resendOtp({ email, purpose }).unwrap();
       resetTimer();
       setInfoMessage(t(TRANSLATION_KEYS.AUTH_OTP_CODE_SENT_SUCCESS));
     } catch (err) {
@@ -157,4 +175,3 @@ export const OtpForm: React.FC<OtpFormProps> = ({
     </View>
   );
 };
-
