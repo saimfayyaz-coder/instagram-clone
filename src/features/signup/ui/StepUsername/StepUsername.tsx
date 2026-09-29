@@ -12,6 +12,7 @@ import { useLazyCheckUsernameQuery } from '../../api/signupApi';
 import {
   createStep1UsernameSchema,
   Step1UsernameSchemaType,
+  USERNAME_MIN_LENGTH,
 } from '../../model/signupSchemas';
 
 export interface StepUsernameProps {
@@ -47,7 +48,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
   const { debouncedCallback: debouncedCheck, cancel: cancelDebounce } =
     useDebouncedCallback(async (username: string) => {
-      if (username.length < 3) return;
+      if (username.length < USERNAME_MIN_LENGTH) return;
 
       try {
         const res = await triggerCheck(username).unwrap();
