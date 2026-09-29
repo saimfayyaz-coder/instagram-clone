@@ -1,5 +1,13 @@
 import { moderateScale } from './scaling';
 
+export const fontFamilies = {
+  regular: 'InstagramSans-Regular',
+  medium: 'InstagramSans-Medium',
+  bold: 'InstagramSans-Bold',
+  light: 'InstagramSans-Light',
+  headline: 'InstagramSansHeadline-Regular',
+};
+
 export const fontSizes = {
   xs: moderateScale(10),
   sm: moderateScale(12),

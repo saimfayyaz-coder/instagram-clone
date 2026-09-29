@@ -80,11 +80,29 @@ export const AppText: React.FC<AppTextProps> = ({
     return { fontWeight: theme.typography.fontWeights[weight] };
   };
 
+  const getFontFamily = () => {
+    if (variant === 'hero') {
+      return theme.typography.fontFamilies.headline;
+    }
+    const resolvedWeight = weight || (variant === 'heading' || variant === 'subheading' ? 'semibold' : 'regular');
+    switch (resolvedWeight) {
+      case 'bold':
+        return theme.typography.fontFamilies.bold;
+      case 'semibold':
+      case 'medium':
+        return theme.typography.fontFamilies.medium;
+      case 'regular':
+      default:
+        return theme.typography.fontFamilies.regular;
+    }
+  };
+
   return (
     <RNText
       maxFontSizeMultiplier={maxFontSizeMultiplier}
       style={[
         styles.base,
+        { fontFamily: getFontFamily() },
         getVariantStyle(),
         getWeightStyle(),
         { textAlign: align },
