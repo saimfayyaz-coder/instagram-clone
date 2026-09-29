@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { parseApiError } from '@/shared/lib/errors';
 import { commonStyles } from '@/shared/theme';
+import { API_ERROR_CODES } from '@/shared/constants';
+import { executeFormMutation } from '@/shared/lib/forms';
 import { OtpForm } from '@/entities/otp';
 import { SignupFormData, SignupStep } from '../model/types';
 import { useSignupMutation } from '../api/signupApi';
@@ -41,19 +42,25 @@ export const SignUpStepController: React.FC<SignUpStepControllerProps> = ({
     setStep3Error(null);
     updateFormData({ email, name });
 
-    try {
-      await signup({
+    await executeFormMutation({
+      mutationPromise: signup({
         username: formData.username,
         password: formData.password,
         email,
         name,
-      }).unwrap();
-
-      nextStep();
-    } catch (err) {
-      const { message } = parseApiError(err);
-      setStep3Error(message);
-    }
+      }).unwrap(),
+      onSuccess: () => {
+        nextStep();
+      },
+      onError: (err) => {
+        // Only mark the email field red if it's an actual email error (not network/offline)
+        if (err.fieldErrors?.email) {
+          setStep3Error(err.fieldErrors.email);
+        } else if (err.code === API_ERROR_CODES.EMAIL_ALREADY_EXISTS) {
+          setStep3Error(err.message);
+        }
+      },
+    });
   };
 
   const handleOtpSuccess = () => {

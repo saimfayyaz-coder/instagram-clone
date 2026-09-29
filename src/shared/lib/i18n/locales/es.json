@@ -82,6 +82,7 @@
   },
   "errors": {
     "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos.",
+    "INCORRECT_PASSWORD": "Contraseña incorrecta.",
     "EMAIL_ALREADY_EXISTS": "Ya existe una cuenta con este correo electrónico.",
     "USERNAME_ALREADY_EXISTS": "Este nombre de usuario ya está en uso.",
     "USERNAME_REQUIRED": "Se requiere nombre de usuario.",
@@ -89,7 +90,7 @@
     "EMAIL_NOT_VERIFIED": "Tu correo electrónico no está verificado. Revisa tu correo para obtener el código.",
     "INVALID_OTP": "Código de confirmación incorrecto.",
     "OTP_EXPIRED": "El código de confirmación ha caducado. Solicita uno nuevo.",
-    "USER_NOT_FOUND": "No se encontró ninguna cuenta con este correo.",
+    "USER_NOT_FOUND": "No se encontró ninguna cuenta con este usuario o correo electrónico.",
     "VALIDATION_FAILED": "Por favor revisa los campos abajo.",
     "DEVICE_TOKEN_REQUIRED": "Se requiere el token del dispositivo.",
     "TOKEN_REQUIRED": "Se requiere autenticación. Por favor inicia sesión.",
@@ -102,6 +103,7 @@
     "SERVER_ERROR": "Algo salió mal. Por favor intenta de nuevo más tarde.",
     "FORBIDDEN": "No tienes permiso para hacer esto.",
     "NETWORK_ERROR": "Sin conexión a internet. Intenta nuevamente.",
+    "TIMEOUT_ERROR": "Se agotó el tiempo de espera. Inténtalo de nuevo.",
     "UNKNOWN": "Ocurrió un error inesperado."
   }
 }

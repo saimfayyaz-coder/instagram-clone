@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@/app/store/store';
 import { ThemeProvider, AppInitializer } from '@/app/providers';
 import { RootNavigator } from '@/app/navigation';
+import { ToastOverlay } from '@/shared/components/molecules';
 import '@/shared/lib/i18n';
 
 function App(): React.JSX.Element {
@@ -18,6 +19,7 @@ function App(): React.JSX.Element {
             <ThemeProvider>
               <AppInitializer>
                 <RootNavigator />
+                <ToastOverlay />
               </AppInitializer>
             </ThemeProvider>
           </PersistGate>

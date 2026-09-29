@@ -7,6 +7,7 @@ import { BASE_URL } from '@/shared/config';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
+  timeout: 15000,
   prepareHeaders: (headers, { getState }) => {
     const accessToken = (getState() as any)?.session?.accessToken;
     if (accessToken) {
@@ -113,17 +114,42 @@ export const baseQueryWithReauth = async (
     }
   }
 
-  if (result.error && !result.error.status) {
-    return {
-      error: {
-        status: API_ERROR_CODES.FETCH_ERROR,
-        data: {
-          success: false,
-          message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
-          code: API_ERROR_CODES.NETWORK_ERROR,
+  if (result.error) {
+    const errString =
+      typeof (result.error as any).error === 'string'
+        ? (result.error as any).error
+        : '';
+
+    // React Native Hermes reports AbortError when fetchBaseQuery aborts at 15s
+    if (
+      result.error.status === 'TIMEOUT_ERROR' ||
+      (result.error.status === 'FETCH_ERROR' &&
+        (errString.includes('Abort') || errString.includes('timeout')))
+    ) {
+      return {
+        error: {
+          status: API_ERROR_CODES.TIMEOUT_ERROR,
+          data: {
+            success: false,
+            message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
+            code: API_ERROR_CODES.TIMEOUT_ERROR,
+          },
         },
-      },
-    };
+      };
+    }
+
+    if (!result.error.status) {
+      return {
+        error: {
+          status: API_ERROR_CODES.FETCH_ERROR,
+          data: {
+            success: false,
+            message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
+            code: API_ERROR_CODES.NETWORK_ERROR,
+          },
+        },
+      };
+    }
   }
 
   return result;
