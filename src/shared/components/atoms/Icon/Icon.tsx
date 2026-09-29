@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleProp, TextStyle } from 'react-native';
 import R from '@/shared/theme';
+import { useTheme } from '@/shared/hooks';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -63,19 +64,22 @@ export const Icon = ({
   name,
   type,
   size = 16,
-  color = 'black',
+  color,
   style,
   onPress,
 }: IIconProps) => {
+  const { theme } = useTheme();
   const VectorIcon = iconMap[type];
 
   if (!VectorIcon) return null;
+
+  const resolvedColor = color ?? theme?.colors?.textPrimary ?? '#000000';
 
   return (
     <VectorIcon
       name={name}
       size={R.unit.scale(size)}
-      color={color}
+      color={resolvedColor}
       style={style}
       onPress={onPress}
     />

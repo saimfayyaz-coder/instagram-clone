@@ -9,11 +9,14 @@ import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
 import { useTheme } from '../../hooks/useTheme';
 import { AppText } from './AppText';
 import { LOGO_VARIANTS, type LogoVariant } from '@/shared/constants';
+import { fontFamilies, ms } from '@/shared/theme';
 
 export interface InstagramLogoProps {
   size?: number;
   width?: number;
   height?: number;
+  fontSize?: number;
+  color?: string;
   variant?: LogoVariant;
   style?: StyleProp<ViewStyle>;
 }
@@ -22,17 +25,22 @@ export const InstagramLogo: React.FC<InstagramLogoProps> = ({
   size = 68,
   width,
   height,
+  fontSize,
+  color,
   variant = LOGO_VARIANTS.ICON,
   style,
 }) => {
   const { theme } = useTheme();
 
   if (variant === LOGO_VARIANTS.WORDMARK) {
+    const resolvedFontSize = fontSize ?? (size !== 68 ? ms(size) : ms(28));
+    const resolvedLineHeight = Math.round(resolvedFontSize * 1.35);
     return (
       <View
         style={[
           styles.container,
-          { width: width || 175, height: height || 50 },
+          width !== undefined && { width },
+          height !== undefined && { height },
           style,
         ]}
       >
@@ -40,7 +48,9 @@ export const InstagramLogo: React.FC<InstagramLogoProps> = ({
           style={[
             styles.logoText,
             {
-              color: theme.colors.textPrimary,
+              fontSize: resolvedFontSize,
+              lineHeight: resolvedLineHeight,
+              color: color || theme.colors.textPrimary,
             },
           ]}
         >
@@ -93,9 +103,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoText: {
-    fontFamily: 'sans-serif-medium',
-    fontSize: 32,
-    fontWeight: '700',
+    fontFamily: fontFamilies.headline,
     letterSpacing: -0.5,
+    paddingVertical: ms(2),
   },
 });

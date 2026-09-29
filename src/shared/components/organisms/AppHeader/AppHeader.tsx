@@ -53,7 +53,7 @@ export interface AppHeaderProps {
   contentStyle?: StyleProp<ViewStyle>;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({
+export const AppHeader: React.FC<AppHeaderProps> = React.memo(({
   title,
   subtitle,
   titleComponent,
@@ -121,6 +121,18 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   );
 
   const hasCenter = Boolean(title || titleComponent);
+
+  const renderActionIcon = (icon: React.ReactNode) => {
+    if (React.isValidElement(icon)) {
+      const iconProps = icon.props as { color?: string };
+      if (!iconProps?.color) {
+        return React.cloneElement(icon, {
+          color: theme.colors.textPrimary,
+        } as any);
+      }
+    }
+    return icon;
+  };
 
   return (
     <View
@@ -235,7 +247,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                   accessibilityLabel={action.accessibilityLabel}
                   testID={action.testID}
                 >
-                  {action.icon}
+                  {renderActionIcon(action.icon)}
                   {action.badgeDot && !action.badgeCount && (
                     <View
                       style={[
@@ -267,7 +279,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   root: {

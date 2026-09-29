@@ -83,6 +83,9 @@
     "light": "Clair",
     "dark": "Sombre"
   },
+  "profile": {
+    "title": "Profil"
+  },
   "errors": {
     "INVALID_CREDENTIALS": "Identifiants invalides.",
     "INCORRECT_PASSWORD": "Mot de passe incorrect.",

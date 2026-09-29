@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAppSelector } from '../store/hooks';
 import { AuthNavigator } from './AuthNavigator';
-import { MainPage } from '@/pages/main';
+import { MainNavigator } from './MainNavigator';
 import { useTheme } from '@/shared/hooks';
 import {
   customNavigationLightTheme,
@@ -23,7 +23,7 @@ export const RootNavigator: React.FC = () => {
 
   return (
     <NavigationContainer theme={navigationTheme}>
-      {isAuthenticated ? <MainPage /> : <AuthNavigator />}
+      {isAuthenticated ? <MainNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

@@ -14,6 +14,11 @@ export const commonStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  centerFlex: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   alignCenter: {
     alignItems: 'center',
   },
