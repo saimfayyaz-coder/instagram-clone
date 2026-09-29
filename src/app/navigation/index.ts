@@ -1,4 +1,3 @@
-export * from './AuthNavigator';
-export * from './MainNavigator';
-export * from './MainTabNavigator';
 export * from './RootNavigator';
+export * from './auth';
+export * from './main';

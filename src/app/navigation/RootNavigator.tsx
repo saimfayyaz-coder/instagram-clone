@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAppSelector } from '../store/hooks';
-import { AuthNavigator } from './AuthNavigator';
-import { MainNavigator } from './MainNavigator';
+import { AuthNavigator } from './auth';
+import { MainNavigator } from './main';
 import { useTheme } from '@/shared/hooks';
 import {
   customNavigationLightTheme,
