@@ -23,3 +23,12 @@ export const API_ERROR_CODES = {
 
 export type ApiErrorCode =
   (typeof API_ERROR_CODES)[keyof typeof API_ERROR_CODES];
+
+export const API_TIMEOUT_MS = 15000;
+
+export const HTTP_STATUS = {
+  OK: 200,
+  UNAUTHORIZED: 401,
+} as const;
+
+export type HttpStatus = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS];

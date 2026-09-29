@@ -2,12 +2,12 @@ import { fetchBaseQuery, type FetchArgs } from '@reduxjs/toolkit/query/react';
 import { authStorage } from './authStorage';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { API_ERROR_CODES } from '@/shared/constants';
+import { API_ERROR_CODES, HTTP_STATUS, API_TIMEOUT_MS } from '@/shared/constants';
 import { BASE_URL } from '@/shared/config';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
-  timeout: 15000,
+  timeout: API_TIMEOUT_MS,
   prepareHeaders: (headers, { getState }) => {
     const accessToken = (getState() as any)?.session?.accessToken;
     if (accessToken) {
@@ -36,7 +36,7 @@ export const baseQueryWithReauth = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result.error?.status === 401) {
+  if (result.error?.status === HTTP_STATUS.UNAUTHORIZED) {
     if (!isRefreshing) {
       isRefreshing = true;
       try {
@@ -45,7 +45,7 @@ export const baseQueryWithReauth = async (
           api.dispatch({ type: 'session/clearSession' });
           return {
             error: {
-              status: 401,
+              status: HTTP_STATUS.UNAUTHORIZED,
               data: {
                 success: false,
                 message: i18n.t(TRANSLATION_KEYS.ERROR_REFRESH_TOKEN_EXPIRED),
@@ -80,7 +80,7 @@ export const baseQueryWithReauth = async (
           api.dispatch({ type: 'session/clearSession' });
           return {
             error: {
-              status: 401,
+              status: HTTP_STATUS.UNAUTHORIZED,
               data: {
                 success: false,
                 message: i18n.t(TRANSLATION_KEYS.ERROR_REFRESH_TOKEN_EXPIRED),
@@ -93,7 +93,7 @@ export const baseQueryWithReauth = async (
         api.dispatch({ type: 'session/clearSession' });
         return {
           error: {
-            status: 401,
+            status: HTTP_STATUS.UNAUTHORIZED,
             data: {
               success: false,
               message: i18n.t(TRANSLATION_KEYS.ERROR_TOKEN_INVALID),
@@ -122,8 +122,8 @@ export const baseQueryWithReauth = async (
 
     // React Native Hermes reports AbortError when fetchBaseQuery aborts at 15s
     if (
-      result.error.status === 'TIMEOUT_ERROR' ||
-      (result.error.status === 'FETCH_ERROR' &&
+      result.error.status === API_ERROR_CODES.TIMEOUT_ERROR ||
+      (result.error.status === API_ERROR_CODES.FETCH_ERROR &&
         (errString.includes('Abort') || errString.includes('timeout')))
     ) {
       return {
