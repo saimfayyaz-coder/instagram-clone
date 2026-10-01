@@ -84,7 +84,32 @@
     "dark": "ڈارک"
   },
   "profile": {
-    "title": "پروفائل"
+    "title": "پروفائل",
+    "editProfile": "پروفائل تبدیل کریں",
+    "editPicture": "تصویر تبدیل کریں",
+    "takePhoto": "تصویر لیں",
+    "chooseLibrary": "گیلری سے منتخب کریں",
+    "removePicture": "موجودہ تصویر ہٹائیں",
+    "name": "نام",
+    "nameSubtitle": "لوگوں کو اپنا اکاؤنٹ تلاش کرنے میں مدد کریں۔",
+    "namePlaceholder": "نام",
+    "username": "صارف نام",
+    "usernameSubtitle": "آپ 14 دنوں کے اندر اپنے پرانے صارف نام پر واپس جا سکتے ہیں۔",
+    "bio": "بائیو",
+    "bioPlaceholder": "بائیو",
+    "links": "روابط",
+    "linksPlaceholder": "ویب سائٹ",
+    "gender": "جنس",
+    "genderMale": "مرد",
+    "genderFemale": "خاتون",
+    "genderCustom": "دیگر",
+    "genderPreferNotToSay": "بتانا نہیں چاہتے",
+    "updateSuccess": "پروفائل کامیابی سے تبدیل ہو گیا۔",
+    "avatarUpdateSuccess": "پروفائل تصویر اپ ڈیٹ ہو گئی۔",
+    "avatarRemoveSuccess": "پروفائل تصویر ہٹا دی گئی۔",
+    "nameMaxLength": "نام 50 حروف یا اس سے کم ہونا چاہیے۔",
+    "bioMaxLength": "بائیو 150 حروف یا اس سے کم ہونی چاہیے۔",
+    "invalidWebsite": "براہ کرم ایک درست ویب سائٹ URL درج کریں۔"
   },
   "errors": {
     "INVALID_CREDENTIALS": "غلط صارف نام یا پاس ورڈ۔",

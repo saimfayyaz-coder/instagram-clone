@@ -5,7 +5,8 @@ import {
   TextInputProps,
   Animated,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
+  ScrollView,
   NativeSyntheticEvent,
   TargetedEvent,
 } from 'react-native';
@@ -21,6 +22,8 @@ export interface FloatingInputProps extends Omit<TextInputProps, 'onBlur'> {
   isPassword?: boolean;
   rightElement?: React.ReactNode;
   onBlur?: () => void;
+  onPress?: (e?: any) => void;
+  horizontalScroll?: boolean;
 }
 
 export const FloatingInput: React.FC<FloatingInputProps> = ({
@@ -31,6 +34,8 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
   rightElement,
   onFocus,
   onBlur,
+  onPress,
+  horizontalScroll = false,
   style,
   secureTextEntry,
   maxFontSizeMultiplier = 1.3,
@@ -44,8 +49,13 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
   const hasPasswordMode = isPassword || Boolean(secureTextEntry);
   const isSecure = hasPasswordMode && !showPassword;
 
-  const hasValue = value.length > 0;
+  const hasValue = Boolean(value && String(value).trim().length > 0);
   const isFloating = isFocused || hasValue;
+
+  const singleLineValue = useMemo(() => {
+    if (!value) return '';
+    return typeof value === 'string' ? value.replace(/\r?\n/g, ' ') : String(value);
+  }, [value]);
 
   const animatedFocus = useRef(new Animated.Value(isFloating ? 1 : 0)).current;
 
@@ -89,8 +99,14 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
       color: theme.colors.textPrimary,
       fontFamily: theme.typography.fontFamilies.regular,
       fontSize: theme.typography.fontSizes.md,
-      paddingTop: isFloating ? theme.spacing.lg : 0,
+      paddingTop: isFloating ? (props.multiline ? ms(14) : theme.spacing.lg) : 0,
       paddingBottom: isFloating ? theme.spacing.xs : 0,
+      ...(props.multiline
+        ? {
+            textAlignVertical: 'top' as const,
+            minHeight: ms(65),
+          }
+        : {}),
     }),
     [
       theme.colors.textPrimary,
@@ -99,11 +115,22 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
       isFloating,
       theme.spacing.lg,
       theme.spacing.xs,
+      props.multiline,
     ],
   );
 
+  const ContainerComponent = onPress ? Pressable : View;
+  const containerProps = onPress
+    ? {
+        onPress,
+        accessibilityRole: 'button' as const,
+        accessibilityLabel: `${label}: ${value || ''}`,
+      }
+    : {};
+
   return (
-    <View
+    <ContainerComponent
+      {...containerProps}
       style={[
         styles.container,
         {
@@ -112,14 +139,26 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
           borderRadius: theme.borderRadius.sm,
           paddingHorizontal: theme.spacing.md,
         },
+        props.multiline && {
+          minHeight: ms(110),
+          height: undefined,
+          alignItems: 'flex-start',
+          paddingVertical: ms(8),
+        },
       ]}
     >
-      <View style={styles.inputWrapper}>
+      <View
+        style={[
+          styles.inputWrapper,
+          props.multiline && { minHeight: ms(90) },
+        ]}
+      >
         {/* Animated Floating Label */}
         <Animated.View
           pointerEvents="none"
           style={[
             styles.labelContainer,
+            props.multiline && { top: ms(4) },
             {
               transform: [
                 { translateY: labelTranslateY },
@@ -143,23 +182,56 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
           </AppText>
         </Animated.View>
 
-        {/* Text Input */}
-        <TextInput
-          {...props}
-          value={value}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          secureTextEntry={isSecure}
-          maxFontSizeMultiplier={maxFontSizeMultiplier}
-          style={[styles.textInput, dynamicInputStyle, style]}
-        />
+        {/* Text Input / Value View */}
+        {horizontalScroll && onPress && hasValue ? (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            nestedScrollEnabled
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.horizontalScrollContent}
+            style={styles.horizontalScrollView}
+          >
+            <Pressable onPress={onPress} style={styles.scrollablePressable}>
+              <AppText
+                variant="body"
+                color={theme.colors.textPrimary}
+                style={[dynamicInputStyle, styles.horizontalScrollText]}
+              >
+                {singleLineValue}
+              </AppText>
+            </Pressable>
+          </ScrollView>
+        ) : (
+          <TextInput
+            {...props}
+            value={value}
+            editable={onPress ? false : props.editable}
+            pointerEvents={onPress ? 'none' : undefined}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            secureTextEntry={isSecure}
+            maxFontSizeMultiplier={maxFontSizeMultiplier}
+            style={[
+              styles.textInput,
+              dynamicInputStyle,
+              onPress && { color: theme.colors.textPrimary },
+              style,
+            ]}
+          />
+        )}
       </View>
 
       {/* Right Element or Password Toggle */}
       {rightElement ? (
-        <View style={{ marginStart: theme.spacing.sm }}>{rightElement}</View>
+        <View
+          pointerEvents={onPress ? 'none' : undefined}
+          style={{ marginStart: theme.spacing.sm }}
+        >
+          {rightElement}
+        </View>
       ) : hasPasswordMode ? (
-        <TouchableOpacity
+        <Pressable
           onPress={() => setShowPassword(prev => !prev)}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           style={{ marginStart: theme.spacing.sm }}
@@ -173,9 +245,9 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
               ? t(TRANSLATION_KEYS.COMMON_HIDE)
               : t(TRANSLATION_KEYS.COMMON_SHOW)}
           </AppText>
-        </TouchableOpacity>
+        </Pressable>
       ) : null}
-    </View>
+    </ContainerComponent>
   );
 };
 
@@ -209,5 +281,21 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     padding: 0,
     textAlignVertical: 'center',
+  },
+  horizontalScrollView: {
+    flex: 1,
+    height: '100%',
+  },
+  horizontalScrollContent: {
+    alignItems: 'center',
+    paddingRight: ms(16),
+  },
+  scrollablePressable: {
+    height: '100%',
+    justifyContent: 'center',
+  },
+  horizontalScrollText: {
+    paddingBottom: 0,
+    includeFontPadding: false,
   },
 });

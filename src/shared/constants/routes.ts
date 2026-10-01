@@ -29,6 +29,10 @@ export const MAIN_ROUTES = {
   CHAT_CONVERSATION: 'ChatConversation',
   SETTINGS: 'Settings',
   EDIT_PROFILE: 'EditProfile',
+  EDIT_PROFILE_NAME: 'EditProfileName',
+  EDIT_PROFILE_USERNAME: 'EditProfileUsername',
+  EDIT_PROFILE_BIO: 'EditProfileBio',
+  EDIT_PROFILE_LINKS: 'EditProfileLinks',
   NOTIFICATIONS: 'Notifications',
   USER_PROFILE: 'UserProfile',
 } as const;

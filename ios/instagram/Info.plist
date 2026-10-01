@@ -35,6 +35,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow Instagram to take photos for your profile and posts.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow Instagram to select photos from your library for your profile and posts.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash</string>
 	<key>UIRequiredDeviceCapabilities</key>

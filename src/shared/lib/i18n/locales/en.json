@@ -84,7 +84,32 @@
     "dark": "Dark"
   },
   "profile": {
-    "title": "Profile"
+    "title": "Profile",
+    "editProfile": "Edit profile",
+    "editPicture": "Edit picture or avatar",
+    "takePhoto": "Take photo",
+    "chooseLibrary": "Choose from library",
+    "removePicture": "Remove current picture",
+    "name": "Name",
+    "nameSubtitle": "Help people discover your account by using the name you're known by: either your full name, nickname, or business name.",
+    "namePlaceholder": "Name",
+    "username": "Username",
+    "usernameSubtitle": "You'll be able to change your username back to your old one for 14 days in most cases.",
+    "bio": "Bio",
+    "bioPlaceholder": "Bio",
+    "links": "Links",
+    "linksPlaceholder": "Website",
+    "gender": "Gender",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "genderCustom": "Custom",
+    "genderPreferNotToSay": "Prefer not to say",
+    "updateSuccess": "Profile updated successfully.",
+    "avatarUpdateSuccess": "Profile picture updated.",
+    "avatarRemoveSuccess": "Profile picture removed.",
+    "nameMaxLength": "Name must be 50 characters or less.",
+    "bioMaxLength": "Bio must be 150 characters or less.",
+    "invalidWebsite": "Please enter a valid website URL."
   },
   "errors": {
     "INVALID_CREDENTIALS": "Invalid username or password.",
