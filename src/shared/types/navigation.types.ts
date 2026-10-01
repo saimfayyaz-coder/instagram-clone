@@ -32,6 +32,10 @@ export type MainStackParamList = {
   [MAIN_ROUTES.CHAT_CONVERSATION]?: { conversationId?: string; username?: string };
   [MAIN_ROUTES.SETTINGS]: undefined;
   [MAIN_ROUTES.EDIT_PROFILE]?: undefined;
+  [MAIN_ROUTES.EDIT_PROFILE_NAME]?: undefined;
+  [MAIN_ROUTES.EDIT_PROFILE_USERNAME]?: undefined;
+  [MAIN_ROUTES.EDIT_PROFILE_BIO]?: undefined;
+  [MAIN_ROUTES.EDIT_PROFILE_LINKS]?: undefined;
   [MAIN_ROUTES.NOTIFICATIONS]?: undefined;
   [MAIN_ROUTES.USER_PROFILE]?: { userId?: string; username?: string };
 };

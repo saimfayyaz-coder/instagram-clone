@@ -6,6 +6,7 @@ import { MAIN_ROUTES } from '@/shared/constants';
 import { MainTabNavigator } from './MainTabNavigator';
 import { SettingsPage } from '@/pages/main/settings';
 import { ChatConversationPage } from '@/pages/main/chat';
+import { EditProfilePage } from '@/pages/main/profile';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
@@ -20,6 +21,11 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen name={MAIN_ROUTES.TABS} component={MainTabNavigator} />
       <Stack.Screen name={MAIN_ROUTES.SETTINGS} component={SettingsPage} />
       <Stack.Screen name={MAIN_ROUTES.CHAT_CONVERSATION} component={ChatConversationPage} />
+      <Stack.Screen
+        name={MAIN_ROUTES.EDIT_PROFILE}
+        component={EditProfilePage}
+        options={{ animation: 'slide_from_bottom' }}
+      />
     </Stack.Navigator>
   );
 };
