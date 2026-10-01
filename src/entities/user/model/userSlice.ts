@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, isAnyOf } from '@reduxjs/toolkit';
 import { User, UserState } from './types';
 import { userApi } from '../api/userApi';
 
@@ -11,7 +11,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User | null>) => {
-      state.currentUser = action.payload;
+      if (action.payload === null) {
+        state.currentUser = null;
+      } else {
+        state.currentUser = { ...(state.currentUser || {}), ...action.payload } as User;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -20,9 +24,14 @@ export const userSlice = createSlice({
         state.currentUser = null;
       })
       .addMatcher(
-        userApi.endpoints.getCurrentUser.matchFulfilled,
+        isAnyOf(
+          userApi.endpoints.getCurrentUser.matchFulfilled,
+          userApi.endpoints.updateProfile.matchFulfilled,
+          userApi.endpoints.uploadAvatar.matchFulfilled,
+          userApi.endpoints.deleteAvatar.matchFulfilled,
+        ),
         (state, action) => {
-          state.currentUser = action.payload.data.user;
+          state.currentUser = { ...(state.currentUser || {}), ...action.payload.data.user } as User;
         },
       );
   },
