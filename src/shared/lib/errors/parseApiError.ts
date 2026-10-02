@@ -1,6 +1,6 @@
 import i18n from '../i18n/i18n';
 import { TRANSLATION_KEYS } from '../i18n/translationKeys';
-import { API_ERROR_CODES } from '@/shared/constants';
+import { API_ERROR_CODES, HTTP_STATUS } from '@/shared/constants';
 import type { AppError } from '@/shared/types/errors.types';
 
 export interface ParsedApiError extends AppError {
@@ -26,6 +26,19 @@ export function parseApiError(error: unknown): ParsedApiError {
         message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
         code: API_ERROR_CODES.TIMEOUT_ERROR,
         status: 0,
+        raw: error,
+      };
+    }
+
+    if (err.status === API_ERROR_CODES.PARSING_ERROR) {
+      const httpStatus =
+        typeof err.originalStatus === 'number'
+          ? err.originalStatus
+          : HTTP_STATUS.INTERNAL_SERVER_ERROR;
+      return {
+        message: i18n.t(TRANSLATION_KEYS.ERROR_SERVER),
+        code: API_ERROR_CODES.SERVER_ERROR,
+        status: httpStatus,
         raw: error,
       };
     }
@@ -68,7 +81,12 @@ export function parseApiError(error: unknown): ParsedApiError {
     return {
       message,
       code: serverCode,
-      status: typeof err.status === 'number' ? err.status : undefined,
+      status:
+        typeof err.status === 'number'
+          ? err.status
+          : typeof err.originalStatus === 'number'
+          ? err.originalStatus
+          : undefined,
       fieldErrors,
       raw: error,
     };

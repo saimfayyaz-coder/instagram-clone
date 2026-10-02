@@ -29,21 +29,18 @@ export const AppText: React.FC<AppTextProps> = ({
         return {
           fontSize: theme.typography.fontSizes.hero,
           lineHeight: theme.typography.lineHeights.hero,
-          fontWeight: theme.typography.fontWeights.bold,
           color: color || theme.colors.textPrimary,
         };
       case 'heading':
         return {
           fontSize: theme.typography.fontSizes.xxl,
           lineHeight: theme.typography.lineHeights.xxl,
-          fontWeight: theme.typography.fontWeights.bold,
           color: color || theme.colors.textPrimary,
         };
       case 'subheading':
         return {
           fontSize: theme.typography.fontSizes.lg,
           lineHeight: theme.typography.lineHeights.lg,
-          fontWeight: theme.typography.fontWeights.semibold,
           color: color || theme.colors.textPrimary,
         };
       case 'caption':
@@ -56,7 +53,6 @@ export const AppText: React.FC<AppTextProps> = ({
         return {
           fontSize: theme.typography.fontSizes.md,
           lineHeight: theme.typography.lineHeights.md,
-          fontWeight: theme.typography.fontWeights.semibold,
           color: color || theme.colors.textLink,
         };
       case 'error':
@@ -75,16 +71,12 @@ export const AppText: React.FC<AppTextProps> = ({
     }
   };
 
-  const getWeightStyle = () => {
-    if (!weight) return null;
-    return { fontWeight: theme.typography.fontWeights[weight] };
-  };
-
   const getFontFamily = () => {
     if (variant === 'hero') {
       return theme.typography.fontFamilies.headline;
     }
-    const resolvedWeight = weight || (variant === 'heading' || variant === 'subheading' ? 'semibold' : 'regular');
+    const resolvedWeight =
+      weight || (variant === 'heading' ? 'bold' : variant === 'subheading' ? 'semibold' : 'regular');
     switch (resolvedWeight) {
       case 'bold':
         return theme.typography.fontFamilies.bold;
@@ -102,11 +94,13 @@ export const AppText: React.FC<AppTextProps> = ({
       maxFontSizeMultiplier={maxFontSizeMultiplier}
       style={[
         styles.base,
-        { fontFamily: getFontFamily() },
         getVariantStyle(),
-        getWeightStyle(),
         { textAlign: align },
         style,
+        {
+          fontFamily: getFontFamily(),
+          fontWeight: undefined,
+        },
       ]}
       {...props}
     >

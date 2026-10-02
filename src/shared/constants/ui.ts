@@ -34,3 +34,17 @@ export const LOGO_VARIANTS = {
 
 export type LogoVariant = (typeof LOGO_VARIANTS)[keyof typeof LOGO_VARIANTS];
 
+export const APP_ICONS = {
+  CHECKMARK_CIRCLE: 'checkmark-circle',
+  CLOSE_CIRCLE: 'close-circle',
+  CHECKMARK: 'checkmark',
+  CHEVRON_DOWN: 'chevron-down',
+  CHEVRON_FORWARD: 'chevron-forward',
+  LINK: 'link-outline',
+  CAMERA: 'camera-outline',
+  IMAGES: 'images-outline',
+  TRASH: 'trash-outline',
+} as const;
+
+export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];
+

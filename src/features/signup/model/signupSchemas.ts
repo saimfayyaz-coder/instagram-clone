@@ -2,21 +2,19 @@ import { z } from 'zod';
 import type { TFunction } from 'i18next';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-
 import { createPasswordSchema } from '@/entities/password';
+import {
+  createUsernameSchema,
+  USERNAME_REGEX,
+  USERNAME_MIN_LENGTH,
+  USERNAME_MAX_LENGTH,
+} from '@/entities/user';
 
-export const USERNAME_REGEX = /^[a-zA-Z0-9._]+$/;
-export const USERNAME_MIN_LENGTH = 3;
-export const USERNAME_MAX_LENGTH = 30;
+export { USERNAME_REGEX, USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH };
 
 export const createStep1UsernameSchema = (t: TFunction = i18n.t) =>
   z.object({
-    username: z
-      .string()
-      .trim()
-      .min(USERNAME_MIN_LENGTH, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_MIN_LENGTH))
-      .max(USERNAME_MAX_LENGTH, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_MAX_LENGTH))
-      .regex(USERNAME_REGEX, t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_INVALID_CHARS)),
+    username: createUsernameSchema(t),
   });
 
 export const createStep2PasswordSchema = createPasswordSchema;

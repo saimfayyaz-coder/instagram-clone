@@ -25,6 +25,10 @@ export const ProfilePage: React.FC = () => {
     navigation.navigate(MAIN_ROUTES.SETTINGS);
   }, [navigation]);
 
+  const handleNavigateToEditProfile = React.useCallback(() => {
+    navigation.navigate(MAIN_ROUTES.EDIT_PROFILE);
+  }, [navigation]);
+
   const rightActions = React.useMemo(
     () => [headerActions.menu(handleOpenSettings)],
     [handleOpenSettings],
@@ -56,6 +60,13 @@ export const ProfilePage: React.FC = () => {
         ) : null}
 
         <Button
+          title={t(TRANSLATION_KEYS.PROFILE_EDIT_PROFILE)}
+          variant="secondary"
+          onPress={handleNavigateToEditProfile}
+          style={styles.editProfileBtn}
+        />
+
+        <Button
           title="Logout"
           variant="primary"
           loading={isLoading}
@@ -79,6 +90,11 @@ const styles = StyleSheet.create({
   },
   emailText: {
     marginBottom: ms(24),
+  },
+  editProfileBtn: {
+    width: '100%',
+    maxWidth: ms(280),
+    marginBottom: ms(12),
   },
   logoutBtn: {
     width: '100%',

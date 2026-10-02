@@ -11,13 +11,14 @@ import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 
 export interface FormFieldProps
-  extends Omit<FloatingInputProps, 'label' | 'onBlur'>,
-  Omit<InputProps, 'rightElement' | 'onBlur'> {
+  extends Omit<FloatingInputProps, 'label' | 'onBlur' | 'onPress'>,
+  Omit<InputProps, 'rightElement' | 'onBlur' | 'onPress'> {
   label?: string;
   errorMessage?: string;
   isPassword?: boolean;
   floating?: boolean;
   rightElement?: React.ReactNode;
+  onPress?: () => void;
   onBlur?: (e?: any) => void;
 }
 

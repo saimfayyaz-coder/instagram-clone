@@ -84,7 +84,32 @@
     "dark": "Oscuro"
   },
   "profile": {
-    "title": "Perfil"
+    "title": "Perfil",
+    "editProfile": "Editar perfil",
+    "editPicture": "Editar foto o avatar",
+    "takePhoto": "Tomar foto",
+    "chooseLibrary": "Elegir de la galería",
+    "removePicture": "Eliminar foto actual",
+    "name": "Nombre",
+    "nameSubtitle": "Ayuda a las personas a descubrir tu cuenta mediante el nombre por el que te conocen.",
+    "namePlaceholder": "Nombre",
+    "username": "Nombre de usuario",
+    "usernameSubtitle": "Podrás volver a cambiar a tu nombre de usuario anterior durante 14 días.",
+    "bio": "Presentación",
+    "bioPlaceholder": "Presentación",
+    "links": "Enlaces",
+    "linksPlaceholder": "Sitio web",
+    "gender": "Género",
+    "genderMale": "Hombre",
+    "genderFemale": "Mujer",
+    "genderCustom": "Personalizado",
+    "genderPreferNotToSay": "Prefiero no decirlo",
+    "updateSuccess": "Perfil actualizado con éxito.",
+    "avatarUpdateSuccess": "Foto de perfil actualizada.",
+    "avatarRemoveSuccess": "Foto de perfil eliminada.",
+    "nameMaxLength": "El nombre debe tener 50 caracteres o menos.",
+    "bioMaxLength": "La biografía debe tener 150 caracteres o menos.",
+    "invalidWebsite": "Por favor, introduce una URL de sitio web válida."
   },
   "errors": {
     "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos.",

@@ -1,18 +1,18 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button, Icon, AppLoader } from '@/shared/components/atoms';
 import { FormField, AuthStepHeader } from '@/shared/components/molecules';
-import { useTheme, useDebouncedCallback } from '@/shared/hooks';
+import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { useLazyCheckUsernameQuery } from '../../api/signupApi';
+import { APP_ICONS } from '@/shared/constants/ui';
+import { useUsernameAvailability } from '@/entities/user';
 import {
   createStep1UsernameSchema,
   Step1UsernameSchemaType,
-  USERNAME_MIN_LENGTH,
 } from '../../model/signupSchemas';
 
 export interface StepUsernameProps {
@@ -27,8 +27,13 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [triggerCheck, { isFetching }] = useLazyCheckUsernameQuery();
+  const {
+    isAvailable,
+    isChecking,
+    availabilityError,
+    checkAvailability,
+    verifyImmediate,
+  } = useUsernameAvailability({ debounceMs: 400 });
 
   const schema = useMemo(() => createStep1UsernameSchema(t), [t]);
 
@@ -46,86 +51,50 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
     },
   });
 
-  const { debouncedCallback: debouncedCheck, cancel: cancelDebounce } =
-    useDebouncedCallback(async (username: string) => {
-      if (username.length < USERNAME_MIN_LENGTH) return;
-
-      try {
-        const res = await triggerCheck(username).unwrap();
-        const available = res.data?.isAvailable ?? false;
-        setIsAvailable(available);
-        if (!available) {
-          setError('username', {
-            type: 'manual',
-            message: t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN),
-          });
-        } else {
-          clearErrors('username');
-        }
-      } catch {
-        setIsAvailable(null);
-      }
-    }, 400);
-
-  const checkAvailability = (username: string) => {
-    setIsAvailable(null);
-    debouncedCheck(username);
-  };
-
-  const handleNext = handleSubmit(async values => {
-    cancelDebounce();
+  const handleNext = handleSubmit(async (values) => {
     const cleanUsername = values.username.trim();
 
-    // If already checked and unavailable
-    if (isAvailable === false) {
+    if (isAvailable === false && availabilityError) {
       setError('username', {
         type: 'manual',
-        message: t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN),
+        message: availabilityError,
       });
       return;
     }
 
-    // If available already confirmed, proceed
     if (isAvailable === true) {
       onNext(cleanUsername);
       return;
     }
 
-    // If not checked yet, check now
-    try {
-      const res = await triggerCheck(cleanUsername).unwrap();
-      const available = res.data?.isAvailable ?? false;
-      setIsAvailable(available);
-
-      if (available) {
-        onNext(cleanUsername);
-      } else {
-        setError('username', {
-          type: 'manual',
-          message: t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN),
-        });
-      }
-    } catch {
+    const available = await verifyImmediate(cleanUsername);
+    if (available) {
       onNext(cleanUsername);
+    } else {
+      setError('username', {
+        type: 'manual',
+        message:
+          availabilityError || t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN),
+      });
     }
   });
 
-  const renderRightElement = () => {
-    if (isFetching) {
+  const renderRightElement = useCallback(() => {
+    if (isChecking) {
       return <AppLoader size="small" />;
     }
     if (isAvailable === true && !errors.username) {
       return (
         <Icon
           type="Ionicons"
-          name="checkmark-circle"
+          name={APP_ICONS.CHECKMARK_CIRCLE}
           size={20}
           color={theme.colors.success}
         />
       );
     }
     return null;
-  };
+  }, [isChecking, isAvailable, errors.username, theme.colors.success]);
 
   return (
     <View style={authStepStyles.container}>
@@ -144,13 +113,14 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
           <FormField
             label={t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_LABEL)}
             value={value}
-            onChangeText={text => {
+            onChangeText={(text) => {
               const clean = text.toLowerCase().replace(/\s/g, '');
               onChange(clean);
+              clearErrors('username');
               checkAvailability(clean);
             }}
             onBlur={onBlur}
-            errorMessage={error?.message}
+            errorMessage={error?.message || availabilityError || undefined}
             autoCapitalize="none"
             autoCorrect={false}
             rightElement={renderRightElement()}
@@ -162,8 +132,10 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
       <Button
         title={t(TRANSLATION_KEYS.COMMON_NEXT)}
         variant="primary"
-        onPress={() => handleNext()}
-        loading={isFetching}
+        onPress={() => {
+          handleNext();
+        }}
+        loading={isChecking}
         style={{ marginTop: theme.spacing.xs }}
       />
     </View>
