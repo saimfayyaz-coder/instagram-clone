@@ -16,7 +16,7 @@ export const ToastOverlay: React.FC = () => {
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
-  const { visible, message, duration } = useAppSelector(state => state.toast);
+  const { visible, message, duration, position } = useAppSelector(state => state.toast);
 
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
@@ -73,13 +73,17 @@ export const ToastOverlay: React.FC = () => {
     return null;
   }
 
+  const isMiddle = position === 'middle';
+
   return (
     <View
       pointerEvents="box-none"
       style={[
         styles.container,
         commonStyles.center,
-        { bottom: Math.max(insets.bottom + ms(16), ms(24)) },
+        isMiddle
+          ? styles.middleContainer
+          : { bottom: Math.max(insets.bottom + ms(16), ms(24)) },
       ]}
     >
       <Animated.View
@@ -116,6 +120,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 9999,
+  },
+  middleContainer: {
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
   },
   pill: {
     paddingHorizontal: ms(20),
