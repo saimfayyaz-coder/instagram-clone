@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import { useTranslation } from 'react-i18next';
 import { AppText, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface UsernameStatusBadgeProps {
   isChecking: boolean;
@@ -15,6 +17,7 @@ export const UsernameStatusBadge: React.FC<UsernameStatusBadgeProps> = ({
   isAvailable,
   errorMessage,
 }) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
 
   if (isChecking) {
@@ -52,7 +55,7 @@ export const UsernameStatusBadge: React.FC<UsernameStatusBadgeProps> = ({
           weight="semibold"
           color={theme.colors.success}
         >
-          Username is available
+          {t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_AVAILABLE)}
         </AppText>
       </View>
     );

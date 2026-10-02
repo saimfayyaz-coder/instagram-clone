@@ -6,27 +6,15 @@ import { AppModalBottomSheet } from '@/shared/components/molecules';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { ms } from '@/shared/theme';
-import { APP_ICONS } from '@/shared/constants';
+import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { GenderType } from '@/entities/user';
+import { GenderType, GenderOption, GENDER_OPTIONS } from '@/entities/user';
 
 export interface GenderSelectionBottomSheetProps {
   bottomSheetRef: React.RefObject<BottomSheetModal | null>;
   currentGender?: GenderType;
   onSelect: (gender: GenderType) => void;
 }
-
-interface GenderOption {
-  key: GenderType;
-  labelKey: TRANSLATION_KEYS;
-}
-
-const GENDER_OPTIONS: GenderOption[] = [
-  { key: 'female', labelKey: TRANSLATION_KEYS.PROFILE_GENDER_FEMALE },
-  { key: 'male', labelKey: TRANSLATION_KEYS.PROFILE_GENDER_MALE },
-  { key: 'custom', labelKey: TRANSLATION_KEYS.PROFILE_GENDER_CUSTOM },
-  { key: 'prefer_not_to_say', labelKey: TRANSLATION_KEYS.PROFILE_GENDER_PREFER_NOT_TO_SAY },
-];
 
 interface GenderOptionRowProps {
   option: GenderOption;
@@ -47,6 +35,7 @@ const GenderOptionRow: React.FC<GenderOptionRowProps> = React.memo(
         style={styles.optionRow}
         onPress={handlePress}
         activeOpacity={0.7}
+        accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
       >
         <AppText
           variant="body"

@@ -7,7 +7,10 @@
     "next": "اگلا",
     "back": "پیچھے",
     "show": "دیکھیں",
-    "hide": "چھپائیں"
+    "hide": "چھپائیں",
+    "ok": "ٹھیک ہے",
+    "cancel": "منسوخ کریں",
+    "save": "محفوظ کریں"
   },
   "auth": {
     "login": {
@@ -33,6 +36,7 @@
       "usernameMaxLength": "صارف نام 30 حروف سے زیادہ نہیں ہو سکتا۔",
       "usernameInvalidChars": "صارف نام میں صرف حروف، اعداد، اور ڈاٹ شامل ہو سکتے ہیں۔",
       "usernameTaken": "یہ صارف نام پہلے سے زیر استعمال ہے۔",
+      "usernameAvailable": "صارف نام دستیاب ہے",
       "step2Title": "پاس ورڈ بنائیں",
       "step2Subtitle": "کم از کم 6 حروف کا پاس ورڈ بنائیں۔",
       "confirmPasswordLabel": "پاس ورڈ کی تصدیق کریں",
@@ -107,9 +111,14 @@
     "updateSuccess": "پروفائل کامیابی سے تبدیل ہو گیا۔",
     "avatarUpdateSuccess": "پروفائل تصویر اپ ڈیٹ ہو گئی۔",
     "avatarRemoveSuccess": "پروفائل تصویر ہٹا دی گئی۔",
+    "avatarUpdateErrorTitle": "پروفائل تصویر اپ ڈیٹ نہیں ہو سکی",
+    "avatarRemoveErrorTitle": "پروفائل تصویر ہٹائی نہیں جا سکی",
+    "avatarNetworkError": "براہ کرم اپنا انٹرنیٹ کنکشن چیک کریں اور دوبارہ کوشش کریں۔",
     "nameMaxLength": "نام 50 حروف یا اس سے کم ہونا چاہیے۔",
     "bioMaxLength": "بائیو 150 حروف یا اس سے کم ہونی چاہیے۔",
-    "invalidWebsite": "براہ کرم ایک درست ویب سائٹ URL درج کریں۔"
+    "invalidWebsite": "براہ کرم ایک درست ویب سائٹ URL درج کریں۔",
+    "addLink": "ربط شامل کریں",
+    "websiteLabel": "URL"
   },
   "errors": {
     "INVALID_CREDENTIALS": "غلط صارف نام یا پاس ورڈ۔",
