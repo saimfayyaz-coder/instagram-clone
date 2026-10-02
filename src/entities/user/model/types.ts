@@ -1,6 +1,8 @@
-export type GenderType = 'male' | 'female' | 'custom' | 'prefer_not_to_say';
+import { GenderType, GenderOption } from './constants';
 
-export interface UserAvatar {
+export type { GenderType, GenderOption };
+
+export interface UserAvatarData {
   url: string;
   publicId?: string;
 }
@@ -11,7 +13,7 @@ export interface User {
   email: string;
   name?: string;
   fullName?: string;
-  avatar?: UserAvatar | null;
+  avatar?: UserAvatarData | null;
   avatarUrl?: string | null;
   bio?: string;
   website?: string;
@@ -34,4 +36,5 @@ export interface CheckUsernameResponseData {
 
 export interface UserState {
   currentUser: User | null;
+  isAvatarUpdating?: boolean;
 }

@@ -1,5 +1,6 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
+import { API_ENDPOINTS, HTTP_METHODS } from '@/shared/constants';
 import { RefreshTokenRequest, RefreshTokenData, LogoutRequest } from '../model/types';
 
 export const sessionApi = baseApi.injectEndpoints({
@@ -9,16 +10,16 @@ export const sessionApi = baseApi.injectEndpoints({
       RefreshTokenRequest
     >({
       query: (data) => ({
-        url: '/auth/refresh-token',
-        method: 'POST',
+        url: API_ENDPOINTS.AUTH.REFRESH_TOKEN,
+        method: HTTP_METHODS.POST,
         body: data,
       }),
       invalidatesTags: ['Session'],
     }),
     logout: builder.mutation<ApiSuccessResponse<null>, LogoutRequest>({
       query: (data) => ({
-        url: '/auth/logout',
-        method: 'POST',
+        url: API_ENDPOINTS.AUTH.LOGOUT,
+        method: HTTP_METHODS.POST,
         body: data,
       }),
       invalidatesTags: ['Session', 'User'],

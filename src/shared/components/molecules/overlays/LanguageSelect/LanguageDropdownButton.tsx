@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
+import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { AVAILABLE_LANGUAGES } from './LanguageSelectModal';
 
 export interface LanguageDropdownButtonProps {
@@ -29,7 +30,7 @@ export const LanguageDropdownButton: React.FC<LanguageDropdownButtonProps> = ({
       onPress={onPress}
       activeOpacity={0.7}
       style={[styles.container, style]}
-      accessibilityRole="button"
+      accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
       accessibilityLabel={`Select language, current: ${currentLang.nativeName}`}
     >
       <AppText

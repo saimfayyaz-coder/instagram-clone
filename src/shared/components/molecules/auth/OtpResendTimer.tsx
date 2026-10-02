@@ -5,6 +5,7 @@ import { AppText, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme/scaling';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 
 export interface OtpResendTimerProps {
   secondsLeft: number;
@@ -32,7 +33,7 @@ export const OtpResendTimer: React.FC<OtpResendTimerProps> = ({
         <TouchableOpacity
           onPress={onResend}
           hitSlop={{ top: ms(8), bottom: ms(8), left: ms(8), right: ms(8) }}
-          accessibilityRole="button"
+          accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         >
           <AppText
             variant="body"

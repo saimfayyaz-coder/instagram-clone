@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
-import { APP_ICONS } from '@/shared/constants';
+import { APP_ICONS, ACCESSIBILITY_ROLES, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
@@ -40,8 +40,9 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
           onPress={onAddLink}
           activeOpacity={0.7}
           style={styles.addButton}
-          accessibilityRole="button"
-          accessibilityLabel="Add link"
+          accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+          accessibilityLabel={t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
+          testID={TEST_IDS.EDIT_PROFILE.ADD_LINK_BUTTON}
         >
           <AppText
             variant="body"
@@ -49,7 +50,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
             color={theme.colors.actionPrimary}
             style={styles.addText}
           >
-            Add link
+            {t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
           </AppText>
         </TouchableOpacity>
       </View>
