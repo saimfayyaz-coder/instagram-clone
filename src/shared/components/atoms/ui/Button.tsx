@@ -12,7 +12,7 @@ import {
 import { useTheme } from '@/shared/hooks/useTheme';
 import { AppText } from './AppText';
 import { AppLoader } from '../loader/AppLoader';
-import { BUTTON_VARIANTS, ButtonVariant } from '@/shared/constants';
+import { BUTTON_VARIANTS, ButtonVariant, ACCESSIBILITY_ROLES } from '@/shared/constants';
 
 export type { ButtonVariant };
 
@@ -121,7 +121,7 @@ export const Button: React.FC<ButtonProps> = ({
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       style={[styles.pressable, style]}
-      accessibilityRole="button"
+      accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
       accessibilityState={{ disabled: !!disabled, busy: !!loading }}
       {...props}
     >

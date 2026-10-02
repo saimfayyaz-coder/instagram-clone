@@ -15,6 +15,7 @@ import { AppText, Icon } from '@/shared/components/atoms';
 import {
   HEADER_LEFT_ICON_TYPE,
   HeaderLeftIconType,
+  ACCESSIBILITY_ROLES,
 } from '@/shared/constants';
 
 export type { HeaderLeftIconType };
@@ -242,7 +243,7 @@ export const AppHeader: React.FC<AppHeaderProps> = React.memo(({
                     styles.iconButton,
                     index > 0 && styles.rightActionSpacing,
                   ]}
-                  accessibilityRole="button"
+                  accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
                   accessibilityLabel={action.accessibilityLabel}
                   testID={action.testID}
                 >

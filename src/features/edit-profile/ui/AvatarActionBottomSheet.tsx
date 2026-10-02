@@ -1,117 +1,62 @@
-import React, { useState, useCallback } from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import React, { useCallback } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { AppModalBottomSheet } from '@/shared/components/molecules';
-import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
-import { useTheme, useToast } from '@/shared/hooks';
+import { AppText, Icon } from '@/shared/components/atoms';
+import { useTheme } from '@/shared/hooks';
 import { useMediaPicker, PickedImage } from '@/shared/hooks/useMediaPicker';
 import { ms } from '@/shared/theme';
 import { APP_ICONS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { useUploadAvatarMutation, useDeleteAvatarMutation } from '@/entities/user';
 
 export interface AvatarActionBottomSheetProps {
   bottomSheetRef: React.RefObject<BottomSheetModal | null>;
   hasAvatar: boolean;
-  onSuccess?: () => void;
+  onSelectImage: (image: PickedImage) => void;
+  onRemoveAvatar: () => void;
 }
 
 export const AvatarActionBottomSheet: React.FC<AvatarActionBottomSheetProps> = ({
   bottomSheetRef,
   hasAvatar,
-  onSuccess,
+  onSelectImage,
+  onRemoveAvatar,
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const { showToast } = useToast();
   const { pickAvatarFromGallery, captureAvatarFromCamera } = useMediaPicker();
-  const [isPicking, setIsPicking] = useState(false);
-
-  const [uploadAvatar, { isLoading: isUploading }] = useUploadAvatarMutation();
-  const [deleteAvatar, { isLoading: isDeleting }] = useDeleteAvatarMutation();
-
-  const isBusy = isPicking || isUploading || isDeleting;
 
   const handleDismiss = useCallback(() => {
     bottomSheetRef.current?.dismiss();
   }, [bottomSheetRef]);
 
-  const handleUploadImage = useCallback(
-    async (image: PickedImage) => {
-      try {
-        const formData = new FormData();
-        const fileUri =
-          Platform.OS === 'android' ? image.uri : image.uri.replace('file://', '');
-
-        formData.append('avatar', {
-          uri: fileUri,
-          name: image.fileName || `avatar-${Date.now()}.jpg`,
-          type: image.type || 'image/jpeg',
-        } as any);
-
-        await uploadAvatar(formData).unwrap();
-        // Instagram-style: no success toast, sheet closes smoothly
-        handleDismiss();
-        onSuccess?.();
-      } catch (err: any) {
-        showToast({
-          message: err?.data?.message || 'Failed to update profile picture',
-          type: 'error',
-        });
-      }
-    },
-    [uploadAvatar, showToast, handleDismiss, onSuccess],
-  );
-
   const handleTakePhoto = useCallback(async () => {
-    try {
-      setIsPicking(true);
-      const image = await captureAvatarFromCamera();
-      if (image) {
-        await handleUploadImage(image);
-      }
-    } finally {
-      setIsPicking(false);
+    const image = await captureAvatarFromCamera();
+    if (image) {
+      handleDismiss();
+      onSelectImage(image);
     }
-  }, [captureAvatarFromCamera, handleUploadImage]);
+  }, [captureAvatarFromCamera, handleDismiss, onSelectImage]);
 
   const handleChooseFromLibrary = useCallback(async () => {
-    try {
-      setIsPicking(true);
-      const image = await pickAvatarFromGallery();
-      if (image) {
-        await handleUploadImage(image);
-      }
-    } finally {
-      setIsPicking(false);
-    }
-  }, [pickAvatarFromGallery, handleUploadImage]);
-
-  const handleRemoveAvatar = useCallback(async () => {
-    try {
-      await deleteAvatar().unwrap();
-      // Instagram-style: no success toast, sheet closes smoothly
+    const image = await pickAvatarFromGallery();
+    if (image) {
       handleDismiss();
-      onSuccess?.();
-    } catch (err: any) {
-      showToast({
-        message: err?.data?.message || 'Failed to remove profile picture',
-        type: 'error',
-      });
+      onSelectImage(image);
     }
-  }, [deleteAvatar, showToast, handleDismiss, onSuccess]);
+  }, [pickAvatarFromGallery, handleDismiss, onSelectImage]);
+
+  const handleRemove = useCallback(() => {
+    handleDismiss();
+    onRemoveAvatar();
+  }, [handleDismiss, onRemoveAvatar]);
 
   return (
     <AppModalBottomSheet
       ref={bottomSheetRef as any}
       enableDynamicSizing
-      enablePanDownToClose={!isBusy}
+      enablePanDownToClose
     >
       <BottomSheetView style={styles.sheetContainer}>
         {/* Title bar */}
@@ -121,76 +66,68 @@ export const AvatarActionBottomSheet: React.FC<AvatarActionBottomSheetProps> = (
           </AppText>
         </View>
 
-        {isBusy ? (
-          <View style={styles.loaderContainer}>
-            <AppLoader size="small" />
-          </View>
-        ) : (
-          <View style={styles.optionsList}>
-            {/* Take Photo */}
+        <View style={styles.optionsList}>
+
+          <TouchableOpacity
+            style={styles.optionRow}
+            onPress={handleTakePhoto}
+            activeOpacity={0.7}
+          >
+            <View style={styles.iconWrapper}>
+              <Icon
+                type="Ionicons"
+                name={APP_ICONS.CAMERA}
+                size={24}
+                color={theme.colors.textPrimary}
+              />
+            </View>
+            <AppText variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
+              {t(TRANSLATION_KEYS.PROFILE_TAKE_PHOTO)}
+            </AppText>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.optionRow}
+            onPress={handleChooseFromLibrary}
+            activeOpacity={0.7}
+          >
+            <View style={styles.iconWrapper}>
+              <Icon
+                type="Ionicons"
+                name={APP_ICONS.IMAGES}
+                size={24}
+                color={theme.colors.textPrimary}
+              />
+            </View>
+            <AppText variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
+              {t(TRANSLATION_KEYS.PROFILE_CHOOSE_LIBRARY)}
+            </AppText>
+          </TouchableOpacity>
+
+          {hasAvatar && (
             <TouchableOpacity
               style={styles.optionRow}
-              onPress={handleTakePhoto}
+              onPress={handleRemove}
               activeOpacity={0.7}
             >
               <View style={styles.iconWrapper}>
                 <Icon
                   type="Ionicons"
-                  name={APP_ICONS.CAMERA}
+                  name={APP_ICONS.TRASH}
                   size={24}
-                  color={theme.colors.textPrimary}
-                />
-              </View>
-              <AppText variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
-                {t(TRANSLATION_KEYS.PROFILE_TAKE_PHOTO)}
-              </AppText>
-            </TouchableOpacity>
-
-            {/* Choose from Library */}
-            <TouchableOpacity
-              style={styles.optionRow}
-              onPress={handleChooseFromLibrary}
-              activeOpacity={0.7}
-            >
-              <View style={styles.iconWrapper}>
-                <Icon
-                  type="Ionicons"
-                  name={APP_ICONS.IMAGES}
-                  size={24}
-                  color={theme.colors.textPrimary}
-                />
-              </View>
-              <AppText variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
-                {t(TRANSLATION_KEYS.PROFILE_CHOOSE_LIBRARY)}
-              </AppText>
-            </TouchableOpacity>
-
-            {/* Remove Current Picture (destructive) */}
-            {hasAvatar && (
-              <TouchableOpacity
-                style={styles.optionRow}
-                onPress={handleRemoveAvatar}
-                activeOpacity={0.7}
-              >
-                <View style={styles.iconWrapper}>
-                  <Icon
-                    type="Ionicons"
-                    name={APP_ICONS.TRASH}
-                    size={24}
-                    color={theme.colors.error}
-                  />
-                </View>
-                <AppText
-                  variant="body"
                   color={theme.colors.error}
-                  style={styles.optionText}
-                >
-                  {t(TRANSLATION_KEYS.PROFILE_REMOVE_PICTURE)}
-                </AppText>
-              </TouchableOpacity>
-            )}
-          </View>
-        )}
+                />
+              </View>
+              <AppText
+                variant="body"
+                color={theme.colors.error}
+                style={styles.optionText}
+              >
+                {t(TRANSLATION_KEYS.PROFILE_REMOVE_PICTURE)}
+              </AppText>
+            </TouchableOpacity>
+          )}
+        </View>
       </BottomSheetView>
     </AppModalBottomSheet>
   );
@@ -207,11 +144,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: ms(8),
-  },
-  loaderContainer: {
-    paddingVertical: ms(32),
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   optionsList: {
     paddingTop: ms(8),

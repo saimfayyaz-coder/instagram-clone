@@ -1,5 +1,6 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
+import { API_ENDPOINTS, HTTP_METHODS } from '@/shared/constants';
 import {
   User,
   UpdateProfilePayload,
@@ -10,8 +11,8 @@ export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getCurrentUser: builder.query<ApiSuccessResponse<{ user: User }>, void>({
       query: () => ({
-        url: '/auth/me',
-        method: 'GET',
+        url: API_ENDPOINTS.AUTH.ME,
+        method: HTTP_METHODS.GET,
       }),
       providesTags: ['User'],
     }),
@@ -21,8 +22,8 @@ export const userApi = baseApi.injectEndpoints({
       { username: string }
     >({
       query: ({ username }) => ({
-        url: `/auth/check-username?username=${encodeURIComponent(username)}`,
-        method: 'GET',
+        url: API_ENDPOINTS.AUTH.CHECK_USERNAME(username),
+        method: HTTP_METHODS.GET,
       }),
     }),
 
@@ -31,8 +32,8 @@ export const userApi = baseApi.injectEndpoints({
       UpdateProfilePayload
     >({
       query: (body) => ({
-        url: '/users/profile',
-        method: 'PATCH',
+        url: API_ENDPOINTS.USERS.PROFILE,
+        method: HTTP_METHODS.PATCH,
         body,
       }),
       invalidatesTags: ['User'],
@@ -43,10 +44,13 @@ export const userApi = baseApi.injectEndpoints({
       FormData
     >({
       query: (formData) => ({
-        url: '/users/profile/avatar',
-        method: 'POST',
+        url: API_ENDPOINTS.USERS.AVATAR,
+        method: HTTP_METHODS.POST,
         body: formData,
       }),
+      extraOptions: {
+        skipGlobalErrorToast: true,
+      },
       invalidatesTags: ['User'],
     }),
 
@@ -55,9 +59,12 @@ export const userApi = baseApi.injectEndpoints({
       void
     >({
       query: () => ({
-        url: '/users/profile/avatar',
-        method: 'DELETE',
+        url: API_ENDPOINTS.USERS.AVATAR,
+        method: HTTP_METHODS.DELETE,
       }),
+      extraOptions: {
+        skipGlobalErrorToast: true,
+      },
       invalidatesTags: ['User'],
     }),
   }),

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLazyCheckUsernameQuery } from '../api/userApi';
 import { createUsernameSchema } from './userValidation';
 import { parseApiError } from '@/shared/lib/errors';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 interface UseUsernameAvailabilityOptions {
   currentUsername?: string;
@@ -97,9 +98,7 @@ export const useUsernameAvailability = ({
               setAvailabilityError(null);
             } else {
               setIsAvailable(false);
-              setAvailabilityError(
-                result.message || 'This username is already taken.',
-              );
+              setAvailabilityError(t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN));
             }
           }
         } catch (error) {
@@ -107,7 +106,7 @@ export const useUsernameAvailability = ({
             setIsChecking(false);
             setIsAvailable(false);
             const parsed = parseApiError(error);
-            setAvailabilityError(parsed.message || 'Unable to check username.');
+            setAvailabilityError(parsed.message || t(TRANSLATION_KEYS.ERROR_UNKNOWN));
           }
         }
       }, debounceMs);
@@ -122,7 +121,7 @@ export const useUsernameAvailability = ({
 
       if (!trimmed) {
         setIsAvailable(false);
-        setAvailabilityError('Username is required.');
+        setAvailabilityError(t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_REQUIRED));
         return false;
       }
 
@@ -156,16 +155,14 @@ export const useUsernameAvailability = ({
           return true;
         } else {
           setIsAvailable(false);
-          setAvailabilityError(
-            result.message || 'This username is already taken.',
-          );
+          setAvailabilityError(t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_TAKEN));
           return false;
         }
       } catch (error) {
         setIsChecking(false);
         setIsAvailable(false);
         const parsed = parseApiError(error);
-        setAvailabilityError(parsed.message || 'Unable to check username.');
+        setAvailabilityError(parsed.message || t(TRANSLATION_KEYS.ERROR_UNKNOWN));
         return false;
       }
     },

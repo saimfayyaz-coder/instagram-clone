@@ -38,3 +38,33 @@ export const HTTP_STATUS = {
 } as const;
 
 export type HttpStatus = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS];
+
+export const HTTP_METHODS = {
+  GET: 'GET',
+  POST: 'POST',
+  PATCH: 'PATCH',
+  PUT: 'PUT',
+  DELETE: 'DELETE',
+} as const;
+
+export type HttpMethod = (typeof HTTP_METHODS)[keyof typeof HTTP_METHODS];
+
+export const API_ENDPOINTS = {
+  AUTH: {
+    LOGIN: '/auth/login',
+    SIGNUP: '/auth/signup',
+    ME: '/auth/me',
+    CHECK_USERNAME: (username: string) =>
+      `/auth/check-username?username=${encodeURIComponent(username)}`,
+    REFRESH_TOKEN: '/auth/refresh-token',
+    LOGOUT: '/auth/logout',
+    VERIFY_OTP: '/auth/verify-otp',
+    RESEND_OTP: '/auth/resend-otp',
+    FORGOT_PASSWORD: '/auth/forgot-password',
+    RESET_PASSWORD: '/auth/reset-password',
+  },
+  USERS: {
+    PROFILE: '/users/profile',
+    AVATAR: '/users/profile/avatar',
+  },
+} as const;

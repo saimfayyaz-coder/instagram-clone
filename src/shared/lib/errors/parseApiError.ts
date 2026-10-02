@@ -46,10 +46,11 @@ export function parseApiError(error: unknown): ParsedApiError {
     const data = err.data as {
       message?: string;
       code?: string;
+      errorCode?: string;
       errors?: Record<string, string[]>;
     } | undefined;
 
-    const serverCode = data?.code ?? API_ERROR_CODES.UNKNOWN;
+    const serverCode = data?.code ?? data?.errorCode ?? API_ERROR_CODES.UNKNOWN;
     const i18nKey = `errors.${serverCode}`;
     const message = i18n.exists(i18nKey)
       ? i18n.t(i18nKey)

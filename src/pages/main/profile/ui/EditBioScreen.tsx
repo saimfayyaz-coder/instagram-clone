@@ -22,7 +22,7 @@ export const EditBioScreen: React.FC<EditBioScreenProps> = ({ onBack }) => {
   const [bio, setBio] = useState(currentUser?.bio || '');
   const { submitField, isSaving, errorMessage, setErrorMessage } = useEditFieldSubmit();
 
-  const bioSchema = useMemo(() => createBioSchema(), []);
+  const bioSchema = useMemo(() => createBioSchema(t), [t]);
 
   const handleChangeText = useCallback(
     (text: string) => {

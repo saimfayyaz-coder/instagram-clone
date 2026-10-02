@@ -4,6 +4,7 @@ import { userApi } from '../api/userApi';
 
 const initialState: UserState = {
   currentUser: null,
+  isAvatarUpdating: false,
 };
 
 export const userSlice = createSlice({
@@ -17,12 +18,36 @@ export const userSlice = createSlice({
         state.currentUser = { ...(state.currentUser || {}), ...action.payload } as User;
       }
     },
+    setAvatarUpdating: (state, action: PayloadAction<boolean>) => {
+      state.isAvatarUpdating = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase('session/clearSession', (state) => {
         state.currentUser = null;
+        state.isAvatarUpdating = false;
       })
+      .addMatcher(
+        isAnyOf(
+          userApi.endpoints.uploadAvatar.matchPending,
+          userApi.endpoints.deleteAvatar.matchPending,
+        ),
+        (state) => {
+          state.isAvatarUpdating = true;
+        },
+      )
+      .addMatcher(
+        isAnyOf(
+          userApi.endpoints.uploadAvatar.matchFulfilled,
+          userApi.endpoints.uploadAvatar.matchRejected,
+          userApi.endpoints.deleteAvatar.matchFulfilled,
+          userApi.endpoints.deleteAvatar.matchRejected,
+        ),
+        (state) => {
+          state.isAvatarUpdating = false;
+        },
+      )
       .addMatcher(
         isAnyOf(
           userApi.endpoints.getCurrentUser.matchFulfilled,
@@ -37,5 +62,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setAvatarUpdating } = userSlice.actions;
 export const userReducer = userSlice.reducer;

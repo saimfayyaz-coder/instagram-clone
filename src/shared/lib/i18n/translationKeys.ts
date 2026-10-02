@@ -8,6 +8,9 @@ export enum TRANSLATION_KEYS {
   COMMON_BACK = 'common.back',
   COMMON_SHOW = 'common.show',
   COMMON_HIDE = 'common.hide',
+  COMMON_OK = 'common.ok',
+  COMMON_CANCEL = 'common.cancel',
+  COMMON_SAVE = 'common.save',
 
   // Auth › Login
   AUTH_LOGIN_IDENTIFIER_PLACEHOLDER = 'auth.login.identifierPlaceholder',
@@ -30,6 +33,7 @@ export enum TRANSLATION_KEYS {
   AUTH_SIGNUP_USERNAME_MAX_LENGTH = 'auth.signup.usernameMaxLength',
   AUTH_SIGNUP_USERNAME_INVALID_CHARS = 'auth.signup.usernameInvalidChars',
   AUTH_SIGNUP_USERNAME_TAKEN = 'auth.signup.usernameTaken',
+  AUTH_SIGNUP_USERNAME_AVAILABLE = 'auth.signup.usernameAvailable',
   AUTH_SIGNUP_STEP2_TITLE = 'auth.signup.step2Title',
   AUTH_SIGNUP_STEP2_SUBTITLE = 'auth.signup.step2Subtitle',
   AUTH_SIGNUP_CONFIRM_PASSWORD_LABEL = 'auth.signup.confirmPasswordLabel',
@@ -103,9 +107,14 @@ export enum TRANSLATION_KEYS {
   PROFILE_UPDATE_SUCCESS = 'profile.updateSuccess',
   PROFILE_AVATAR_UPDATE_SUCCESS = 'profile.avatarUpdateSuccess',
   PROFILE_AVATAR_REMOVE_SUCCESS = 'profile.avatarRemoveSuccess',
+  PROFILE_AVATAR_UPDATE_ERROR_TITLE = 'profile.avatarUpdateErrorTitle',
+  PROFILE_AVATAR_REMOVE_ERROR_TITLE = 'profile.avatarRemoveErrorTitle',
+  PROFILE_AVATAR_NETWORK_ERROR = 'profile.avatarNetworkError',
   PROFILE_NAME_MAX_LENGTH = 'profile.nameMaxLength',
   PROFILE_BIO_MAX_LENGTH = 'profile.bioMaxLength',
   PROFILE_INVALID_WEBSITE = 'profile.invalidWebsite',
+  PROFILE_ADD_LINK = 'profile.addLink',
+  PROFILE_WEBSITE_LABEL = 'profile.websiteLabel',
 
   // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',

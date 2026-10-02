@@ -1,11 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { AppHeader } from '@/shared/components/organisms';
 import { ScreenWrapper } from '@/shared/components/layout';
 import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
-import { HEADER_LEFT_ICON_TYPE, APP_ICONS } from '@/shared/constants';
+import { HEADER_LEFT_ICON_TYPE, APP_ICONS, TEST_IDS } from '@/shared/constants';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
 export interface SubScreenFormWidgetProps {
@@ -29,6 +31,7 @@ export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
   containerStyle,
   onPressBack,
 }) => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
 
@@ -54,11 +57,11 @@ export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
           />
         ),
         onPress: isSaving ? () => {} : onSave,
-        accessibilityLabel: 'Save',
-        testID: 'header-action-save',
+        accessibilityLabel: t(TRANSLATION_KEYS.COMMON_SAVE),
+        testID: TEST_IDS.HEADER.SAVE,
       },
     ],
-    [isSaving, onSave, theme.colors.actionPrimary],
+    [isSaving, onSave, theme.colors.actionPrimary, t],
   );
 
   return (

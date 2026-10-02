@@ -1,5 +1,6 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
+import { API_ENDPOINTS, HTTP_METHODS } from '@/shared/constants';
 import {
   ForgotPasswordRequest,
   ForgotPasswordResponseData,
@@ -14,8 +15,8 @@ export const forgotPasswordApi = baseApi.injectEndpoints({
       ForgotPasswordRequest
     >({
       query: (body) => ({
-        url: '/auth/forgot-password',
-        method: 'POST',
+        url: API_ENDPOINTS.AUTH.FORGOT_PASSWORD,
+        method: HTTP_METHODS.POST,
         body,
       }),
     }),
@@ -25,8 +26,8 @@ export const forgotPasswordApi = baseApi.injectEndpoints({
       ResetPasswordRequest
     >({
       query: (body) => ({
-        url: '/auth/reset-password',
-        method: 'POST',
+        url: API_ENDPOINTS.AUTH.RESET_PASSWORD,
+        method: HTTP_METHODS.POST,
         body,
       }),
     }),

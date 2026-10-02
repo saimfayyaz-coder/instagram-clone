@@ -31,6 +31,10 @@ export const lightColors = {
   toastText: palette.white,
   bottomSheetHandleBar: '#C7C7CC',
   backdropColor: '#000000',
+  backdropOverlay: 'rgba(0, 0, 0, 0.4)',
+  avatarShimmer: '#E1E1E1',
+  shimmerHighlight: '#F5F5F5',
+  dialogBg: '#FFFFFF',
 };
 
 export const darkColors = {
@@ -52,6 +56,11 @@ export const darkColors = {
   toastText: palette.white,
   bottomSheetHandleBar: '#545458',
   backdropColor: '#000000',
+  backdropOverlay: 'rgba(0, 0, 0, 0.6)',
+  avatarShimmer: '#262626',
+  shimmerHighlight: '#383838',
+  dialogBg: '#262626',
 };
+
 
 export type ThemeColors = typeof lightColors;

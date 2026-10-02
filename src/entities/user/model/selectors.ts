@@ -7,3 +7,6 @@ export const selectCurrentUserAvatar = (state: { user: UserState }): string | nu
   const user = state.user.currentUser;
   return user?.avatar?.url || user?.avatarUrl || null;
 };
+
+export const selectIsAvatarUpdating = (state: { user: UserState }): boolean =>
+  Boolean(state.user.isAvatarUpdating);
