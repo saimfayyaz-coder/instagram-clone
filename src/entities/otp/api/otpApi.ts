@@ -1,5 +1,6 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
+import { API_ENDPOINTS, HTTP_METHODS } from '@/shared/constants';
 import {
   VerifyOtpRequest,
   VerifyOtpResponseData,
@@ -13,8 +14,8 @@ export const otpApi = baseApi.injectEndpoints({
       VerifyOtpRequest
     >({
       query: (body) => ({
-        url: '/auth/verify-otp',
-        method: 'POST',
+        url: API_ENDPOINTS.AUTH.VERIFY_OTP,
+        method: HTTP_METHODS.POST,
         body,
       }),
     }),
@@ -24,8 +25,8 @@ export const otpApi = baseApi.injectEndpoints({
       ResendOtpRequest
     >({
       query: (body) => ({
-        url: '/auth/resend-otp',
-        method: 'POST',
+        url: API_ENDPOINTS.AUTH.RESEND_OTP,
+        method: HTTP_METHODS.POST,
         body,
       }),
     }),
