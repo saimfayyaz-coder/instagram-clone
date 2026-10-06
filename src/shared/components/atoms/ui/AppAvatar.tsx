@@ -11,17 +11,14 @@ import {
 import { useTheme } from '@/shared/hooks';
 import { palette } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
+import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { Icon } from './Icon';
-import { AppLoader } from '../loader/AppLoader';
+import { AppSkeleton } from './AppSkeleton';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 
 export interface AppAvatarProps {
   uri?: string | null;
-  user?: {
-    avatar?: { url?: string | null } | null;
-    avatarUrl?: string | null;
-  } | null;
   size?: AvatarSize;
   loading?: boolean;
   showEditBadge?: boolean;
@@ -48,9 +45,8 @@ const resolveDimension = (size: AvatarSize): number => {
 
 export const AppAvatar: React.FC<AppAvatarProps> = ({
   uri,
-  user,
   size = 'md',
-  loading: externalLoading = false,
+  loading = false,
   showEditBadge = false,
   onPress,
   style,
@@ -58,17 +54,13 @@ export const AppAvatar: React.FC<AppAvatarProps> = ({
   testID,
 }) => {
   const { theme } = useTheme();
-  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-
-  const resolvedUri = user ? (user.avatar?.url || user.avatarUrl || null) : uri;
 
   const dimension = resolveDimension(size);
   const borderRadius = dimension / 2;
   const iconSize = dimension * 0.55;
 
-  const isSilhouette = !resolvedUri || hasError;
-  const showLoader = isLoading || externalLoading;
+  const isSilhouette = !uri || hasError;
 
   const avatarContent = (
     <View
@@ -86,7 +78,9 @@ export const AppAvatar: React.FC<AppAvatarProps> = ({
       ]}
       testID={testID}
     >
-      {isSilhouette ? (
+      {loading ? (
+        <AppSkeleton width={dimension} height={dimension} circle />
+      ) : isSilhouette ? (
         <View
           style={[
             styles.fallbackContainer,
@@ -101,34 +95,16 @@ export const AppAvatar: React.FC<AppAvatarProps> = ({
           />
         </View>
       ) : (
-        <>
-          <Image
-            source={{ uri: resolvedUri }}
-            style={[
-              styles.image,
-              { width: dimension, height: dimension, borderRadius },
-              imageStyle,
-            ]}
-            onLoadStart={() => setIsLoading(true)}
-            onLoadEnd={() => setIsLoading(false)}
-            onError={() => {
-              setIsLoading(false);
-              setHasError(true);
-            }}
-            resizeMode="cover"
-          />
-
-          {showLoader && (
-            <View
-              style={[
-                styles.loadingOverlay,
-                { width: dimension, height: dimension, borderRadius },
-              ]}
-            >
-              <AppLoader size="small" color={theme.colors.textSecondary} />
-            </View>
-          )}
-        </>
+        <Image
+          source={{ uri }}
+          style={[
+            styles.image,
+            { width: dimension, height: dimension, borderRadius },
+            imageStyle,
+          ]}
+          onError={() => setHasError(true)}
+          resizeMode="cover"
+        />
       )}
 
       {showEditBadge && (
@@ -152,7 +128,7 @@ export const AppAvatar: React.FC<AppAvatarProps> = ({
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.8}
-        accessibilityRole="button"
+        accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         style={style}
       >
         {avatarContent}
@@ -178,12 +154,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-  },
-  loadingOverlay: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   badge: {
     position: 'absolute',

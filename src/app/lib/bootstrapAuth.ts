@@ -21,7 +21,9 @@ export const bootstrapAuth = async (dispatch: AppDispatch): Promise<void> => {
 
     try {
       await dispatch(
-        userApi.endpoints.getCurrentUser.initiate(),
+        userApi.endpoints.getCurrentUser.initiate(undefined, {
+          subscribe: false,
+        }),
       ).unwrap();
     } catch {
       // User profile will remain as hydrated by redux-persist

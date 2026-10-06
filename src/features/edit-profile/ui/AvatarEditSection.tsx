@@ -2,11 +2,14 @@ import React, { useRef, useCallback } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { AppAvatar, AppText } from '@/shared/components/atoms';
+import { AppText } from '@/shared/components/atoms';
+import { LoadingHudOverlay } from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
-import { selectCurrentUser } from '@/entities/user';
+import { selectCurrentUser, UserAvatar } from '@/entities/user';
+import { useAvatarEdit } from '../model/useAvatarEdit';
 import { AvatarActionBottomSheet } from './AvatarActionBottomSheet';
+import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
@@ -15,6 +18,8 @@ export const AvatarEditSection: React.FC = () => {
   const { theme } = useTheme();
   const currentUser = useAppSelector(selectCurrentUser);
   const avatarSheetRef = useRef<BottomSheetModal | null>(null);
+
+  const { handleSelectImage, handleRemoveAvatar, showLoadingHud } = useAvatarEdit();
 
   const handleOpenSheet = useCallback(() => {
     avatarSheetRef.current?.present();
@@ -27,15 +32,16 @@ export const AvatarEditSection: React.FC = () => {
       <TouchableOpacity
         onPress={handleOpenSheet}
         activeOpacity={0.8}
-        accessibilityRole="button"
+        accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         accessibilityLabel={t(TRANSLATION_KEYS.PROFILE_EDIT_PICTURE)}
       >
-        <AppAvatar user={currentUser} size={96} />
+        <UserAvatar user={currentUser} size={96} />
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={handleOpenSheet}
         activeOpacity={0.7}
+        accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         style={styles.editButton}
       >
         <AppText
@@ -51,7 +57,11 @@ export const AvatarEditSection: React.FC = () => {
       <AvatarActionBottomSheet
         bottomSheetRef={avatarSheetRef}
         hasAvatar={hasAvatar}
+        onSelectImage={handleSelectImage}
+        onRemoveAvatar={handleRemoveAvatar}
       />
+
+      <LoadingHudOverlay visible={showLoadingHud} />
     </View>
   );
 };

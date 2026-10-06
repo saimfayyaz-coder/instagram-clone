@@ -4,6 +4,7 @@ export interface ToastPayload {
   message: string;
   type?: 'default' | 'error' | 'success';
   duration?: number;
+  position?: 'bottom' | 'middle';
 }
 
 export interface ToastState {
@@ -11,6 +12,7 @@ export interface ToastState {
   message: string;
   type: 'default' | 'error' | 'success';
   duration: number;
+  position: 'bottom' | 'middle';
 }
 
 const initialState: ToastState = {
@@ -18,6 +20,7 @@ const initialState: ToastState = {
   message: '',
   type: 'default',
   duration: 3000,
+  position: 'bottom',
 };
 
 export const toastSlice = createSlice({
@@ -29,10 +32,12 @@ export const toastSlice = createSlice({
       state.message = action.payload.message;
       state.type = action.payload.type ?? 'default';
       state.duration = action.payload.duration ?? 3000;
+      state.position = action.payload.position ?? 'bottom';
     },
     hideToast: (state) => {
       state.visible = false;
       state.message = '';
+      state.position = 'bottom';
     },
   },
 });
