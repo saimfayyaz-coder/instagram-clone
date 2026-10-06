@@ -7,7 +7,10 @@
     "next": "Next",
     "back": "Back",
     "show": "Show",
-    "hide": "Hide"
+    "hide": "Hide",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "auth": {
     "login": {
@@ -33,6 +36,7 @@
       "usernameMaxLength": "Username cannot exceed 30 characters.",
       "usernameInvalidChars": "Username can only contain letters, numbers, periods, and underscores.",
       "usernameTaken": "This username is already taken.",
+      "usernameAvailable": "Username is available",
       "step2Title": "Create a password",
       "step2Subtitle": "Create a password with at least 6 characters. Make sure it is secure.",
       "confirmPasswordLabel": "Confirm password",
@@ -107,9 +111,14 @@
     "updateSuccess": "Profile updated successfully.",
     "avatarUpdateSuccess": "Profile picture updated.",
     "avatarRemoveSuccess": "Profile picture removed.",
+    "avatarUpdateErrorTitle": "Couldn't update profile picture",
+    "avatarRemoveErrorTitle": "Couldn't remove profile picture",
+    "avatarNetworkError": "Please check your internet connection and try again.",
     "nameMaxLength": "Name must be 50 characters or less.",
     "bioMaxLength": "Bio must be 150 characters or less.",
-    "invalidWebsite": "Please enter a valid website URL."
+    "invalidWebsite": "Please enter a valid website URL.",
+    "addLink": "Add link",
+    "websiteLabel": "URL"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Invalid username or password.",

@@ -1,5 +1,6 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
+import { API_ENDPOINTS, HTTP_METHODS } from '@/shared/constants';
 import { SignupApiRequest, SignupResponseData } from '../model/types';
 
 export const signupApi = baseApi.injectEndpoints({
@@ -9,8 +10,8 @@ export const signupApi = baseApi.injectEndpoints({
       SignupApiRequest
     >({
       query: (body) => ({
-        url: '/auth/signup',
-        method: 'POST',
+        url: API_ENDPOINTS.AUTH.SIGNUP,
+        method: HTTP_METHODS.POST,
         body,
       }),
     }),

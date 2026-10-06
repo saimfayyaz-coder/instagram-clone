@@ -1,3 +1,5 @@
+import { TEST_IDS } from './testIds';
+
 export const HEADER_ACTION_TYPES = {
   NOTIFICATIONS: 'notifications',
   MENU: 'menu',
@@ -23,34 +25,34 @@ export const HEADER_ACTION_CONFIGS: Record<HeaderActionType, HeaderActionConfig>
     iconName: 'heart',
     defaultSize: 24,
     accessibilityLabel: 'Notifications',
-    testID: 'header-action-notifications',
+    testID: TEST_IDS.HEADER.NOTIFICATIONS,
   },
   [HEADER_ACTION_TYPES.MENU]: {
     iconType: 'Feather',
     iconName: 'menu',
     defaultSize: 24,
     accessibilityLabel: 'Menu',
-    testID: 'header-action-menu',
+    testID: TEST_IDS.HEADER.MENU,
   },
   [HEADER_ACTION_TYPES.DIRECT]: {
     iconType: 'Ionicons',
     iconName: 'paper-plane-outline',
     defaultSize: 23,
     accessibilityLabel: 'Direct Messages',
-    testID: 'header-action-direct',
+    testID: TEST_IDS.HEADER.DIRECT,
   },
   [HEADER_ACTION_TYPES.CREATE]: {
     iconType: 'Feather',
     iconName: 'plus-square',
     defaultSize: 24,
     accessibilityLabel: 'Create post',
-    testID: 'header-action-create',
+    testID: TEST_IDS.HEADER.CREATE,
   },
   [HEADER_ACTION_TYPES.SETTINGS]: {
     iconType: 'Feather',
     iconName: 'settings',
     defaultSize: 22,
     accessibilityLabel: 'Settings',
-    testID: 'header-action-settings',
+    testID: TEST_IDS.HEADER.SETTINGS,
   },
 };

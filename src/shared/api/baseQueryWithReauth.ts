@@ -2,7 +2,13 @@ import { fetchBaseQuery, type FetchArgs } from '@reduxjs/toolkit/query/react';
 import { authStorage } from './authStorage';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { API_ERROR_CODES, HTTP_STATUS, API_TIMEOUT_MS } from '@/shared/constants';
+import {
+  API_ERROR_CODES,
+  HTTP_STATUS,
+  API_TIMEOUT_MS,
+  API_ENDPOINTS,
+  HTTP_METHODS,
+} from '@/shared/constants';
 import { BASE_URL } from '@/shared/config';
 
 const baseQuery = fetchBaseQuery({
@@ -57,8 +63,8 @@ export const baseQueryWithReauth = async (
 
         const refreshResult = await baseQuery(
           {
-            url: '/auth/refresh-token',
-            method: 'POST',
+            url: API_ENDPOINTS.AUTH.REFRESH_TOKEN,
+            method: HTTP_METHODS.POST,
             body: { refreshToken },
           },
           api,
@@ -120,6 +126,10 @@ export const baseQueryWithReauth = async (
         ? (result.error as any).error
         : '';
 
+    const shouldSkipGlobalToast =
+      Boolean((extraOptions as any)?.skipGlobalErrorToast) ||
+      (typeof args !== 'string' && Boolean((args as any)?.skipGlobalErrorToast));
+
     // React Native Hermes reports AbortError when fetchBaseQuery aborts at 15s
     if (
       result.error.status === API_ERROR_CODES.TIMEOUT_ERROR ||
@@ -127,30 +137,57 @@ export const baseQueryWithReauth = async (
         (errString.includes('Abort') || errString.includes('timeout')))
     ) {
       return {
+        ...result,
         error: {
           status: API_ERROR_CODES.TIMEOUT_ERROR,
+          skipGlobalErrorToast: shouldSkipGlobalToast,
           data: {
             success: false,
             message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
             code: API_ERROR_CODES.TIMEOUT_ERROR,
+            skipGlobalErrorToast: shouldSkipGlobalToast,
           },
+        },
+        meta: {
+          ...(result.meta as any),
+          skipGlobalErrorToast: shouldSkipGlobalToast,
         },
       };
     }
 
-    if (!result.error.status) {
+    if (!result.error.status || result.error.status === API_ERROR_CODES.FETCH_ERROR) {
       return {
+        ...result,
         error: {
           status: API_ERROR_CODES.FETCH_ERROR,
+          skipGlobalErrorToast: shouldSkipGlobalToast,
           data: {
             success: false,
             message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
             code: API_ERROR_CODES.NETWORK_ERROR,
+            skipGlobalErrorToast: shouldSkipGlobalToast,
           },
+        },
+        meta: {
+          ...(result.meta as any),
+          skipGlobalErrorToast: shouldSkipGlobalToast,
         },
       };
     }
+
+    return {
+      ...result,
+      error: {
+        ...(result.error as any),
+        skipGlobalErrorToast: shouldSkipGlobalToast,
+      },
+      meta: {
+        ...(result.meta as any),
+        skipGlobalErrorToast: shouldSkipGlobalToast,
+      },
+    };
   }
 
   return result;
 };
+

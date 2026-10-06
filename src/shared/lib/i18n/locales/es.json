@@ -7,7 +7,10 @@
     "next": "Siguiente",
     "back": "Atrás",
     "show": "Mostrar",
-    "hide": "Ocultar"
+    "hide": "Ocultar",
+    "ok": "Aceptar",
+    "cancel": "Cancelar",
+    "save": "Guardar"
   },
   "auth": {
     "login": {
@@ -33,6 +36,7 @@
       "usernameMaxLength": "El nombre de usuario no puede exceder los 30 caracteres.",
       "usernameInvalidChars": "El nombre de usuario solo puede contener letras, números, puntos y guiones bajos.",
       "usernameTaken": "Este nombre de usuario ya está en uso.",
+      "usernameAvailable": "El nombre de usuario está disponible",
       "step2Title": "Crea una contraseña",
       "step2Subtitle": "Crea una contraseña con al menos 6 caracteres. Asegúrate de que sea segura.",
       "confirmPasswordLabel": "Confirmar contraseña",
@@ -107,9 +111,14 @@
     "updateSuccess": "Perfil actualizado con éxito.",
     "avatarUpdateSuccess": "Foto de perfil actualizada.",
     "avatarRemoveSuccess": "Foto de perfil eliminada.",
+    "avatarUpdateErrorTitle": "No se pudo actualizar la foto de perfil",
+    "avatarRemoveErrorTitle": "No se pudo eliminar la foto de perfil",
+    "avatarNetworkError": "Por favor revisa tu conexión a internet e inténtalo de nuevo.",
     "nameMaxLength": "El nombre debe tener 50 caracteres o menos.",
     "bioMaxLength": "La biografía debe tener 150 caracteres o menos.",
-    "invalidWebsite": "Por favor, introduce una URL de sitio web válida."
+    "invalidWebsite": "Por favor, introduce una URL de sitio web válida.",
+    "addLink": "Añadir enlace",
+    "websiteLabel": "URL"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos.",

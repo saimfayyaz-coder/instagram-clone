@@ -47,7 +47,7 @@ export const EditLinksScreen: React.FC<EditLinksScreenProps> = ({ onBack }) => {
       onPressBack={onBack}
     >
       <FormField
-        label="URL"
+        label={t(TRANSLATION_KEYS.PROFILE_WEBSITE_LABEL)}
         placeholder={t(TRANSLATION_KEYS.PROFILE_LINKS_PLACEHOLDER)}
         value={website}
         onChangeText={handleChangeText}

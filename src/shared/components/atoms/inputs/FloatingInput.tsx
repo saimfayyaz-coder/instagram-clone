@@ -15,6 +15,7 @@ import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 import { AppText } from '../ui/AppText';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 
 export interface FloatingInputProps extends Omit<TextInputProps, 'onBlur'> {
   label: string;
@@ -123,7 +124,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
   const containerProps = onPress
     ? {
         onPress,
-        accessibilityRole: 'button' as const,
+        accessibilityRole: ACCESSIBILITY_ROLES.BUTTON,
         accessibilityLabel: `${label}: ${value || ''}`,
       }
     : {};
