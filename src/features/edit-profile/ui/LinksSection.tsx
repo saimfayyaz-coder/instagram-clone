@@ -1,31 +1,42 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText, Icon } from '@/shared/components/atoms';
+import { AppText } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
-import { APP_ICONS, ACCESSIBILITY_ROLES, TEST_IDS } from '@/shared/constants';
+import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { UserLink } from '@/entities/user';
 import { ms } from '@/shared/theme';
 
 export interface LinksSectionProps {
-  website?: string | null;
+  links?: UserLink[];
   onAddLink: () => void;
-  onOpenLink?: () => void;
+  onOpenLinks: () => void;
 }
 
 export const LinksSection: React.FC<LinksSectionProps> = ({
-  website,
+  links = [],
   onAddLink,
-  onOpenLink,
+  onOpenLinks,
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  const handlePressLink = onOpenLink || onAddLink;
+  const count = links.length;
+  const hasLinks = count > 0;
 
   return (
-    <View style={styles.container}>
-      {/* Top Header Row: Links on left, Add link on right */}
+    <TouchableOpacity
+      onPress={hasLinks ? onOpenLinks : onAddLink}
+      activeOpacity={0.7}
+      style={styles.container}
+      accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+      accessibilityLabel={
+        hasLinks
+          ? `${t(TRANSLATION_KEYS.PROFILE_LINKS)}, ${count}`
+          : t(TRANSLATION_KEYS.PROFILE_ADD_LINK)
+      }
+    >
       <View style={styles.headerRow}>
         <AppText
           variant="body"
@@ -36,14 +47,15 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
           {t(TRANSLATION_KEYS.PROFILE_LINKS)}
         </AppText>
 
-        <TouchableOpacity
-          onPress={onAddLink}
-          activeOpacity={0.7}
-          style={styles.addButton}
-          accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
-          accessibilityLabel={t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
-          testID={TEST_IDS.EDIT_PROFILE.ADD_LINK_BUTTON}
-        >
+        {hasLinks ? (
+          <AppText
+            variant="body"
+            color={theme.colors.textSecondary}
+            style={styles.countText}
+          >
+            {count}
+          </AppText>
+        ) : (
           <AppText
             variant="body"
             weight="semibold"
@@ -52,47 +64,9 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
           >
             {t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
           </AppText>
-        </TouchableOpacity>
+        )}
       </View>
-
-      {/* Existing link row if user has a website/link */}
-      {Boolean(website) && (
-        <TouchableOpacity
-          onPress={handlePressLink}
-          activeOpacity={0.75}
-          style={[
-            styles.linkItem,
-            {
-              backgroundColor: theme.colors.bgSecondary,
-              borderColor: theme.colors.border,
-              borderRadius: theme.borderRadius.sm,
-            },
-          ]}
-        >
-          <Icon
-            type="Ionicons"
-            name={APP_ICONS.LINK}
-            size={18}
-            color={theme.colors.textSecondary}
-            style={styles.linkIcon}
-          />
-          <AppText
-            variant="body"
-            color={theme.colors.textPrimary}
-            numberOfLines={1}
-            style={styles.linkUrl}
-          >
-            {website}
-          </AppText>
-          <Icon
-            type="Ionicons"
-            name={APP_ICONS.CHEVRON_FORWARD}
-            size={16}
-            color={theme.colors.textSecondary}
-          />
-        </TouchableOpacity>
-      )}
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -111,27 +85,10 @@ const styles = StyleSheet.create({
   linksTitle: {
     fontSize: ms(15),
   },
-  addButton: {
-    paddingVertical: ms(4),
-    paddingHorizontal: ms(6),
+  countText: {
+    fontSize: ms(14),
   },
   addText: {
     fontSize: ms(14),
-  },
-  linkItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: ms(12),
-    height: ms(44),
-    borderWidth: 1,
-    marginTop: ms(6),
-  },
-  linkIcon: {
-    marginRight: ms(8),
-  },
-  linkUrl: {
-    flex: 1,
-    fontSize: ms(14),
-    marginRight: ms(8),
   },
 });

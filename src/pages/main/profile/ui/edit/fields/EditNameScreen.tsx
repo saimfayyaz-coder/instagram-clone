@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormField } from '@/shared/components/molecules';
 import { useAppSelector } from '@/app/store/hooks';
-import { selectCurrentUser, createNameSchema, NAME_MAX_LENGTH } from '@/entities/user';
+import { selectCurrentUserDisplayName, createNameSchema, NAME_MAX_LENGTH } from '@/entities/user';
 import { useEditFieldSubmit } from '@/features/edit-profile';
 import { SubScreenFormWidget } from '@/widgets/edit-profile';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -13,8 +13,8 @@ export interface EditNameScreenProps {
 
 export const EditNameScreen: React.FC<EditNameScreenProps> = ({ onBack }) => {
   const { t } = useTranslation();
-  const currentUser = useAppSelector(selectCurrentUser);
-  const [name, setName] = useState(currentUser?.name || currentUser?.fullName || '');
+  const currentDisplayName = useAppSelector(selectCurrentUserDisplayName);
+  const [name, setName] = useState(currentDisplayName);
   const { submitField, isSaving, errorMessage, setErrorMessage } = useEditFieldSubmit();
 
   const nameSchema = useMemo(() => createNameSchema(t), [t]);

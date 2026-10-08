@@ -12,15 +12,21 @@ import {
 import { EditProfileMainWidget } from '@/widgets/edit-profile';
 import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { EditNameScreen } from './EditNameScreen';
-import { EditUsernameScreen } from './EditUsernameScreen';
-import { EditBioScreen } from './EditBioScreen';
-import { EditLinksScreen } from './EditLinksScreen';
+import { UserLink } from '@/entities/user';
+import { EditNameScreen } from './fields/EditNameScreen';
+import { EditUsernameScreen } from './fields/EditUsernameScreen';
+import { EditBioScreen } from './fields/EditBioScreen';
+import { LinksManagerScreen } from './links/LinksManagerScreen';
+import { AddEditLinkScreen } from './links/AddEditLinkScreen';
 
 export const EditProfilePage: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const [activeSubView, setActiveSubView] = useState<EditProfileSubView>(
+    EDIT_PROFILE_SUB_VIEWS.MAIN,
+  );
+  const [editingLinkContext, setEditingLinkContext] = useState<UserLink | null>(null);
+  const [addEditLinkReturnTarget, setAddEditLinkReturnTarget] = useState<EditProfileSubView>(
     EDIT_PROFILE_SUB_VIEWS.MAIN,
   );
 
@@ -33,16 +39,44 @@ export const EditProfilePage: React.FC = () => {
   }, []);
 
   const handleSelectField = useCallback((field: EditProfileEditableField) => {
-    setActiveSubView(field);
+    if (field === EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK) {
+      setEditingLinkContext(null);
+      setAddEditLinkReturnTarget(EDIT_PROFILE_SUB_VIEWS.MAIN);
+      setActiveSubView(EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK);
+    } else {
+      setActiveSubView(field);
+    }
   }, []);
 
+  const handleAddLinkFromManager = useCallback(() => {
+    setEditingLinkContext(null);
+    setAddEditLinkReturnTarget(EDIT_PROFILE_SUB_VIEWS.LINKS_MANAGER);
+    setActiveSubView(EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK);
+  }, []);
+
+  const handleEditLinkFromManager = useCallback((link: UserLink) => {
+    setEditingLinkContext(link);
+    setAddEditLinkReturnTarget(EDIT_PROFILE_SUB_VIEWS.LINKS_MANAGER);
+    setActiveSubView(EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK);
+  }, []);
+
+  const handleBackFromAddEditLink = useCallback(() => {
+    setActiveSubView(addEditLinkReturnTarget);
+    setEditingLinkContext(null);
+  }, [addEditLinkReturnTarget]);
+
   const handleHardwareBack = useCallback(() => {
+    if (activeSubView === EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK) {
+      setActiveSubView(addEditLinkReturnTarget);
+      setEditingLinkContext(null);
+      return true;
+    }
     if (activeSubView !== EDIT_PROFILE_SUB_VIEWS.MAIN) {
       setActiveSubView(EDIT_PROFILE_SUB_VIEWS.MAIN);
       return true;
     }
     return false;
-  }, [activeSubView]);
+  }, [activeSubView, addEditLinkReturnTarget]);
 
   useBackHandler(
     handleHardwareBack,
@@ -61,8 +95,23 @@ export const EditProfilePage: React.FC = () => {
     return <EditBioScreen onBack={handleBackToMain} />;
   }
 
-  if (activeSubView === EDIT_PROFILE_SUB_VIEWS.LINKS) {
-    return <EditLinksScreen onBack={handleBackToMain} />;
+  if (activeSubView === EDIT_PROFILE_SUB_VIEWS.LINKS_MANAGER) {
+    return (
+      <LinksManagerScreen
+        onBack={handleBackToMain}
+        onAddLink={handleAddLinkFromManager}
+        onEditLink={handleEditLinkFromManager}
+      />
+    );
+  }
+
+  if (activeSubView === EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK) {
+    return (
+      <AddEditLinkScreen
+        onBack={handleBackFromAddEditLink}
+        editingLink={editingLinkContext}
+      />
+    );
   }
 
   return (

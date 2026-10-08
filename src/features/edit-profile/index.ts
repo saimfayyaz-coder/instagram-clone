@@ -1,5 +1,6 @@
 export * from './model/constants';
 export * from './model/useEditFieldSubmit';
+export * from './model/useLinkSubmit';
 export * from './model/useAvatarEdit';
 export * from './ui/AvatarEditSection';
 export * from './ui/ProfileFieldList';
