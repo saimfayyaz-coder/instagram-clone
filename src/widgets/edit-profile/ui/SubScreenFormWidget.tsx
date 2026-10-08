@@ -6,7 +6,7 @@ import { AppHeader } from '@/shared/components/organisms';
 import { ScreenWrapper } from '@/shared/components/layout';
 import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
-import { HEADER_LEFT_ICON_TYPE, APP_ICONS, TEST_IDS } from '@/shared/constants';
+import { HEADER_LEFT_ICON_TYPE, HeaderLeftIconType, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
@@ -19,6 +19,7 @@ export interface SubScreenFormWidgetProps {
   children: React.ReactNode;
   containerStyle?: StyleProp<ViewStyle>;
   onPressBack?: () => void;
+  leftIconType?: HeaderLeftIconType;
 }
 
 export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
@@ -30,6 +31,7 @@ export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
   children,
   containerStyle,
   onPressBack,
+  leftIconType = HEADER_LEFT_ICON_TYPE.BACK,
 }) => {
   const { t } = useTranslation();
   const navigation = useNavigation();
@@ -69,7 +71,7 @@ export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
       header={
         <AppHeader
           onPressBack={handleGoBack}
-          leftIconType={HEADER_LEFT_ICON_TYPE.CLOSE}
+          leftIconType={leftIconType}
           leftText={title}
           rightActions={rightActions}
         />

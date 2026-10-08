@@ -66,5 +66,7 @@ export const API_ENDPOINTS = {
   USERS: {
     PROFILE: '/users/profile',
     AVATAR: '/users/profile/avatar',
+    LINKS: '/users/profile/links',
+    LINK: (linkId: string) => `/users/profile/links/${linkId}`,
   },
 } as const;
