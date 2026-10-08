@@ -54,6 +54,9 @@ export const userSlice = createSlice({
           userApi.endpoints.updateProfile.matchFulfilled,
           userApi.endpoints.uploadAvatar.matchFulfilled,
           userApi.endpoints.deleteAvatar.matchFulfilled,
+          userApi.endpoints.addLink.matchFulfilled,
+          userApi.endpoints.editLink.matchFulfilled,
+          userApi.endpoints.deleteLink.matchFulfilled,
         ),
         (state, action) => {
           state.currentUser = { ...(state.currentUser || {}), ...action.payload.data.user } as User;

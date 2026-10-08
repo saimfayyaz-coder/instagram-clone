@@ -7,6 +7,12 @@ export interface UserAvatarData {
   publicId?: string;
 }
 
+export interface UserLink {
+  _id: string;
+  url: string;
+  title?: string;
+}
+
 export interface User {
   id: string;
   username: string;
@@ -17,8 +23,12 @@ export interface User {
   avatarUrl?: string | null;
   bio?: string;
   website?: string;
+  links?: UserLink[];
   gender?: GenderType;
   isVerified?: boolean;
+  postsCount?: number;
+  followersCount?: number;
+  followingCount?: number;
 }
 
 export interface UpdateProfilePayload {
