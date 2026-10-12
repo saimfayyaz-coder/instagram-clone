@@ -57,3 +57,16 @@ export const createWebsiteSchema = (t: TFunction = i18n.t) =>
     })
     .optional()
     .or(z.literal(''));
+
+export const createLinkSchema = (t: TFunction = i18n.t) =>
+  z.object({
+    url: z
+      .string()
+      .trim()
+      .min(1, t(TRANSLATION_KEYS.PROFILE_URL_REQUIRED))
+      .transform(normalizeUrl)
+      .refine((val) => Boolean(val && WEBSITE_REGEX.test(val)), {
+        message: t(TRANSLATION_KEYS.PROFILE_INVALID_URL),
+      }),
+    title: z.string().trim().max(100).optional().or(z.literal('')),
+  });

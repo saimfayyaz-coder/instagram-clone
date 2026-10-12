@@ -54,5 +54,8 @@ export const headerActions = {
   settings: (onPress: () => void, options?: HeaderActionOptions) =>
     createHeaderAction(HEADER_ACTION_TYPES.SETTINGS, onPress, options),
 
+  add: (onPress: () => void, options?: HeaderActionOptions) =>
+    createHeaderAction(HEADER_ACTION_TYPES.ADD, onPress, options),
+
   custom: createHeaderAction,
 };

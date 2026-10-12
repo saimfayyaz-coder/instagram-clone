@@ -6,6 +6,7 @@ export const HEADER_ACTION_TYPES = {
   DIRECT: 'direct',
   CREATE: 'create',
   SETTINGS: 'settings',
+  ADD: 'add',
 } as const;
 
 export type HeaderActionType =
@@ -54,5 +55,12 @@ export const HEADER_ACTION_CONFIGS: Record<HeaderActionType, HeaderActionConfig>
     defaultSize: 22,
     accessibilityLabel: 'Settings',
     testID: TEST_IDS.HEADER.SETTINGS,
+  },
+  [HEADER_ACTION_TYPES.ADD]: {
+    iconType: 'Ionicons',
+    iconName: 'add',
+    defaultSize: 26,
+    accessibilityLabel: 'Add',
+    testID: 'header-action-add',
   },
 };

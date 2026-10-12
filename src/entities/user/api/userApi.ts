@@ -67,6 +67,41 @@ export const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['User'],
     }),
+
+    addLink: builder.mutation<
+      ApiSuccessResponse<{ user: User }>,
+      { url: string; title?: string }
+    >({
+      query: (body) => ({
+        url: API_ENDPOINTS.USERS.LINKS,
+        method: HTTP_METHODS.POST,
+        body,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    editLink: builder.mutation<
+      ApiSuccessResponse<{ user: User }>,
+      { linkId: string; url: string; title?: string }
+    >({
+      query: ({ linkId, ...body }) => ({
+        url: API_ENDPOINTS.USERS.LINK(linkId),
+        method: HTTP_METHODS.PATCH,
+        body,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    deleteLink: builder.mutation<
+      ApiSuccessResponse<{ user: User }>,
+      { linkId: string }
+    >({
+      query: ({ linkId }) => ({
+        url: API_ENDPOINTS.USERS.LINK(linkId),
+        method: HTTP_METHODS.DELETE,
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
@@ -78,4 +113,7 @@ export const {
   useUpdateProfileMutation,
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
+  useAddLinkMutation,
+  useEditLinkMutation,
+  useDeleteLinkMutation,
 } = userApi;

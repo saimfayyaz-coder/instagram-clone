@@ -3,7 +3,8 @@ export const EDIT_PROFILE_SUB_VIEWS = {
   NAME: 'name',
   USERNAME: 'username',
   BIO: 'bio',
-  LINKS: 'links',
+  LINKS_MANAGER: 'links_manager',
+  ADD_EDIT_LINK: 'add_edit_link',
 } as const;
 
 export type EditProfileSubView =

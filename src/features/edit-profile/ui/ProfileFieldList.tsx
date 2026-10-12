@@ -10,6 +10,7 @@ import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import {
   selectCurrentUser,
+  getUserDisplayName,
   useUpdateProfileMutation,
   GenderType,
   formatGenderLabel,
@@ -60,9 +61,15 @@ export const ProfileFieldList: React.FC<ProfileFieldListProps> = ({
     }
   }, [navigation, onSelectField]);
 
+  const handleNavigateToAddLink = useCallback(() => {
+    if (onSelectField) {
+      onSelectField(EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK);
+    }
+  }, [onSelectField]);
+
   const handleNavigateToLinks = useCallback(() => {
     if (onSelectField) {
-      onSelectField(EDIT_PROFILE_SUB_VIEWS.LINKS);
+      onSelectField(EDIT_PROFILE_SUB_VIEWS.LINKS_MANAGER);
     } else {
       navigation.navigate(MAIN_ROUTES.EDIT_PROFILE_LINKS);
     }
@@ -107,7 +114,7 @@ export const ProfileFieldList: React.FC<ProfileFieldListProps> = ({
       {/* 1. Name */}
       <FormField
         label={t(TRANSLATION_KEYS.PROFILE_NAME)}
-        value={currentUser?.name || currentUser?.fullName}
+        value={getUserDisplayName(currentUser)}
         placeholder={t(TRANSLATION_KEYS.PROFILE_NAME_PLACEHOLDER)}
         editable={false}
         onPress={handleNavigateToName}
@@ -134,8 +141,9 @@ export const ProfileFieldList: React.FC<ProfileFieldListProps> = ({
 
       {/* 4. Links Section */}
       <LinksSection
-        website={currentUser?.website}
-        onAddLink={handleNavigateToLinks}
+        links={currentUser?.links}
+        onAddLink={handleNavigateToAddLink}
+        onOpenLinks={handleNavigateToLinks}
       />
 
       {/* 5. Gender (with chevron-down on right) */}
