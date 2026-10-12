@@ -25,7 +25,7 @@ export const ACCESSIBILITY_ROLES = {
   SPINBUTTON: 'spinbutton',
   SWITCH: 'switch',
   TAB: 'tab',
-  TABBAR: 'tabbar',
+  TABBAR: 'tablist',
   TABLIST: 'tablist',
   TIMER: 'timer',
   LIST: 'list',

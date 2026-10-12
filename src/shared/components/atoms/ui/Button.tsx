@@ -13,25 +13,32 @@ import { useTheme } from '@/shared/hooks/useTheme';
 import { AppText } from './AppText';
 import { AppLoader } from '../loader/AppLoader';
 import { BUTTON_VARIANTS, ButtonVariant, ACCESSIBILITY_ROLES } from '@/shared/constants';
+import { ms } from '@/shared/theme';
 
 export type { ButtonVariant };
+
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends Omit<PressableProps, 'style'> {
   title: string;
   variant?: ButtonVariant;
+  size?: ButtonSize;
   loading?: boolean;
   disabled?: boolean;
   leftIcon?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  textColor?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   title,
   variant = 'primary',
+  size,
   loading = false,
   disabled = false,
   leftIcon,
   style,
+  textColor,
   onPressIn,
   onPressOut,
   ...props
@@ -39,6 +46,16 @@ export const Button: React.FC<ButtonProps> = ({
   const { theme } = useTheme();
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const opacityAnim = useRef(new Animated.Value(1)).current;
+
+  const flattenedStyle = StyleSheet.flatten(style);
+  const resolvedBorderRadius =
+    flattenedStyle?.borderRadius ??
+    (variant === BUTTON_VARIANTS.SECONDARY
+      ? theme.borderRadius.md
+      : theme.borderRadius.full);
+
+  const resolvedSize: ButtonSize =
+    size ?? (variant === BUTTON_VARIANTS.SECONDARY ? 'sm' : 'md');
 
   const handlePressIn = (e: GestureResponderEvent) => {
     if (disabled || loading) return;
@@ -83,6 +100,11 @@ export const Button: React.FC<ButtonProps> = ({
         ? theme.colors.actionPrimaryDisabled
         : theme.colors.actionPrimary;
     }
+    if (variant === BUTTON_VARIANTS.SECONDARY) {
+      return disabled
+        ? theme.colors.actionSecondaryDisabled
+        : theme.colors.actionSecondary;
+    }
     return 'transparent';
   };
 
@@ -100,6 +122,9 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const getTextColor = () => {
+    if (textColor) {
+      return textColor;
+    }
     if (variant === BUTTON_VARIANTS.PRIMARY) {
       return '#FFFFFF';
     }
@@ -115,6 +140,16 @@ export const Button: React.FC<ButtonProps> = ({
     return theme.colors.textLink;
   };
 
+  const getSizeStyle = (): ViewStyle => {
+    if (variant === BUTTON_VARIANTS.GHOST) {
+      return styles.sizeGhost;
+    }
+    if (resolvedSize === 'sm') {
+      return styles.sizeSm;
+    }
+    return styles.sizeMd;
+  };
+
   return (
     <Pressable
       disabled={disabled || loading}
@@ -128,14 +163,10 @@ export const Button: React.FC<ButtonProps> = ({
       <Animated.View
         style={[
           styles.buttonContent,
+          getSizeStyle(),
           {
             backgroundColor: getBackgroundColor(),
-            borderRadius: theme.borderRadius.full,
-            paddingVertical:
-              variant === BUTTON_VARIANTS.GHOST ? theme.spacing.xs : theme.spacing.md,
-            paddingHorizontal:
-              variant === BUTTON_VARIANTS.GHOST ? theme.spacing.md : theme.spacing.lg,
-            minHeight: variant === BUTTON_VARIANTS.GHOST ? 36 : 32,
+            borderRadius: resolvedBorderRadius,
             transform: [{ scale: scaleAnim }],
             opacity: opacityAnim,
           },
@@ -172,10 +203,24 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonContent: {
-    minHeight: 44,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+  },
+  sizeSm: {
+    minHeight: ms(32),
+    paddingVertical: ms(6),
+    paddingHorizontal: ms(12),
+  },
+  sizeMd: {
+    minHeight: ms(44),
+    paddingVertical: ms(12),
+    paddingHorizontal: ms(16),
+  },
+  sizeGhost: {
+    minHeight: ms(36),
+    paddingVertical: ms(4),
+    paddingHorizontal: ms(12),
   },
   contentRow: {
     flexDirection: 'row',

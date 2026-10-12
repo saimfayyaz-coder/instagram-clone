@@ -44,7 +44,20 @@ export const APP_ICONS = {
   CAMERA: 'camera-outline',
   IMAGES: 'images-outline',
   TRASH: 'trash-outline',
+  ADD: 'add',
+  GRID: 'grid-outline',
+  TAGGED: 'person-outline',
+  SHARE: 'share-social-outline',
+  OPEN_OUTLINE: 'open-outline',
 } as const;
 
 export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];
 
+export const PROFILE_TABS = {
+  GRID: 'grid',
+  TAGGED: 'tagged',
+} as const;
+
+export const PROFILE_TAB = PROFILE_TABS;
+
+export type ProfileTabType = (typeof PROFILE_TABS)[keyof typeof PROFILE_TABS];
