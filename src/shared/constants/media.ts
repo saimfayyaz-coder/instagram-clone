@@ -1,0 +1,34 @@
+export const GALLERY_CONFIG = {
+  PAGE_SIZE: 40,
+  RECENTS_ALBUM_TITLE: 'Recents',
+  DEFAULT_IMAGE_DIMENSION: 1080,
+  DEFAULT_TARGET_SIZE: 500,
+  MIN_PINCH_ZOOM: 1.0,
+  MAX_PINCH_ZOOM: 3.5,
+} as const;
+
+export const CAMERA_ROLL_ASSET_TYPE = {
+  PHOTOS: 'Photos',
+  VIDEOS: 'Videos',
+  ALL: 'All',
+} as const;
+
+export const CAMERA_ROLL_ALBUM_TYPE = {
+  ALBUM: 'Album',
+  ALL: 'All',
+  SMART_ALBUM: 'SmartAlbum',
+} as const;
+
+export const CAMERA_ROLL_INCLUDE_FIELDS = [
+  'filename',
+  'fileSize',
+  'imageSize',
+] as const;
+
+export const MEDIA_PICKER_ERROR_CODE = {
+  CANCELLED: 'E_PICKER_CANCELLED',
+  NO_CAMERA_PERMISSION: 'E_NO_CAMERA_PERMISSION',
+  NO_LIBRARY_PERMISSION: 'E_NO_LIBRARY_PERMISSION',
+  PICKER_CANNOT_RUN: 'E_PICKER_CANNOT_RUN_CAMERA_ON_SIMULATOR',
+  CANNOT_SAVE_IMAGE: 'E_CANNOT_SAVE_IMAGE_TO_GALLERY',
+} as const;
