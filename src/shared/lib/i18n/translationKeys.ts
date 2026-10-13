@@ -140,6 +140,14 @@ export enum TRANSLATION_KEYS {
   PROFILE_TAB_POSTS = 'profile.tabPosts',
   PROFILE_TAB_TAGGED = 'profile.tabTagged',
 
+  // Media Picker
+  MEDIA_PICKER_PROFILE_TITLE = 'mediaPicker.profileTitle',
+  MEDIA_PICKER_RECENTS = 'mediaPicker.recents',
+  MEDIA_PICKER_PERMISSION_TITLE = 'mediaPicker.permissionTitle',
+  MEDIA_PICKER_PERMISSION_SUBTITLE = 'mediaPicker.permissionSubtitle',
+  MEDIA_PICKER_TURN_ON = 'mediaPicker.turnOn',
+  MEDIA_PICKER_NO_PHOTOS = 'mediaPicker.noPhotos',
+
   // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',
   ERROR_INCORRECT_PASSWORD = 'errors.INCORRECT_PASSWORD',

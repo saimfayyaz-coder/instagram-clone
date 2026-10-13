@@ -6,7 +6,7 @@ import { MAIN_ROUTES } from '@/shared/constants';
 import { MainTabNavigator } from './MainTabNavigator';
 import { SettingsPage } from '@/pages/main/settings';
 import { ChatConversationPage } from '@/pages/main/chat';
-import { EditProfilePage, UserProfilePage } from '@/pages/main/profile';
+import { EditProfilePage, UserProfilePage, ProfilePhotoPickerPage } from '@/pages/main/profile';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
@@ -27,6 +27,11 @@ export const MainNavigator: React.FC = () => {
         options={{ animation: 'slide_from_bottom' }}
       />
       <Stack.Screen name={MAIN_ROUTES.USER_PROFILE} component={UserProfilePage} />
+      <Stack.Screen
+        name={MAIN_ROUTES.PROFILE_PHOTO_PICKER}
+        component={ProfilePhotoPickerPage}
+        options={{ animation: 'slide_from_bottom' }}
+      />
     </Stack.Navigator>
   );
 };

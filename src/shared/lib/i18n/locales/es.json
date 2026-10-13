@@ -169,5 +169,13 @@
     "NETWORK_ERROR": "Sin conexión a internet. Intenta nuevamente.",
     "TIMEOUT_ERROR": "Se agotó el tiempo de espera. Inténtalo de nuevo.",
     "UNKNOWN": "Ocurrió un error inesperado."
+  },
+  "mediaPicker": {
+    "profileTitle": "Nueva foto de perfil",
+    "recents": "Recientes",
+    "permissionTitle": "Permite que Instagram acceda a tus fotos y videos",
+    "permissionSubtitle": "Esto te permite seleccionar fotos de tu galería para compartirlas en tu perfil.",
+    "turnOn": "Activar",
+    "noPhotos": "No se encontraron fotos"
   }
 }

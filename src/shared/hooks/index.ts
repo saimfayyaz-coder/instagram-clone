@@ -4,3 +4,5 @@ export * from './useToast';
 export * from './useMediaPicker';
 export * from './useBackHandler';
 export * from './useAlert';
+export * from './useMediaPermission';
+export * from './useGalleryMedia';

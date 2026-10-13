@@ -169,5 +169,13 @@
     "NETWORK_ERROR": "No internet connection. Please try again.",
     "TIMEOUT_ERROR": "Request timed out. Please try again.",
     "UNKNOWN": "An unexpected error occurred."
+  },
+  "mediaPicker": {
+    "profileTitle": "New profile picture",
+    "recents": "Recents",
+    "permissionTitle": "Allow Instagram to access your photos and videos",
+    "permissionSubtitle": "This lets you select photos from your camera roll to share on your profile.",
+    "turnOn": "Turn on",
+    "noPhotos": "No photos found"
   }
 }

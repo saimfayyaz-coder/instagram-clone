@@ -6,3 +6,4 @@ export { EditUsernameScreen } from './ui/edit/fields/EditUsernameScreen';
 export { EditBioScreen } from './ui/edit/fields/EditBioScreen';
 export { LinksManagerScreen } from './ui/edit/links/LinksManagerScreen';
 export { AddEditLinkScreen } from './ui/edit/links/AddEditLinkScreen';
+export { ProfilePhotoPickerPage } from './ui/edit/ProfilePhotoPickerPage';

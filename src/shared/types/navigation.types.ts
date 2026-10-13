@@ -1,4 +1,5 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
+import type { PickedImage } from './media.types';
 import {
   AUTH_ROUTES,
   ROOT_ROUTES,
@@ -38,6 +39,9 @@ export type MainStackParamList = {
   [MAIN_ROUTES.EDIT_PROFILE_LINKS]?: undefined;
   [MAIN_ROUTES.NOTIFICATIONS]?: undefined;
   [MAIN_ROUTES.USER_PROFILE]?: { userId?: string; username?: string };
+  [MAIN_ROUTES.PROFILE_PHOTO_PICKER]?: {
+    onSelectImage?: (image: PickedImage) => void;
+  };
 };
 
 export type RootStackParamList = {

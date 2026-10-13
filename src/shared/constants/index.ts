@@ -5,3 +5,4 @@ export * from './api';
 export * from './headerActions';
 export * from './accessibility';
 export * from './testIds';
+export * from './media';
