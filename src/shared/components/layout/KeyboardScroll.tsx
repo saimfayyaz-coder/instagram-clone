@@ -15,7 +15,7 @@ import {
 import { isIOS } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
 
-export interface KeyboardScreenWrapperProps
+export interface KeyboardScrollProps
   extends Partial<Omit<KeyboardAwareScrollViewProps, 'style' | 'children'>> {
   children: React.ReactNode;
   scrollable?: boolean;
@@ -27,7 +27,7 @@ export interface KeyboardScreenWrapperProps
   contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
-export const KeyboardScreenWrapper: React.FC<KeyboardScreenWrapperProps> = ({
+export const KeyboardScroll: React.FC<KeyboardScrollProps> = ({
   children,
   scrollable = true,
   dismissKeyboardOnTap = true,

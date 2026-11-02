@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  ViewStyle,
-  StyleProp,
-} from 'react-native';
-import { useTheme } from '../../hooks/useTheme';
-import { commonStyles } from '@/shared/theme';
+import { ViewStyle, StyleProp } from 'react-native';
+import { Container } from './Container';
+import { layout } from '@/shared/theme';
 
+// @deprecated Use <Container> instead. Kept temporarily while screens migrate.
 export interface ResponsiveContainerProps {
   children: React.ReactNode;
   maxWidth?: number;
@@ -17,38 +13,7 @@ export interface ResponsiveContainerProps {
 }
 
 export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
-  children,
-  maxWidth = 440,
-  style,
-  contentStyle,
+  maxWidth = layout.authMaxWidth,
   paddingHorizontal,
-}) => {
-  const { theme } = useTheme();
-
-  const effectivePadding =
-    paddingHorizontal !== undefined ? paddingHorizontal : theme.spacing.lg;
-
-  return (
-    <View style={[commonStyles.fullWidth, commonStyles.center, style]}>
-      <View
-        style={[
-          commonStyles.fullWidth,
-          styles.inner,
-          {
-            maxWidth,
-            paddingHorizontal: effectivePadding,
-          },
-          contentStyle,
-        ]}
-      >
-        {children}
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  inner: {
-    alignSelf: 'center',
-  },
-});
+  ...props
+}) => <Container maxWidth={maxWidth} gutter={paddingHorizontal} {...props} />;
