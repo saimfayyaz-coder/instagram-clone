@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { AppText, Button, ButtonVariant } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
@@ -46,7 +47,7 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
           <AppText variant="caption" color={theme.colors.textSecondary}>
             {promptText}{' '}
           </AppText>
-          <TouchableOpacity onPress={onPressAction} activeOpacity={0.7}>
+          <Touchable onPress={onPressAction} activeOpacity={0.7}>
             <AppText
               variant="caption"
               weight="semibold"
@@ -54,7 +55,7 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
             >
               {actionText}
             </AppText>
-          </TouchableOpacity>
+          </Touchable>
         </View>
       ) : null}
     </View>

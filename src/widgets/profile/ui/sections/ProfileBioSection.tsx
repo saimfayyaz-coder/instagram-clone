@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTranslation } from 'react-i18next';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
@@ -54,7 +55,7 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
       )}
 
       {links.length > 0 && primaryLink && (
-        <TouchableOpacity
+        <Touchable
           onPress={handleLinkPress}
           activeOpacity={0.7}
           style={styles.linkContainer}
@@ -89,7 +90,7 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
               {t(TRANSLATION_KEYS.PROFILE_MORE_LINKS, { count: links.length - 1 })}
             </AppText>
           )}
-        </TouchableOpacity>
+        </Touchable>
       )}
     </View>
   );

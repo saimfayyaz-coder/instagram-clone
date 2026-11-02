@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTranslation } from 'react-i18next';
 import { Screen } from '@/shared/components/layout';
 import { AppHeader, headerActions } from '@/shared/components/organisms';
@@ -49,7 +50,7 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
 
   const renderItem = useCallback(
     ({ item }: { item: UserLink }) => (
-      <TouchableOpacity
+      <Touchable
         onPress={() => onEditLink(item)}
         activeOpacity={0.7}
         style={[
@@ -95,7 +96,7 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
           size={18}
           color={theme.colors.textSecondary}
         />
-      </TouchableOpacity>
+      </Touchable>
     ),
     [onEditLink, theme.colors],
   );
@@ -113,7 +114,7 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
     >
       {links.length === 0 ? (
         <View style={styles.emptyContainer}>
-          <TouchableOpacity
+          <Touchable
             onPress={onAddLink}
             activeOpacity={0.7}
             style={[
@@ -139,7 +140,7 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
             >
               {t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
             </AppText>
-          </TouchableOpacity>
+          </Touchable>
         </View>
       ) : (
         <FlatList

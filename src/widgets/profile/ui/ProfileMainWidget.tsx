@@ -16,7 +16,7 @@ import { ProfileBioSection } from './sections/ProfileBioSection';
 import { ProfileActionsSection } from './sections/ProfileActionsSection';
 import { ProfileTabsBar } from './tabs/ProfileTabsBar';
 import { ProfilePostsEmptyState } from './tabs/ProfilePostsEmptyState';
-import { ProfileLinksBottomSheet } from './sheets/ProfileLinksBottomSheet';
+import { ProfileLinksSheet } from './sheets/ProfileLinksSheet';
 import { PROFILE_TABS, ProfileTabType } from '@/shared/constants';
 import { commonStyles, layout } from '@/shared/theme';
 
@@ -118,7 +118,7 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
       </ScrollView>
 
       {links.length > 1 && (
-        <ProfileLinksBottomSheet
+        <ProfileLinksSheet
           bottomSheetRef={linksSheetRef}
           links={links}
           onSelectLink={handleOpenLinkUrl}

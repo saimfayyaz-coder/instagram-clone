@@ -4,4 +4,4 @@ export * from './ui/sections/ProfileBioSection';
 export * from './ui/sections/ProfileActionsSection';
 export * from './ui/tabs/ProfileTabsBar';
 export * from './ui/tabs/ProfilePostsEmptyState';
-export * from './ui/sheets/ProfileLinksBottomSheet';
+export * from './ui/sheets/ProfileLinksSheet';

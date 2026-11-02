@@ -1,4 +1,4 @@
-export { LanguageSelectModal, AVAILABLE_LANGUAGES } from './LanguageSelectModal';
-export type { LanguageSelectModalProps, LanguageOption } from './LanguageSelectModal';
+export { LanguageSelectSheet, AVAILABLE_LANGUAGES } from './LanguageSelectSheet';
+export type { LanguageSelectSheetProps, LanguageOption } from './LanguageSelectSheet';
 export { LanguageDropdownButton } from './LanguageDropdownButton';
 export type { LanguageDropdownButtonProps } from './LanguageDropdownButton';

@@ -6,7 +6,7 @@ import { spacing } from './spacing';
 export const layout = {
   // Horizontal padding of screen content (sections, forms, containers)
   gutter: spacing.lg,
-  // Horizontal padding inside bottom sheets, dialogs and toasts
+  // Horizontal padding inside bottom sheets (applied by SheetContent)
   sheetGutter: moderateScale(20),
   // Horizontal padding of the app header bar
   headerHorizontal: moderateScale(16),

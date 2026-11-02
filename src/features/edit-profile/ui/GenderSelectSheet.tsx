@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { AppModalBottomSheet } from '@/shared/components/molecules';
+import { Sheet, SheetContent } from '@/shared/components/molecules';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { ms } from '@/shared/theme';
@@ -10,7 +11,7 @@ import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { GenderType, GenderOption, GENDER_OPTIONS } from '@/entities/user';
 
-export interface GenderSelectionBottomSheetProps {
+export interface GenderSelectSheetProps {
   bottomSheetRef: React.RefObject<BottomSheetModal | null>;
   currentGender?: GenderType;
   onSelect: (gender: GenderType) => void;
@@ -31,7 +32,7 @@ const GenderOptionRow: React.FC<GenderOptionRowProps> = React.memo(
     }, [option.key, onSelect]);
 
     return (
-      <TouchableOpacity
+      <Touchable
         style={styles.optionRow}
         onPress={handlePress}
         activeOpacity={0.7}
@@ -53,12 +54,12 @@ const GenderOptionRow: React.FC<GenderOptionRowProps> = React.memo(
             color={theme.colors.actionPrimary}
           />
         )}
-      </TouchableOpacity>
+      </Touchable>
     );
   },
 );
 
-export const GenderSelectionBottomSheet: React.FC<GenderSelectionBottomSheetProps> = ({
+export const GenderSelectSheet: React.FC<GenderSelectSheetProps> = ({
   bottomSheetRef,
   currentGender,
   onSelect,
@@ -75,8 +76,8 @@ export const GenderSelectionBottomSheet: React.FC<GenderSelectionBottomSheetProp
   );
 
   return (
-    <AppModalBottomSheet ref={bottomSheetRef as any} enableDynamicSizing>
-      <BottomSheetView style={styles.sheetContainer}>
+    <Sheet ref={bottomSheetRef as any} enableDynamicSizing>
+      <SheetContent style={styles.sheetContainer}>
         <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
           <AppText variant="body" weight="bold" color={theme.colors.textPrimary}>
             {t(TRANSLATION_KEYS.PROFILE_GENDER)}
@@ -95,14 +96,13 @@ export const GenderSelectionBottomSheet: React.FC<GenderSelectionBottomSheetProp
             />
           ))}
         </View>
-      </BottomSheetView>
-    </AppModalBottomSheet>
+      </SheetContent>
+    </Sheet>
   );
 };
 
 const styles = StyleSheet.create({
   sheetContainer: {
-    paddingHorizontal: ms(20),
     paddingBottom: ms(32),
   },
   header: {

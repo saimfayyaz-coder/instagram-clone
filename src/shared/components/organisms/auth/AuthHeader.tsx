@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { InstagramLogo, AppText } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
@@ -40,7 +41,7 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
       ]}
     >
       {onBackPress && (
-        <TouchableOpacity
+        <Touchable
           onPress={onBackPress}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           style={[styles.backButton, { left: 0 }]}
@@ -49,7 +50,7 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
           <AppText variant="body" weight="semibold" color={theme.colors.textPrimary}>
             ‹
           </AppText>
-        </TouchableOpacity>
+        </Touchable>
       )}
 
       {showLanguageSelector && onLanguagePress && (

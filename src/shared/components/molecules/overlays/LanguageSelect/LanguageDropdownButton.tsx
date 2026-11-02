@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTranslation } from 'react-i18next';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
-import { AVAILABLE_LANGUAGES } from './LanguageSelectModal';
+import { AVAILABLE_LANGUAGES } from './LanguageSelectSheet';
 
 export interface LanguageDropdownButtonProps {
   onPress: () => void;
@@ -26,7 +27,7 @@ export const LanguageDropdownButton: React.FC<LanguageDropdownButtonProps> = ({
     ) || AVAILABLE_LANGUAGES[0];
 
   return (
-    <TouchableOpacity
+    <Touchable
       onPress={onPress}
       activeOpacity={0.7}
       style={[styles.container, style]}
@@ -47,7 +48,7 @@ export const LanguageDropdownButton: React.FC<LanguageDropdownButtonProps> = ({
         size={14}
         color={theme.colors.textSecondary}
       />
-    </TouchableOpacity>
+    </Touchable>
   );
 };
 

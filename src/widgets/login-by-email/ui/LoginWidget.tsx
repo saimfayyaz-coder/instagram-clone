@@ -6,7 +6,7 @@ import {
   AuthFooter,
   AuthLayout,
 } from '@/shared/components/organisms';
-import { LanguageSelectModal } from '@/shared/components/molecules';
+import { LanguageSelectSheet } from '@/shared/components/molecules';
 import { BUTTON_VARIANTS } from '@/shared/constants';
 import { useTranslation } from 'react-i18next';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -54,7 +54,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
         />
       </AuthLayout>
 
-      <LanguageSelectModal ref={languageSheetRef} />
+      <LanguageSelectSheet ref={languageSheetRef} />
     </>
   );
 };

@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { AppModalBottomSheet } from '@/shared/components/molecules';
+import { Sheet } from '@/shared/components/molecules';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { UserLink } from '@/entities/user';
@@ -11,13 +12,13 @@ import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatDisplayUrl } from '@/shared/lib/formatters';
 import { ms } from '@/shared/theme';
 
-export interface ProfileLinksBottomSheetProps {
+export interface ProfileLinksSheetProps {
   bottomSheetRef: React.RefObject<BottomSheetModal | null>;
   links: UserLink[];
   onSelectLink: (url: string) => void;
 }
 
-export const ProfileLinksBottomSheet: React.FC<ProfileLinksBottomSheetProps> = ({
+export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
   bottomSheetRef,
   links,
   onSelectLink,
@@ -38,7 +39,7 @@ export const ProfileLinksBottomSheet: React.FC<ProfileLinksBottomSheetProps> = (
   );
 
   return (
-    <AppModalBottomSheet
+    <Sheet
       ref={bottomSheetRef as any}
       enableDynamicSizing
       enablePanDownToClose
@@ -52,7 +53,7 @@ export const ProfileLinksBottomSheet: React.FC<ProfileLinksBottomSheetProps> = (
 
         <View style={styles.linksList}>
           {links.map((link) => (
-            <TouchableOpacity
+            <Touchable
               key={link._id}
               style={[styles.linkRow, { borderBottomColor: theme.colors.border }]}
               onPress={() => handleLinkPress(link.url)}
@@ -92,11 +93,11 @@ export const ProfileLinksBottomSheet: React.FC<ProfileLinksBottomSheetProps> = (
                 size={16}
                 color={theme.colors.textSecondary}
               />
-            </TouchableOpacity>
+            </Touchable>
           ))}
         </View>
       </BottomSheetView>
-    </AppModalBottomSheet>
+    </Sheet>
   );
 };
 

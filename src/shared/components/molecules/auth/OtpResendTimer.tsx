@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTranslation } from 'react-i18next';
 import { AppText, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
@@ -30,7 +31,7 @@ export const OtpResendTimer: React.FC<OtpResendTimerProps> = ({
       {isLoading ? (
         <AppLoader size="small" />
       ) : canResend ? (
-        <TouchableOpacity
+        <Touchable
           onPress={onResend}
           hitSlop={{ top: ms(8), bottom: ms(8), left: ms(8), right: ms(8) }}
           accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
@@ -42,7 +43,7 @@ export const OtpResendTimer: React.FC<OtpResendTimerProps> = ({
           >
             {t(TRANSLATION_KEYS.AUTH_OTP_RESEND_CODE)}
           </AppText>
-        </TouchableOpacity>
+        </Touchable>
       ) : (
         <AppText variant="caption" color={theme.colors.textSecondary}>
           {t(TRANSLATION_KEYS.AUTH_OTP_RESEND_WAIT, {

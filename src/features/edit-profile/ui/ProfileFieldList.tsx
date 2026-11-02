@@ -20,7 +20,7 @@ import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
 import { EDIT_PROFILE_SUB_VIEWS, EditProfileEditableField } from '../model/constants';
 import { LinksSection } from './LinksSection';
-import { GenderSelectionBottomSheet } from './GenderSelectionBottomSheet';
+import { GenderSelectSheet } from './GenderSelectSheet';
 import { layout, ms } from '@/shared/theme';
 
 export interface ProfileFieldListProps {
@@ -156,7 +156,7 @@ export const ProfileFieldList: React.FC<ProfileFieldListProps> = ({
         rightElement={genderChevron}
       />
 
-      <GenderSelectionBottomSheet
+      <GenderSelectSheet
         bottomSheetRef={genderSheetRef}
         currentGender={currentUser?.gender}
         onSelect={handleSelectGender}

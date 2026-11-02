@@ -10,44 +10,33 @@ import { useReducedMotion, ReduceMotion } from 'react-native-reanimated';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 
-export interface AppModalBottomSheetProps {
+export interface SheetProps {
   children: React.ReactNode;
+  // Omit to size the sheet to its content
   snapPoints?: (string | number)[];
-  customSnapPoints?: (string | number)[];
-  initialIndex?: number;
   index?: number;
   enableDynamicSizing?: boolean;
   enablePanDownToClose?: boolean;
   showBackdrop?: boolean;
-  showBackDrop?: boolean;
   onDismiss?: () => void;
-  onSheetClosed?: () => void;
   onChange?: (index: number) => void;
-  onChangeSheet?: (index: number) => void;
-  customBottomSheetStyle?: StyleProp<ViewStyle>;
-  customBottomSheetIndicatorStyle?: StyleProp<ViewStyle>;
   backgroundStyle?: StyleProp<ViewStyle>;
   handleIndicatorStyle?: StyleProp<ViewStyle>;
 }
 
-export const AppModalBottomSheet = forwardRef<BottomSheetModal, AppModalBottomSheetProps>(
+// Themed modal bottom sheet. Open/close it through a BottomSheetModal ref
+// (ref.current?.present() / dismiss()). Wrap static content in SheetContent.
+export const Sheet = forwardRef<BottomSheetModal, SheetProps>(
   (
     {
       children,
       snapPoints,
-      customSnapPoints,
-      initialIndex,
       index = 0,
       enableDynamicSizing,
       enablePanDownToClose = true,
       showBackdrop = true,
-      showBackDrop,
       onDismiss,
-      onSheetClosed,
       onChange,
-      onChangeSheet,
-      customBottomSheetStyle,
-      customBottomSheetIndicatorStyle,
       backgroundStyle,
       handleIndicatorStyle,
     },
@@ -56,33 +45,27 @@ export const AppModalBottomSheet = forwardRef<BottomSheetModal, AppModalBottomSh
     const { theme } = useTheme();
     const reducedMotion = useReducedMotion();
 
-    const resolvedSnapPoints = useMemo(() => {
-      const points = customSnapPoints || snapPoints;
-      if (points && points.length > 0) {
-        return points;
-      }
-      return undefined;
-    }, [customSnapPoints, snapPoints]);
+    const resolvedSnapPoints = useMemo(
+      () => (snapPoints && snapPoints.length > 0 ? snapPoints : undefined),
+      [snapPoints]
+    );
 
     const isDynamicSizing = enableDynamicSizing ?? (resolvedSnapPoints === undefined);
-    const isBackdropVisible = showBackDrop ?? showBackdrop;
 
     const handleDismiss = useCallback(() => {
       onDismiss?.();
-      onSheetClosed?.();
-    }, [onDismiss, onSheetClosed]);
+    }, [onDismiss]);
 
     const handleChange = useCallback(
       (sheetIndex: number) => {
         onChange?.(sheetIndex);
-        onChangeSheet?.(sheetIndex);
       },
-      [onChange, onChangeSheet]
+      [onChange]
     );
 
     const renderBackdrop = useCallback(
       (props: BottomSheetBackdropProps) => {
-        if (!isBackdropVisible) return null;
+        if (!showBackdrop) return null;
         return (
           <BottomSheetBackdrop
             {...props}
@@ -97,14 +80,14 @@ export const AppModalBottomSheet = forwardRef<BottomSheetModal, AppModalBottomSh
           />
         );
       },
-      [isBackdropVisible, theme.colors.backdropColor]
+      [showBackdrop, theme.colors.backdropColor]
     );
 
     return (
       <BottomSheetModal
         ref={ref}
         {...(resolvedSnapPoints ? { snapPoints: resolvedSnapPoints } : {})}
-        index={initialIndex ?? index}
+        index={index}
         animateOnMount={!reducedMotion}
         animationConfigs={{
           ...ANIMATION_CONFIGS,
@@ -116,13 +99,11 @@ export const AppModalBottomSheet = forwardRef<BottomSheetModal, AppModalBottomSh
         handleIndicatorStyle={[
           styles.handleBar,
           { backgroundColor: theme.colors.bottomSheetHandleBar },
-          customBottomSheetIndicatorStyle,
           handleIndicatorStyle,
         ]}
         backgroundStyle={[
           styles.background,
           { backgroundColor: theme.colors.surface },
-          customBottomSheetStyle,
           backgroundStyle,
         ]}
         onChange={handleChange}
@@ -135,7 +116,7 @@ export const AppModalBottomSheet = forwardRef<BottomSheetModal, AppModalBottomSh
   }
 );
 
-AppModalBottomSheet.displayName = 'AppModalBottomSheet';
+Sheet.displayName = 'Sheet';
 
 const styles = StyleSheet.create({
   background: {

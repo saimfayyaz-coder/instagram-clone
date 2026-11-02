@@ -1,24 +1,25 @@
 import React, { useCallback, useMemo } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import {
   BottomSheetModal,
   BottomSheetFlatList,
 } from '@gorhom/bottom-sheet';
-import { AppModalBottomSheet } from '@/shared/components/molecules';
+import { Sheet } from '@/shared/components/molecules';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles } from '@/shared/theme';
 import { APP_ICONS } from '@/shared/constants';
 import { MediaAlbum } from '@/shared/types';
 
-export interface AlbumSelectBottomSheetProps {
+export interface AlbumSelectSheetProps {
   bottomSheetRef: React.RefObject<BottomSheetModal | null>;
   albums: MediaAlbum[];
   selectedAlbum: string;
   onSelectAlbum: (albumTitle: string) => void;
 }
 
-export const AlbumSelectBottomSheet: React.FC<AlbumSelectBottomSheetProps> = ({
+export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
   bottomSheetRef,
   albums,
   selectedAlbum,
@@ -40,7 +41,7 @@ export const AlbumSelectBottomSheet: React.FC<AlbumSelectBottomSheetProps> = ({
       const isSelected = item.title === selectedAlbum;
 
       return (
-        <TouchableOpacity
+        <Touchable
           style={[commonStyles.rowCenter, styles.albumRow]}
           activeOpacity={0.7}
           onPress={() => handleSelect(item.title)}
@@ -88,7 +89,7 @@ export const AlbumSelectBottomSheet: React.FC<AlbumSelectBottomSheetProps> = ({
               color={theme.colors.actionPrimary}
             />
           )}
-        </TouchableOpacity>
+        </Touchable>
       );
     },
     [selectedAlbum, theme, handleSelect],
@@ -97,7 +98,7 @@ export const AlbumSelectBottomSheet: React.FC<AlbumSelectBottomSheetProps> = ({
   const keyExtractor = useCallback((item: MediaAlbum) => item.title, []);
 
   return (
-    <AppModalBottomSheet
+    <Sheet
       ref={bottomSheetRef as any}
       snapPoints={snapPoints}
       enablePanDownToClose
@@ -122,7 +123,7 @@ export const AlbumSelectBottomSheet: React.FC<AlbumSelectBottomSheetProps> = ({
           contentContainerStyle={styles.listContent}
         />
       </View>
-    </AppModalBottomSheet>
+    </Sheet>
   );
 };
 

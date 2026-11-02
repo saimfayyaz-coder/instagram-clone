@@ -3,10 +3,10 @@ import {
   View,
   FlatList,
   Image,
-  TouchableOpacity,
   StyleSheet,
   useWindowDimensions,
 } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { GalleryPhotoItem } from '@/shared/hooks';
 import { AppText, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
@@ -44,7 +44,7 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
       const isSelected = item.id === selectedPhotoId;
 
       return (
-        <TouchableOpacity
+        <Touchable
           testID={TEST_IDS.MEDIA_PICKER.GRID_ITEM}
           activeOpacity={0.8}
           onPress={() => onSelectPhoto(item)}
@@ -73,7 +73,7 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
               ]}
             />
           )}
-        </TouchableOpacity>
+        </Touchable>
       );
     },
     [itemSize, selectedPhotoId, onSelectPhoto, theme.colors],

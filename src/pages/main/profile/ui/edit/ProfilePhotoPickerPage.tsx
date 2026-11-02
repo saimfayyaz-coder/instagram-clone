@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -29,7 +30,7 @@ import {
   CropViewport,
   CropViewportHandle,
   MediaGrid,
-  AlbumSelectBottomSheet,
+  AlbumSelectSheet,
   PermissionGuardView,
 } from '@/features/media-picker';
 
@@ -195,7 +196,7 @@ export const ProfilePhotoPickerPage: React.FC = () => {
               },
             ]}
           >
-            <TouchableOpacity
+            <Touchable
               testID={TEST_IDS.MEDIA_PICKER.ALBUM_DROPDOWN_BUTTON}
               style={commonStyles.rowCenter}
               onPress={handleOpenAlbums}
@@ -215,9 +216,9 @@ export const ProfilePhotoPickerPage: React.FC = () => {
                 size={ms(18)}
                 color={theme.colors.textPrimary}
               />
-            </TouchableOpacity>
+            </Touchable>
 
-            <TouchableOpacity
+            <Touchable
               style={[
                 commonStyles.center,
                 styles.cameraButton,
@@ -232,7 +233,7 @@ export const ProfilePhotoPickerPage: React.FC = () => {
                 size={ms(20)}
                 color={theme.colors.textPrimary}
               />
-            </TouchableOpacity>
+            </Touchable>
           </View>
 
           {/* Bottom: Gallery Photos Grid */}
@@ -247,7 +248,7 @@ export const ProfilePhotoPickerPage: React.FC = () => {
           </View>
 
           {/* Albums Bottom Sheet */}
-          <AlbumSelectBottomSheet
+          <AlbumSelectSheet
             bottomSheetRef={albumBottomSheetRef}
             albums={albums}
             selectedAlbum={selectedAlbum}

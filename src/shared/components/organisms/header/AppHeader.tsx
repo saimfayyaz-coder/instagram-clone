@@ -2,12 +2,12 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   I18nManager,
   StyleProp,
   ViewStyle,
   TextStyle,
 } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/shared/hooks';
 import { ms } from '@/shared/theme';
@@ -154,7 +154,7 @@ export const AppHeader: React.FC<AppHeaderProps> = React.memo(({
           ) : (
             <>
               {hasLeftAction && resolvedLeftType !== 'none' && (
-                <TouchableOpacity
+                <Touchable
                   onPress={handleLeftPress}
                   hitSlop={{
                     top: ms(12),
@@ -169,11 +169,11 @@ export const AppHeader: React.FC<AppHeaderProps> = React.memo(({
                   }
                 >
                   {renderLeftIcon()}
-                </TouchableOpacity>
+                </Touchable>
               )}
 
               {leftText && (
-                <TouchableOpacity
+                <Touchable
                   onPress={onPressLeftText}
                   disabled={!onPressLeftText}
                   activeOpacity={onPressLeftText ? 0.7 : 1}
@@ -188,7 +188,7 @@ export const AppHeader: React.FC<AppHeaderProps> = React.memo(({
                   >
                     {leftText}
                   </AppText>
-                </TouchableOpacity>
+                </Touchable>
               )}
             </>
           )}
@@ -230,7 +230,7 @@ export const AppHeader: React.FC<AppHeaderProps> = React.memo(({
           {rightComponent
             ? rightComponent
             : rightActions.map((action, index) => (
-                <TouchableOpacity
+                <Touchable
                   key={action.testID || `header-action-${index}`}
                   onPress={action.onPress}
                   hitSlop={{
@@ -273,7 +273,7 @@ export const AppHeader: React.FC<AppHeaderProps> = React.memo(({
                       </AppText>
                     </View>
                   )}
-                </TouchableOpacity>
+                </Touchable>
               ))}
         </View>
       </View>

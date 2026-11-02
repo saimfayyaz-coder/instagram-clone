@@ -1,8 +1,9 @@
 import React, { forwardRef, useCallback } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { StyleSheet, View } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { AppModalBottomSheet } from '../BottomSheet/AppModalBottomSheet';
+import { Sheet, SheetContent } from '../Sheet';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
@@ -24,12 +25,12 @@ export const AVAILABLE_LANGUAGES: LanguageOption[] = [
   { code: 'ur', name: 'Urdu', nativeName: 'اردو' },
 ];
 
-export interface LanguageSelectModalProps {
+export interface LanguageSelectSheetProps {
   onLanguageSelected?: (langCode: string) => void;
   onClose?: () => void;
 }
 
-export const LanguageSelectModal = forwardRef<BottomSheetModal, LanguageSelectModalProps>(
+export const LanguageSelectSheet = forwardRef<BottomSheetModal, LanguageSelectSheetProps>(
   ({ onLanguageSelected, onClose }, ref) => {
     const { t, i18n } = useTranslation();
     const { theme } = useTheme();
@@ -53,13 +54,13 @@ export const LanguageSelectModal = forwardRef<BottomSheetModal, LanguageSelectMo
     );
 
     return (
-      <AppModalBottomSheet
+      <Sheet
         ref={ref}
-        customSnapPoints={['45%', '65%']}
+        snapPoints={['45%', '65%']}
         onDismiss={onClose}
         showBackdrop
       >
-        <BottomSheetView style={styles.content}>
+        <SheetContent style={styles.content}>
           <View style={[styles.header, { borderBottomColor: theme.colors.divider }]}>
             <AppText variant="subheading" weight="bold" color={theme.colors.textPrimary}>
               {t(TRANSLATION_KEYS.SETTINGS_SELECT_LANGUAGE)}
@@ -72,7 +73,7 @@ export const LanguageSelectModal = forwardRef<BottomSheetModal, LanguageSelectMo
                 currentLang === lang.code || currentLang.startsWith(`${lang.code}-`);
 
               return (
-                <TouchableOpacity
+                <Touchable
                   key={lang.code}
                   style={[
                     styles.languageRow,
@@ -108,21 +109,20 @@ export const LanguageSelectModal = forwardRef<BottomSheetModal, LanguageSelectMo
                       color={theme.colors.actionPrimary}
                     />
                   )}
-                </TouchableOpacity>
+                </Touchable>
               );
             })}
           </View>
-        </BottomSheetView>
-      </AppModalBottomSheet>
+        </SheetContent>
+      </Sheet>
     );
   }
 );
 
-LanguageSelectModal.displayName = 'LanguageSelectModal';
+LanguageSelectSheet.displayName = 'LanguageSelectSheet';
 
 const styles = StyleSheet.create({
   content: {
-    paddingHorizontal: ms(20),
     paddingBottom: ms(32),
   },
   header: {

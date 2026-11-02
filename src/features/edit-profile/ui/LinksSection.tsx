@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTranslation } from 'react-i18next';
 import { AppText } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
@@ -26,7 +27,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
   const hasLinks = count > 0;
 
   return (
-    <TouchableOpacity
+    <Touchable
       onPress={hasLinks ? onOpenLinks : onAddLink}
       activeOpacity={0.7}
       style={styles.container}
@@ -66,7 +67,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
           </AppText>
         )}
       </View>
-    </TouchableOpacity>
+    </Touchable>
   );
 };
 

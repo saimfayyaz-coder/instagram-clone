@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
@@ -54,7 +55,7 @@ export const ProfileTabsBar: React.FC<ProfileTabsBarProps> = ({
       {PROFILE_TAB_ITEMS.map(({ id, icon, labelKey }) => {
         const isActive = activeTab === id;
         return (
-          <TouchableOpacity
+          <Touchable
             key={id}
             onPress={() => onSelectTab(id)}
             activeOpacity={0.7}
@@ -75,7 +76,7 @@ export const ProfileTabsBar: React.FC<ProfileTabsBarProps> = ({
               size={TAB_ICON_SIZE}
               color={isActive ? theme.colors.textPrimary : theme.colors.textSecondary}
             />
-          </TouchableOpacity>
+          </Touchable>
         );
       })}
     </View>

@@ -3,9 +3,9 @@ import {
   Modal,
   View,
   StyleSheet,
-  TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useAppDispatch, useAppSelector } from '@/app/store';
 import { useTheme } from '@/shared/hooks';
 import { AppText } from '@/shared/components/atoms';
@@ -104,7 +104,7 @@ export const AlertOverlay: React.FC = () => {
           {/* Action Buttons */}
           {isTwoButtons ? (
             <View style={styles.twoButtonRow}>
-              <TouchableOpacity
+              <Touchable
                 activeOpacity={0.7}
                 style={[styles.button, styles.flexButton]}
                 onPress={() => handleButtonPress(0)}
@@ -117,7 +117,7 @@ export const AlertOverlay: React.FC = () => {
                 >
                   {buttons[0].text}
                 </AppText>
-              </TouchableOpacity>
+              </Touchable>
 
               <View
                 style={[
@@ -126,7 +126,7 @@ export const AlertOverlay: React.FC = () => {
                 ]}
               />
 
-              <TouchableOpacity
+              <Touchable
                 activeOpacity={0.7}
                 style={[styles.button, styles.flexButton]}
                 onPress={() => handleButtonPress(1)}
@@ -139,7 +139,7 @@ export const AlertOverlay: React.FC = () => {
                 >
                   {buttons[1].text}
                 </AppText>
-              </TouchableOpacity>
+              </Touchable>
             </View>
           ) : (
             <View style={styles.buttonColumn}>
@@ -153,7 +153,7 @@ export const AlertOverlay: React.FC = () => {
                       ]}
                     />
                   ) : null}
-                  <TouchableOpacity
+                  <Touchable
                     activeOpacity={0.7}
                     style={styles.button}
                     onPress={() => handleButtonPress(index)}
@@ -166,7 +166,7 @@ export const AlertOverlay: React.FC = () => {
                     >
                       {btn.text}
                     </AppText>
-                  </TouchableOpacity>
+                  </Touchable>
                 </React.Fragment>
               ))}
             </View>

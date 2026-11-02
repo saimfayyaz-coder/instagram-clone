@@ -4,3 +4,4 @@ export * from './InstagramLogo';
 export * from './Icon';
 export * from './AppAvatar';
 export * from './AppSkeleton';
+export * from './Touchable';

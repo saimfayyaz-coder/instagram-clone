@@ -3,11 +3,11 @@ import {
   View,
   Image,
   StyleSheet,
-  TouchableOpacity,
   StyleProp,
   ViewStyle,
   ImageStyle,
 } from 'react-native';
+import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTheme } from '@/shared/hooks';
 import { palette } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
@@ -125,14 +125,14 @@ export const AppAvatar: React.FC<AppAvatarProps> = ({
 
   if (onPress) {
     return (
-      <TouchableOpacity
+      <Touchable
         onPress={onPress}
         activeOpacity={0.8}
         accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         style={style}
       >
         {avatarContent}
-      </TouchableOpacity>
+      </Touchable>
     );
   }
 
