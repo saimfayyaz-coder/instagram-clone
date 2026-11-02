@@ -1,5 +1,5 @@
 import { Icon } from '@/shared/components/atoms';
-import { HeaderActionItem } from './AppHeader';
+import { HeaderActionItem } from './HeaderActionButton';
 import {
   HEADER_ACTION_TYPES,
   HEADER_ACTION_CONFIGS,

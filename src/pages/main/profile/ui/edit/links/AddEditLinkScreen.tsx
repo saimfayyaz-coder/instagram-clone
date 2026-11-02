@@ -96,7 +96,7 @@ export const AddEditLinkScreen: React.FC<AddEditLinkScreenProps> = ({
       title={headerTitle}
       onSave={handleSave}
       isSaving={isSaving}
-      onPressBack={onBack}
+      onBack={onBack}
       extraFooter={
         isEditMode ? (
           <Button

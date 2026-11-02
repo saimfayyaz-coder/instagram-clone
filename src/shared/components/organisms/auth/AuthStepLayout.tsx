@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-import { AppHeader, HeaderLeftIconType } from '../header';
+import { Header } from '../header';
 import { Screen, Container } from '@/shared/components/layout';
-import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
+import { HEADER_BACK_ICON, HeaderBackIcon } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles, layout } from '@/shared/theme';
 
 export interface AuthStepLayoutProps {
   children: React.ReactNode;
   onBack: () => void;
-  leftIconType?: HeaderLeftIconType;
+  backIcon?: HeaderBackIcon;
   maxWidth?: number;
   contentContainerStyle?: StyleProp<ViewStyle>;
 }
@@ -19,7 +19,7 @@ export interface AuthStepLayoutProps {
 export const AuthStepLayout: React.FC<AuthStepLayoutProps> = ({
   children,
   onBack,
-  leftIconType = HEADER_LEFT_ICON_TYPE.BACK,
+  backIcon = HEADER_BACK_ICON.BACK,
   maxWidth = layout.authMaxWidth,
   contentContainerStyle,
 }) => {
@@ -28,7 +28,7 @@ export const AuthStepLayout: React.FC<AuthStepLayoutProps> = ({
   return (
     <Screen
       preset="form"
-      header={<AppHeader leftIconType={leftIconType} onPressBack={onBack} withSafeArea />}
+      header={<Header backIcon={backIcon} onBack={onBack} withSafeArea />}
       contentStyle={[
         commonStyles.flexGrow1,
         { paddingBottom: theme.layout.authStepBottom },

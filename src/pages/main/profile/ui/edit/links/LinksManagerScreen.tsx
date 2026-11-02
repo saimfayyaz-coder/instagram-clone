@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { Touchable } from '@/shared/components/atoms/ui/Touchable';
 import { useTranslation } from 'react-i18next';
 import { Screen } from '@/shared/components/layout';
-import { AppHeader, headerActions } from '@/shared/components/organisms';
+import { Header, headerActions } from '@/shared/components/organisms';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
@@ -13,7 +13,7 @@ import {
   MAX_PROFILE_LINKS,
 } from '@/entities/user';
 import {
-  HEADER_LEFT_ICON_TYPE,
+  HEADER_BACK_ICON,
   APP_ICONS,
   ACCESSIBILITY_ROLES,
 } from '@/shared/constants';
@@ -104,9 +104,9 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
   return (
     <Screen
       header={
-        <AppHeader
-          onPressBack={onBack}
-          leftIconType={HEADER_LEFT_ICON_TYPE.BACK}
+        <Header
+          onBack={onBack}
+          backIcon={HEADER_BACK_ICON.BACK}
           title={t(TRANSLATION_KEYS.PROFILE_LINKS)}
           rightActions={rightActions}
         />

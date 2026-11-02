@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Share } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppHeader, headerActions } from '@/shared/components/organisms';
+import { Header, headerActions } from '@/shared/components/organisms';
 import { Screen } from '@/shared/components/layout';
 import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +49,7 @@ export const ProfilePage: React.FC = () => {
   return (
     <Screen
       header={
-        <AppHeader
+        <Header
           title={currentUser?.username || t(TRANSLATION_KEYS.PROFILE_TITLE)}
           rightActions={rightActions}
         />

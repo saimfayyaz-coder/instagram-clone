@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppText } from '@/shared/components/atoms';
-import { AppHeader } from '@/shared/components/organisms';
+import { Header } from '@/shared/components/organisms';
 import { Screen } from '@/shared/components/layout';
 import { commonStyles } from '@/shared/theme';
 
@@ -12,9 +12,9 @@ export const SettingsPage: React.FC = () => {
   return (
     <Screen
       header={
-        <AppHeader
+        <Header
           title="Settings"
-          onPressBack={() => navigation.goBack()}
+          onBack={() => navigation.goBack()}
         />
       }
     >

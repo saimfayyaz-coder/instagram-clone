@@ -100,7 +100,7 @@ export const EditUsernameScreen: React.FC<EditUsernameScreenProps> = ({
       onSave={handleSave}
       isSaving={isSaving}
       subtitle={t(TRANSLATION_KEYS.PROFILE_USERNAME_SUBTITLE)}
-      onPressBack={onBack}
+      onBack={onBack}
     >
       <FormField
         label={t(TRANSLATION_KEYS.PROFILE_USERNAME)}

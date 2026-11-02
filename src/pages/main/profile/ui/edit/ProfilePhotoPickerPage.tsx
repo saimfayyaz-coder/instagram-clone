@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
-import { AppHeader } from '@/shared/components/organisms';
+import { Header } from '@/shared/components/organisms';
 import { Screen } from '@/shared/components/layout';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles, layout } from '@/shared/theme';
@@ -14,7 +14,7 @@ import {
   APP_ICONS,
   TEST_IDS,
   MAIN_ROUTES,
-  HEADER_LEFT_ICON_TYPE,
+  HEADER_BACK_ICON,
   MEDIA_PICKER_ERROR_CODE,
   GALLERY_CONFIG,
 } from '@/shared/constants';
@@ -160,10 +160,10 @@ export const ProfilePhotoPickerPage: React.FC = () => {
   return (
     <Screen
       header={
-        <AppHeader
+        <Header
           title={t(TRANSLATION_KEYS.MEDIA_PICKER_PROFILE_TITLE)}
-          leftIconType={HEADER_LEFT_ICON_TYPE.CLOSE}
-          onPressLeft={handleCancel}
+          backIcon={HEADER_BACK_ICON.CLOSE}
+          onBack={handleCancel}
           rightActions={rightActions}
           showBottomBorder
         />

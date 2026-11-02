@@ -68,7 +68,7 @@ export const EditBioScreen: React.FC<EditBioScreenProps> = ({ onBack }) => {
       onSave={handleSave}
       isSaving={isSaving}
       extraFooter={counterFooter}
-      onPressBack={onBack}
+      onBack={onBack}
     >
       <FormField
         label={t(TRANSLATION_KEYS.PROFILE_BIO)}

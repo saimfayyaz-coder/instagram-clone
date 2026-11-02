@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { AppHeader } from '@/shared/components/organisms';
+import { Header } from '@/shared/components/organisms';
 import { Screen } from '@/shared/components/layout';
 import { useBackHandler } from '@/shared/hooks';
 import {
@@ -10,7 +10,7 @@ import {
   EditProfileEditableField,
 } from '@/features/edit-profile';
 import { EditProfileMainWidget } from '@/widgets/edit-profile';
-import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
+import { HEADER_BACK_ICON } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { UserLink } from '@/entities/user';
 import { EditNameScreen } from './fields/EditNameScreen';
@@ -117,10 +117,10 @@ export const EditProfilePage: React.FC = () => {
   return (
     <Screen
       header={
-        <AppHeader
-          onPressBack={handleGoBack}
-          leftIconType={HEADER_LEFT_ICON_TYPE.BACK}
-          leftText={t(TRANSLATION_KEYS.PROFILE_EDIT_PROFILE)}
+        <Header
+          onBack={handleGoBack}
+          backIcon={HEADER_BACK_ICON.BACK}
+          leftTitle={t(TRANSLATION_KEYS.PROFILE_EDIT_PROFILE)}
         />
       }
     >

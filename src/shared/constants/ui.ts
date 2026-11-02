@@ -1,12 +1,10 @@
-export const HEADER_LEFT_ICON_TYPE = {
+export const HEADER_BACK_ICON = {
   BACK: 'back',
   CLOSE: 'close',
-  CUSTOM: 'custom',
-  NONE: 'none',
 } as const;
 
-export type HeaderLeftIconType =
-  (typeof HEADER_LEFT_ICON_TYPE)[keyof typeof HEADER_LEFT_ICON_TYPE];
+export type HeaderBackIcon =
+  (typeof HEADER_BACK_ICON)[keyof typeof HEADER_BACK_ICON];
 
 export const BUTTON_VARIANTS = {
   PRIMARY: 'primary',

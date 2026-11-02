@@ -2,11 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { AppHeader } from '@/shared/components/organisms';
+import { Header } from '@/shared/components/organisms';
 import { Screen, Section } from '@/shared/components/layout';
 import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
-import { HEADER_LEFT_ICON_TYPE, HeaderLeftIconType, APP_ICONS, TEST_IDS } from '@/shared/constants';
+import { HEADER_BACK_ICON, HeaderBackIcon, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
@@ -18,8 +18,8 @@ export interface EditFieldLayoutProps {
   extraFooter?: React.ReactNode;
   children: React.ReactNode;
   containerStyle?: StyleProp<ViewStyle>;
-  onPressBack?: () => void;
-  leftIconType?: HeaderLeftIconType;
+  onBack?: () => void;
+  backIcon?: HeaderBackIcon;
 }
 
 export const EditFieldLayout: React.FC<EditFieldLayoutProps> = ({
@@ -30,20 +30,20 @@ export const EditFieldLayout: React.FC<EditFieldLayoutProps> = ({
   extraFooter,
   children,
   containerStyle,
-  onPressBack,
-  leftIconType = HEADER_LEFT_ICON_TYPE.BACK,
+  onBack,
+  backIcon = HEADER_BACK_ICON.BACK,
 }) => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { theme } = useTheme();
 
   const handleGoBack = useCallback(() => {
-    if (onPressBack) {
-      onPressBack();
+    if (onBack) {
+      onBack();
     } else {
       navigation.goBack();
     }
-  }, [navigation, onPressBack]);
+  }, [navigation, onBack]);
 
   const rightActions = useMemo(
     () => [
@@ -69,10 +69,10 @@ export const EditFieldLayout: React.FC<EditFieldLayoutProps> = ({
   return (
     <Screen
       header={
-        <AppHeader
-          onPressBack={handleGoBack}
-          leftIconType={leftIconType}
-          leftText={title}
+        <Header
+          onBack={handleGoBack}
+          backIcon={backIcon}
+          leftTitle={title}
           rightActions={rightActions}
         />
       }

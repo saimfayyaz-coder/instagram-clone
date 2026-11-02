@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { View } from 'react-native';
 import { AppText, InstagramLogo } from '@/shared/components/atoms';
-import { AppHeader, headerActions } from '@/shared/components/organisms';
+import { Header, headerActions } from '@/shared/components/organisms';
 import { Screen } from '@/shared/components/layout';
 import { LOGO_VARIANTS } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
@@ -23,8 +23,8 @@ export const FeedPage: React.FC = () => {
 
   const header = useMemo(
     () => (
-      <AppHeader
-        titleComponent={titleComponent}
+      <Header
+        center={titleComponent}
         rightActions={rightActions}
       />
     ),
