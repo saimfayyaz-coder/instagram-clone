@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { AppText } from '@/shared/components/atoms';
 import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { MainStackParamList } from '@/shared/types';
 import { MAIN_ROUTES } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
@@ -16,7 +16,7 @@ export const ChatConversationPage: React.FC = () => {
   const title = route.params?.username || 'Chat';
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           title={title}
@@ -29,6 +29,6 @@ export const ChatConversationPage: React.FC = () => {
           Conversation
         </AppText>
       </View>
-    </ScreenWrapper>
+    </Screen>
   );
 };

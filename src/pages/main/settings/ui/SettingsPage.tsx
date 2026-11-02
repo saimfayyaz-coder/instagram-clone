@@ -3,14 +3,14 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppText } from '@/shared/components/atoms';
 import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { commonStyles } from '@/shared/theme';
 
 export const SettingsPage: React.FC = () => {
   const navigation = useNavigation();
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           title="Settings"
@@ -23,6 +23,6 @@ export const SettingsPage: React.FC = () => {
           Settings
         </AppText>
       </View>
-    </ScreenWrapper>
+    </Screen>
   );
 };

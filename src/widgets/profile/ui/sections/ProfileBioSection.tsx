@@ -7,7 +7,7 @@ import { User, UserLink } from '@/entities/user';
 import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatDisplayUrl } from '@/shared/lib/formatters';
-import { ms } from '@/shared/theme';
+import { layout, ms } from '@/shared/theme';
 
 export interface ProfileBioSectionProps {
   user?: User | null;
@@ -97,7 +97,7 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: ms(16),
+    paddingHorizontal: layout.gutter,
     marginTop: ms(10),
   },
   bioText: {

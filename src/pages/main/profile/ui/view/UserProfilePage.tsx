@@ -3,7 +3,7 @@ import { Share } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppHeader, headerActions } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
 import { selectCurrentUser, User } from '@/entities/user';
@@ -84,7 +84,7 @@ export const UserProfilePage: React.FC = () => {
   }, [isCurrentUser, navigation]);
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           onPressBack={handleGoBack}
@@ -101,6 +101,6 @@ export const UserProfilePage: React.FC = () => {
         onShareProfile={handleShareProfile}
         onMessage={handleMessage}
       />
-    </ScreenWrapper>
+    </Screen>
   );
 };

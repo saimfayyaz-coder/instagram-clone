@@ -6,7 +6,7 @@ import { UserAvatar, User, getUserDisplayName } from '@/entities/user';
 import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatStat } from '@/shared/lib/formatters';
-import { commonStyles, ms } from '@/shared/theme';
+import { commonStyles, layout, ms } from '@/shared/theme';
 
 export interface ProfileHeaderSectionProps {
   user?: User | null;
@@ -69,7 +69,7 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: ms(16),
+    paddingHorizontal: layout.gutter,
     paddingTop: ms(8),
   },
   rightContent: {

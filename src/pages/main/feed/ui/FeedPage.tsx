@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { View } from 'react-native';
 import { AppText, InstagramLogo } from '@/shared/components/atoms';
 import { AppHeader, headerActions } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { LOGO_VARIANTS } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
 
@@ -32,12 +32,12 @@ export const FeedPage: React.FC = () => {
   );
 
   return (
-    <ScreenWrapper header={header}>
+    <Screen header={header}>
       <View style={commonStyles.centerFlex}>
         <AppText variant="heading" align="center">
           Feed
         </AppText>
       </View>
-    </ScreenWrapper>
+    </Screen>
   );
 };

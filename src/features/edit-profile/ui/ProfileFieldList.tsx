@@ -21,7 +21,7 @@ import { MainStackParamList } from '@/shared/types';
 import { EDIT_PROFILE_SUB_VIEWS, EditProfileEditableField } from '../model/constants';
 import { LinksSection } from './LinksSection';
 import { GenderSelectionBottomSheet } from './GenderSelectionBottomSheet';
-import { ms } from '@/shared/theme';
+import { layout, ms } from '@/shared/theme';
 
 export interface ProfileFieldListProps {
   onSelectField?: (field: EditProfileEditableField) => void;
@@ -167,7 +167,7 @@ export const ProfileFieldList: React.FC<ProfileFieldListProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: ms(16),
+    paddingHorizontal: layout.gutter,
     marginTop: ms(8),
   },
 });

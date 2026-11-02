@@ -3,7 +3,7 @@ import { Share } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppHeader, headerActions } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
 import { selectCurrentUser } from '@/entities/user';
@@ -47,7 +47,7 @@ export const ProfilePage: React.FC = () => {
   );
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           title={currentUser?.username || t(TRANSLATION_KEYS.PROFILE_TITLE)}
@@ -61,6 +61,6 @@ export const ProfilePage: React.FC = () => {
         onEditProfile={handleNavigateToEditProfile}
         onShareProfile={handleShareProfile}
       />
-    </ScreenWrapper>
+    </Screen>
   );
 };

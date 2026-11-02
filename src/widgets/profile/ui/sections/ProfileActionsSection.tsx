@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/components/atoms';
 import { BUTTON_VARIANTS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { ms } from '@/shared/theme';
+import { layout, ms } from '@/shared/theme';
 
 export interface ProfileActionsSectionProps {
   isCurrentUser: boolean;
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: ms(16),
+    paddingHorizontal: layout.gutter,
     marginTop: ms(16),
     gap: ms(8),
   },

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { AppHeader, headerActions } from '@/shared/components/organisms';
 import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
@@ -17,7 +17,7 @@ import {
   ACCESSIBILITY_ROLES,
 } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { ms } from '@/shared/theme';
+import { layout, ms } from '@/shared/theme';
 
 export interface LinksManagerScreenProps {
   onBack: () => void;
@@ -101,7 +101,7 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
   );
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           onPressBack={onBack}
@@ -150,7 +150,7 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
           showsVerticalScrollIndicator={false}
         />
       )}
-    </ScreenWrapper>
+    </Screen>
   );
 };
 
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     marginRight: ms(8),
   },
   listContent: {
-    paddingHorizontal: ms(16),
+    paddingHorizontal: layout.gutter,
     paddingTop: ms(8),
   },
   linkRow: {

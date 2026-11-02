@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { useBackHandler } from '@/shared/hooks';
 import {
   EDIT_PROFILE_SUB_VIEWS,
@@ -115,7 +115,7 @@ export const EditProfilePage: React.FC = () => {
   }
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           onPressBack={handleGoBack}
@@ -125,6 +125,6 @@ export const EditProfilePage: React.FC = () => {
       }
     >
       <EditProfileMainWidget onSelectField={handleSelectField} />
-    </ScreenWrapper>
+    </Screen>
   );
 };

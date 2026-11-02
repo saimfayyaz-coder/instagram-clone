@@ -6,9 +6,9 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
 import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen } from '@/shared/components/layout';
 import { useTheme } from '@/shared/hooks';
-import { ms, commonStyles } from '@/shared/theme';
+import { ms, commonStyles, layout } from '@/shared/theme';
 import {
   APP_ICONS,
   TEST_IDS,
@@ -157,7 +157,7 @@ export const ProfilePhotoPickerPage: React.FC = () => {
   );
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           title={t(TRANSLATION_KEYS.MEDIA_PICKER_PROFILE_TITLE)}
@@ -255,14 +255,14 @@ export const ProfilePhotoPickerPage: React.FC = () => {
           />
         </View>
       )}
-    </ScreenWrapper>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   controlBar: {
     height: ms(44),
-    paddingHorizontal: ms(16),
+    paddingHorizontal: layout.gutter,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   albumText: {

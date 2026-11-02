@@ -18,7 +18,7 @@ import { ProfileTabsBar } from './tabs/ProfileTabsBar';
 import { ProfilePostsEmptyState } from './tabs/ProfilePostsEmptyState';
 import { ProfileLinksBottomSheet } from './sheets/ProfileLinksBottomSheet';
 import { PROFILE_TABS, ProfileTabType } from '@/shared/constants';
-import { commonStyles, ms } from '@/shared/theme';
+import { commonStyles, layout } from '@/shared/theme';
 
 export interface ProfileMainWidgetProps {
   user?: User | null;
@@ -130,6 +130,6 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
 
 const styles = StyleSheet.create({
   contentContainer: {
-    paddingBottom: ms(40),
+    paddingBottom: layout.screenBottom,
   },
 });
