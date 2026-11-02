@@ -1,16 +1,16 @@
 import React, { useCallback, useMemo } from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Screen, Section } from '@/shared/components/layout';
 import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { HEADER_LEFT_ICON_TYPE, HeaderLeftIconType, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
-export interface SubScreenFormWidgetProps {
+export interface EditFieldLayoutProps {
   title: string;
   onSave: () => void;
   isSaving?: boolean;
@@ -22,7 +22,7 @@ export interface SubScreenFormWidgetProps {
   leftIconType?: HeaderLeftIconType;
 }
 
-export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
+export const EditFieldLayout: React.FC<EditFieldLayoutProps> = ({
   title,
   onSave,
   isSaving = false,
@@ -67,7 +67,7 @@ export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
   );
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
         <AppHeader
           onPressBack={handleGoBack}
@@ -77,7 +77,7 @@ export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
         />
       }
     >
-      <View style={[styles.container, containerStyle]}>
+      <Section style={[styles.container, containerStyle]}>
         {children}
 
         {subtitle && (
@@ -91,15 +91,14 @@ export const SubScreenFormWidget: React.FC<SubScreenFormWidgetProps> = ({
         )}
 
         {extraFooter}
-      </View>
-    </ScreenWrapper>
+      </Section>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: ms(16),
     paddingTop: ms(16),
   },
   subtitle: {

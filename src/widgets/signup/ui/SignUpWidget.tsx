@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthFlowLayout } from '@/shared/components/organisms';
+import { AuthStepLayout } from '@/shared/components/organisms';
 import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
 import { SignUpStepController, useSignupFlow } from '@/features/signup';
 
@@ -26,7 +26,7 @@ export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
   };
 
   return (
-    <AuthFlowLayout
+    <AuthStepLayout
       onBack={handleHeaderAction}
       leftIconType={
         isFirstStep
@@ -41,6 +41,6 @@ export const SignUpWidget: React.FC<SignUpWidgetProps> = ({
         nextStep={nextStep}
         onComplete={onSignupSuccess}
       />
-    </AuthFlowLayout>
+    </AuthStepLayout>
   );
 };

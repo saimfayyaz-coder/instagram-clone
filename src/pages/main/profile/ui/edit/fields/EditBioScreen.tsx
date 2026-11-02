@@ -7,7 +7,7 @@ import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUser, createBioSchema, BIO_MAX_LENGTH } from '@/entities/user';
 import { useEditFieldSubmit } from '@/features/edit-profile';
-import { SubScreenFormWidget } from '@/widgets/edit-profile';
+import { EditFieldLayout } from '@/widgets/edit-profile';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
@@ -63,7 +63,7 @@ export const EditBioScreen: React.FC<EditBioScreenProps> = ({ onBack }) => {
   );
 
   return (
-    <SubScreenFormWidget
+    <EditFieldLayout
       title={t(TRANSLATION_KEYS.PROFILE_BIO)}
       onSave={handleSave}
       isSaving={isSaving}
@@ -81,7 +81,7 @@ export const EditBioScreen: React.FC<EditBioScreenProps> = ({ onBack }) => {
         floating
         errorMessage={errorMessage}
       />
-    </SubScreenFormWidget>
+    </EditFieldLayout>
   );
 };
 

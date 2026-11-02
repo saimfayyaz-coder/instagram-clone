@@ -4,7 +4,7 @@ import { FormField } from '@/shared/components/molecules';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUserDisplayName, createNameSchema, NAME_MAX_LENGTH } from '@/entities/user';
 import { useEditFieldSubmit } from '@/features/edit-profile';
-import { SubScreenFormWidget } from '@/widgets/edit-profile';
+import { EditFieldLayout } from '@/widgets/edit-profile';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface EditNameScreenProps {
@@ -40,7 +40,7 @@ export const EditNameScreen: React.FC<EditNameScreenProps> = ({ onBack }) => {
   }, [name, nameSchema, submitField, setErrorMessage, onBack]);
 
   return (
-    <SubScreenFormWidget
+    <EditFieldLayout
       title={t(TRANSLATION_KEYS.PROFILE_NAME)}
       onSave={handleSave}
       isSaving={isSaving}
@@ -57,6 +57,6 @@ export const EditNameScreen: React.FC<EditNameScreenProps> = ({ onBack }) => {
         floating
         errorMessage={errorMessage}
       />
-    </SubScreenFormWidget>
+    </EditFieldLayout>
   );
 };

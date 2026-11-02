@@ -10,7 +10,7 @@ import {
 } from '@/entities/user';
 import { useLinkSubmit } from '@/features/edit-profile';
 import { BUTTON_VARIANTS } from '@/shared/constants';
-import { SubScreenFormWidget } from '@/widgets/edit-profile';
+import { EditFieldLayout } from '@/widgets/edit-profile';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
@@ -92,7 +92,7 @@ export const AddEditLinkScreen: React.FC<AddEditLinkScreenProps> = ({
     : t(TRANSLATION_KEYS.PROFILE_ADD_LINK_TITLE);
 
   return (
-    <SubScreenFormWidget
+    <EditFieldLayout
       title={headerTitle}
       onSave={handleSave}
       isSaving={isSaving}
@@ -133,7 +133,7 @@ export const AddEditLinkScreen: React.FC<AddEditLinkScreenProps> = ({
         floating
         maxLength={100}
       />
-    </SubScreenFormWidget>
+    </EditFieldLayout>
   );
 };
 

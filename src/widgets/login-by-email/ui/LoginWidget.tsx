@@ -4,7 +4,7 @@ import { LoginForm } from '@/features/login-by-email';
 import {
   AuthHeader,
   AuthFooter,
-  AuthScreenWrapper,
+  AuthLayout,
 } from '@/shared/components/organisms';
 import { LanguageSelectModal } from '@/shared/components/molecules';
 import { BUTTON_VARIANTS } from '@/shared/constants';
@@ -31,7 +31,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
 
   return (
     <>
-      <AuthScreenWrapper
+      <AuthLayout
         header={
           <AuthHeader
             showLogo
@@ -52,7 +52,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
           onRequireOtpVerification={onRequireOtpVerification}
           onForgotPasswordPress={onNavigateToForgotPassword}
         />
-      </AuthScreenWrapper>
+      </AuthLayout>
 
       <LanguageSelectModal ref={languageSheetRef} />
     </>

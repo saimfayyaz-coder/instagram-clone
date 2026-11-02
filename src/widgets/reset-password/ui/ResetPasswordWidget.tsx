@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthFlowLayout } from '@/shared/components/organisms';
+import { AuthStepLayout } from '@/shared/components/organisms';
 import { NewPasswordForm } from '@/features/forgot-password';
 
 export interface ResetPasswordWidgetProps {
@@ -16,12 +16,12 @@ export const ResetPasswordWidget: React.FC<ResetPasswordWidgetProps> = ({
   onResetSuccess,
 }) => {
   return (
-    <AuthFlowLayout onBack={onNavigateBack}>
+    <AuthStepLayout onBack={onNavigateBack}>
       <NewPasswordForm
         email={email}
         resetToken={resetToken}
         onSuccess={onResetSuccess}
       />
-    </AuthFlowLayout>
+    </AuthStepLayout>
   );
 };

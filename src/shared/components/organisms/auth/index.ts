@@ -1,4 +1,4 @@
 export * from './AuthHeader';
 export * from './AuthFooter';
-export * from './AuthFlowLayout';
-export * from './AuthScreenWrapper';
+export * from './AuthLayout';
+export * from './AuthStepLayout';

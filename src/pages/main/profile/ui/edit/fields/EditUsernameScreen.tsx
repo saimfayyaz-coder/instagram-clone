@@ -10,7 +10,7 @@ import {
   USERNAME_MAX_LENGTH,
 } from '@/entities/user';
 import { useEditFieldSubmit } from '@/features/edit-profile';
-import { SubScreenFormWidget } from '@/widgets/edit-profile';
+import { EditFieldLayout } from '@/widgets/edit-profile';
 import { APP_ICONS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
@@ -95,7 +95,7 @@ export const EditUsernameScreen: React.FC<EditUsernameScreenProps> = ({
   }, [isChecking, username, currentUsername, isAvailable, activeError, theme.colors.success, theme.colors.error]);
 
   return (
-    <SubScreenFormWidget
+    <EditFieldLayout
       title={t(TRANSLATION_KEYS.PROFILE_USERNAME)}
       onSave={handleSave}
       isSaving={isSaving}
@@ -114,6 +114,6 @@ export const EditUsernameScreen: React.FC<EditUsernameScreenProps> = ({
         errorMessage={activeError || undefined}
         rightElement={rightElement}
       />
-    </SubScreenFormWidget>
+    </EditFieldLayout>
   );
 };
