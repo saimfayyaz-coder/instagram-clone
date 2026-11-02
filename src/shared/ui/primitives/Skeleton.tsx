@@ -10,7 +10,7 @@ import {
 import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
 import { useTheme } from '@/shared/hooks/useTheme';
 
-export interface AppSkeletonProps {
+export interface SkeletonProps {
   width?: number | `${number}%`;
   height?: number | `${number}%`;
   borderRadius?: number;
@@ -18,7 +18,7 @@ export interface AppSkeletonProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const AppSkeleton: React.FC<AppSkeletonProps> = ({
+export const Skeleton: React.FC<SkeletonProps> = ({
   width,
   height,
   borderRadius = 4,

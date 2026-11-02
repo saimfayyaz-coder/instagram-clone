@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Sheet, AppText, Icon } from '@/shared/ui';
+import { Touchable, Sheet, Text, Icon } from '@/shared/ui';
 import {
   BottomSheetModal,
   BottomSheetFlatList,
@@ -63,20 +63,20 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
           </View>
 
           <View style={commonStyles.flex1}>
-            <AppText
+            <Text
               variant="body"
               weight={isSelected ? 'bold' : 'medium'}
               color={theme.colors.textPrimary}
             >
               {item.title}
-            </AppText>
-            <AppText
+            </Text>
+            <Text
               variant="caption"
               color={theme.colors.textSecondary}
               style={styles.albumCount}
             >
               {item.count.toLocaleString()}
-            </AppText>
+            </Text>
           </View>
 
           {isSelected && (
@@ -109,9 +109,9 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
             { borderBottomColor: theme.colors.border },
           ]}
         >
-          <AppText variant="body" weight="bold" color={theme.colors.textPrimary}>
+          <Text variant="body" weight="bold" color={theme.colors.textPrimary}>
             Albums
-          </AppText>
+          </Text>
         </View>
 
         <BottomSheetFlatList

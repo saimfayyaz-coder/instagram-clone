@@ -13,12 +13,12 @@ import { EditFieldLayout } from '@/widgets/edit-profile';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
-export interface AddEditLinkScreenProps {
+export interface AddEditLinkViewProps {
   onBack: () => void;
   editingLink?: UserLink | null;
 }
 
-export const AddEditLinkScreen: React.FC<AddEditLinkScreenProps> = ({
+export const AddEditLinkView: React.FC<AddEditLinkViewProps> = ({
   onBack,
   editingLink,
 }) => {

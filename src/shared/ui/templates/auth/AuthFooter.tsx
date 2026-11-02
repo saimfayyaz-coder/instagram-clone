@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Touchable } from '@/shared/ui/primitives/Touchable';
-import { AppText, Button, ButtonVariant } from '@/shared/ui/primitives';
+import { Text, Button, ButtonVariant } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles } from '@/shared/theme';
 
@@ -44,17 +44,17 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
             buttonText ? { marginTop: theme.spacing.md } : null,
           ]}
         >
-          <AppText variant="caption" color={theme.colors.textSecondary}>
+          <Text variant="caption" color={theme.colors.textSecondary}>
             {promptText}{' '}
-          </AppText>
+          </Text>
           <Touchable onPress={onPressAction} activeOpacity={0.7}>
-            <AppText
+            <Text
               variant="caption"
               weight="semibold"
               color={theme.colors.textLink}
             >
               {actionText}
-            </AppText>
+            </Text>
           </Touchable>
         </View>
       ) : null}

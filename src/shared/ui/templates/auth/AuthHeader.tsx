@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Touchable } from '@/shared/ui/primitives/Touchable';
-import { InstagramLogo, AppText } from '@/shared/ui/primitives';
+import { InstagramLogo, Text } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles } from '@/shared/theme';
 import { LanguageDropdownButton } from '@/shared/ui/overlays';
@@ -47,9 +47,9 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
           style={[styles.backButton, { left: 0 }]}
           accessibilityLabel="Go back"
         >
-          <AppText variant="body" weight="semibold" color={theme.colors.textPrimary}>
+          <Text variant="body" weight="semibold" color={theme.colors.textPrimary}>
             ‹
-          </AppText>
+          </Text>
         </Touchable>
       )}
 

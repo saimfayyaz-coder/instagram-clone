@@ -7,11 +7,11 @@ import { useEditFieldSubmit } from '@/features/edit-profile';
 import { EditFieldLayout } from '@/widgets/edit-profile';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
-export interface EditNameScreenProps {
+export interface EditNameViewProps {
   onBack?: () => void;
 }
 
-export const EditNameScreen: React.FC<EditNameScreenProps> = ({ onBack }) => {
+export const EditNameView: React.FC<EditNameViewProps> = ({ onBack }) => {
   const { t } = useTranslation();
   const currentDisplayName = useAppSelector(selectCurrentUserDisplayName);
   const [name, setName] = useState(currentDisplayName);

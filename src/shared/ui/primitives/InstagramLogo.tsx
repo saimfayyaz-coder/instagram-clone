@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { AppText } from './AppText';
+import { Text } from './Text';
 import { LOGO_VARIANTS, type LogoVariant } from '@/shared/constants';
 import { fontFamilies, ms } from '@/shared/theme';
 
@@ -44,7 +44,7 @@ export const InstagramLogo: React.FC<InstagramLogoProps> = ({
           style,
         ]}
       >
-        <AppText
+        <Text
           style={[
             styles.logoText,
             {
@@ -55,7 +55,7 @@ export const InstagramLogo: React.FC<InstagramLogoProps> = ({
           ]}
         >
           Instagram
-        </AppText>
+        </Text>
       </View>
     );
   }

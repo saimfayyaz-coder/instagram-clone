@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { Header, Screen, Section, AppText, Icon, AppLoader } from '@/shared/ui';
+import { Header, Screen, Section, Text, Icon, Loader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { HEADER_BACK_ICON, HeaderBackIcon, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -47,7 +47,7 @@ export const EditFieldLayout: React.FC<EditFieldLayoutProps> = ({
     () => [
       {
         icon: isSaving ? (
-          <AppLoader size="small" />
+          <Loader size="small" />
         ) : (
           <Icon
             type="Ionicons"
@@ -79,13 +79,13 @@ export const EditFieldLayout: React.FC<EditFieldLayoutProps> = ({
         {children}
 
         {subtitle && (
-          <AppText
+          <Text
             variant="caption"
             color={theme.colors.textSecondary}
             style={styles.subtitle}
           >
             {subtitle}
-          </AppText>
+          </Text>
         )}
 
         {extraFooter}

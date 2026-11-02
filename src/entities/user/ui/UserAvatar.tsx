@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleProp, ViewStyle, ImageStyle } from 'react-native';
-import { AppAvatar, AvatarSize } from '@/shared/ui';
+import { Avatar, AvatarSize } from '@/shared/ui';
 import { useAppSelector } from '@/app/store';
 import { User } from '../model/types';
 import { selectCurrentUser, selectIsAvatarUpdating } from '../model/selectors';
@@ -39,7 +39,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
   const resolvedUri = user ? (user.avatar?.url || user.avatarUrl || null) : uri;
 
   return (
-    <AppAvatar
+    <Avatar
       uri={resolvedUri}
       loading={isShimmering}
       {...restProps}

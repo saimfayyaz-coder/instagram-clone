@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, AppText, LoadingHudOverlay } from '@/shared/ui';
+import { Touchable, Text, LoadingHudOverlay } from '@/shared/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
@@ -43,14 +43,14 @@ export const AvatarEditSection: React.FC = () => {
         accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         style={styles.editButton}
       >
-        <AppText
+        <Text
           variant="body"
           weight="bold"
           color={theme.colors.actionPrimary}
           style={styles.editText}
         >
           {t(TRANSLATION_KEYS.PROFILE_EDIT_PICTURE)}
-        </AppText>
+        </Text>
       </Touchable>
 
       <AvatarActionSheet

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { AppText } from '@/shared/ui/primitives';
+import { Text } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 
 export interface DividerWithTextProps {
@@ -13,14 +13,14 @@ export const DividerWithText: React.FC<DividerWithTextProps> = ({ text }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.line, { backgroundColor: theme.colors.divider }]} />
-      <AppText
+      <Text
         variant="caption"
         weight="semibold"
         color={theme.colors.textSecondary}
         style={[styles.text, { paddingHorizontal: theme.spacing.md }]}
       >
         {text}
-      </AppText>
+      </Text>
       <View style={[styles.line, { backgroundColor: theme.colors.divider }]} />
     </View>
   );

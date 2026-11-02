@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 import { Touchable } from '@/shared/ui/primitives/Touchable';
-import { AppText } from '@/shared/ui/primitives/AppText';
+import { Text } from '@/shared/ui/primitives/Text';
 import { HeaderBackIcon } from '@/shared/constants';
 import { HeaderBackButton } from './HeaderBackButton';
 import { HeaderActionButton, HeaderActionItem } from './HeaderActionButton';
@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = React.memo(({
 
               {leftTitle && (
                 <Touchable disabled activeOpacity={1} style={styles.leftTitleButton}>
-                  <AppText
+                  <Text
                     variant="heading"
                     weight="bold"
                     color={theme.colors.textPrimary}
@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = React.memo(({
                     style={styles.leftTitle}
                   >
                     {leftTitle}
-                  </AppText>
+                  </Text>
                 </Touchable>
               )}
             </>
@@ -98,7 +98,7 @@ export const Header: React.FC<HeaderProps> = React.memo(({
               center
             ) : (
               <View style={styles.titleWrapper}>
-                <AppText
+                <Text
                   variant="body"
                   weight="bold"
                   align="center"
@@ -107,9 +107,9 @@ export const Header: React.FC<HeaderProps> = React.memo(({
                   style={styles.centerTitle}
                 >
                   {title}
-                </AppText>
+                </Text>
                 {subtitle && (
-                  <AppText
+                  <Text
                     variant="caption"
                     align="center"
                     color={theme.colors.textSecondary}
@@ -117,7 +117,7 @@ export const Header: React.FC<HeaderProps> = React.memo(({
                     style={styles.subtitle}
                   >
                     {subtitle}
-                  </AppText>
+                  </Text>
                 )}
               </View>
             )}

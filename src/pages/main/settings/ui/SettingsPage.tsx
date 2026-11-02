@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AppText, Header, Screen } from '@/shared/ui';
+import { Text, Header, Screen } from '@/shared/ui';
 import { commonStyles } from '@/shared/theme';
 
 export const SettingsPage: React.FC = () => {
@@ -17,9 +17,9 @@ export const SettingsPage: React.FC = () => {
       }
     >
       <View style={commonStyles.centerFlex}>
-        <AppText variant="heading" align="center">
+        <Text variant="heading" align="center">
           Settings
-        </AppText>
+        </Text>
       </View>
     </Screen>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, AppText } from '@/shared/ui';
+import { Touchable, Text } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -38,32 +38,32 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
       }
     >
       <View style={styles.headerRow}>
-        <AppText
+        <Text
           variant="body"
           weight="semibold"
           color={theme.colors.textPrimary}
           style={styles.linksTitle}
         >
           {t(TRANSLATION_KEYS.PROFILE_LINKS)}
-        </AppText>
+        </Text>
 
         {hasLinks ? (
-          <AppText
+          <Text
             variant="body"
             color={theme.colors.textSecondary}
             style={styles.countText}
           >
             {count}
-          </AppText>
+          </Text>
         ) : (
-          <AppText
+          <Text
             variant="body"
             weight="semibold"
             color={theme.colors.actionPrimary}
             style={styles.addText}
           >
             {t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
-          </AppText>
+          </Text>
         )}
       </View>
     </Touchable>

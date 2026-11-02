@@ -5,7 +5,7 @@ import {
   FloatingInputProps,
   Input,
   InputProps,
-  AppText,
+  Text,
 } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles } from '@/shared/theme';
@@ -48,12 +48,12 @@ export const FormField: React.FC<FormFieldProps> = ({
           {...inputProps}
         />
         {errorMessage ? (
-          <AppText
+          <Text
             variant="error"
             style={{ marginTop: theme.spacing.xs, marginStart: theme.spacing.xs }}
           >
             {errorMessage}
-          </AppText>
+          </Text>
         ) : null}
       </View>
     );
@@ -63,13 +63,13 @@ export const FormField: React.FC<FormFieldProps> = ({
   return (
     <View style={[commonStyles.fullWidth, { marginBottom: theme.spacing.md }]}>
       {label ? (
-        <AppText
+        <Text
           variant="caption"
           weight="medium"
           style={{ marginBottom: theme.spacing.xs }}
         >
           {label}
-        </AppText>
+        </Text>
       ) : null}
       <Input
         placeholder={placeholder}
@@ -80,12 +80,12 @@ export const FormField: React.FC<FormFieldProps> = ({
         {...inputProps}
       />
       {errorMessage ? (
-        <AppText
+        <Text
           variant="error"
           style={{ marginTop: theme.spacing.xs, marginStart: theme.spacing.xs }}
         >
           {errorMessage}
-        </AppText>
+        </Text>
       ) : null}
     </View>
   );

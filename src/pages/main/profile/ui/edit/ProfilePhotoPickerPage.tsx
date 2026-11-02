@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, AppText, Icon, AppLoader, Header, Screen } from '@/shared/ui';
+import { Touchable, Text, Icon, Loader, Header, Screen } from '@/shared/ui';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -133,7 +133,7 @@ export const ProfilePhotoPickerPage: React.FC = () => {
     () => [
       {
         icon: isProcessing ? (
-          <AppLoader size="small" />
+          <Loader size="small" />
         ) : (
           <Icon
             type="Ionicons"
@@ -199,14 +199,14 @@ export const ProfilePhotoPickerPage: React.FC = () => {
               onPress={handleOpenAlbums}
               activeOpacity={0.7}
             >
-              <AppText
+              <Text
                 variant="body"
                 weight="bold"
                 color={theme.colors.textPrimary}
                 style={styles.albumText}
               >
                 {selectedAlbum}
-              </AppText>
+              </Text>
               <Icon
                 type="Ionicons"
                 name={APP_ICONS.CHEVRON_DOWN}

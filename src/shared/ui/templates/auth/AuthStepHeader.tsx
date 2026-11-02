@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleProp, ViewStyle } from 'react-native';
-import { AppText } from '@/shared/ui/primitives';
+import { Text } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { authStepStyles, commonStyles } from '@/shared/theme';
 
@@ -19,7 +19,7 @@ export const AuthStepHeader: React.FC<AuthStepHeaderProps> = ({
 
   return (
     <View style={[commonStyles.fullWidth, style]}>
-      <AppText
+      <Text
         variant="heading"
         weight="bold"
         align="left"
@@ -27,17 +27,17 @@ export const AuthStepHeader: React.FC<AuthStepHeaderProps> = ({
         style={authStepStyles.title}
       >
         {title}
-      </AppText>
+      </Text>
 
       {subtitle ? (
-        <AppText
+        <Text
           variant="body"
           color={theme.colors.textSecondary}
           align="left"
           style={[authStepStyles.subtitle, { marginBottom: theme.spacing.xl }]}
         >
           {subtitle}
-        </AppText>
+        </Text>
       ) : null}
     </View>
   );

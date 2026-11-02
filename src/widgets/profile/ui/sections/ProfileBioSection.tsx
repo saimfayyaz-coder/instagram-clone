@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, AppText, Icon } from '@/shared/ui';
+import { Touchable, Text, Icon } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { User, UserLink } from '@/entities/user';
@@ -44,13 +44,13 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
   return (
     <View style={styles.container}>
       {Boolean(bio) && (
-        <AppText
+        <Text
           variant="body"
           color={theme.colors.textPrimary}
           style={styles.bioText}
         >
           {bio}
-        </AppText>
+        </Text>
       )}
 
       {links.length > 0 && primaryLink && (
@@ -69,7 +69,7 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
             style={styles.linkIcon}
           />
 
-          <AppText
+          <Text
             variant="body"
             weight="semibold"
             color={theme.colors.textPrimary}
@@ -77,17 +77,17 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
             style={styles.linkText}
           >
             {formatDisplayUrl(primaryLink.url)}
-          </AppText>
+          </Text>
 
           {hasMultipleLinks && (
-            <AppText
+            <Text
               variant="body"
               weight="semibold"
               color={theme.colors.textSecondary}
               style={styles.moreCountText}
             >
               {t(TRANSLATION_KEYS.PROFILE_MORE_LINKS, { count: links.length - 1 })}
-            </AppText>
+            </Text>
           )}
         </Touchable>
       )}

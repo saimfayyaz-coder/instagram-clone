@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Sheet, SheetContent, AppText, Icon } from '@/shared/ui';
+import { Touchable, Sheet, SheetContent, Text, Icon } from '@/shared/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
@@ -36,14 +36,14 @@ const GenderOptionRow: React.FC<GenderOptionRowProps> = React.memo(
         activeOpacity={0.7}
         accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
       >
-        <AppText
+        <Text
           variant="body"
           color={isSelected ? theme.colors.actionPrimary : theme.colors.textPrimary}
           weight={isSelected ? 'bold' : 'regular'}
           style={styles.optionText}
         >
           {label}
-        </AppText>
+        </Text>
         {isSelected && (
           <Icon
             type="Ionicons"
@@ -77,9 +77,9 @@ export const GenderSelectSheet: React.FC<GenderSelectSheetProps> = ({
     <Sheet ref={bottomSheetRef as any} enableDynamicSizing>
       <SheetContent style={styles.sheetContainer}>
         <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
-          <AppText variant="body" weight="bold" color={theme.colors.textPrimary}>
+          <Text variant="body" weight="bold" color={theme.colors.textPrimary}>
             {t(TRANSLATION_KEYS.PROFILE_GENDER)}
-          </AppText>
+          </Text>
         </View>
 
         <View style={styles.optionsList}>

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon, AppLoader, FormField } from '@/shared/ui';
+import { Icon, Loader, FormField } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import {
@@ -13,11 +13,11 @@ import { EditFieldLayout } from '@/widgets/edit-profile';
 import { APP_ICONS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
-export interface EditUsernameScreenProps {
+export interface EditUsernameViewProps {
   onBack?: () => void;
 }
 
-export const EditUsernameScreen: React.FC<EditUsernameScreenProps> = ({
+export const EditUsernameView: React.FC<EditUsernameViewProps> = ({
   onBack,
 }) => {
   const { t } = useTranslation();
@@ -66,7 +66,7 @@ export const EditUsernameScreen: React.FC<EditUsernameScreenProps> = ({
 
   const rightElement = useMemo(() => {
     if (isChecking) {
-      return <AppLoader size="small" />;
+      return <Loader size="small" />;
     }
     if (username && username !== currentUsername) {
       if (isAvailable === true && !activeError) {

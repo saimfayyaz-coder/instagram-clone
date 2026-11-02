@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, AppText, AppLoader } from '@/shared/ui';
+import { Touchable, Text, Loader } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme/scaling';
@@ -28,27 +28,27 @@ export const OtpResendTimer: React.FC<OtpResendTimerProps> = ({
   return (
     <View style={[styles.container, { marginVertical: theme.spacing.md }]}>
       {isLoading ? (
-        <AppLoader size="small" />
+        <Loader size="small" />
       ) : canResend ? (
         <Touchable
           onPress={onResend}
           hitSlop={{ top: ms(8), bottom: ms(8), left: ms(8), right: ms(8) }}
           accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         >
-          <AppText
+          <Text
             variant="body"
             weight="semibold"
             color={theme.colors.actionPrimary}
           >
             {t(TRANSLATION_KEYS.AUTH_OTP_RESEND_CODE)}
-          </AppText>
+          </Text>
         </Touchable>
       ) : (
-        <AppText variant="caption" color={theme.colors.textSecondary}>
+        <Text variant="caption" color={theme.colors.textSecondary}>
           {t(TRANSLATION_KEYS.AUTH_OTP_RESEND_WAIT, {
             time: formattedSeconds,
           })}
-        </AppText>
+        </Text>
       )}
     </View>
   );

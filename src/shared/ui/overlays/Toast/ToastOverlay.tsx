@@ -3,7 +3,7 @@ import {
   Animated,
   StyleSheet,
   View,
-  Text,
+  Text as RNText,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from '@/app/store';
@@ -97,7 +97,7 @@ export const ToastOverlay: React.FC = () => {
           },
         ]}
       >
-        <Text
+        <RNText
           style={[
             styles.text,
             {
@@ -108,7 +108,7 @@ export const ToastOverlay: React.FC = () => {
           numberOfLines={2}
         >
           {message}
-        </Text>
+        </RNText>
       </Animated.View>
     </View>
   );

@@ -4,14 +4,14 @@ import { useTheme } from '@/shared/hooks/useTheme';
 
 export type TextVariant = 'hero' | 'heading' | 'subheading' | 'body' | 'caption' | 'link' | 'error';
 
-export interface AppTextProps extends RNTextProps {
+export interface TextProps extends RNTextProps {
   variant?: TextVariant;
   color?: string;
   weight?: 'regular' | 'medium' | 'semibold' | 'bold';
   align?: 'auto' | 'left' | 'right' | 'center' | 'justify';
 }
 
-export const AppText: React.FC<AppTextProps> = ({
+export const Text: React.FC<TextProps> = ({
   children,
   variant = 'body',
   color,

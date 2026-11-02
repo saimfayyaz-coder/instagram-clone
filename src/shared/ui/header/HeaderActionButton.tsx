@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { Touchable } from '@/shared/ui/primitives/Touchable';
-import { AppText } from '@/shared/ui/primitives/AppText';
+import { Text } from '@/shared/ui/primitives/Text';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -52,9 +52,9 @@ export const HeaderActionButton: React.FC<HeaderActionButtonProps> = ({ action, 
       )}
       {Boolean(action.badgeCount && action.badgeCount > 0) && (
         <View style={[styles.badgeNumber, { backgroundColor: theme.colors.error }]}>
-          <AppText variant="caption" weight="bold" color="#FFFFFF" style={styles.badgeText}>
+          <Text variant="caption" weight="bold" color="#FFFFFF" style={styles.badgeText}>
             {action.badgeCount! > 99 ? '99+' : action.badgeCount}
-          </AppText>
+          </Text>
         </View>
       )}
     </Touchable>

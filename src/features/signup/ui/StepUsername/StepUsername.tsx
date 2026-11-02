@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Button, Icon, AppLoader, FormField, AuthStepHeader } from '@/shared/ui';
+import { Button, Icon, Loader, FormField, AuthStepHeader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -80,7 +80,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
   const renderRightElement = useCallback(() => {
     if (isChecking) {
-      return <AppLoader size="small" />;
+      return <Loader size="small" />;
     }
     if (isAvailable === true && !errors.username) {
       return (

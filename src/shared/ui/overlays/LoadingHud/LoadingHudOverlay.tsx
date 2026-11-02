@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { AppLoader, AppText } from '@/shared/ui/primitives';
+import { Loader, Text } from '@/shared/ui/primitives';
 import { commonStyles, ms } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
@@ -44,15 +44,15 @@ export const LoadingHudOverlay: React.FC<LoadingHudOverlayProps> = ({
             { backgroundColor: theme.colors.toastBg },
           ]}
         >
-          <AppLoader size="small" color={theme.colors.toastText} />
-          <AppText
+          <Loader size="small" color={theme.colors.toastText} />
+          <Text
             variant="body"
             weight="medium"
             color={theme.colors.toastText}
             style={styles.text}
           >
             {displayMessage}
-          </AppText>
+          </Text>
         </View>
       </View>
     </Modal>

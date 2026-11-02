@@ -10,8 +10,8 @@ import {
   GestureResponderEvent,
 } from 'react-native';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { AppText } from './AppText';
-import { AppLoader } from './AppLoader';
+import { Text } from './Text';
+import { Loader } from './Loader';
 import { BUTTON_VARIANTS, ButtonVariant, ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { ms } from '@/shared/theme';
 
@@ -174,7 +174,7 @@ export const Button: React.FC<ButtonProps> = ({
         ]}
       >
         {loading ? (
-          <AppLoader
+          <Loader
             size="small"
             color={variant === BUTTON_VARIANTS.PRIMARY ? '#FFFFFF' : theme.colors.actionPrimary}
           />
@@ -183,14 +183,14 @@ export const Button: React.FC<ButtonProps> = ({
             {leftIcon && (
               <View style={{ marginEnd: theme.spacing.sm }}>{leftIcon}</View>
             )}
-            <AppText
+            <Text
               variant={variant === BUTTON_VARIANTS.GHOST ? 'caption' : 'body'}
               weight="semibold"
               color={getTextColor()}
               align="center"
             >
               {title}
-            </AppText>
+            </Text>
           </View>
         )}
       </Animated.View>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { AppText } from '@/shared/ui/primitives';
+import { Text } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 
 export interface ErrorAlertProps {
@@ -22,13 +22,13 @@ export const ErrorAlert: React.FC<ErrorAlertProps> = ({ message }) => {
         },
       ]}
     >
-      <AppText
+      <Text
         variant="body"
         color={theme.colors.error}
         align="center"
       >
         {message}
-      </AppText>
+      </Text>
     </View>
   );
 };

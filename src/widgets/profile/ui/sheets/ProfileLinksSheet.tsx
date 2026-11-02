@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Sheet, AppText, Icon } from '@/shared/ui';
+import { Touchable, Sheet, Text, Icon } from '@/shared/ui';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
@@ -44,9 +44,9 @@ export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
     >
       <BottomSheetView style={styles.sheetContainer}>
         <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
-          <AppText variant="body" weight="bold" color={theme.colors.textPrimary}>
+          <Text variant="body" weight="bold" color={theme.colors.textPrimary}>
             {t(TRANSLATION_KEYS.PROFILE_LINKS)}
-          </AppText>
+          </Text>
         </View>
 
         <View style={styles.linksList}>
@@ -68,22 +68,22 @@ export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
               />
               <View style={styles.linkInfo}>
                 {Boolean(link.title) && (
-                  <AppText
+                  <Text
                     variant="body"
                     weight="semibold"
                     color={theme.colors.textPrimary}
                     numberOfLines={1}
                   >
                     {link.title}
-                  </AppText>
+                  </Text>
                 )}
-                <AppText
+                <Text
                   variant={link.title ? 'caption' : 'body'}
                   color={link.title ? theme.colors.textSecondary : theme.colors.textPrimary}
                   numberOfLines={1}
                 >
                   {formatDisplayUrl(link.url)}
-                </AppText>
+                </Text>
               </View>
               <Icon
                 type="Ionicons"

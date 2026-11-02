@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { AppText, Header, Screen } from '@/shared/ui';
+import { Text, Header, Screen } from '@/shared/ui';
 import { MainStackParamList } from '@/shared/types';
 import { MAIN_ROUTES } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
@@ -23,9 +23,9 @@ export const ChatConversationPage: React.FC = () => {
       }
     >
       <View style={commonStyles.centerFlex}>
-        <AppText variant="heading" align="center">
+        <Text variant="heading" align="center">
           Conversation
-        </AppText>
+        </Text>
       </View>
     </Screen>
   );

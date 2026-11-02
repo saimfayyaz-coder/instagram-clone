@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useTheme } from '@/shared/hooks/useTheme';
 
-export interface AppLoaderProps extends Omit<ActivityIndicatorProps, 'color'> {
+export interface LoaderProps extends Omit<ActivityIndicatorProps, 'color'> {
   color?: string;
   size?: 'small' | 'large' | number;
   fullScreen?: boolean;
@@ -17,7 +17,7 @@ export interface AppLoaderProps extends Omit<ActivityIndicatorProps, 'color'> {
   style?: StyleProp<ViewStyle>;
 }
 
-export const AppLoader: React.FC<AppLoaderProps> = ({
+export const Loader: React.FC<LoaderProps> = ({
   color,
   size = 'small',
   fullScreen = false,

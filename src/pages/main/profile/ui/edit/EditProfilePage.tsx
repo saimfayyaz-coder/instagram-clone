@@ -12,11 +12,11 @@ import { EditProfileMainWidget } from '@/widgets/edit-profile';
 import { HEADER_BACK_ICON } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { UserLink } from '@/entities/user';
-import { EditNameScreen } from './fields/EditNameScreen';
-import { EditUsernameScreen } from './fields/EditUsernameScreen';
-import { EditBioScreen } from './fields/EditBioScreen';
-import { LinksManagerScreen } from './links/LinksManagerScreen';
-import { AddEditLinkScreen } from './links/AddEditLinkScreen';
+import { EditNameView } from './fields/EditNameView';
+import { EditUsernameView } from './fields/EditUsernameView';
+import { EditBioView } from './fields/EditBioView';
+import { LinksManagerView } from './links/LinksManagerView';
+import { AddEditLinkView } from './links/AddEditLinkView';
 
 export const EditProfilePage: React.FC = () => {
   const { t } = useTranslation();
@@ -83,20 +83,20 @@ export const EditProfilePage: React.FC = () => {
   );
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.NAME) {
-    return <EditNameScreen onBack={handleBackToMain} />;
+    return <EditNameView onBack={handleBackToMain} />;
   }
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.USERNAME) {
-    return <EditUsernameScreen onBack={handleBackToMain} />;
+    return <EditUsernameView onBack={handleBackToMain} />;
   }
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.BIO) {
-    return <EditBioScreen onBack={handleBackToMain} />;
+    return <EditBioView onBack={handleBackToMain} />;
   }
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.LINKS_MANAGER) {
     return (
-      <LinksManagerScreen
+      <LinksManagerView
         onBack={handleBackToMain}
         onAddLink={handleAddLinkFromManager}
         onEditLink={handleEditLinkFromManager}
@@ -106,7 +106,7 @@ export const EditProfilePage: React.FC = () => {
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK) {
     return (
-      <AddEditLinkScreen
+      <AddEditLinkView
         onBack={handleBackFromAddEditLink}
         editingLink={editingLinkContext}
       />

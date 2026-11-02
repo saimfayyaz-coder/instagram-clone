@@ -6,7 +6,7 @@ import {
   StyleSheet,
   useWindowDimensions,
 } from 'react-native';
-import { Touchable, AppText, AppLoader } from '@/shared/ui';
+import { Touchable, Text, Loader } from '@/shared/ui';
 import { GalleryPhotoItem } from '@/shared/hooks';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles } from '@/shared/theme';
@@ -84,7 +84,7 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
     if (!isLoadingMore) return null;
     return (
       <View style={[commonStyles.center, styles.footerLoader]}>
-        <AppLoader size="small" />
+        <Loader size="small" />
       </View>
     );
   }, [isLoadingMore]);
@@ -92,9 +92,9 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
   if (photos.length === 0) {
     return (
       <View style={[commonStyles.centerFlex, styles.emptyContainer]}>
-        <AppText variant="body" color={theme.colors.textSecondary}>
+        <Text variant="body" color={theme.colors.textSecondary}>
           {t(TRANSLATION_KEYS.MEDIA_PICKER_NO_PHOTOS)}
-        </AppText>
+        </Text>
       </View>
     );
   }

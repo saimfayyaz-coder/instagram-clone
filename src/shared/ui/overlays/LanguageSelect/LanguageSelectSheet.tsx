@@ -4,7 +4,7 @@ import { Touchable } from '@/shared/ui/primitives/Touchable';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { Sheet, SheetContent } from '../Sheet';
-import { AppText, Icon } from '@/shared/ui/primitives';
+import { Text, Icon } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -62,9 +62,9 @@ export const LanguageSelectSheet = forwardRef<BottomSheetModal, LanguageSelectSh
       >
         <SheetContent style={styles.content}>
           <View style={[styles.header, { borderBottomColor: theme.colors.divider }]}>
-            <AppText variant="subheading" weight="bold" color={theme.colors.textPrimary}>
+            <Text variant="subheading" weight="bold" color={theme.colors.textPrimary}>
               {t(TRANSLATION_KEYS.SETTINGS_SELECT_LANGUAGE)}
-            </AppText>
+            </Text>
           </View>
 
           <View style={styles.listContainer}>
@@ -83,21 +83,21 @@ export const LanguageSelectSheet = forwardRef<BottomSheetModal, LanguageSelectSh
                   activeOpacity={0.7}
                 >
                   <View style={styles.labelContainer}>
-                    <AppText
+                    <Text
                       variant="body"
                       weight={isSelected ? 'bold' : 'regular'}
                       color={theme.colors.textPrimary}
                     >
                       {lang.nativeName}
-                    </AppText>
+                    </Text>
                     {lang.name !== lang.nativeName && (
-                      <AppText
+                      <Text
                         variant="caption"
                         color={theme.colors.textSecondary}
                         style={styles.subLabel}
                       >
                         {lang.name}
-                      </AppText>
+                      </Text>
                     )}
                   </View>
 

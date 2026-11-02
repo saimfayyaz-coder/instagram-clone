@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, AppText, Icon } from '@/shared/ui';
+import { Touchable, Text, Icon } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -30,18 +30,18 @@ export const ProfilePostsEmptyState: React.FC<ProfilePostsEmptyStateProps> = ({
         />
       </View>
 
-      <AppText variant="heading" weight="bold" align="center" style={styles.title}>
+      <Text variant="heading" weight="bold" align="center" style={styles.title}>
         {t(TRANSLATION_KEYS.PROFILE_NO_POSTS_TITLE)}
-      </AppText>
+      </Text>
 
-      <AppText
+      <Text
         variant="caption"
         align="center"
         color={theme.colors.textSecondary}
         style={styles.subtitle}
       >
         {t(TRANSLATION_KEYS.PROFILE_NO_POSTS_SUBTITLE)}
-      </AppText>
+      </Text>
 
       {isCurrentUser && onShareFirstPhoto && (
         <Touchable
@@ -51,13 +51,13 @@ export const ProfilePostsEmptyState: React.FC<ProfilePostsEmptyStateProps> = ({
           accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
           accessibilityLabel={t(TRANSLATION_KEYS.PROFILE_SHARE_FIRST_PHOTO)}
         >
-          <AppText
+          <Text
             variant="body"
             weight="semibold"
             color={theme.colors.actionPrimary}
           >
             {t(TRANSLATION_KEYS.PROFILE_SHARE_FIRST_PHOTO)}
-          </AppText>
+          </Text>
         </Touchable>
       )}
     </View>

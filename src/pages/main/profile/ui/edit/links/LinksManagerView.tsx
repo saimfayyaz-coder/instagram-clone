@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Touchable, Screen, Header, headerActions, AppText, Icon } from '@/shared/ui';
+import { Touchable, Screen, Header, headerActions, Text, Icon } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
@@ -17,13 +17,13 @@ import {
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { layout, ms } from '@/shared/theme';
 
-export interface LinksManagerScreenProps {
+export interface LinksManagerViewProps {
   onBack: () => void;
   onAddLink: () => void;
   onEditLink: (link: UserLink) => void;
 }
 
-export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
+export const LinksManagerView: React.FC<LinksManagerViewProps> = ({
   onBack,
   onAddLink,
   onEditLink,
@@ -69,22 +69,22 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
 
         <View style={styles.linkTextContainer}>
           {Boolean(item.title) && (
-            <AppText
+            <Text
               variant="body"
               weight="semibold"
               color={theme.colors.textPrimary}
               numberOfLines={1}
             >
               {item.title}
-            </AppText>
+            </Text>
           )}
-          <AppText
+          <Text
             variant={item.title ? 'caption' : 'body'}
             color={item.title ? theme.colors.textSecondary : theme.colors.textPrimary}
             numberOfLines={1}
           >
             {item.url}
-          </AppText>
+          </Text>
         </View>
 
         <Icon
@@ -130,13 +130,13 @@ export const LinksManagerScreen: React.FC<LinksManagerScreenProps> = ({
               color={theme.colors.textPrimary}
               style={styles.emptyButtonIcon}
             />
-            <AppText
+            <Text
               variant="body"
               weight="semibold"
               color={theme.colors.textPrimary}
             >
               {t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
-            </AppText>
+            </Text>
           </Touchable>
         </View>
       ) : (

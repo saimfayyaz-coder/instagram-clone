@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { View } from 'react-native';
-import { AppText, InstagramLogo, Header, headerActions, Screen } from '@/shared/ui';
+import { Text, InstagramLogo, Header, headerActions, Screen } from '@/shared/ui';
 import { LOGO_VARIANTS } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
 
@@ -32,9 +32,9 @@ export const FeedPage: React.FC = () => {
   return (
     <Screen header={header}>
       <View style={commonStyles.centerFlex}>
-        <AppText variant="heading" align="center">
+        <Text variant="heading" align="center">
           Feed
-        </AppText>
+        </Text>
       </View>
     </Screen>
   );

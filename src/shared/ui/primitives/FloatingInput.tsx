@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
-import { AppText } from './AppText';
+import { Text } from './Text';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 
@@ -168,7 +168,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
             },
           ]}
         >
-          <AppText
+          <Text
             variant="body"
             color={
               error
@@ -180,7 +180,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
             style={styles.labelText}
           >
             {label}
-          </AppText>
+          </Text>
         </Animated.View>
 
         {/* Text Input / Value View */}
@@ -194,13 +194,13 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
             style={styles.horizontalScrollView}
           >
             <Pressable onPress={onPress} style={styles.scrollablePressable}>
-              <AppText
+              <Text
                 variant="body"
                 color={theme.colors.textPrimary}
                 style={[dynamicInputStyle, styles.horizontalScrollText]}
               >
                 {singleLineValue}
-              </AppText>
+              </Text>
             </Pressable>
           </ScrollView>
         ) : (
@@ -237,7 +237,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           style={{ marginStart: theme.spacing.sm }}
         >
-          <AppText
+          <Text
             variant="caption"
             weight="semibold"
             color={theme.colors.textSecondary}
@@ -245,7 +245,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
             {showPassword
               ? t(TRANSLATION_KEYS.COMMON_HIDE)
               : t(TRANSLATION_KEYS.COMMON_SHOW)}
-          </AppText>
+          </Text>
         </Pressable>
       ) : null}
     </ContainerComponent>

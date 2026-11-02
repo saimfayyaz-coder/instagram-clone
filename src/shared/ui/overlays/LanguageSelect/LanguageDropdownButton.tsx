@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { Touchable } from '@/shared/ui/primitives/Touchable';
 import { useTranslation } from 'react-i18next';
-import { AppText, Icon } from '@/shared/ui/primitives';
+import { Text, Icon } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -34,14 +34,14 @@ export const LanguageDropdownButton: React.FC<LanguageDropdownButtonProps> = ({
       accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
       accessibilityLabel={`Select language, current: ${currentLang.nativeName}`}
     >
-      <AppText
+      <Text
         variant="caption"
         weight="medium"
         color={theme.colors.textSecondary}
         style={styles.text}
       >
         {currentLang.nativeName}
-      </AppText>
+      </Text>
       <Icon
         type="Feather"
         name="chevron-down"

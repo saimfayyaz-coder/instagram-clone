@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText, FormField } from '@/shared/ui';
+import { Text, FormField } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUser, createBioSchema, BIO_MAX_LENGTH } from '@/entities/user';
@@ -10,11 +10,11 @@ import { EditFieldLayout } from '@/widgets/edit-profile';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
-export interface EditBioScreenProps {
+export interface EditBioViewProps {
   onBack?: () => void;
 }
 
-export const EditBioScreen: React.FC<EditBioScreenProps> = ({ onBack }) => {
+export const EditBioView: React.FC<EditBioViewProps> = ({ onBack }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const currentUser = useAppSelector(selectCurrentUser);
@@ -46,7 +46,7 @@ export const EditBioScreen: React.FC<EditBioScreenProps> = ({ onBack }) => {
   const counterFooter = useMemo(
     () => (
       <View style={styles.counterRow}>
-        <AppText
+        <Text
           variant="caption"
           color={
             bio.length >= BIO_MAX_LENGTH
@@ -55,7 +55,7 @@ export const EditBioScreen: React.FC<EditBioScreenProps> = ({ onBack }) => {
           }
         >
           {`${bio.length} / ${BIO_MAX_LENGTH}`}
-        </AppText>
+        </Text>
       </View>
     ),
     [bio.length, theme.colors.error, theme.colors.textSecondary],

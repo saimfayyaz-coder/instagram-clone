@@ -13,11 +13,11 @@ import { palette } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { Icon } from './Icon';
-import { AppSkeleton } from './AppSkeleton';
+import { Skeleton } from './Skeleton';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 
-export interface AppAvatarProps {
+export interface AvatarProps {
   uri?: string | null;
   size?: AvatarSize;
   loading?: boolean;
@@ -43,7 +43,7 @@ const resolveDimension = (size: AvatarSize): number => {
   return ms(SIZE_MAP[size] || SIZE_MAP.md);
 };
 
-export const AppAvatar: React.FC<AppAvatarProps> = ({
+export const Avatar: React.FC<AvatarProps> = ({
   uri,
   size = 'md',
   loading = false,
@@ -79,7 +79,7 @@ export const AppAvatar: React.FC<AppAvatarProps> = ({
       testID={testID}
     >
       {loading ? (
-        <AppSkeleton width={dimension} height={dimension} circle />
+        <Skeleton width={dimension} height={dimension} circle />
       ) : isSilhouette ? (
         <View
           style={[

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Sheet, SheetContent, AppText, Icon } from '@/shared/ui';
+import { Touchable, Sheet, SheetContent, Text, Icon } from '@/shared/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -63,9 +63,9 @@ export const AvatarActionSheet: React.FC<AvatarActionSheetProps> = ({
       <SheetContent style={styles.sheetContainer}>
         {/* Title bar */}
         <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
-          <AppText variant="body" weight="bold" color={theme.colors.textPrimary}>
+          <Text variant="body" weight="bold" color={theme.colors.textPrimary}>
             {t(TRANSLATION_KEYS.PROFILE_EDIT_PICTURE)}
-          </AppText>
+          </Text>
         </View>
 
         <View style={styles.optionsList}>
@@ -83,9 +83,9 @@ export const AvatarActionSheet: React.FC<AvatarActionSheetProps> = ({
                 color={theme.colors.textPrimary}
               />
             </View>
-            <AppText variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
+            <Text variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
               {t(TRANSLATION_KEYS.PROFILE_TAKE_PHOTO)}
-            </AppText>
+            </Text>
           </Touchable>
 
           <Touchable
@@ -101,9 +101,9 @@ export const AvatarActionSheet: React.FC<AvatarActionSheetProps> = ({
                 color={theme.colors.textPrimary}
               />
             </View>
-            <AppText variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
+            <Text variant="body" color={theme.colors.textPrimary} style={styles.optionText}>
               {t(TRANSLATION_KEYS.PROFILE_CHOOSE_LIBRARY)}
-            </AppText>
+            </Text>
           </Touchable>
 
           {hasAvatar && (
@@ -120,13 +120,13 @@ export const AvatarActionSheet: React.FC<AvatarActionSheetProps> = ({
                   color={theme.colors.error}
                 />
               </View>
-              <AppText
+              <Text
                 variant="body"
                 color={theme.colors.error}
                 style={styles.optionText}
               >
                 {t(TRANSLATION_KEYS.PROFILE_REMOVE_PICTURE)}
-              </AppText>
+              </Text>
             </Touchable>
           )}
         </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText, Icon, Button } from '@/shared/ui';
+import { Text, Icon, Button } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles } from '@/shared/theme';
 import { APP_ICONS, TEST_IDS, BUTTON_VARIANTS } from '@/shared/constants';
@@ -38,22 +38,22 @@ export const PermissionGuardView: React.FC<PermissionGuardViewProps> = ({
         />
       </View>
 
-      <AppText
+      <Text
         variant="heading"
         weight="bold"
         color={theme.colors.textPrimary}
         style={styles.title}
       >
         {t(TRANSLATION_KEYS.MEDIA_PICKER_PERMISSION_TITLE)}
-      </AppText>
+      </Text>
 
-      <AppText
+      <Text
         variant="body"
         color={theme.colors.textSecondary}
         style={styles.subtitle}
       >
         {t(TRANSLATION_KEYS.MEDIA_PICKER_PERMISSION_SUBTITLE)}
-      </AppText>
+      </Text>
 
       <Button
         testID={TEST_IDS.MEDIA_PICKER.PERMISSION_TURN_ON_BUTTON}

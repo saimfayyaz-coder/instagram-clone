@@ -8,7 +8,7 @@ import {
 import { Touchable } from '@/shared/ui/primitives/Touchable';
 import { useAppDispatch, useAppSelector } from '@/app/store';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { AppText } from '@/shared/ui/primitives';
+import { Text } from '@/shared/ui/primitives';
 import {
   hideAlert,
   triggerAlertButtonCallback,
@@ -75,24 +75,24 @@ export const AlertOverlay: React.FC = () => {
           {/* Header & Body */}
           <View style={styles.content}>
             {title ? (
-              <AppText
+              <Text
                 variant="body"
                 weight="bold"
                 color={theme.colors.textPrimary}
                 style={styles.title}
               >
                 {title}
-              </AppText>
+              </Text>
             ) : null}
 
             {message ? (
-              <AppText
+              <Text
                 variant="caption"
                 color={theme.colors.textSecondary}
                 style={[styles.message, !title && styles.messageWithoutTitle]}
               >
                 {message}
-              </AppText>
+              </Text>
             ) : null}
           </View>
 
@@ -109,14 +109,14 @@ export const AlertOverlay: React.FC = () => {
                 style={[styles.button, styles.flexButton]}
                 onPress={() => handleButtonPress(0)}
               >
-                <AppText
+                <Text
                   variant="body"
                   weight={buttons[0].style === 'cancel' ? 'regular' : 'bold'}
                   color={getButtonTextColor(buttons[0])}
                   style={styles.buttonText}
                 >
                   {buttons[0].text}
-                </AppText>
+                </Text>
               </Touchable>
 
               <View
@@ -131,14 +131,14 @@ export const AlertOverlay: React.FC = () => {
                 style={[styles.button, styles.flexButton]}
                 onPress={() => handleButtonPress(1)}
               >
-                <AppText
+                <Text
                   variant="body"
                   weight={buttons[1].style === 'cancel' ? 'regular' : 'bold'}
                   color={getButtonTextColor(buttons[1])}
                   style={styles.buttonText}
                 >
                   {buttons[1].text}
-                </AppText>
+                </Text>
               </Touchable>
             </View>
           ) : (
@@ -158,14 +158,14 @@ export const AlertOverlay: React.FC = () => {
                     style={styles.button}
                     onPress={() => handleButtonPress(index)}
                   >
-                    <AppText
+                    <Text
                       variant="body"
                       weight={btn.style === 'cancel' ? 'regular' : 'bold'}
                       color={getButtonTextColor(btn)}
                       style={styles.buttonText}
                     >
                       {btn.text}
-                    </AppText>
+                    </Text>
                   </Touchable>
                 </React.Fragment>
               ))}

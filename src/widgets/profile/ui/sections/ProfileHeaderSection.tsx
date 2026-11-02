@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '@/shared/ui';
+import { Text } from '@/shared/ui';
 import { UserAvatar, User, getUserDisplayName } from '@/entities/user';
 import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -24,42 +24,42 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
 
       <View style={[commonStyles.flex1, styles.rightContent]}>
         {Boolean(displayName) && (
-          <AppText
+          <Text
             variant="body"
             weight="bold"
             numberOfLines={1}
             style={styles.displayName}
           >
             {displayName}
-          </AppText>
+          </Text>
         )}
 
         <View style={commonStyles.rowBetween}>
           <View style={[commonStyles.flex1, commonStyles.alignCenter]}>
-            <AppText variant="body" weight="bold">
+            <Text variant="body" weight="bold">
               {formatStat(user?.postsCount ?? 0)}
-            </AppText>
-            <AppText variant="caption" color={theme.colors.textSecondary}>
+            </Text>
+            <Text variant="caption" color={theme.colors.textSecondary}>
               {t(TRANSLATION_KEYS.PROFILE_POSTS)}
-            </AppText>
+            </Text>
           </View>
 
           <View style={[commonStyles.flex1, commonStyles.alignCenter]}>
-            <AppText variant="body" weight="bold">
+            <Text variant="body" weight="bold">
               {formatStat(user?.followersCount ?? 0)}
-            </AppText>
-            <AppText variant="caption" color={theme.colors.textSecondary}>
+            </Text>
+            <Text variant="caption" color={theme.colors.textSecondary}>
               {t(TRANSLATION_KEYS.PROFILE_FOLLOWERS)}
-            </AppText>
+            </Text>
           </View>
 
           <View style={[commonStyles.flex1, commonStyles.alignCenter]}>
-            <AppText variant="body" weight="bold">
+            <Text variant="body" weight="bold">
               {formatStat(user?.followingCount ?? 0)}
-            </AppText>
-            <AppText variant="caption" color={theme.colors.textSecondary}>
+            </Text>
+            <Text variant="caption" color={theme.colors.textSecondary}>
               {t(TRANSLATION_KEYS.PROFILE_FOLLOWING)}
-            </AppText>
+            </Text>
           </View>
         </View>
       </View>
