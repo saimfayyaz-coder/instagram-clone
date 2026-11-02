@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, AppText, Icon } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
-import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { User, UserLink } from '@/entities/user';
 import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';

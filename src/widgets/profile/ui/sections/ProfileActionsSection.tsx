@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/shared/components/atoms';
+import { Button } from '@/shared/ui';
 import { BUTTON_VARIANTS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { layout, ms } from '@/shared/theme';

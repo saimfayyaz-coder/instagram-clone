@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthStepLayout } from '@/shared/components/organisms';
+import { AuthStepLayout } from '@/shared/ui';
 import { HEADER_BACK_ICON } from '@/shared/constants';
 import { SignUpStepController, useSignupFlow } from '@/features/signup';
 

@@ -1,8 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { View } from 'react-native';
-import { AppText, InstagramLogo } from '@/shared/components/atoms';
-import { Header, headerActions } from '@/shared/components/organisms';
-import { Screen } from '@/shared/components/layout';
+import { AppText, InstagramLogo, Header, headerActions, Screen } from '@/shared/ui';
 import { LOGO_VARIANTS } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
 

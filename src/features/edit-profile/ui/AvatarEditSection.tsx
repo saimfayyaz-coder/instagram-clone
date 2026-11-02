@@ -1,10 +1,8 @@
 import React, { useRef, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, AppText, LoadingHudOverlay } from '@/shared/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '@/shared/components/atoms';
-import { LoadingHudOverlay } from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUser, UserAvatar } from '@/entities/user';

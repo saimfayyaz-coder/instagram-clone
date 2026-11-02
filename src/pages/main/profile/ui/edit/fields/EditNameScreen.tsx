@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormField } from '@/shared/components/molecules';
+import { FormField } from '@/shared/ui';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUserDisplayName, createNameSchema, NAME_MAX_LENGTH } from '@/entities/user';
 import { useEditFieldSubmit } from '@/features/edit-profile';

@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon, AppLoader } from '@/shared/components/atoms';
-import { FormField } from '@/shared/components/molecules';
+import { Icon, AppLoader, FormField } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import {

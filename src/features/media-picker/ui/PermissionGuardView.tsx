@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText, Icon, Button } from '@/shared/components/atoms';
+import { AppText, Icon, Button } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles } from '@/shared/theme';
 import { APP_ICONS, TEST_IDS, BUTTON_VARIANTS } from '@/shared/constants';

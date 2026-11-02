@@ -1,8 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { AppText } from '@/shared/components/atoms';
-import { Header } from '@/shared/components/organisms';
-import { Screen } from '@/shared/components/layout';
+import { AppText, Header, Screen } from '@/shared/ui';
 import { commonStyles } from '@/shared/theme';
 
 export const ChatPage: React.FC = () => {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, Icon } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
-import { Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import {
   APP_ICONS,

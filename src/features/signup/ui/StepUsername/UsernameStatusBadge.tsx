@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
-import { AppText, AppLoader } from '@/shared/components/atoms';
+import { AppText, AppLoader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 

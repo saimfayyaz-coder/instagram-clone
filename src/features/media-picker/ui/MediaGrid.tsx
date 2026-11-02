@@ -6,9 +6,8 @@ import {
   StyleSheet,
   useWindowDimensions,
 } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, AppText, AppLoader } from '@/shared/ui';
 import { GalleryPhotoItem } from '@/shared/hooks';
-import { AppText, AppLoader } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles } from '@/shared/theme';
 import { TEST_IDS } from '@/shared/constants';

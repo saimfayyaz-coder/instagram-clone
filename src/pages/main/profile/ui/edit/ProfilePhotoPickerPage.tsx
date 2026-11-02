@@ -1,13 +1,10 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, AppText, Icon, AppLoader, Header, Screen } from '@/shared/ui';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
-import { AppText, Icon, AppLoader } from '@/shared/components/atoms';
-import { Header } from '@/shared/components/organisms';
-import { Screen } from '@/shared/components/layout';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles, layout } from '@/shared/theme';
 import {

@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '@/shared/components/atoms';
-import { FormField } from '@/shared/components/molecules';
+import { AppText, FormField } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUser, createBioSchema, BIO_MAX_LENGTH } from '@/entities/user';

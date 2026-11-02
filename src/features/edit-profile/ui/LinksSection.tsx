@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, AppText } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';

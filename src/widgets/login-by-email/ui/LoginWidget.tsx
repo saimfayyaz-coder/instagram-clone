@@ -1,12 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LoginForm } from '@/features/login-by-email';
-import {
-  AuthHeader,
-  AuthFooter,
-  AuthLayout,
-} from '@/shared/components/organisms';
-import { LanguageSelectSheet } from '@/shared/components/molecules';
+import { AuthHeader, AuthFooter, AuthLayout, LanguageSelectSheet } from '@/shared/ui';
 import { BUTTON_VARIANTS } from '@/shared/constants';
 import { useTranslation } from 'react-i18next';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';

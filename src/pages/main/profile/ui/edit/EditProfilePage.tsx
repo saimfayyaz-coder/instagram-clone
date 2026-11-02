@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { Header } from '@/shared/components/organisms';
-import { Screen } from '@/shared/components/layout';
+import { Header, Screen } from '@/shared/ui';
 import { useBackHandler } from '@/shared/hooks';
 import {
   EDIT_PROFILE_SUB_VIEWS,

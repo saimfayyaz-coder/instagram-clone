@@ -1,10 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, Screen, Header, headerActions, AppText, Icon } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
-import { Screen } from '@/shared/components/layout';
-import { Header, headerActions } from '@/shared/components/organisms';
-import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import {

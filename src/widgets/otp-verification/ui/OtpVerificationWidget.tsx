@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthStepLayout } from '@/shared/components/organisms';
+import { AuthStepLayout } from '@/shared/ui';
 import { OtpForm, OtpPurpose, VerifyOtpResponseData } from '@/entities/otp';
 
 export interface OtpVerificationWidgetProps {

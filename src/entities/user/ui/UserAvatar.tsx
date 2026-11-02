@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleProp, ViewStyle, ImageStyle } from 'react-native';
-import { AppAvatar, AvatarSize } from '@/shared/components/atoms';
+import { AppAvatar, AvatarSize } from '@/shared/ui';
 import { useAppSelector } from '@/app/store';
 import { User } from '../model/types';
 import { selectCurrentUser, selectIsAvatarUpdating } from '../model/selectors';

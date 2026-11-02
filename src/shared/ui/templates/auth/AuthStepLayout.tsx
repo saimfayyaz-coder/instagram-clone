@@ -1,0 +1,43 @@
+import React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
+import { Header } from '@/shared/ui/header';
+import { Screen, Container } from '@/shared/ui/layout';
+import { HEADER_BACK_ICON, HeaderBackIcon } from '@/shared/constants';
+import { useTheme } from '@/shared/hooks/useTheme';
+import { commonStyles, layout } from '@/shared/theme';
+
+export interface AuthStepLayoutProps {
+  children: React.ReactNode;
+  onBack: () => void;
+  backIcon?: HeaderBackIcon;
+  maxWidth?: number;
+  contentContainerStyle?: StyleProp<ViewStyle>;
+}
+
+// Template for multi-step auth flows (signup, otp, forgot/reset password):
+// back header, keyboard-aware content, width-capped on tablets.
+export const AuthStepLayout: React.FC<AuthStepLayoutProps> = ({
+  children,
+  onBack,
+  backIcon = HEADER_BACK_ICON.BACK,
+  maxWidth = layout.authMaxWidth,
+  contentContainerStyle,
+}) => {
+  const { theme } = useTheme();
+
+  return (
+    <Screen
+      preset="form"
+      header={<Header backIcon={backIcon} onBack={onBack} withSafeArea />}
+      contentStyle={[
+        commonStyles.flexGrow1,
+        { paddingBottom: theme.layout.authStepBottom },
+        { paddingTop: theme.spacing.lg },
+        contentContainerStyle,
+      ]}
+      keyboardProps={{ bottomOffset: 24 }}
+    >
+      <Container maxWidth={maxWidth}>{children}</Container>
+    </Screen>
+  );
+};

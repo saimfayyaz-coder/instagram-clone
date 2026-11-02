@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/shared/components/atoms';
-import { FormField } from '@/shared/components/molecules';
+import { Button, FormField } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import {
   createLinkSchema,

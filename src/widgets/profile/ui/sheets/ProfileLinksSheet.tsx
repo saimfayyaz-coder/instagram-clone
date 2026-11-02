@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable } from '@/shared/components/atoms/ui/Touchable';
+import { Touchable, Sheet, AppText, Icon } from '@/shared/ui';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { Sheet } from '@/shared/components/molecules';
-import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { UserLink } from '@/entities/user';
 import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';

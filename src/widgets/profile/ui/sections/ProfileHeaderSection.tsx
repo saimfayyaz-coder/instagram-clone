@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '@/shared/components/atoms';
+import { AppText } from '@/shared/ui';
 import { UserAvatar, User, getUserDisplayName } from '@/entities/user';
 import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';

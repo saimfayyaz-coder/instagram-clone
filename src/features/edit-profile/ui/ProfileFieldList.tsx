@@ -4,8 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { FormField } from '@/shared/components/molecules';
-import { Icon } from '@/shared/components/atoms';
+import { FormField, Icon } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import {
