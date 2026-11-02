@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, TextStyle } from 'react-native';
-import R from '@/shared/theme';
-import { useTheme } from '@/shared/hooks';
+import { ms } from '@/shared/theme/scaling';
+import { useTheme } from '@/shared/hooks/useTheme';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -78,7 +78,7 @@ export const Icon = ({
   return (
     <VectorIcon
       name={name}
-      size={R.unit.scale(size)}
+      size={ms(size)}
       color={resolvedColor}
       style={style}
       onPress={onPress}
