@@ -126,7 +126,7 @@ export const Button: React.FC<ButtonProps> = ({
       return textColor;
     }
     if (variant === BUTTON_VARIANTS.PRIMARY) {
-      return '#FFFFFF';
+      return theme.colors.onPrimary;
     }
     if (variant === BUTTON_VARIANTS.OUTLINE) {
       return disabled ? theme.colors.textSecondary : theme.colors.actionPrimary;
@@ -176,7 +176,7 @@ export const Button: React.FC<ButtonProps> = ({
         {loading ? (
           <Loader
             size="small"
-            color={variant === BUTTON_VARIANTS.PRIMARY ? '#FFFFFF' : theme.colors.actionPrimary}
+            color={variant === BUTTON_VARIANTS.PRIMARY ? theme.colors.onPrimary : theme.colors.actionPrimary}
           />
         ) : (
           <View style={styles.contentRow}>

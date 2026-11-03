@@ -15,7 +15,7 @@ export const ErrorAlert: React.FC<ErrorAlertProps> = ({ message }) => {
       style={[
         styles.container,
         {
-          backgroundColor: theme.isDark ? '#2D1215' : '#FDE8E8',
+          backgroundColor: theme.colors.errorSurface,
           borderColor: theme.colors.error,
           borderRadius: theme.borderRadius.sm,
           padding: theme.spacing.md,

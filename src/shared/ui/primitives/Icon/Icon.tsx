@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleProp, TextStyle } from 'react-native';
 import { ms } from '@/shared/theme/scaling';
+import { palette } from '@/shared/theme/colors';
 import { useTheme } from '@/shared/hooks/useTheme';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -73,7 +74,7 @@ export const Icon = ({
 
   if (!VectorIcon) return null;
 
-  const resolvedColor = color ?? theme?.colors?.textPrimary ?? '#000000';
+  const resolvedColor = color ?? theme?.colors?.textPrimary ?? palette.black;
 
   return (
     <VectorIcon
