@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Touchable, Text } from '@/shared/ui';
+import { StyleSheet } from 'react-native';
+import { Touchable, Text, Row } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -37,7 +37,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
           : t(TRANSLATION_KEYS.PROFILE_ADD_LINK)
       }
     >
-      <View style={styles.headerRow}>
+      <Row justify="space-between" style={styles.headerRow}>
         <Text
           variant="body"
           weight="semibold"
@@ -65,7 +65,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
             {t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
           </Text>
         )}
-      </View>
+      </Row>
     </Touchable>
   );
 };
@@ -76,9 +76,6 @@ const styles = StyleSheet.create({
     marginBottom: ms(16),
   },
   headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingVertical: ms(10),
     paddingHorizontal: ms(2),
   },

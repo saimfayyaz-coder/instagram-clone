@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
-import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Button, FormField } from '@/shared/ui';
+import { Button, FormField, Stack } from '@/shared/ui';
 import { useTheme, useToast } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -68,7 +67,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   };
 
   return (
-    <View style={[commonStyles.fullWidth, commonStyles.alignCenter]}>
+    <Stack align="center" style={commonStyles.fullWidth}>
       <Controller
         name="identifier"
         control={control}
@@ -117,6 +116,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         onPress={onForgotPasswordPress}
         style={{ marginTop: theme.spacing.md }}
       />
-    </View>
+    </Stack>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Text, Icon, Loader, Header, Screen } from '@/shared/ui';
+import { Touchable, Text, Icon, Loader, Header, Screen, Row } from '@/shared/ui';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -183,9 +183,9 @@ export const ProfilePhotoPickerPage: React.FC = () => {
           />
 
           {/* Middle: Control Bar */}
-          <View
+          <Row
+            justify="space-between"
             style={[
-              commonStyles.rowBetween,
               styles.controlBar,
               {
                 backgroundColor: theme.colors.bgPrimary,
@@ -231,7 +231,7 @@ export const ProfilePhotoPickerPage: React.FC = () => {
                 color={theme.colors.textPrimary}
               />
             </Touchable>
-          </View>
+          </Row>
 
           {/* Bottom: Gallery Photos Grid */}
           <View style={commonStyles.flex1}>

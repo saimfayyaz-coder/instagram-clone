@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Header, Screen } from '@/shared/ui';
@@ -10,6 +11,7 @@ import {
 } from '@/features/edit-profile';
 import { EditProfileMainWidget } from '@/widgets/edit-profile';
 import { HEADER_BACK_ICON } from '@/shared/constants';
+import { layout } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { UserLink } from '@/entities/user';
 import { EditNameView } from './fields/EditNameView';
@@ -115,6 +117,8 @@ export const EditProfilePage: React.FC = () => {
 
   return (
     <Screen
+      preset="scroll"
+      contentStyle={styles.scrollContent}
       header={
         <Header
           onBack={handleGoBack}
@@ -127,3 +131,9 @@ export const EditProfilePage: React.FC = () => {
     </Screen>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollContent: {
+    paddingBottom: layout.screenBottom,
+  },
+});
