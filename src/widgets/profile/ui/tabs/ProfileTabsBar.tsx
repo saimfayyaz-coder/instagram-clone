@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Icon } from '@/shared/ui';
+import { Touchable, Icon, Divider, Row } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import {
@@ -49,45 +49,45 @@ export const ProfileTabsBar: React.FC<ProfileTabsBarProps> = ({
   return (
     <View
       accessibilityRole={ACCESSIBILITY_ROLES.TABLIST}
-      style={[styles.container, { borderTopColor: theme.colors.border }]}
+      style={styles.container}
     >
-      {PROFILE_TAB_ITEMS.map(({ id, icon, labelKey }) => {
-        const isActive = activeTab === id;
-        return (
-          <Touchable
-            key={id}
-            onPress={() => onSelectTab(id)}
-            activeOpacity={0.7}
-            accessibilityRole={ACCESSIBILITY_ROLES.TAB}
-            accessibilityLabel={t(labelKey)}
-            accessibilityState={{ selected: isActive }}
-            style={[
-              styles.tabButton,
-              isActive && {
-                borderBottomColor: theme.colors.textPrimary,
-                borderBottomWidth: ms(1.5),
-              },
-            ]}
-          >
-            <Icon
-              type="Ionicons"
-              name={icon}
-              size={TAB_ICON_SIZE}
-              color={isActive ? theme.colors.textPrimary : theme.colors.textSecondary}
-            />
-          </Touchable>
-        );
-      })}
+      <Divider />
+      <Row>
+        {PROFILE_TAB_ITEMS.map(({ id, icon, labelKey }) => {
+          const isActive = activeTab === id;
+          return (
+            <Touchable
+              key={id}
+              onPress={() => onSelectTab(id)}
+              activeOpacity={0.7}
+              accessibilityRole={ACCESSIBILITY_ROLES.TAB}
+              accessibilityLabel={t(labelKey)}
+              accessibilityState={{ selected: isActive }}
+              style={[
+                styles.tabButton,
+                isActive && {
+                  borderBottomColor: theme.colors.textPrimary,
+                  borderBottomWidth: ms(1.5),
+                },
+              ]}
+            >
+              <Icon
+                type="Ionicons"
+                name={icon}
+                size={TAB_ICON_SIZE}
+                color={isActive ? theme.colors.textPrimary : theme.colors.textSecondary}
+              />
+            </Touchable>
+          );
+        })}
+      </Row>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginTop: ms(20),
-    borderTopWidth: StyleSheet.hairlineWidth,
   },
   tabButton: {
     flex: 1,

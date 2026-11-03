@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Sheet, Text, Icon } from '@/shared/ui';
+import { Touchable, Sheet, Section, Text, Icon } from '@/shared/ui';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
@@ -49,7 +49,7 @@ export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
           </Text>
         </View>
 
-        <View style={styles.linksList}>
+        <Section>
           {links.map((link) => (
             <Touchable
               key={link._id}
@@ -93,7 +93,7 @@ export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
               />
             </Touchable>
           ))}
-        </View>
+        </Section>
       </BottomSheetView>
     </Sheet>
   );
@@ -107,9 +107,6 @@ const styles = StyleSheet.create({
     paddingVertical: ms(14),
     alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  linksList: {
-    paddingHorizontal: ms(16),
   },
   linkRow: {
     flexDirection: 'row',

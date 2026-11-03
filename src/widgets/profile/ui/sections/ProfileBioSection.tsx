@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Touchable, Text, Icon } from '@/shared/ui';
+import { StyleSheet } from 'react-native';
+import { Touchable, Text, Icon, Section } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { User, UserLink } from '@/entities/user';
 import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatDisplayUrl } from '@/shared/lib/formatters';
-import { layout, ms } from '@/shared/theme';
+import { ms } from '@/shared/theme';
 
 export interface ProfileBioSectionProps {
   user?: User | null;
@@ -42,7 +42,7 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <Section style={styles.container}>
       {Boolean(bio) && (
         <Text
           variant="body"
@@ -91,13 +91,12 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
           )}
         </Touchable>
       )}
-    </View>
+    </Section>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: layout.gutter,
     marginTop: ms(10),
   },
   bioText: {
