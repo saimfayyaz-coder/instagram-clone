@@ -11,7 +11,9 @@ posts or auth state. Domain UI lives in `entities/*/ui`, `features/*/ui` or `wid
 | `layout/`     | `Screen`, `Container`, `Section`, `Stack`, `Row`, `Spacer`, `Divider`, `KeyboardScroll` |
 | `header/`     | `Header`, `HeaderBackButton`, `HeaderActionButton`, `headerActions`       |
 | `form/`       | `FormField`, `ErrorAlert`, `DividerWithText`                              |
-| `overlays/`   | `Sheet`, `SheetContent`, `ToastOverlay`, `AlertOverlay`, `LoadingHudOverlay`, `LanguageSelect*` |
+| `list/`       | `ListItem` (rows in lists and sheet options)                              |
+| `feedback/`   | `EmptyState`                                                              |
+| `overlays/`   | `Sheet`, `SheetContent`, `SheetHeader`, `ToastOverlay`, `AlertOverlay`, `LoadingHudOverlay`, `LanguageSelect*` |
 | `templates/`  | Reusable screen templates: `AuthLayout`, `AuthStepLayout` (+ `AuthHeader`, `AuthFooter`, `AuthStepHeader`) |
 
 ### Import rules
@@ -109,9 +111,40 @@ export const NotificationsPage: React.FC<Props> = ({ navigation }) => (
 const sheetRef = useRef<BottomSheetModal>(null);
 sheetRef.current?.present();
 
-<Sheet ref={sheetRef}>
-  <SheetContent>…</SheetContent>
+<Sheet ref={sheetRef} enableDynamicSizing enablePanDownToClose>
+  <SheetContent>
+    <SheetHeader title={t(KEYS.TITLE)} />
+    <ListItem icon={APP_ICONS.CAMERA} title="Take photo" onPress={onTakePhoto} />
+    <ListItem icon={APP_ICONS.TRASH} title="Remove" onPress={onRemove} destructive />
+  </SheetContent>
 </Sheet>
+```
+
+### A list row
+
+`ListItem` is the one row component for lists and sheet options:
+`[icon | left] title / subtitle [right | ✓ | ›]`.
+
+```tsx
+<ListItem icon={APP_ICONS.LINK} title={link.title} subtitle={link.url} onPress={edit} chevron divider />
+<ListItem title="Female" selected={gender === FEMALE} onPress={select} />   // ✓ when selected
+<ListItem left={<Thumbnail />} title={album.title} subtitle={count} />
+```
+
+- `selected` shows a checkmark and bolds the title; `chevron` shows ›; `right` takes anything else.
+- `divider` draws a hairline under the row; `destructive` turns the title and icon red.
+- Row height comes from `layout.listItemVertical`.
+
+### An empty state
+
+```tsx
+<EmptyState
+  icon={APP_ICONS.CAMERA}
+  title={t(KEYS.NO_POSTS_TITLE)}
+  subtitle={t(KEYS.NO_POSTS_SUBTITLE)}
+  actionLabel={t(KEYS.SHARE_FIRST_PHOTO)}
+  onAction={onShare}
+/>
 ```
 
 ## Layout tokens (`theme.layout` / `layout`)
@@ -124,6 +157,7 @@ sheetRef.current?.present();
 | `screenBottom`     | ms 40      | Bottom padding at the end of scrollable screens    |
 | `authStepBottom`   | ms 32      | `AuthStepLayout`                                   |
 | `authMaxWidth`     | 440        | Auth templates (readable width on tablets)         |
+| `listItemVertical` | ms 14      | `ListItem` vertical padding                        |
 
 Theme-aware styles: `const useStyles = makeStyles(theme => ({ … }))`, then `const styles = useStyles()`.
 
