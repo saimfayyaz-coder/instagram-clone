@@ -15,6 +15,17 @@ export const palette = {
   transparent: 'transparent',
 };
 
+// Instagram brand gradient stops (logo), from bottom-left to top-right
+export const brandGradient = [
+  { offset: '0%', color: '#FFDC80' },
+  { offset: '10%', color: '#FCAF45' },
+  { offset: '30%', color: '#F77737' },
+  { offset: '50%', color: '#F56040' },
+  { offset: '70%', color: '#FD1D1D' },
+  { offset: '85%', color: '#C13584' },
+  { offset: '100%', color: '#833AB4' },
+];
+
 export const lightColors = {
   bgPrimary: '#FFFFFF',
   bgSecondary: '#FAFAFA',

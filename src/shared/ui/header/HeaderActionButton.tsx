@@ -52,7 +52,7 @@ export const HeaderActionButton: React.FC<HeaderActionButtonProps> = ({ action, 
       )}
       {Boolean(action.badgeCount && action.badgeCount > 0) && (
         <View style={[styles.badgeNumber, { backgroundColor: theme.colors.error }]}>
-          <Text variant="caption" weight="bold" color="#FFFFFF" style={styles.badgeText}>
+          <Text variant="caption" weight="bold" color={theme.colors.onPrimary} style={styles.badgeText}>
             {action.badgeCount! > 99 ? '99+' : action.badgeCount}
           </Text>
         </View>

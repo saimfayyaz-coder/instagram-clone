@@ -140,12 +140,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
           borderRadius: theme.borderRadius.sm,
           paddingHorizontal: theme.spacing.md,
         },
-        props.multiline && {
-          minHeight: ms(110),
-          height: undefined,
-          alignItems: 'flex-start',
-          paddingVertical: ms(8),
-        },
+        props.multiline && styles.multilineWrapper,
       ]}
     >
       <View
@@ -253,6 +248,12 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
 };
 
 const styles = StyleSheet.create({
+  multilineWrapper: {
+    minHeight: ms(110),
+    height: undefined,
+    alignItems: 'flex-start',
+    paddingVertical: ms(8),
+  },
   container: {
     width: '100%',
     height: ms(52),

@@ -9,7 +9,7 @@ import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { Text } from './Text';
 import { LOGO_VARIANTS, type LogoVariant } from '@/shared/constants';
-import { fontFamilies, ms } from '@/shared/theme';
+import { fontFamilies, ms, brandGradient } from '@/shared/theme';
 
 export interface InstagramLogoProps {
   size?: number;
@@ -78,13 +78,9 @@ export const InstagramLogo: React.FC<InstagramLogoProps> = ({
             x2="100%"
             y2="0%"
           >
-            <Stop offset="0%" stopColor="#FFDC80" />
-            <Stop offset="10%" stopColor="#FCAF45" />
-            <Stop offset="30%" stopColor="#F77737" />
-            <Stop offset="50%" stopColor="#F56040" />
-            <Stop offset="70%" stopColor="#FD1D1D" />
-            <Stop offset="85%" stopColor="#C13584" />
-            <Stop offset="100%" stopColor="#833AB4" />
+            {brandGradient.map((stop) => (
+              <Stop key={stop.offset} offset={stop.offset} stopColor={stop.color} />
+            ))}
           </LinearGradient>
         </Defs>
         <Path

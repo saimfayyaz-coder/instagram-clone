@@ -156,6 +156,8 @@ export const useGalleryMedia = (isPermissionGranted: boolean) => {
       setPhotos([]);
       setSelectedPhoto(null);
     }
+    // Initial load runs only when permission changes; loadPhotos also depends on paging state
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPermissionGranted]);
 
   return {

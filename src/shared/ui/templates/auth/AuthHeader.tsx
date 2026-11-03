@@ -2,7 +2,9 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Touchable } from '@/shared/ui/primitives/Touchable';
 import { InstagramLogo, Text } from '@/shared/ui/primitives';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks/useTheme';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { commonStyles } from '@/shared/theme';
 import { LanguageDropdownButton } from './LanguageDropdownButton';
 
@@ -25,6 +27,7 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
   onLanguagePress,
   style,
 }) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
 
   return (
@@ -44,8 +47,8 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
         <Touchable
           onPress={onBackPress}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          style={[styles.backButton, { left: 0 }]}
-          accessibilityLabel="Go back"
+          style={styles.backButton}
+          accessibilityLabel={t(TRANSLATION_KEYS.COMMON_BACK)}
         >
           <Text variant="body" weight="semibold" color={theme.colors.textPrimary}>
             ‹
@@ -79,6 +82,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
+    left: 0,
     padding: 8,
   },
 });
