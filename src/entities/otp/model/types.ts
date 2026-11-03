@@ -1,10 +1,7 @@
 import { User } from '@/entities/user';
+import type { OtpPurpose } from '@/shared/constants';
 
-export type OtpPurpose =
-  | 'signup'
-  | 'login_unverified'
-  | 'forgot_password'
-  | 'change_password';
+export type { OtpPurpose };
 
 export interface VerifyOtpRequest {
   email: string;

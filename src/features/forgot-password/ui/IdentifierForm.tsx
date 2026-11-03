@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button, FormField, AuthStepHeader } from '@/shared/ui';
+import { BUTTON_VARIANTS } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -73,7 +74,7 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
 
       <Button
         title={t(TRANSLATION_KEYS.AUTH_FORGOT_PASSWORD_SEND_CODE)}
-        variant="primary"
+        variant={BUTTON_VARIANTS.PRIMARY}
         onPress={() => handleSubmit(onSubmit)()}
         loading={isLoading}
         style={{ marginTop: theme.spacing.md }}

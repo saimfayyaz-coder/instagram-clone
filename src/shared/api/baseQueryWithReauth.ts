@@ -6,6 +6,7 @@ import {
   API_ERROR_CODES,
   HTTP_STATUS,
   API_TIMEOUT_MS,
+  TIMEOUT_ERROR_MESSAGES,
   API_ENDPOINTS,
   HTTP_METHODS,
 } from '@/shared/constants';
@@ -134,7 +135,7 @@ export const baseQueryWithReauth = async (
     if (
       result.error.status === API_ERROR_CODES.TIMEOUT_ERROR ||
       (result.error.status === API_ERROR_CODES.FETCH_ERROR &&
-        (errString.includes('Abort') || errString.includes('timeout')))
+        TIMEOUT_ERROR_MESSAGES.some((msg) => errString.includes(msg)))
     ) {
       return {
         ...result,

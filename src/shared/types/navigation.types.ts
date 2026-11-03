@@ -6,13 +6,14 @@ import {
   TAB_ROUTES,
   MAIN_ROUTES,
 } from '../constants/routes';
+import type { OtpFlowContext } from '../constants/auth';
 
 export type AuthStackParamList = {
   [AUTH_ROUTES.LOGIN]: undefined;
   [AUTH_ROUTES.SIGNUP]: undefined;
   [AUTH_ROUTES.OTP_VERIFICATION]: {
     email: string;
-    flowContext?: 'login_unverified' | 'forgot_password';
+    flowContext?: OtpFlowContext;
   };
   [AUTH_ROUTES.FORGOT_PASSWORD]: undefined;
   [AUTH_ROUTES.RESET_PASSWORD]: {

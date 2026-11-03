@@ -7,7 +7,7 @@ import { Button, Icon, Loader, FormField, AuthStepHeader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { APP_ICONS } from '@/shared/constants/ui';
+import { APP_ICONS, BUTTON_VARIANTS } from '@/shared/constants/ui';
 import { useUsernameAvailability } from '@/entities/user';
 import {
   createStep1UsernameSchema,
@@ -130,7 +130,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
       <Button
         title={t(TRANSLATION_KEYS.COMMON_NEXT)}
-        variant="primary"
+        variant={BUTTON_VARIANTS.PRIMARY}
         onPress={() => {
           handleNext();
         }}

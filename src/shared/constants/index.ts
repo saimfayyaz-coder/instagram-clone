@@ -6,3 +6,5 @@ export * from './headerActions';
 export * from './accessibility';
 export * from './testIds';
 export * from './media';
+export * from './auth';
+export * from './i18n';

@@ -1,6 +1,7 @@
 import type { UseFormSetError, UseFormClearErrors, FieldValues } from 'react-hook-form';
 import { parseApiError, ParsedApiError } from '../errors';
 import { API_ERROR_CODES, HTTP_STATUS } from '@/shared/constants';
+import { FORM_ROOT_ERROR } from './constants';
 
 export interface ExecuteFormMutationOptions<TData, TFieldValues extends FieldValues = any> {
   mutationPromise: Promise<TData>;
@@ -21,7 +22,7 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
   showToast,
 }: ExecuteFormMutationOptions<TData, TFieldValues>): Promise<boolean> {
   if (clearErrors) {
-    clearErrors('root' as any);
+    clearErrors(FORM_ROOT_ERROR as any);
   }
 
   try {
@@ -52,7 +53,7 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
       });
     } else if (setError && !isGlobalHandled) {
       // 2. Otherwise set root error on form (if not handled globally)
-      setError('root' as any, { message: parsed.message });
+      setError(FORM_ROOT_ERROR as any, { message: parsed.message });
     }
 
     // 3. Dispatch Toast if not handled globally and not an inline field error

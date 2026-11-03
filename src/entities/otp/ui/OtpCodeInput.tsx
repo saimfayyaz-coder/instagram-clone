@@ -8,6 +8,8 @@ import {
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
 
+const BACKSPACE_KEY = 'Backspace';
+
 export interface OtpCodeInputProps {
   value: string;
   onChange: (code: string) => void;
@@ -57,7 +59,7 @@ export const OtpCodeInput: React.FC<OtpCodeInputProps> = ({
     e: NativeSyntheticEvent<{ key: string }>,
     index: number,
   ) => {
-    if (e.nativeEvent.key === 'Backspace') {
+    if (e.nativeEvent.key === BACKSPACE_KEY) {
       if (!digits[index] && index > 0) {
         inputRefs.current[index - 1]?.focus();
       }

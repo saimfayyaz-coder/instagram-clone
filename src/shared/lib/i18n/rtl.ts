@@ -1,7 +1,9 @@
 import { I18nManager } from 'react-native';
+import { RTL_LANGUAGES } from '@/shared/constants/i18n';
 
 export const isRTLLanguage = (lang: string): boolean => {
-  return lang.toLowerCase() === 'ur' || lang.toLowerCase().startsWith('ur-');
+  const baseCode = lang.toLowerCase().split('-')[0];
+  return RTL_LANGUAGES.includes(baseCode);
 };
 
 export const applyRTLIfNeeded = (lang: string): boolean => {

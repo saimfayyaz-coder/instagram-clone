@@ -7,6 +7,7 @@ import {
 } from '@/entities/user';
 import { useToast } from '@/shared/hooks';
 import { executeFormMutation } from '@/shared/lib/forms/executeFormMutation';
+import { FORM_ROOT_ERROR } from '@/shared/lib/forms/constants';
 
 export interface SaveLinkPayload {
   linkId?: string;
@@ -43,7 +44,7 @@ export const useLinkSubmit = () => {
         },
         setError: (field, error) => {
           // Only show field-level errors on input; general/network errors go to toast
-          if (field && field !== 'root') {
+          if (field && field !== FORM_ROOT_ERROR) {
             setErrorMessage(error?.message);
           }
         },
@@ -77,7 +78,7 @@ export const useLinkSubmit = () => {
           }
         },
         setError: (field, error) => {
-          if (field && field !== 'root') {
+          if (field && field !== FORM_ROOT_ERROR) {
             setErrorMessage(error?.message);
           }
         },

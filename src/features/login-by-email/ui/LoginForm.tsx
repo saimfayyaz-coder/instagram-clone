@@ -7,7 +7,7 @@ import { useTheme, useToast } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { executeFormMutation } from '@/shared/lib/forms';
-import { API_ERROR_CODES } from '@/shared/constants';
+import { API_ERROR_CODES, BUTTON_VARIANTS } from '@/shared/constants';
 import { useLoginMutation } from '../api/loginApi';
 import { createLoginSchema, LoginSchemaType } from '../model/loginSchema';
 
@@ -104,7 +104,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
       <Button
         title={t(TRANSLATION_KEYS.AUTH_LOGIN_BUTTON)}
-        variant="primary"
+        variant={BUTTON_VARIANTS.PRIMARY}
         loading={isLoading}
         onPress={() => handleSubmit(onSubmit)()}
         style={{ marginTop: theme.spacing.sm }}
@@ -112,7 +112,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
       <Button
         title={t(TRANSLATION_KEYS.AUTH_LOGIN_FORGOT_PASSWORD)}
-        variant="ghost"
+        variant={BUTTON_VARIANTS.GHOST}
         onPress={onForgotPasswordPress}
         style={{ marginTop: theme.spacing.md }}
       />

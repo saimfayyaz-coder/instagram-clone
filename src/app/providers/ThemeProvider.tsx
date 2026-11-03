@@ -29,7 +29,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const activeTheme: Theme = useMemo(() => {
     if (mode === THEME_MODES.SYSTEM) {
-      return systemColorScheme === 'dark' ? darkTheme : lightTheme;
+      return systemColorScheme === THEME_MODES.DARK ? darkTheme : lightTheme;
     }
     return mode === THEME_MODES.DARK ? darkTheme : lightTheme;
   }, [mode, systemColorScheme]);

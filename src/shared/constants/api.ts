@@ -28,6 +28,9 @@ export type ApiErrorCode =
 
 export const API_TIMEOUT_MS = 15000;
 
+// Substrings in a FETCH_ERROR message that mean the request was aborted or timed out
+export const TIMEOUT_ERROR_MESSAGES = ['Abort', 'timeout'];
+
 export const HTTP_STATUS = {
   OK: 200,
   BAD_REQUEST: 400,

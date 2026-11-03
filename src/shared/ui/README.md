@@ -49,6 +49,19 @@ posts or auth state. Domain UI lives in `entities/*/ui`, `features/*/ui` or `wid
 4. **Spacing between elements** uses `Stack gap="md"`, `Spacer`, or `theme.spacing.*`, not raw `ms(n)`.
 5. **Sheets:** wrap static sheet content in `SheetContent` (applies `layout.sheetGutter` and must be
    the direct child of `Sheet` so dynamic sizing works). Long lists use `BottomSheetFlatList`.
+6. **Rows:** a `View` that only lays children out horizontally is a `Row`
+   (`commonStyles.rowCenter` = `<Row>`, `rowBetween` = `<Row justify="space-between">`).
+7. **No magic strings:** compare against and pass constants (`BUTTON_VARIANTS.PRIMARY`,
+   `THEME_MODES.DARK`), not string literals. Literal unions typed on a component prop are fine.
+
+### Allowed exceptions
+
+- **Lists** (`FlatList`/`ScrollView` content) can not be wrapped in a `Section`; pad them with
+  `contentContainerStyle={{ paddingHorizontal: layout.gutter }}`.
+- **Fixed-height bars** (e.g. the photo picker toolbar) keep a border as their separator; a
+  sibling `Divider` would add a hairline to their height.
+- **Pressable rows** keep their row style on the `Touchable` itself (the row is the button).
+- **`ProfileMainWidget`** owns its `ScrollView` (shared by two pages, owns the refresh control).
 
 ### `Screen` presets
 

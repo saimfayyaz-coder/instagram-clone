@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button, FormField, AuthStepHeader } from '@/shared/ui';
+import { BUTTON_VARIANTS } from '@/shared/constants';
 import { PasswordRulesList } from '@/entities/password';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { authStepStyles } from '@/shared/theme';
@@ -106,7 +107,7 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
 
       <Button
         title={t(TRANSLATION_KEYS.COMMON_NEXT)}
-        variant="primary"
+        variant={BUTTON_VARIANTS.PRIMARY}
         onPress={() => handleNext()}
         style={{ marginTop: theme.spacing.xs }}
       />
