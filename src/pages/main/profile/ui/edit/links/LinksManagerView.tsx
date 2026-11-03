@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Touchable, Screen, Header, headerActions, Text, Icon } from '@/shared/ui';
+import { Touchable, Screen, Header, headerActions, ListItem, Text, Icon } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
@@ -47,55 +47,18 @@ export const LinksManagerView: React.FC<LinksManagerViewProps> = ({
 
   const renderItem = useCallback(
     ({ item }: { item: UserLink }) => (
-      <Touchable
+      <ListItem
+        icon={APP_ICONS.LINK}
+        iconColor={theme.colors.textSecondary}
+        title={item.title || item.url}
+        subtitle={item.title ? item.url : undefined}
+        titleWeight={item.title ? 'semibold' : 'regular'}
         onPress={() => onEditLink(item)}
-        activeOpacity={0.7}
-        style={[
-          styles.linkRow,
-          {
-            borderBottomColor: theme.colors.border,
-          },
-        ]}
-        accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
-        accessibilityLabel={item.title || item.url}
-      >
-        <Icon
-          type="Ionicons"
-          name={APP_ICONS.LINK}
-          size={20}
-          color={theme.colors.textSecondary}
-          style={styles.linkIcon}
-        />
-
-        <View style={styles.linkTextContainer}>
-          {Boolean(item.title) && (
-            <Text
-              variant="body"
-              weight="semibold"
-              color={theme.colors.textPrimary}
-              numberOfLines={1}
-            >
-              {item.title}
-            </Text>
-          )}
-          <Text
-            variant={item.title ? 'caption' : 'body'}
-            color={item.title ? theme.colors.textSecondary : theme.colors.textPrimary}
-            numberOfLines={1}
-          >
-            {item.url}
-          </Text>
-        </View>
-
-        <Icon
-          type="Ionicons"
-          name={APP_ICONS.CHEVRON_FORWARD}
-          size={18}
-          color={theme.colors.textSecondary}
-        />
-      </Touchable>
+        chevron
+        divider
+      />
     ),
-    [onEditLink, theme.colors],
+    [onEditLink, theme.colors.textSecondary],
   );
 
   return (
@@ -174,18 +137,5 @@ const styles = StyleSheet.create({
   listContent: {
     paddingHorizontal: layout.gutter,
     paddingTop: ms(8),
-  },
-  linkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: ms(14),
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  linkIcon: {
-    marginRight: ms(12),
-  },
-  linkTextContainer: {
-    flex: 1,
-    marginRight: ms(12),
   },
 });
