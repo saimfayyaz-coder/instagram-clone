@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Sheet, Text, Icon } from '@/shared/ui';
+import { Sheet, SheetHeader, ListItem, Icon } from '@/shared/ui';
 import {
   BottomSheetModal,
   BottomSheetFlatList,
@@ -35,15 +35,13 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
   );
 
   const renderItem = useCallback(
-    ({ item }: { item: MediaAlbum }) => {
-      const isSelected = item.title === selectedAlbum;
-
-      return (
-        <Touchable
-          style={[commonStyles.rowCenter, styles.albumRow]}
-          activeOpacity={0.7}
-          onPress={() => handleSelect(item.title)}
-        >
+    ({ item }: { item: MediaAlbum }) => (
+      <ListItem
+        title={item.title}
+        subtitle={item.count.toLocaleString()}
+        selected={item.title === selectedAlbum}
+        onPress={() => handleSelect(item.title)}
+        left={
           <View
             style={[
               commonStyles.center,
@@ -61,35 +59,9 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
               color={theme.colors.textPrimary}
             />
           </View>
-
-          <View style={commonStyles.flex1}>
-            <Text
-              variant="body"
-              weight={isSelected ? 'bold' : 'medium'}
-              color={theme.colors.textPrimary}
-            >
-              {item.title}
-            </Text>
-            <Text
-              variant="caption"
-              color={theme.colors.textSecondary}
-              style={styles.albumCount}
-            >
-              {item.count.toLocaleString()}
-            </Text>
-          </View>
-
-          {isSelected && (
-            <Icon
-              type="Ionicons"
-              name={APP_ICONS.CHECKMARK}
-              size={ms(20)}
-              color={theme.colors.actionPrimary}
-            />
-          )}
-        </Touchable>
-      );
-    },
+        }
+      />
+    ),
     [selectedAlbum, theme, handleSelect],
   );
 
@@ -102,17 +74,7 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
       enablePanDownToClose
     >
       <View style={[commonStyles.flex1, styles.container]}>
-        <View
-          style={[
-            commonStyles.center,
-            styles.header,
-            { borderBottomColor: theme.colors.border },
-          ]}
-        >
-          <Text variant="body" weight="bold" color={theme.colors.textPrimary}>
-            Albums
-          </Text>
-        </View>
+        <SheetHeader title="Albums" />
 
         <BottomSheetFlatList
           data={albums}
@@ -129,25 +91,13 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: ms(16),
   },
-  header: {
-    paddingVertical: ms(12),
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: ms(8),
-  },
   listContent: {
     paddingBottom: ms(32),
-  },
-  albumRow: {
-    paddingVertical: ms(10),
   },
   albumIconBox: {
     width: ms(48),
     height: ms(48),
     borderRadius: ms(8),
     borderWidth: 1,
-    marginRight: ms(14),
-  },
-  albumCount: {
-    marginTop: ms(2),
   },
 });

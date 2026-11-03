@@ -1,11 +1,9 @@
 import React, { forwardRef, useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Touchable } from '@/shared/ui/primitives/Touchable';
+import { StyleSheet } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { Sheet, SheetContent } from '../Sheet';
-import { Text, Icon } from '@/shared/ui/primitives';
-import { useTheme } from '@/shared/hooks/useTheme';
+import { Sheet, SheetContent, SheetHeader } from '../Sheet';
+import { ListItem } from '@/shared/ui/list';
 import { ms } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { changeLanguage } from '@/shared/lib/i18n/i18n';
@@ -33,7 +31,6 @@ export interface LanguageSelectSheetProps {
 export const LanguageSelectSheet = forwardRef<BottomSheetModal, LanguageSelectSheetProps>(
   ({ onLanguageSelected, onClose }, ref) => {
     const { t, i18n } = useTranslation();
-    const { theme } = useTheme();
 
     const currentLang = i18n.language;
 
@@ -61,58 +58,18 @@ export const LanguageSelectSheet = forwardRef<BottomSheetModal, LanguageSelectSh
         showBackdrop
       >
         <SheetContent style={styles.content}>
-          <View style={[styles.header, { borderBottomColor: theme.colors.divider }]}>
-            <Text variant="subheading" weight="bold" color={theme.colors.textPrimary}>
-              {t(TRANSLATION_KEYS.SETTINGS_SELECT_LANGUAGE)}
-            </Text>
-          </View>
+          <SheetHeader title={t(TRANSLATION_KEYS.SETTINGS_SELECT_LANGUAGE)} />
 
-          <View style={styles.listContainer}>
-            {AVAILABLE_LANGUAGES.map((lang) => {
-              const isSelected =
-                currentLang === lang.code || currentLang.startsWith(`${lang.code}-`);
-
-              return (
-                <Touchable
-                  key={lang.code}
-                  style={[
-                    styles.languageRow,
-                    { borderBottomColor: theme.colors.divider },
-                  ]}
-                  onPress={() => handleSelectLanguage(lang.code)}
-                  activeOpacity={0.7}
-                >
-                  <View style={styles.labelContainer}>
-                    <Text
-                      variant="body"
-                      weight={isSelected ? 'bold' : 'regular'}
-                      color={theme.colors.textPrimary}
-                    >
-                      {lang.nativeName}
-                    </Text>
-                    {lang.name !== lang.nativeName && (
-                      <Text
-                        variant="caption"
-                        color={theme.colors.textSecondary}
-                        style={styles.subLabel}
-                      >
-                        {lang.name}
-                      </Text>
-                    )}
-                  </View>
-
-                  {isSelected && (
-                    <Icon
-                      type="Ionicons"
-                      name="checkmark-circle"
-                      size={22}
-                      color={theme.colors.actionPrimary}
-                    />
-                  )}
-                </Touchable>
-              );
-            })}
-          </View>
+          {AVAILABLE_LANGUAGES.map((lang) => (
+            <ListItem
+              key={lang.code}
+              title={lang.nativeName}
+              subtitle={lang.name !== lang.nativeName ? lang.name : undefined}
+              selected={currentLang === lang.code || currentLang.startsWith(`${lang.code}-`)}
+              onPress={() => handleSelectLanguage(lang.code)}
+              divider
+            />
+          ))}
         </SheetContent>
       </Sheet>
     );
@@ -124,27 +81,5 @@ LanguageSelectSheet.displayName = 'LanguageSelectSheet';
 const styles = StyleSheet.create({
   content: {
     paddingBottom: ms(32),
-  },
-  header: {
-    paddingVertical: ms(14),
-    alignItems: 'center',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: ms(8),
-  },
-  listContainer: {
-    paddingTop: ms(4),
-  },
-  languageRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: ms(14),
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  labelContainer: {
-    flexDirection: 'column',
-  },
-  subLabel: {
-    marginTop: ms(2),
   },
 });

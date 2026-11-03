@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Touchable, Sheet, Section, Text, Icon } from '@/shared/ui';
+import { StyleSheet } from 'react-native';
+import { Sheet, SheetHeader, Section, ListItem, Icon } from '@/shared/ui';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { UserLink } from '@/entities/user';
-import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';
+import { APP_ICONS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatDisplayUrl } from '@/shared/lib/formatters';
 import { ms } from '@/shared/theme';
@@ -43,55 +43,29 @@ export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
       enablePanDownToClose
     >
       <BottomSheetView style={styles.sheetContainer}>
-        <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
-          <Text variant="body" weight="bold" color={theme.colors.textPrimary}>
-            {t(TRANSLATION_KEYS.PROFILE_LINKS)}
-          </Text>
-        </View>
+        <SheetHeader title={t(TRANSLATION_KEYS.PROFILE_LINKS)} />
 
         <Section>
           {links.map((link) => (
-            <Touchable
+            <ListItem
               key={link._id}
-              style={[styles.linkRow, { borderBottomColor: theme.colors.border }]}
-              onPress={() => handleLinkPress(link.url)}
-              activeOpacity={0.7}
-              accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+              icon={APP_ICONS.LINK}
+              iconColor={theme.colors.textSecondary}
+              title={link.title || formatDisplayUrl(link.url)}
+              subtitle={link.title ? formatDisplayUrl(link.url) : undefined}
+              titleWeight={link.title ? 'semibold' : 'regular'}
               accessibilityLabel={link.title || link.url}
-            >
-              <Icon
-                type="Ionicons"
-                name={APP_ICONS.LINK}
-                size={20}
-                color={theme.colors.textSecondary}
-                style={styles.linkIcon}
-              />
-              <View style={styles.linkInfo}>
-                {Boolean(link.title) && (
-                  <Text
-                    variant="body"
-                    weight="semibold"
-                    color={theme.colors.textPrimary}
-                    numberOfLines={1}
-                  >
-                    {link.title}
-                  </Text>
-                )}
-                <Text
-                  variant={link.title ? 'caption' : 'body'}
-                  color={link.title ? theme.colors.textSecondary : theme.colors.textPrimary}
-                  numberOfLines={1}
-                >
-                  {formatDisplayUrl(link.url)}
-                </Text>
-              </View>
-              <Icon
-                type="Ionicons"
-                name={APP_ICONS.OPEN_OUTLINE}
-                size={16}
-                color={theme.colors.textSecondary}
-              />
-            </Touchable>
+              onPress={() => handleLinkPress(link.url)}
+              divider
+              right={
+                <Icon
+                  type="Ionicons"
+                  name={APP_ICONS.OPEN_OUTLINE}
+                  size={16}
+                  color={theme.colors.textSecondary}
+                />
+              }
+            />
           ))}
         </Section>
       </BottomSheetView>
@@ -102,23 +76,5 @@ export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
 const styles = StyleSheet.create({
   sheetContainer: {
     paddingBottom: ms(28),
-  },
-  header: {
-    paddingVertical: ms(14),
-    alignItems: 'center',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  linkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: ms(14),
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  linkIcon: {
-    marginRight: ms(12),
-  },
-  linkInfo: {
-    flex: 1,
-    marginRight: ms(8),
   },
 });

@@ -16,6 +16,8 @@ export const layout = {
   authStepBottom: moderateScale(32),
   // Max content width of auth screens (keeps forms readable on tablets)
   authMaxWidth: 440,
+  // Vertical padding of a ListItem row (lists and sheet options)
+  listItemVertical: moderateScale(14),
 };
 
 export type Layout = typeof layout;
