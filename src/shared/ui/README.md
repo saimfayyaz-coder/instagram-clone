@@ -13,8 +13,8 @@ posts or auth state. Domain UI lives in `entities/*/ui`, `features/*/ui` or `wid
 | `form/`       | `FormField`, `ErrorAlert`, `DividerWithText`                              |
 | `list/`       | `ListItem` (rows in lists and sheet options)                              |
 | `feedback/`   | `EmptyState`                                                              |
-| `overlays/`   | `Sheet`, `SheetContent`, `SheetHeader`, `ToastOverlay`, `AlertOverlay`, `LoadingHudOverlay`, `LanguageSelect*` |
-| `templates/`  | Reusable screen templates: `AuthLayout`, `AuthStepLayout` (+ `AuthHeader`, `AuthFooter`, `AuthStepHeader`) |
+| `overlays/`   | `Sheet`, `SheetContent`, `SheetHeader`, `ToastOverlay`, `AlertOverlay`, `LoadingHudOverlay` |
+| `templates/`  | Reusable screen templates: `AuthLayout`, `AuthStepLayout` (+ `AuthHeader`, `AuthFooter`, `AuthStepHeader`, `LanguageDropdownButton`) |
 
 ### Import rules
 
@@ -161,18 +161,8 @@ sheetRef.current?.present();
 
 Theme-aware styles: `const useStyles = makeStyles(theme => ({ … }))`, then `const styles = useStyles()`.
 
-## Known inconsistencies (kept on purpose, decide later)
+## Component-specific values
 
-These were preserved exactly during the UI foundation refactor so nothing changed visually:
-
-- `AuthLayout`: unscaled `paddingBottom: 24` and footer `paddingBottom: 8` (everything else is scaled).
-- Gutters that differ from `layout.gutter`: `LinksManagerView` empty state and add button (20),
-  `AvatarEditSection` (12), `PermissionGuardView` (24), `ProfilePostsEmptyState` (32).
-- `AlbumSelectSheet` and `ProfileLinksSheet` use 16 while other sheets use `sheetGutter` (20).
-- Hard-coded colors that should become tokens: `#FFFFFF` on primary buttons and header badges
-  (`onPrimary`), `ErrorAlert` backgrounds (`errorSurface`).
-- `authStepStyles` font sizes (22/28, 14/20) are off the typography scale.
-- `ToastOverlay` uses React Native's `Text`, not the themed `Text`.
-- `HeaderBackButton` accessibility labels ("Back"/"Close") are not translated.
-- `LanguageSelect` changes app state (language + restart); it belongs in `features/` once
-  `AuthHeader` receives the language button as a prop.
+Screen, sheet and header edges always use `layout` tokens, and colors always come from
+`theme.colors`. Inside a component (button insets, icon sizes, the gap between an icon and its
+label) `ms(n)` is fine when no spacing token fits.

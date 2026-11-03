@@ -4,7 +4,7 @@ import { Touchable } from '@/shared/ui/primitives/Touchable';
 import { InstagramLogo, Text } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles } from '@/shared/theme';
-import { LanguageDropdownButton } from '@/shared/ui/overlays';
+import { LanguageDropdownButton } from './LanguageDropdownButton';
 
 export interface AuthHeaderProps {
   showLogo?: boolean;

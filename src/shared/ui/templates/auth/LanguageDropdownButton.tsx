@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Text, Icon } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ms } from '@/shared/theme';
-import { ACCESSIBILITY_ROLES } from '@/shared/constants';
-import { AVAILABLE_LANGUAGES } from './LanguageSelectSheet';
+import { ACCESSIBILITY_ROLES, APP_ICONS } from '@/shared/constants';
+import { AVAILABLE_LANGUAGES } from '@/shared/lib/i18n/languages';
 
 export interface LanguageDropdownButtonProps {
   onPress: () => void;
@@ -44,7 +44,7 @@ export const LanguageDropdownButton: React.FC<LanguageDropdownButtonProps> = ({
       </Text>
       <Icon
         type="Feather"
-        name="chevron-down"
+        name={APP_ICONS.CHEVRON_DOWN}
         size={14}
         color={theme.colors.textSecondary}
       />

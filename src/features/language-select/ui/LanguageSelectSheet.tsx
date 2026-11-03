@@ -2,26 +2,12 @@ import React, { forwardRef, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { Sheet, SheetContent, SheetHeader } from '../Sheet';
-import { ListItem } from '@/shared/ui/list';
+import { Sheet, SheetContent, SheetHeader, ListItem } from '@/shared/ui';
 import { ms } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { changeLanguage } from '@/shared/lib/i18n/i18n';
+import { changeLanguage, AVAILABLE_LANGUAGES } from '@/shared/lib/i18n';
 
 import RNRestart from 'react-native-restart';
-
-export interface LanguageOption {
-  code: string;
-  name: string;
-  nativeName: string;
-}
-
-export const AVAILABLE_LANGUAGES: LanguageOption[] = [
-  { code: 'en', name: 'English (US)', nativeName: 'English (US)' },
-  { code: 'es', name: 'Spanish', nativeName: 'Español' },
-  { code: 'fr', name: 'French', nativeName: 'Français' },
-  { code: 'ur', name: 'Urdu', nativeName: 'اردو' },
-];
 
 export interface LanguageSelectSheetProps {
   onLanguageSelected?: (langCode: string) => void;
