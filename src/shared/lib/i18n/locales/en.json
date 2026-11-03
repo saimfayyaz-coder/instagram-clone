@@ -6,6 +6,7 @@
     "tryAgain": "Try Again",
     "next": "Next",
     "back": "Back",
+    "close": "Close",
     "show": "Show",
     "hide": "Hide",
     "ok": "OK",
@@ -176,6 +177,7 @@
     "permissionTitle": "Allow Instagram to access your photos and videos",
     "permissionSubtitle": "This lets you select photos from your camera roll to share on your profile.",
     "turnOn": "Turn on",
-    "noPhotos": "No photos found"
+    "noPhotos": "No photos found",
+    "albums": "Albums"
   }
 }

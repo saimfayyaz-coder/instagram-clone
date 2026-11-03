@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleProp, ViewStyle } from 'react-native';
 import { Text } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { authStepStyles, commonStyles } from '@/shared/theme';
+import { commonStyles } from '@/shared/theme';
 
 export interface AuthStepHeaderProps {
   title: string;
@@ -24,7 +24,7 @@ export const AuthStepHeader: React.FC<AuthStepHeaderProps> = ({
         weight="bold"
         align="left"
         color={theme.colors.textPrimary}
-        style={authStepStyles.title}
+        style={{ marginBottom: theme.spacing.sm }}
       >
         {title}
       </Text>
@@ -34,7 +34,7 @@ export const AuthStepHeader: React.FC<AuthStepHeaderProps> = ({
           variant="body"
           color={theme.colors.textSecondary}
           align="left"
-          style={[authStepStyles.subtitle, { marginBottom: theme.spacing.xl }]}
+          style={{ marginBottom: theme.spacing.xl }}
         >
           {subtitle}
         </Text>

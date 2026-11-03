@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: ms(20),
+    paddingHorizontal: layout.gutter,
   },
   emptyAddButton: {
     flexDirection: 'row',

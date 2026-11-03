@@ -6,6 +6,7 @@
     "tryAgain": "Intentar de nuevo",
     "next": "Siguiente",
     "back": "Atrás",
+    "close": "Cerrar",
     "show": "Mostrar",
     "hide": "Ocultar",
     "ok": "Aceptar",
@@ -176,6 +177,7 @@
     "permissionTitle": "Permite que Instagram acceda a tus fotos y videos",
     "permissionSubtitle": "Esto te permite seleccionar fotos de tu galería para compartirlas en tu perfil.",
     "turnOn": "Activar",
-    "noPhotos": "No se encontraron fotos"
+    "noPhotos": "No se encontraron fotos",
+    "albums": "Álbumes"
   }
 }

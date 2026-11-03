@@ -66,6 +66,7 @@ export const EditFieldLayout: React.FC<EditFieldLayoutProps> = ({
 
   return (
     <Screen
+      preset="form"
       header={
         <Header
           onBack={handleGoBack}

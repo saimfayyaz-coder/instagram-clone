@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { commonStyles, layout } from '@/shared/theme';
+import { commonStyles, layout, spacing } from '@/shared/theme';
 import { Screen, Container } from '@/shared/ui/layout';
 
 export interface AuthLayoutProps {
@@ -55,7 +55,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
 
 const styles = StyleSheet.create({
   scrollContent: {
-    paddingBottom: 24,
+    paddingBottom: spacing.xl,
   },
   responsiveContent: {
     flexGrow: 1,
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footerWrapper: {
-    paddingBottom: 8,
+    paddingBottom: spacing.sm,
   },
 });

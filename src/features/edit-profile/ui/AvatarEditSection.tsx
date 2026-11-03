@@ -10,7 +10,7 @@ import { useAvatarEdit } from '../model/useAvatarEdit';
 import { AvatarActionSheet } from './AvatarActionSheet';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { ms } from '@/shared/theme';
+import { ms, spacing } from '@/shared/theme';
 
 export const AvatarEditSection: React.FC = () => {
   const { t } = useTranslation();
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   editButton: {
     marginTop: ms(10),
-    paddingHorizontal: ms(12),
+    paddingHorizontal: spacing.md,
     paddingVertical: ms(4),
   },
   editText: {

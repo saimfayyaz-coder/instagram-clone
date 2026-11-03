@@ -6,6 +6,7 @@
     "tryAgain": "Réessayer",
     "next": "Suivant",
     "back": "Retour",
+    "close": "Fermer",
     "show": "Afficher",
     "hide": "Masquer",
     "ok": "OK",
@@ -176,6 +177,7 @@
     "permissionTitle": "Autoriser Instagram à accéder à vos photos et vidéos",
     "permissionSubtitle": "Cela vous permet de sélectionner des photos depuis votre galerie pour votre profil.",
     "turnOn": "Activer",
-    "noPhotos": "Aucune photo trouvée"
+    "noPhotos": "Aucune photo trouvée",
+    "albums": "Albums"
   }
 }

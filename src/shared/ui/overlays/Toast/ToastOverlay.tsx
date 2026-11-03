@@ -3,8 +3,8 @@ import {
   Animated,
   StyleSheet,
   View,
-  Text as RNText,
 } from 'react-native';
+import { Text } from '@/shared/ui/primitives/Text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from '@/app/store';
 import { hideToast } from '@/shared/lib/toast/toastSlice';
@@ -97,18 +97,16 @@ export const ToastOverlay: React.FC = () => {
           },
         ]}
       >
-        <RNText
-          style={[
-            styles.text,
-            {
-              color: theme.colors.toastText,
-              fontWeight: theme.typography.fontWeights.medium,
-            },
-          ]}
+        <Text
+          variant="body"
+          weight="medium"
+          align="center"
+          color={theme.colors.toastText}
           numberOfLines={2}
+          style={styles.text}
         >
           {message}
-        </RNText>
+        </Text>
       </Animated.View>
     </View>
   );
@@ -137,8 +135,6 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   text: {
-    fontSize: ms(13.5),
-    textAlign: 'center',
     letterSpacing: -0.1,
   },
 });

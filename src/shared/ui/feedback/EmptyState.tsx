@@ -4,7 +4,7 @@ import { Touchable } from '@/shared/ui/primitives/Touchable';
 import { Text } from '@/shared/ui/primitives/Text';
 import { Icon } from '@/shared/ui/primitives/Icon';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { ms } from '@/shared/theme';
+import { ms, spacing } from '@/shared/theme';
 import { AppIconName, ACCESSIBILITY_ROLES } from '@/shared/constants';
 
 export interface EmptyStateProps {
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: ms(48),
-    paddingHorizontal: ms(32),
+    paddingVertical: spacing.hero,
+    paddingHorizontal: spacing.xxl,
   },
   iconCircle: {
     width: ms(76),

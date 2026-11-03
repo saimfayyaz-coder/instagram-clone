@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
-import { Sheet, SheetHeader, Section, ListItem, Icon } from '@/shared/ui';
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { Sheet, SheetContent, SheetHeader, ListItem, Icon } from '@/shared/ui';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { UserLink } from '@/entities/user';
@@ -42,33 +42,31 @@ export const ProfileLinksSheet: React.FC<ProfileLinksSheetProps> = ({
       enableDynamicSizing
       enablePanDownToClose
     >
-      <BottomSheetView style={styles.sheetContainer}>
+      <SheetContent style={styles.sheetContainer}>
         <SheetHeader title={t(TRANSLATION_KEYS.PROFILE_LINKS)} />
 
-        <Section>
-          {links.map((link) => (
-            <ListItem
-              key={link._id}
-              icon={APP_ICONS.LINK}
-              iconColor={theme.colors.textSecondary}
-              title={link.title || formatDisplayUrl(link.url)}
-              subtitle={link.title ? formatDisplayUrl(link.url) : undefined}
-              titleWeight={link.title ? 'semibold' : 'regular'}
-              accessibilityLabel={link.title || link.url}
-              onPress={() => handleLinkPress(link.url)}
-              divider
-              right={
-                <Icon
-                  type="Ionicons"
-                  name={APP_ICONS.OPEN_OUTLINE}
-                  size={16}
-                  color={theme.colors.textSecondary}
-                />
-              }
-            />
-          ))}
-        </Section>
-      </BottomSheetView>
+        {links.map((link) => (
+          <ListItem
+            key={link._id}
+            icon={APP_ICONS.LINK}
+            iconColor={theme.colors.textSecondary}
+            title={link.title || formatDisplayUrl(link.url)}
+            subtitle={link.title ? formatDisplayUrl(link.url) : undefined}
+            titleWeight={link.title ? 'semibold' : 'regular'}
+            accessibilityLabel={link.title || link.url}
+            onPress={() => handleLinkPress(link.url)}
+            divider
+            right={
+              <Icon
+                type="Ionicons"
+                name={APP_ICONS.OPEN_OUTLINE}
+                size={16}
+                color={theme.colors.textSecondary}
+              />
+            }
+          />
+        ))}
+      </SheetContent>
     </Sheet>
   );
 };

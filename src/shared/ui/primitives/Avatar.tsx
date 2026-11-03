@@ -11,7 +11,7 @@ import { Touchable } from './Touchable';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { palette } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
-import { ACCESSIBILITY_ROLES } from '@/shared/constants';
+import { ACCESSIBILITY_ROLES, APP_ICONS } from '@/shared/constants';
 import { Icon } from './Icon';
 import { Skeleton } from './Skeleton';
 
@@ -89,7 +89,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         >
           <Icon
             type="Ionicons"
-            name="person"
+            name={APP_ICONS.PERSON}
             size={iconSize}
             color={theme.colors.textSecondary}
           />
@@ -117,7 +117,7 @@ export const Avatar: React.FC<AvatarProps> = ({
             },
           ]}
         >
-          <Icon type="Ionicons" name="camera" size={ms(12)} color={palette.white} />
+          <Icon type="Ionicons" name={APP_ICONS.CAMERA_FILLED} size={ms(12)} color={palette.white} />
         </View>
       )}
     </View>

@@ -5,8 +5,10 @@ import {
   BottomSheetModal,
   BottomSheetFlatList,
 } from '@gorhom/bottom-sheet';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
-import { ms, commonStyles } from '@/shared/theme';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
+import { ms, commonStyles, layout } from '@/shared/theme';
 import { APP_ICONS } from '@/shared/constants';
 import { MediaAlbum } from '@/shared/types';
 
@@ -23,6 +25,7 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
   selectedAlbum,
   onSelectAlbum,
 }) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const snapPoints = useMemo(() => ['85%'], []);
 
@@ -74,7 +77,7 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
       enablePanDownToClose
     >
       <View style={[commonStyles.flex1, styles.container]}>
-        <SheetHeader title="Albums" />
+        <SheetHeader title={t(TRANSLATION_KEYS.MEDIA_PICKER_ALBUMS)} />
 
         <BottomSheetFlatList
           data={albums}
@@ -89,7 +92,7 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: ms(16),
+    paddingHorizontal: layout.sheetGutter,
   },
   listContent: {
     paddingBottom: ms(32),
