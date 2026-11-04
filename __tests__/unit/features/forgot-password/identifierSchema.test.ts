@@ -1,4 +1,4 @@
-import { identifierSchema } from '@/features/forgot-password';
+import { identifierSchema } from '@/features/forgot-password/model/identifierSchema';
 
 describe('identifierSchema', () => {
   it('passes when identifier is a non-empty string', () => {

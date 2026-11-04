@@ -1,3 +1,6 @@
+// Schemas import entity barrels that also export UI; the kit is not needed to test validation
+jest.mock('@/shared/ui', () => ({}));
+
 import {
   createStep1UsernameSchema,
   createStep2PasswordSchema,
