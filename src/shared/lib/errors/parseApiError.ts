@@ -64,17 +64,21 @@ export function parseApiError(error: unknown): ParsedApiError {
               const raw = Array.isArray(msgs) ? msgs[0] ?? '' : String(msgs);
               const directCodeKey = `errors.${raw}`;
 
-              // Direct ErrorCode match
-              if (i18n.exists(directCodeKey)) {
+              // Field message is an error code we can translate
+              if (raw && i18n.exists(directCodeKey)) {
                 return [field, i18n.t(directCodeKey)];
               }
 
-              // Fallback to serverCode translation if available
-              if (serverCode && serverCode !== API_ERROR_CODES.UNKNOWN && i18n.exists(`errors.${serverCode}`)) {
+              // Otherwise keep the server's own message for this field
+              if (raw) {
+                return [field, raw];
+              }
+
+              if (serverCode !== API_ERROR_CODES.UNKNOWN && i18n.exists(`errors.${serverCode}`)) {
                 return [field, i18n.t(`errors.${serverCode}`)];
               }
 
-              return [field, raw];
+              return [field, i18n.t(TRANSLATION_KEYS.ERROR_UNKNOWN)];
             }),
           )
         : undefined;

@@ -1,9 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { AppText } from '@/shared/components/atoms';
-import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Text, Header, Screen } from '@/shared/ui';
 import { MainStackParamList } from '@/shared/types';
 import { MAIN_ROUTES } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
@@ -16,19 +14,19 @@ export const ChatConversationPage: React.FC = () => {
   const title = route.params?.username || 'Chat';
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
-        <AppHeader
+        <Header
           title={title}
-          onPressBack={() => navigation.goBack()}
+          onBack={() => navigation.goBack()}
         />
       }
     >
       <View style={commonStyles.centerFlex}>
-        <AppText variant="heading" align="center">
+        <Text variant="heading" align="center">
           Conversation
-        </AppText>
+        </Text>
       </View>
-    </ScreenWrapper>
+    </Screen>
   );
 };

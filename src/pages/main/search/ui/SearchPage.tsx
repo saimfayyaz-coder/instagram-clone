@@ -1,17 +1,16 @@
 import React from 'react';
 import { View } from 'react-native';
-import { AppText } from '@/shared/components/atoms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Text, Screen } from '@/shared/ui';
 import { commonStyles } from '@/shared/theme';
 
 export const SearchPage: React.FC = () => {
   return (
-    <ScreenWrapper withSafeArea>
+    <Screen safeAreaEdges={['top']}>
       <View style={commonStyles.centerFlex}>
-        <AppText variant="heading" align="center">
+        <Text variant="heading" align="center">
           Search
-        </AppText>
+        </Text>
       </View>
-    </ScreenWrapper>
+    </Screen>
   );
 };

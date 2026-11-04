@@ -2,7 +2,7 @@ import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ForgotPasswordWidget } from '@/widgets/forgot-password';
 import { AuthStackParamList } from '@/shared/types';
-import { AUTH_ROUTES } from '@/shared/constants';
+import { AUTH_ROUTES, OTP_PURPOSES } from '@/shared/constants';
 
 type Props = NativeStackScreenProps<
   AuthStackParamList,
@@ -17,7 +17,7 @@ export const ForgotPasswordPage: React.FC<Props> = ({ navigation }) => {
   const handleCodeSent = (email: string) => {
     navigation.navigate(AUTH_ROUTES.OTP_VERIFICATION, {
       email,
-      flowContext: 'forgot_password',
+      flowContext: OTP_PURPOSES.FORGOT_PASSWORD,
     });
   };
 

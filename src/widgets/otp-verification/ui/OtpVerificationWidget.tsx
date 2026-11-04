@@ -1,6 +1,7 @@
 import React from 'react';
-import { AuthFlowLayout } from '@/shared/components/organisms';
+import { AuthStepLayout } from '@/shared/ui';
 import { OtpForm, OtpPurpose, VerifyOtpResponseData } from '@/entities/otp';
+import { OTP_PURPOSES } from '@/shared/constants';
 
 export interface OtpVerificationWidgetProps {
   email: string;
@@ -11,18 +12,18 @@ export interface OtpVerificationWidgetProps {
 
 export const OtpVerificationWidget: React.FC<OtpVerificationWidgetProps> = ({
   email,
-  purpose = 'login_unverified',
+  purpose = OTP_PURPOSES.LOGIN_UNVERIFIED,
   onNavigateToLogin,
   onVerifiedSuccess,
 }) => {
   return (
-    <AuthFlowLayout onBack={onNavigateToLogin}>
+    <AuthStepLayout onBack={onNavigateToLogin}>
       <OtpForm
         email={email}
         purpose={purpose}
         onSuccess={onVerifiedSuccess}
         onBackPress={onNavigateToLogin}
       />
-    </AuthFlowLayout>
+    </AuthStepLayout>
   );
 };

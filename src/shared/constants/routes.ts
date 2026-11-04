@@ -35,6 +35,7 @@ export const MAIN_ROUTES = {
   EDIT_PROFILE_LINKS: 'EditProfileLinks',
   NOTIFICATIONS: 'Notifications',
   USER_PROFILE: 'UserProfile',
+  PROFILE_PHOTO_PICKER: 'ProfilePhotoPicker',
 } as const;
 
 export type MainRoute = (typeof MAIN_ROUTES)[keyof typeof MAIN_ROUTES];

@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Header, Screen } from '@/shared/ui';
 import { useBackHandler } from '@/shared/hooks';
 import {
   EDIT_PROFILE_SUB_VIEWS,
@@ -10,14 +10,15 @@ import {
   EditProfileEditableField,
 } from '@/features/edit-profile';
 import { EditProfileMainWidget } from '@/widgets/edit-profile';
-import { HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
+import { HEADER_BACK_ICON } from '@/shared/constants';
+import { layout } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { UserLink } from '@/entities/user';
-import { EditNameScreen } from './fields/EditNameScreen';
-import { EditUsernameScreen } from './fields/EditUsernameScreen';
-import { EditBioScreen } from './fields/EditBioScreen';
-import { LinksManagerScreen } from './links/LinksManagerScreen';
-import { AddEditLinkScreen } from './links/AddEditLinkScreen';
+import { EditNameView } from './fields/EditNameView';
+import { EditUsernameView } from './fields/EditUsernameView';
+import { EditBioView } from './fields/EditBioView';
+import { LinksManagerView } from './links/LinksManagerView';
+import { AddEditLinkView } from './links/AddEditLinkView';
 
 export const EditProfilePage: React.FC = () => {
   const { t } = useTranslation();
@@ -84,20 +85,20 @@ export const EditProfilePage: React.FC = () => {
   );
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.NAME) {
-    return <EditNameScreen onBack={handleBackToMain} />;
+    return <EditNameView onBack={handleBackToMain} />;
   }
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.USERNAME) {
-    return <EditUsernameScreen onBack={handleBackToMain} />;
+    return <EditUsernameView onBack={handleBackToMain} />;
   }
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.BIO) {
-    return <EditBioScreen onBack={handleBackToMain} />;
+    return <EditBioView onBack={handleBackToMain} />;
   }
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.LINKS_MANAGER) {
     return (
-      <LinksManagerScreen
+      <LinksManagerView
         onBack={handleBackToMain}
         onAddLink={handleAddLinkFromManager}
         onEditLink={handleEditLinkFromManager}
@@ -107,7 +108,7 @@ export const EditProfilePage: React.FC = () => {
 
   if (activeSubView === EDIT_PROFILE_SUB_VIEWS.ADD_EDIT_LINK) {
     return (
-      <AddEditLinkScreen
+      <AddEditLinkView
         onBack={handleBackFromAddEditLink}
         editingLink={editingLinkContext}
       />
@@ -115,16 +116,24 @@ export const EditProfilePage: React.FC = () => {
   }
 
   return (
-    <ScreenWrapper
+    <Screen
+      preset="scroll"
+      contentStyle={styles.scrollContent}
       header={
-        <AppHeader
-          onPressBack={handleGoBack}
-          leftIconType={HEADER_LEFT_ICON_TYPE.BACK}
-          leftText={t(TRANSLATION_KEYS.PROFILE_EDIT_PROFILE)}
+        <Header
+          onBack={handleGoBack}
+          backIcon={HEADER_BACK_ICON.BACK}
+          leftTitle={t(TRANSLATION_KEYS.PROFILE_EDIT_PROFILE)}
         />
       }
     >
       <EditProfileMainWidget onSelectField={handleSelectField} />
-    </ScreenWrapper>
+    </Screen>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollContent: {
+    paddingBottom: layout.screenBottom,
+  },
+});

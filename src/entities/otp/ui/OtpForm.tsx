@@ -3,12 +3,10 @@ import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/shared/components/atoms';
-import {
-  OtpCodeInput,
-  OtpResendTimer,
-  AuthStepHeader,
-} from '@/shared/components/molecules';
+import { Button, AuthStepHeader } from '@/shared/ui';
+import { BUTTON_VARIANTS } from '@/shared/constants';
+import { OtpCodeInput } from './OtpCodeInput';
+import { OtpResendTimer } from './OtpResendTimer';
 import { useTheme, useToast } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -121,7 +119,7 @@ export const OtpForm: React.FC<OtpFormProps> = ({
 
       <Button
         title={t(TRANSLATION_KEYS.COMMON_NEXT)}
-        variant="primary"
+        variant={BUTTON_VARIANTS.PRIMARY}
         onPress={() => onSubmitForm()}
         loading={isVerifying}
         style={{ marginTop: theme.spacing.sm }}

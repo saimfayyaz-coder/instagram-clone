@@ -1,17 +1,19 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
+import type { PickedImage } from './media.types';
 import {
   AUTH_ROUTES,
   ROOT_ROUTES,
   TAB_ROUTES,
   MAIN_ROUTES,
 } from '../constants/routes';
+import type { OtpFlowContext } from '../constants/auth';
 
 export type AuthStackParamList = {
   [AUTH_ROUTES.LOGIN]: undefined;
   [AUTH_ROUTES.SIGNUP]: undefined;
   [AUTH_ROUTES.OTP_VERIFICATION]: {
     email: string;
-    flowContext?: 'login_unverified' | 'forgot_password';
+    flowContext?: OtpFlowContext;
   };
   [AUTH_ROUTES.FORGOT_PASSWORD]: undefined;
   [AUTH_ROUTES.RESET_PASSWORD]: {
@@ -38,6 +40,9 @@ export type MainStackParamList = {
   [MAIN_ROUTES.EDIT_PROFILE_LINKS]?: undefined;
   [MAIN_ROUTES.NOTIFICATIONS]?: undefined;
   [MAIN_ROUTES.USER_PROFILE]?: { userId?: string; username?: string };
+  [MAIN_ROUTES.PROFILE_PHOTO_PICKER]?: {
+    onSelectImage?: (image: PickedImage) => void;
+  };
 };
 
 export type RootStackParamList = {

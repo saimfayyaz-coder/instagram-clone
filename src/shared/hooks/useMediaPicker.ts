@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import ImagePicker, { Image as CropImage, Options } from 'react-native-image-crop-picker';
+import { MEDIA_PICKER_ERROR_CODE } from '@/shared/constants';
 
 export interface PickedImage {
   uri: string;
@@ -47,7 +48,7 @@ export const useMediaPicker = () => {
       const image = await ImagePicker.openPicker(AVATAR_PICKER_OPTIONS);
       return formatCropImage(image);
     } catch (error: any) {
-      if (error?.code === 'E_PICKER_CANCELLED') {
+      if (error?.code === MEDIA_PICKER_ERROR_CODE.CANCELLED) {
         return null;
       }
       throw error;
@@ -59,7 +60,7 @@ export const useMediaPicker = () => {
       const image = await ImagePicker.openCamera(AVATAR_PICKER_OPTIONS);
       return formatCropImage(image);
     } catch (error: any) {
-      if (error?.code === 'E_PICKER_CANCELLED') {
+      if (error?.code === MEDIA_PICKER_ERROR_CODE.CANCELLED) {
         return null;
       }
       throw error;

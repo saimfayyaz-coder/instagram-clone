@@ -1,28 +1,26 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AppText } from '@/shared/components/atoms';
-import { AppHeader } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Text, Header, Screen } from '@/shared/ui';
 import { commonStyles } from '@/shared/theme';
 
 export const SettingsPage: React.FC = () => {
   const navigation = useNavigation();
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
-        <AppHeader
+        <Header
           title="Settings"
-          onPressBack={() => navigation.goBack()}
+          onBack={() => navigation.goBack()}
         />
       }
     >
       <View style={commonStyles.centerFlex}>
-        <AppText variant="heading" align="center">
+        <Text variant="heading" align="center">
           Settings
-        </AppText>
+        </Text>
       </View>
-    </ScreenWrapper>
+    </Screen>
   );
 };

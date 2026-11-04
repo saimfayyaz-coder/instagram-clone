@@ -1,17 +1,16 @@
 import React, { useRef, useCallback } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Touchable, Text, LoadingHudOverlay } from '@/shared/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '@/shared/components/atoms';
-import { LoadingHudOverlay } from '@/shared/components/molecules';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUser, UserAvatar } from '@/entities/user';
 import { useAvatarEdit } from '../model/useAvatarEdit';
-import { AvatarActionBottomSheet } from './AvatarActionBottomSheet';
+import { AvatarActionSheet } from './AvatarActionSheet';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { ms } from '@/shared/theme';
+import { ms, spacing } from '@/shared/theme';
 
 export const AvatarEditSection: React.FC = () => {
   const { t } = useTranslation();
@@ -29,32 +28,32 @@ export const AvatarEditSection: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      <Touchable
         onPress={handleOpenSheet}
         activeOpacity={0.8}
         accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         accessibilityLabel={t(TRANSLATION_KEYS.PROFILE_EDIT_PICTURE)}
       >
         <UserAvatar user={currentUser} size={96} />
-      </TouchableOpacity>
+      </Touchable>
 
-      <TouchableOpacity
+      <Touchable
         onPress={handleOpenSheet}
         activeOpacity={0.7}
         accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         style={styles.editButton}
       >
-        <AppText
+        <Text
           variant="body"
           weight="bold"
           color={theme.colors.actionPrimary}
           style={styles.editText}
         >
           {t(TRANSLATION_KEYS.PROFILE_EDIT_PICTURE)}
-        </AppText>
-      </TouchableOpacity>
+        </Text>
+      </Touchable>
 
-      <AvatarActionBottomSheet
+      <AvatarActionSheet
         bottomSheetRef={avatarSheetRef}
         hasAvatar={hasAvatar}
         onSelectImage={handleSelectImage}
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
   },
   editButton: {
     marginTop: ms(10),
-    paddingHorizontal: ms(12),
+    paddingHorizontal: spacing.md,
     paddingVertical: ms(4),
   },
   editText: {

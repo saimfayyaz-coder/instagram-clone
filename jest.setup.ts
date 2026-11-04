@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 
 jest.mock('react-native-mmkv', () => {
   const store = new Map<string, string>();

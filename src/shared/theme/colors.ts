@@ -15,6 +15,17 @@ export const palette = {
   transparent: 'transparent',
 };
 
+// Instagram brand gradient stops (logo), from bottom-left to top-right
+export const brandGradient = [
+  { offset: '0%', color: '#FFDC80' },
+  { offset: '10%', color: '#FCAF45' },
+  { offset: '30%', color: '#F77737' },
+  { offset: '50%', color: '#F56040' },
+  { offset: '70%', color: '#FD1D1D' },
+  { offset: '85%', color: '#C13584' },
+  { offset: '100%', color: '#833AB4' },
+];
+
 export const lightColors = {
   bgPrimary: '#FFFFFF',
   bgSecondary: '#FAFAFA',
@@ -30,7 +41,10 @@ export const lightColors = {
   actionSecondaryDisabled: palette.gray100,
   actionSecondaryText: palette.facebookBlue,
   error: palette.redError,
+  errorSurface: '#FDE8E8',
   success: palette.greenSuccess,
+  // Text and icons drawn on actionPrimary (primary buttons)
+  onPrimary: palette.white,
   divider: '#DBDBDB',
   toastBg: palette.gray800,
   toastText: palette.white,
@@ -57,7 +71,9 @@ export const darkColors = {
   actionSecondaryDisabled: palette.gray900,
   actionSecondaryText: palette.facebookBlue,
   error: palette.redError,
+  errorSurface: '#2D1215',
   success: palette.greenSuccess,
+  onPrimary: palette.white,
   divider: '#262626',
   toastBg: palette.gray700,
   toastText: palette.white,

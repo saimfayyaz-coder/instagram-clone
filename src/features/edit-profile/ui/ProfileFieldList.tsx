@@ -1,11 +1,10 @@
 import React, { useRef, useCallback, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { FormField } from '@/shared/components/molecules';
-import { Icon } from '@/shared/components/atoms';
+import { FormField, Icon, Section } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
 import {
@@ -20,7 +19,7 @@ import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
 import { EDIT_PROFILE_SUB_VIEWS, EditProfileEditableField } from '../model/constants';
 import { LinksSection } from './LinksSection';
-import { GenderSelectionBottomSheet } from './GenderSelectionBottomSheet';
+import { GenderSelectSheet } from './GenderSelectSheet';
 import { ms } from '@/shared/theme';
 
 export interface ProfileFieldListProps {
@@ -110,7 +109,7 @@ export const ProfileFieldList: React.FC<ProfileFieldListProps> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <Section style={styles.container}>
       {/* 1. Name */}
       <FormField
         label={t(TRANSLATION_KEYS.PROFILE_NAME)}
@@ -156,18 +155,17 @@ export const ProfileFieldList: React.FC<ProfileFieldListProps> = ({
         rightElement={genderChevron}
       />
 
-      <GenderSelectionBottomSheet
+      <GenderSelectSheet
         bottomSheetRef={genderSheetRef}
         currentGender={currentUser?.gender}
         onSelect={handleSelectGender}
       />
-    </View>
+    </Section>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: ms(16),
     marginTop: ms(8),
   },
 });

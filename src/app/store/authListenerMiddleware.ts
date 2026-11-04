@@ -2,12 +2,15 @@ import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { clearSession, setAccessToken, authStorage } from '@/entities/session';
 import { setUser } from '@/entities/user';
 
+// RTK async thunks (including RTK Query endpoints) dispatch "<type>/fulfilled" on success
+const FULFILLED_ACTION_SUFFIX = '/fulfilled';
+
 export const authListenerMiddleware = createListenerMiddleware();
 
 // 1. Centralized Session Cleanup (Logout or 401 token expiry)
 authListenerMiddleware.startListening({
   predicate: (action) =>
-    clearSession.match(action) || action.type === 'session/clearSession',
+    clearSession.match(action),
   effect: async () => {
     await authStorage.removeRefreshToken();
   },
@@ -17,7 +20,7 @@ authListenerMiddleware.startListening({
 authListenerMiddleware.startListening({
   predicate: (action: any) =>
     Boolean(
-      action?.type?.endsWith('/fulfilled') &&
+      action?.type?.endsWith(FULFILLED_ACTION_SUFFIX) &&
       action?.payload?.data?.accessToken,
     ),
   effect: async (action: any, listenerApi) => {

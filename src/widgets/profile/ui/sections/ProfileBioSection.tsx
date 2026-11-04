@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Touchable, Text, Icon, Section } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
-import { AppText, Icon } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { User, UserLink } from '@/entities/user';
 import { APP_ICONS, ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -42,19 +42,19 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <Section style={styles.container}>
       {Boolean(bio) && (
-        <AppText
+        <Text
           variant="body"
           color={theme.colors.textPrimary}
           style={styles.bioText}
         >
           {bio}
-        </AppText>
+        </Text>
       )}
 
       {links.length > 0 && primaryLink && (
-        <TouchableOpacity
+        <Touchable
           onPress={handleLinkPress}
           activeOpacity={0.7}
           style={styles.linkContainer}
@@ -69,7 +69,7 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
             style={styles.linkIcon}
           />
 
-          <AppText
+          <Text
             variant="body"
             weight="semibold"
             color={theme.colors.textPrimary}
@@ -77,27 +77,26 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
             style={styles.linkText}
           >
             {formatDisplayUrl(primaryLink.url)}
-          </AppText>
+          </Text>
 
           {hasMultipleLinks && (
-            <AppText
+            <Text
               variant="body"
               weight="semibold"
               color={theme.colors.textSecondary}
               style={styles.moreCountText}
             >
               {t(TRANSLATION_KEYS.PROFILE_MORE_LINKS, { count: links.length - 1 })}
-            </AppText>
+            </Text>
           )}
-        </TouchableOpacity>
+        </Touchable>
       )}
-    </View>
+    </Section>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: ms(16),
     marginTop: ms(10),
   },
   bioText: {

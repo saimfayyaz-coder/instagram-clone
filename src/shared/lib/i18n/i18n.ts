@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodI18nMap } from 'zod-i18n-map';
 import { storage, STORAGE_KEYS } from '../mmkv/appStorage';
 import { applyRTLIfNeeded } from './rtl';
+import { DEFAULT_LANGUAGE } from '@/shared/constants/i18n';
 
 import en from './locales/en.json';
 import fr from './locales/fr.json';
@@ -24,14 +25,14 @@ const resources = {
   ur: { translation: ur, zod: zodUr },
 };
 
-const savedLanguage = storage.getString(STORAGE_KEYS.LANGUAGE) || 'en';
+const savedLanguage = storage.getString(STORAGE_KEYS.LANGUAGE) || DEFAULT_LANGUAGE;
 
 applyRTLIfNeeded(savedLanguage);
 
 i18n.use(initReactI18next).init({
   resources,
   lng: savedLanguage,
-  fallbackLng: 'en',
+  fallbackLng: DEFAULT_LANGUAGE,
   interpolation: {
     escapeValue: false,
   },

@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TAB_ROUTES, isIOS } from '@/shared/constants';
 import { MainTabParamList } from '@/shared/types';
 import { useTheme } from '@/shared/hooks';
-import { Icon } from '@/shared/components/atoms';
+import { Icon } from '@/shared/ui';
 import { ms } from '@/shared/theme';
 
 import { PlatformPressable } from '@react-navigation/elements';

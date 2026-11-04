@@ -1,0 +1,42 @@
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Text } from '@/shared/ui/primitives';
+import { useTheme } from '@/shared/hooks/useTheme';
+
+export interface ErrorAlertProps {
+  message: string;
+}
+
+export const ErrorAlert: React.FC<ErrorAlertProps> = ({ message }) => {
+  const { theme } = useTheme();
+
+  return (
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.errorSurface,
+          borderColor: theme.colors.error,
+          borderRadius: theme.borderRadius.sm,
+          padding: theme.spacing.md,
+        },
+      ]}
+    >
+      <Text
+        variant="body"
+        color={theme.colors.error}
+        align="center"
+      >
+        {message}
+      </Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    borderWidth: 1,
+    marginBottom: 16,
+  },
+});

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthFlowLayout } from '@/shared/components/organisms';
+import { AuthStepLayout } from '@/shared/ui';
 import { IdentifierForm } from '@/features/forgot-password';
 
 export interface ForgotPasswordWidgetProps {
@@ -12,8 +12,8 @@ export const ForgotPasswordWidget: React.FC<ForgotPasswordWidgetProps> = ({
   onCodeSent,
 }) => {
   return (
-    <AuthFlowLayout onBack={onNavigateBack}>
+    <AuthStepLayout onBack={onNavigateBack}>
       <IdentifierForm onSuccess={onCodeSent} />
-    </AuthFlowLayout>
+    </AuthStepLayout>
   );
 };

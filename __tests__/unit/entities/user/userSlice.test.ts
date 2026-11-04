@@ -2,7 +2,7 @@ import { userReducer, setUser } from '@/entities/user/model/userSlice';
 import { selectCurrentUser } from '@/entities/user/model/selectors';
 import type { User, UserState } from '@/entities/user/model/types';
 
-const INITIAL_STATE: UserState = { currentUser: null };
+const INITIAL_STATE: UserState = { currentUser: null, isAvatarUpdating: false };
 
 const MOCK_USER: User = {
   id: 'user-001',

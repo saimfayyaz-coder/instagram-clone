@@ -2,13 +2,12 @@ import React, { useCallback, useMemo } from 'react';
 import { Share } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppHeader, headerActions } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Header, headerActions, Screen } from '@/shared/ui';
 import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
 import { selectCurrentUser, User } from '@/entities/user';
 import { ProfileMainWidget } from '@/widgets/profile';
-import { MAIN_ROUTES, HEADER_LEFT_ICON_TYPE } from '@/shared/constants';
+import { MAIN_ROUTES, HEADER_BACK_ICON } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
 
@@ -84,11 +83,11 @@ export const UserProfilePage: React.FC = () => {
   }, [isCurrentUser, navigation]);
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
-        <AppHeader
-          onPressBack={handleGoBack}
-          leftIconType={HEADER_LEFT_ICON_TYPE.BACK}
+        <Header
+          onBack={handleGoBack}
+          backIcon={HEADER_BACK_ICON.BACK}
           title={displayUser?.username || t(TRANSLATION_KEYS.PROFILE_TITLE)}
           rightActions={rightActions}
         />
@@ -101,6 +100,6 @@ export const UserProfilePage: React.FC = () => {
         onShareProfile={handleShareProfile}
         onMessage={handleMessage}
       />
-    </ScreenWrapper>
+    </Screen>
   );
 };

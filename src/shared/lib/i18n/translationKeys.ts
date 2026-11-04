@@ -6,6 +6,7 @@ export enum TRANSLATION_KEYS {
   COMMON_TRY_AGAIN = 'common.tryAgain',
   COMMON_NEXT = 'common.next',
   COMMON_BACK = 'common.back',
+  COMMON_CLOSE = 'common.close',
   COMMON_SHOW = 'common.show',
   COMMON_HIDE = 'common.hide',
   COMMON_OK = 'common.ok',
@@ -139,6 +140,15 @@ export enum TRANSLATION_KEYS {
   PROFILE_MORE_LINKS = 'profile.moreLinks',
   PROFILE_TAB_POSTS = 'profile.tabPosts',
   PROFILE_TAB_TAGGED = 'profile.tabTagged',
+
+  // Media Picker
+  MEDIA_PICKER_PROFILE_TITLE = 'mediaPicker.profileTitle',
+  MEDIA_PICKER_RECENTS = 'mediaPicker.recents',
+  MEDIA_PICKER_PERMISSION_TITLE = 'mediaPicker.permissionTitle',
+  MEDIA_PICKER_PERMISSION_SUBTITLE = 'mediaPicker.permissionSubtitle',
+  MEDIA_PICKER_TURN_ON = 'mediaPicker.turnOn',
+  MEDIA_PICKER_NO_PHOTOS = 'mediaPicker.noPhotos',
+  MEDIA_PICKER_ALBUMS = 'mediaPicker.albums',
 
   // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',

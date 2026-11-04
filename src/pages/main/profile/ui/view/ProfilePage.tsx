@@ -2,8 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Share } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AppHeader, headerActions } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Header, headerActions, Screen } from '@/shared/ui';
 import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
 import { selectCurrentUser } from '@/entities/user';
@@ -47,9 +46,9 @@ export const ProfilePage: React.FC = () => {
   );
 
   return (
-    <ScreenWrapper
+    <Screen
       header={
-        <AppHeader
+        <Header
           title={currentUser?.username || t(TRANSLATION_KEYS.PROFILE_TITLE)}
           rightActions={rightActions}
         />
@@ -61,6 +60,6 @@ export const ProfilePage: React.FC = () => {
         onEditProfile={handleNavigateToEditProfile}
         onShareProfile={handleShareProfile}
       />
-    </ScreenWrapper>
+    </Screen>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Touchable, Text, Row } from '@/shared/ui';
 import { useTranslation } from 'react-i18next';
-import { AppText } from '@/shared/components/atoms';
 import { useTheme } from '@/shared/hooks';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -26,7 +26,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
   const hasLinks = count > 0;
 
   return (
-    <TouchableOpacity
+    <Touchable
       onPress={hasLinks ? onOpenLinks : onAddLink}
       activeOpacity={0.7}
       style={styles.container}
@@ -37,36 +37,36 @@ export const LinksSection: React.FC<LinksSectionProps> = ({
           : t(TRANSLATION_KEYS.PROFILE_ADD_LINK)
       }
     >
-      <View style={styles.headerRow}>
-        <AppText
+      <Row justify="space-between" style={styles.headerRow}>
+        <Text
           variant="body"
           weight="semibold"
           color={theme.colors.textPrimary}
           style={styles.linksTitle}
         >
           {t(TRANSLATION_KEYS.PROFILE_LINKS)}
-        </AppText>
+        </Text>
 
         {hasLinks ? (
-          <AppText
+          <Text
             variant="body"
             color={theme.colors.textSecondary}
             style={styles.countText}
           >
             {count}
-          </AppText>
+          </Text>
         ) : (
-          <AppText
+          <Text
             variant="body"
             weight="semibold"
             color={theme.colors.actionPrimary}
             style={styles.addText}
           >
             {t(TRANSLATION_KEYS.PROFILE_ADD_LINK)}
-          </AppText>
+          </Text>
         )}
-      </View>
-    </TouchableOpacity>
+      </Row>
+    </Touchable>
   );
 };
 
@@ -76,9 +76,6 @@ const styles = StyleSheet.create({
     marginBottom: ms(16),
   },
   headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingVertical: ms(10),
     paddingHorizontal: ms(2),
   },

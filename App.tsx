@@ -10,7 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@/app/store/store';
 import { ThemeProvider, AppInitializer } from '@/app/providers';
 import { RootNavigator } from '@/app/navigation';
-import { ToastOverlay, AlertOverlay } from '@/shared/components/molecules';
+import { ToastOverlay, AlertOverlay } from '@/shared/ui';
 import '@/shared/lib/i18n';
 
 function App(): React.JSX.Element {

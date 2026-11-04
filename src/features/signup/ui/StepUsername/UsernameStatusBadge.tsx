@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
-import { AppText, AppLoader } from '@/shared/components/atoms';
+import { Text, Loader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
@@ -23,7 +23,7 @@ export const UsernameStatusBadge: React.FC<UsernameStatusBadgeProps> = ({
   if (isChecking) {
     return (
       <View style={styles.container}>
-        <AppLoader size="small" />
+        <Loader size="small" />
       </View>
     );
   }
@@ -31,9 +31,9 @@ export const UsernameStatusBadge: React.FC<UsernameStatusBadgeProps> = ({
   if (errorMessage) {
     return (
       <View style={styles.container}>
-        <AppText variant="caption" color={theme.colors.error} style={styles.errorText}>
+        <Text variant="caption" color={theme.colors.error} style={styles.errorText}>
           {errorMessage}
-        </AppText>
+        </Text>
       </View>
     );
   }
@@ -50,13 +50,13 @@ export const UsernameStatusBadge: React.FC<UsernameStatusBadgeProps> = ({
             strokeLinejoin="round"
           />
         </Svg>
-        <AppText
+        <Text
           variant="caption"
           weight="semibold"
           color={theme.colors.success}
         >
           {t(TRANSLATION_KEYS.AUTH_SIGNUP_USERNAME_AVAILABLE)}
-        </AppText>
+        </Text>
       </View>
     );
   }

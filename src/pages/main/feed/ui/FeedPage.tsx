@@ -1,8 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { View } from 'react-native';
-import { AppText, InstagramLogo } from '@/shared/components/atoms';
-import { AppHeader, headerActions } from '@/shared/components/organisms';
-import { ScreenWrapper } from '@/shared/components/layout';
+import { Text, InstagramLogo, Header, headerActions, Screen } from '@/shared/ui';
 import { LOGO_VARIANTS } from '@/shared/constants';
 import { commonStyles } from '@/shared/theme';
 
@@ -23,8 +21,8 @@ export const FeedPage: React.FC = () => {
 
   const header = useMemo(
     () => (
-      <AppHeader
-        titleComponent={titleComponent}
+      <Header
+        center={titleComponent}
         rightActions={rightActions}
       />
     ),
@@ -32,12 +30,12 @@ export const FeedPage: React.FC = () => {
   );
 
   return (
-    <ScreenWrapper header={header}>
+    <Screen header={header}>
       <View style={commonStyles.centerFlex}>
-        <AppText variant="heading" align="center">
+        <Text variant="heading" align="center">
           Feed
-        </AppText>
+        </Text>
       </View>
-    </ScreenWrapper>
+    </Screen>
   );
 };

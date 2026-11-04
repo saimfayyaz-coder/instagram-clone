@@ -64,6 +64,19 @@ describe('parseApiError', () => {
       expect(result.fieldErrors).toEqual({ username: 'Username taken' });
     });
 
+    it('translates field messages that are error codes', () => {
+      const error = {
+        status: 400,
+        data: {
+          code: API_ERROR_CODES.INCORRECT_PASSWORD,
+          errors: { password: [API_ERROR_CODES.INCORRECT_PASSWORD] },
+        },
+      };
+      const result = parseApiError(error);
+      expect(result.fieldErrors?.password).not.toBe(API_ERROR_CODES.INCORRECT_PASSWORD);
+      expect(result.fieldErrors?.password).toBe(result.message);
+    });
+
     it('returns undefined fieldErrors when errors object is empty', () => {
       const error = { status: 400, data: { code: 'X', errors: {} } };
       const result = parseApiError(error);

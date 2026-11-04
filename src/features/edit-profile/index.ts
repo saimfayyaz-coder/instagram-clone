@@ -5,5 +5,5 @@ export * from './model/useAvatarEdit';
 export * from './ui/AvatarEditSection';
 export * from './ui/ProfileFieldList';
 export * from './ui/LinksSection';
-export * from './ui/AvatarActionBottomSheet';
-export * from './ui/GenderSelectionBottomSheet';
+export * from './ui/AvatarActionSheet';
+export * from './ui/GenderSelectSheet';

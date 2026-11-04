@@ -3,12 +3,11 @@ import { View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Button, Icon, AppLoader } from '@/shared/components/atoms';
-import { FormField, AuthStepHeader } from '@/shared/components/molecules';
+import { Button, Icon, Loader, FormField, AuthStepHeader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { APP_ICONS } from '@/shared/constants/ui';
+import { APP_ICONS, BUTTON_VARIANTS } from '@/shared/constants/ui';
 import { useUsernameAvailability } from '@/entities/user';
 import {
   createStep1UsernameSchema,
@@ -81,7 +80,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
   const renderRightElement = useCallback(() => {
     if (isChecking) {
-      return <AppLoader size="small" />;
+      return <Loader size="small" />;
     }
     if (isAvailable === true && !errors.username) {
       return (
@@ -131,7 +130,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
 
       <Button
         title={t(TRANSLATION_KEYS.COMMON_NEXT)}
-        variant="primary"
+        variant={BUTTON_VARIANTS.PRIMARY}
         onPress={() => {
           handleNext();
         }}
