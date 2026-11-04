@@ -14,6 +14,8 @@ export interface ListItemProps {
   icon?: AppIconName;
   iconColor?: string;
   left?: React.ReactNode;
+  // Current value shown in gray before the trailing icon (e.g. "Dark")
+  value?: string;
   // Trailing content; `selected` and `chevron` render the standard trailing icons
   right?: React.ReactNode;
   selected?: boolean;
@@ -37,6 +39,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   iconColor,
   left,
   right,
+  value,
   selected = false,
   chevron = false,
   destructive = false,
@@ -121,6 +124,16 @@ export const ListItem: React.FC<ListItemProps> = ({
         )}
       </View>
 
+      {Boolean(value) && (
+        <Text
+          variant="body"
+          color={theme.colors.textSecondary}
+          numberOfLines={1}
+          style={[styles.value, { marginLeft: theme.spacing.sm }]}
+        >
+          {value}
+        </Text>
+      )}
       {trailing && <View style={{ marginLeft: theme.spacing.sm }}>{trailing}</View>}
     </Touchable>
   );
@@ -136,5 +149,8 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginTop: ms(2),
+  },
+  value: {
+    maxWidth: '40%',
   },
 });

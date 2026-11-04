@@ -11,7 +11,7 @@ posts or auth state. Domain UI lives in `entities/*/ui`, `features/*/ui` or `wid
 | `layout/`     | `Screen`, `Container`, `Section`, `Stack`, `Row`, `Spacer`, `Divider`, `KeyboardScroll` |
 | `header/`     | `Header`, `HeaderBackButton`, `HeaderActionButton`, `headerActions`       |
 | `form/`       | `FormField`, `ErrorAlert`, `DividerWithText`                              |
-| `list/`       | `ListItem` (rows in lists and sheet options)                              |
+| `list/`       | `ListItem` (rows in lists and sheet options), `ListSection` (titled group) |
 | `feedback/`   | `EmptyState`                                                              |
 | `overlays/`   | `Sheet`, `SheetContent`, `SheetHeader`, `ToastOverlay`, `AlertOverlay`, `LoadingHudOverlay` |
 | `templates/`  | Reusable screen templates: `AuthLayout`, `AuthStepLayout` (+ `AuthHeader`, `AuthFooter`, `AuthStepHeader`, `LanguageDropdownButton`) |
@@ -132,8 +132,23 @@ sheetRef.current?.present();
 ```
 
 - `selected` shows a checkmark and bolds the title; `chevron` shows ›; `right` takes anything else.
+- `value` shows the current setting in gray before the trailing icon (`Theme  Dark ›`).
 - `divider` draws a hairline under the row; `destructive` turns the title and icon red.
 - Row height comes from `layout.listItemVertical`.
+
+### A settings-style list
+
+Group rows with `ListSection`: a gray caption title, rows inside the gutter, and a separator band
+(omit it on the last group with `last`).
+
+```tsx
+<ListSection title={t(KEYS.SECTION_APP)}>
+  <ListItem icon={APP_ICONS.CONTRAST} title={t(KEYS.THEME)} value={themeLabel} chevron onPress={openTheme} />
+</ListSection>
+<ListSection title={t(KEYS.SECTION_LOGIN)} last>
+  <ListItem title={t(KEYS.LOGOUT)} destructive onPress={confirmLogout} />
+</ListSection>
+```
 
 ### An empty state
 
