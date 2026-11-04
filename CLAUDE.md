@@ -69,7 +69,7 @@ Layers, top to bottom; a layer imports only from layers below it:
 
 - **No user-facing literals.** Use `t(TRANSLATION_KEYS.X)` (`shared/lib/i18n/translationKeys.ts`). A new key must be added to all four locales: `shared/lib/i18n/locales/{en,es,fr,ur}.json`. Accessibility labels are translated too.
 - Urdu is RTL: use `marginStart`/`marginEnd`-safe layouts; `Row` mirrors automatically.
-- **No magic strings.** Compare against and pass constants from `@/shared/constants`: `BUTTON_VARIANTS`, `THEME_MODES`, `HEADER_BACK_ICON`, `APP_ICONS`, `ACCESSIBILITY_ROLES`, `TEST_IDS`, `AUTH_ROUTES`/`MAIN_ROUTES`/`TAB_ROUTES`, `OTP_PURPOSES`, `LANGUAGE_CODES`, `API_ENDPOINTS`, `HTTP_METHODS`, `HTTP_STATUS`, `API_ERROR_CODES`. Derive types from them (`(typeof X)[keyof typeof X]`). Literal unions typed on a component prop (`preset="form"`, `variant="body"`) are fine.
+- **No magic strings.** Compare against and pass constants from `@/shared/constants`: `BUTTON_VARIANTS`, `BUTTON_SIZES`, `SCREEN_PRESETS`, `TEXT_VARIANTS`, `TEXT_WEIGHTS`, `TOAST_TYPES`, `TOAST_POSITIONS`, `ALERT_BUTTON_STYLES`, `MASK_SHAPES`, `THEME_MODES`, `HEADER_BACK_ICON`, `APP_ICONS`, `ACCESSIBILITY_ROLES`, `TEST_IDS`, `AUTH_ROUTES`/`MAIN_ROUTES`/`TAB_ROUTES`, `OTP_PURPOSES`, `LANGUAGE_CODES`, `API_ENDPOINTS`, `HTTP_METHODS`, `HTTP_STATUS`, `API_ERROR_CODES`. Derive types from them (`(typeof X)[keyof typeof X]`). Literal unions typed on a component prop (`preset="form"`, `variant="body"`) are fine.
 - Storage keys: `STORAGE_KEYS` + `storage` (`shared/lib/mmkv/appStorage.ts`). Tokens go through `authStorage` (Keychain), never MMKV.
 - Test IDs: `TEST_IDS` (`shared/constants/testIds.ts`).
 

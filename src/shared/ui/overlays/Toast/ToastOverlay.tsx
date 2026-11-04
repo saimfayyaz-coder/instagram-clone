@@ -8,6 +8,7 @@ import { Text } from '@/shared/ui/primitives/Text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from '@/app/store';
 import { hideToast } from '@/shared/lib/toast/toastSlice';
+import { TOAST_POSITIONS } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles, palette } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
@@ -73,7 +74,7 @@ export const ToastOverlay: React.FC = () => {
     return null;
   }
 
-  const isMiddle = position === 'middle';
+  const isMiddle = position === TOAST_POSITIONS.MIDDLE;
 
   return (
     <View

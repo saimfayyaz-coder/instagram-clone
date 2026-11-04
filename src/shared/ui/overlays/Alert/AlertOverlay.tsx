@@ -14,6 +14,7 @@ import {
   triggerAlertButtonCallback,
   SerializableAlertButton,
 } from '@/shared/lib/alert';
+import { ALERT_BUTTON_STYLES } from '@/shared/constants';
 import { commonStyles, palette, ms } from '@/shared/theme';
 
 export const AlertOverlay: React.FC = () => {
@@ -38,10 +39,10 @@ export const AlertOverlay: React.FC = () => {
   const isTwoButtons = buttons.length === 2;
 
   const getButtonTextColor = (button: SerializableAlertButton) => {
-    if (button.style === 'destructive') {
+    if (button.style === ALERT_BUTTON_STYLES.DESTRUCTIVE) {
       return theme.colors.error;
     }
-    if (button.style === 'cancel') {
+    if (button.style === ALERT_BUTTON_STYLES.CANCEL) {
       return theme.colors.textSecondary;
     }
     return theme.colors.actionPrimary;
@@ -111,7 +112,7 @@ export const AlertOverlay: React.FC = () => {
               >
                 <Text
                   variant="body"
-                  weight={buttons[0].style === 'cancel' ? 'regular' : 'bold'}
+                  weight={buttons[0].style === ALERT_BUTTON_STYLES.CANCEL ? 'regular' : 'bold'}
                   color={getButtonTextColor(buttons[0])}
                   style={styles.buttonText}
                 >
@@ -133,7 +134,7 @@ export const AlertOverlay: React.FC = () => {
               >
                 <Text
                   variant="body"
-                  weight={buttons[1].style === 'cancel' ? 'regular' : 'bold'}
+                  weight={buttons[1].style === ALERT_BUTTON_STYLES.CANCEL ? 'regular' : 'bold'}
                   color={getButtonTextColor(buttons[1])}
                   style={styles.buttonText}
                 >
@@ -160,7 +161,7 @@ export const AlertOverlay: React.FC = () => {
                   >
                     <Text
                       variant="body"
-                      weight={btn.style === 'cancel' ? 'regular' : 'bold'}
+                      weight={btn.style === ALERT_BUTTON_STYLES.CANCEL ? 'regular' : 'bold'}
                       color={getButtonTextColor(btn)}
                       style={styles.buttonText}
                     >

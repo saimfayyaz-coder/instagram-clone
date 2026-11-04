@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ListItem } from '@/shared/ui';
 import { useAlert } from '@/shared/hooks';
-import { TEST_IDS } from '@/shared/constants';
+import { ALERT_BUTTON_STYLES, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { useLogout } from '../hooks/useLogout';
 
@@ -17,8 +17,8 @@ export const LogoutListItem: React.FC = () => {
       title: t(TRANSLATION_KEYS.SETTINGS_LOGOUT_CONFIRM_TITLE),
       message: t(TRANSLATION_KEYS.SETTINGS_LOGOUT_CONFIRM_MESSAGE),
       buttons: [
-        { text: t(TRANSLATION_KEYS.COMMON_CANCEL), style: 'cancel' },
-        { text: t(TRANSLATION_KEYS.SETTINGS_LOGOUT), style: 'destructive', onPress: logout },
+        { text: t(TRANSLATION_KEYS.COMMON_CANCEL), style: ALERT_BUTTON_STYLES.CANCEL },
+        { text: t(TRANSLATION_KEYS.SETTINGS_LOGOUT), style: ALERT_BUTTON_STYLES.DESTRUCTIVE, onPress: logout },
       ],
     });
   }, [showAlert, logout, t]);

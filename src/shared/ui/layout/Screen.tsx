@@ -3,9 +3,10 @@ import { View, ScrollView, ScrollViewProps, StyleProp, ViewStyle } from 'react-n
 import { SafeAreaView, Edge } from 'react-native-safe-area-context';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles } from '@/shared/theme';
+import { SCREEN_PRESETS, ScreenPreset } from '@/shared/constants';
 import { KeyboardScroll, KeyboardScrollProps } from './KeyboardScroll';
 
-export type ScreenPreset = 'fixed' | 'scroll' | 'form';
+export type { ScreenPreset };
 
 export interface ScreenProps {
   children: React.ReactNode;
@@ -29,7 +30,7 @@ export interface ScreenProps {
 
 export const Screen: React.FC<ScreenProps> = ({
   children,
-  preset = 'fixed',
+  preset = SCREEN_PRESETS.FIXED,
   header,
   footer,
   safeAreaEdges,
@@ -48,13 +49,13 @@ export const Screen: React.FC<ScreenProps> = ({
   ];
 
   let content: React.ReactNode;
-  if (preset === 'form') {
+  if (preset === SCREEN_PRESETS.FORM) {
     content = (
       <KeyboardScroll contentContainerStyle={contentStyle} {...keyboardProps}>
         {children}
       </KeyboardScroll>
     );
-  } else if (preset === 'scroll') {
+  } else if (preset === SCREEN_PRESETS.SCROLL) {
     content = (
       <ScrollView
         style={commonStyles.flex1}
