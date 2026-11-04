@@ -51,6 +51,9 @@ export const APP_ICONS = {
   TAGGED: 'person-outline',
   SHARE: 'share-social-outline',
   OPEN_OUTLINE: 'open-outline',
+  PERSON_CIRCLE: 'person-circle-outline',
+  CONTRAST: 'contrast-outline',
+  LANGUAGE: 'language-outline',
 } as const;
 
 export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];

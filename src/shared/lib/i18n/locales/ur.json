@@ -86,7 +86,14 @@
     "selectLanguage": "زبان منتخب کریں",
     "system": "سسٹم ڈیفالٹ",
     "light": "لائٹ",
-    "dark": "ڈارک"
+    "dark": "ڈارک",
+    "title": "سیٹنگز اور سرگرمی",
+    "sectionAccount": "آپ کا اکاؤنٹ",
+    "sectionApp": "آپ کی ایپ اور میڈیا",
+    "sectionLogin": "لاگ ان",
+    "logout": "لاگ آؤٹ",
+    "logoutConfirmTitle": "اپنے اکاؤنٹ سے لاگ آؤٹ کریں؟",
+    "logoutConfirmMessage": "Instagram استعمال کرنے کے لیے آپ کو دوبارہ لاگ ان کرنا ہوگا۔"
   },
   "profile": {
     "title": "پروفائل",

@@ -83,6 +83,13 @@ export enum TRANSLATION_KEYS {
   SETTINGS_SYSTEM = 'settings.system',
   SETTINGS_LIGHT = 'settings.light',
   SETTINGS_DARK = 'settings.dark',
+  SETTINGS_TITLE = 'settings.title',
+  SETTINGS_SECTION_ACCOUNT = 'settings.sectionAccount',
+  SETTINGS_SECTION_APP = 'settings.sectionApp',
+  SETTINGS_SECTION_LOGIN = 'settings.sectionLogin',
+  SETTINGS_LOGOUT = 'settings.logout',
+  SETTINGS_LOGOUT_CONFIRM_TITLE = 'settings.logoutConfirmTitle',
+  SETTINGS_LOGOUT_CONFIRM_MESSAGE = 'settings.logoutConfirmMessage',
 
   // Profile
   PROFILE_TITLE = 'profile.title',
