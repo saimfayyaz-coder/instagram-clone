@@ -73,3 +73,14 @@ export const API_ENDPOINTS = {
     LINK: (linkId: string) => `/users/profile/links/${linkId}`,
   },
 } as const;
+
+// Public auth endpoints: a 401 here is a real error (e.g. invalid reset code), not an expired session
+export const NO_REAUTH_ENDPOINTS: readonly string[] = [
+  API_ENDPOINTS.AUTH.LOGIN,
+  API_ENDPOINTS.AUTH.SIGNUP,
+  API_ENDPOINTS.AUTH.VERIFY_OTP,
+  API_ENDPOINTS.AUTH.RESEND_OTP,
+  API_ENDPOINTS.AUTH.FORGOT_PASSWORD,
+  API_ENDPOINTS.AUTH.RESET_PASSWORD,
+  API_ENDPOINTS.AUTH.REFRESH_TOKEN,
+];

@@ -9,6 +9,8 @@ import {
   TIMEOUT_ERROR_MESSAGES,
   API_ENDPOINTS,
   HTTP_METHODS,
+  NO_REAUTH_ENDPOINTS,
+  SESSION_ACTION_TYPES,
 } from '@/shared/constants';
 import { BASE_URL } from '@/shared/config';
 
@@ -24,101 +26,88 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-let isRefreshing = false;
-let refreshSubscribers: Array<(token: string) => void> = [];
+type BaseQueryApi = Parameters<typeof baseQuery>[1];
+type BaseQueryExtraOptions = Parameters<typeof baseQuery>[2];
+type RefreshResult = { accessToken: string } | { errorCode: string };
 
-const subscribeTokenRefresh = (cb: (token: string) => void) => {
-  refreshSubscribers.push(cb);
+// Shared by every request that gets a 401 while a refresh is in flight
+let refreshPromise: Promise<RefreshResult> | null = null;
+
+const refreshAccessToken = async (
+  api: BaseQueryApi,
+  extraOptions: BaseQueryExtraOptions,
+): Promise<RefreshResult> => {
+  try {
+    const refreshToken = await authStorage.getRefreshToken();
+    if (!refreshToken) {
+      api.dispatch({ type: SESSION_ACTION_TYPES.CLEAR_SESSION });
+      return { errorCode: API_ERROR_CODES.REFRESH_TOKEN_EXPIRED };
+    }
+
+    const refreshResult = await baseQuery(
+      {
+        url: API_ENDPOINTS.AUTH.REFRESH_TOKEN,
+        method: HTTP_METHODS.POST,
+        body: { refreshToken },
+      },
+      api,
+      extraOptions,
+    );
+
+    if (!refreshResult.data) {
+      api.dispatch({ type: SESSION_ACTION_TYPES.CLEAR_SESSION });
+      return { errorCode: API_ERROR_CODES.REFRESH_TOKEN_EXPIRED };
+    }
+
+    const response = refreshResult.data as { data: { accessToken: string } };
+    const accessToken = response.data.accessToken;
+    api.dispatch({ type: SESSION_ACTION_TYPES.SET_ACCESS_TOKEN, payload: accessToken });
+    return { accessToken };
+  } catch {
+    api.dispatch({ type: SESSION_ACTION_TYPES.CLEAR_SESSION });
+    return { errorCode: API_ERROR_CODES.TOKEN_INVALID };
+  }
 };
 
-const onRefreshed = (token: string) => {
-  refreshSubscribers.forEach(cb => cb(token));
-  refreshSubscribers = [];
-};
+const sessionErrorMessage = (errorCode: string) =>
+  errorCode === API_ERROR_CODES.TOKEN_INVALID
+    ? i18n.t(TRANSLATION_KEYS.ERROR_TOKEN_INVALID)
+    : i18n.t(TRANSLATION_KEYS.ERROR_REFRESH_TOKEN_EXPIRED);
+
+const getRequestUrl = (args: string | FetchArgs) => (typeof args === 'string' ? args : args.url);
 
 export const baseQueryWithReauth = async (
   args: string | FetchArgs,
-  api: Parameters<typeof baseQuery>[1],
-  extraOptions: Parameters<typeof baseQuery>[2],
+  api: BaseQueryApi,
+  extraOptions: BaseQueryExtraOptions,
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result.error?.status === HTTP_STATUS.UNAUTHORIZED) {
-    if (!isRefreshing) {
-      isRefreshing = true;
-      try {
-        const refreshToken = await authStorage.getRefreshToken();
-        if (!refreshToken) {
-          api.dispatch({ type: 'session/clearSession' });
-          return {
-            error: {
-              status: HTTP_STATUS.UNAUTHORIZED,
-              data: {
-                success: false,
-                message: i18n.t(TRANSLATION_KEYS.ERROR_REFRESH_TOKEN_EXPIRED),
-                code: API_ERROR_CODES.REFRESH_TOKEN_EXPIRED,
-              },
-            },
-          };
-        }
-
-        const refreshResult = await baseQuery(
-          {
-            url: API_ENDPOINTS.AUTH.REFRESH_TOKEN,
-            method: HTTP_METHODS.POST,
-            body: { refreshToken },
-          },
-          api,
-          extraOptions,
-        );
-
-        if (refreshResult.data) {
-          const response = refreshResult.data as {
-            data: { accessToken: string };
-          };
-          const newAccessToken = response.data.accessToken;
-          api.dispatch({
-            type: 'session/setAccessToken',
-            payload: newAccessToken,
-          });
-          onRefreshed(newAccessToken);
-          result = await baseQuery(args, api, extraOptions);
-        } else {
-          api.dispatch({ type: 'session/clearSession' });
-          return {
-            error: {
-              status: HTTP_STATUS.UNAUTHORIZED,
-              data: {
-                success: false,
-                message: i18n.t(TRANSLATION_KEYS.ERROR_REFRESH_TOKEN_EXPIRED),
-                code: API_ERROR_CODES.REFRESH_TOKEN_EXPIRED,
-              },
-            },
-          };
-        }
-      } catch {
-        api.dispatch({ type: 'session/clearSession' });
-        return {
-          error: {
-            status: HTTP_STATUS.UNAUTHORIZED,
-            data: {
-              success: false,
-              message: i18n.t(TRANSLATION_KEYS.ERROR_TOKEN_INVALID),
-              code: API_ERROR_CODES.TOKEN_INVALID,
-            },
-          },
-        };
-      } finally {
-        isRefreshing = false;
-      }
-    } else {
-      const newToken = await new Promise<string>(resolve => {
-        subscribeTokenRefresh(resolve);
+  if (
+    result.error?.status === HTTP_STATUS.UNAUTHORIZED &&
+    !NO_REAUTH_ENDPOINTS.includes(getRequestUrl(args))
+  ) {
+    if (!refreshPromise) {
+      refreshPromise = refreshAccessToken(api, extraOptions).finally(() => {
+        refreshPromise = null;
       });
-      if (newToken) {
-        result = await baseQuery(args, api, extraOptions);
-      }
     }
+    const refresh = await refreshPromise;
+
+    if ('errorCode' in refresh) {
+      return {
+        error: {
+          status: HTTP_STATUS.UNAUTHORIZED,
+          data: {
+            success: false,
+            message: sessionErrorMessage(refresh.errorCode),
+            code: refresh.errorCode,
+          },
+        },
+      };
+    }
+
+    result = await baseQuery(args, api, extraOptions);
   }
 
   if (result.error) {
