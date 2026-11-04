@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ALERT_BUTTON_STYLES, AlertButtonStyle } from '@/shared/constants/ui';
 
 export interface AlertButton {
   text: string;
-  style?: 'default' | 'cancel' | 'destructive';
+  style?: AlertButtonStyle;
   onPress?: () => void;
 }
 
@@ -14,7 +15,7 @@ export interface AlertPayload {
 
 export interface SerializableAlertButton {
   text: string;
-  style?: 'default' | 'cancel' | 'destructive';
+  style?: AlertButtonStyle;
 }
 
 export interface AlertState {
@@ -49,7 +50,7 @@ export const alertSlice = createSlice({
     showAlert: (state, action: PayloadAction<AlertPayload>) => {
       const buttons = action.payload.buttons && action.payload.buttons.length > 0
         ? action.payload.buttons
-        : [{ text: 'OK', style: 'default' as const }];
+        : [{ text: 'OK', style: ALERT_BUTTON_STYLES.DEFAULT }];
 
       alertButtonCallbacks = buttons.map(b => b.onPress);
 
@@ -58,7 +59,7 @@ export const alertSlice = createSlice({
       state.message = action.payload.message;
       state.buttons = buttons.map(b => ({
         text: b.text,
-        style: b.style ?? 'default',
+        style: b.style ?? ALERT_BUTTON_STYLES.DEFAULT,
       }));
     },
     hideAlert: (state) => {

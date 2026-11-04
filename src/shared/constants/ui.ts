@@ -17,6 +17,67 @@ export const BUTTON_VARIANTS = {
 export type ButtonVariant =
   (typeof BUTTON_VARIANTS)[keyof typeof BUTTON_VARIANTS];
 
+export const BUTTON_SIZES = {
+  SM: 'sm',
+  MD: 'md',
+  LG: 'lg',
+} as const;
+
+export type ButtonSize = (typeof BUTTON_SIZES)[keyof typeof BUTTON_SIZES];
+
+export const SCREEN_PRESETS = {
+  FIXED: 'fixed',
+  SCROLL: 'scroll',
+  FORM: 'form',
+} as const;
+
+export type ScreenPreset = (typeof SCREEN_PRESETS)[keyof typeof SCREEN_PRESETS];
+
+export const TEXT_VARIANTS = {
+  HERO: 'hero',
+  HEADING: 'heading',
+  SUBHEADING: 'subheading',
+  BODY: 'body',
+  CAPTION: 'caption',
+  LINK: 'link',
+  ERROR: 'error',
+} as const;
+
+export type TextVariant = (typeof TEXT_VARIANTS)[keyof typeof TEXT_VARIANTS];
+
+export const TEXT_WEIGHTS = {
+  REGULAR: 'regular',
+  MEDIUM: 'medium',
+  SEMIBOLD: 'semibold',
+  BOLD: 'bold',
+} as const;
+
+export type TextWeight = (typeof TEXT_WEIGHTS)[keyof typeof TEXT_WEIGHTS];
+
+export const TOAST_TYPES = {
+  DEFAULT: 'default',
+  ERROR: 'error',
+  SUCCESS: 'success',
+} as const;
+
+export type ToastType = (typeof TOAST_TYPES)[keyof typeof TOAST_TYPES];
+
+export const TOAST_POSITIONS = {
+  BOTTOM: 'bottom',
+  MIDDLE: 'middle',
+} as const;
+
+export type ToastPosition = (typeof TOAST_POSITIONS)[keyof typeof TOAST_POSITIONS];
+
+export const ALERT_BUTTON_STYLES = {
+  DEFAULT: 'default',
+  CANCEL: 'cancel',
+  DESTRUCTIVE: 'destructive',
+} as const;
+
+export type AlertButtonStyle =
+  (typeof ALERT_BUTTON_STYLES)[keyof typeof ALERT_BUTTON_STYLES];
+
 export const THEME_MODES = {
   LIGHT: 'light',
   DARK: 'dark',
@@ -51,6 +112,9 @@ export const APP_ICONS = {
   TAGGED: 'person-outline',
   SHARE: 'share-social-outline',
   OPEN_OUTLINE: 'open-outline',
+  PERSON_CIRCLE: 'person-circle-outline',
+  CONTRAST: 'contrast-outline',
+  LANGUAGE: 'language-outline',
 } as const;
 
 export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];

@@ -1,5 +1,7 @@
+import { MaskShape } from '@/shared/constants/media';
+
+export type { MaskShape };
 export type MediaPickerMode = 'avatar' | 'post' | 'story';
-export type MaskShape = 'circle' | 'square' | 'none';
 
 export interface PickedImage {
   uri: string;

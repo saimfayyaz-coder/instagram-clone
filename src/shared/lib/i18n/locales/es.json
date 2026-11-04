@@ -86,7 +86,14 @@
     "selectLanguage": "Seleccionar idioma",
     "system": "Predeterminado del sistema",
     "light": "Claro",
-    "dark": "Oscuro"
+    "dark": "Oscuro",
+    "title": "Configuración y actividad",
+    "sectionAccount": "Tu cuenta",
+    "sectionApp": "Tu app y contenido",
+    "sectionLogin": "Inicio de sesión",
+    "logout": "Cerrar sesión",
+    "logoutConfirmTitle": "¿Cerrar sesión en tu cuenta?",
+    "logoutConfirmMessage": "Tendrás que volver a iniciar sesión para usar Instagram."
   },
   "profile": {
     "title": "Perfil",

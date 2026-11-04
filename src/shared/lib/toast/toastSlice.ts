@@ -1,26 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TOAST_POSITIONS, TOAST_TYPES, ToastPosition, ToastType } from '@/shared/constants/ui';
 
 export interface ToastPayload {
   message: string;
-  type?: 'default' | 'error' | 'success';
+  type?: ToastType;
   duration?: number;
-  position?: 'bottom' | 'middle';
+  position?: ToastPosition;
 }
 
 export interface ToastState {
   visible: boolean;
   message: string;
-  type: 'default' | 'error' | 'success';
+  type: ToastType;
   duration: number;
-  position: 'bottom' | 'middle';
+  position: ToastPosition;
 }
 
 const initialState: ToastState = {
   visible: false,
   message: '',
-  type: 'default',
+  type: TOAST_TYPES.DEFAULT,
   duration: 3000,
-  position: 'bottom',
+  position: TOAST_POSITIONS.BOTTOM,
 };
 
 export const toastSlice = createSlice({
@@ -30,14 +31,14 @@ export const toastSlice = createSlice({
     showToast: (state, action: PayloadAction<ToastPayload>) => {
       state.visible = true;
       state.message = action.payload.message;
-      state.type = action.payload.type ?? 'default';
+      state.type = action.payload.type ?? TOAST_TYPES.DEFAULT;
       state.duration = action.payload.duration ?? 3000;
-      state.position = action.payload.position ?? 'bottom';
+      state.position = action.payload.position ?? TOAST_POSITIONS.BOTTOM;
     },
     hideToast: (state) => {
       state.visible = false;
       state.message = '';
-      state.position = 'bottom';
+      state.position = TOAST_POSITIONS.BOTTOM;
     },
   },
 });

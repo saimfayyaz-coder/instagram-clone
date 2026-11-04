@@ -14,7 +14,7 @@ import Animated, {
 import Svg, { Defs, Mask, Rect, Circle } from 'react-native-svg';
 import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
-import { GALLERY_CONFIG } from '@/shared/constants';
+import { GALLERY_CONFIG, MASK_SHAPES, MaskShape } from '@/shared/constants';
 
 export interface CropViewportHandle {
   getTransforms: () => {
@@ -29,7 +29,7 @@ export interface CropViewportProps {
   imageUri?: string;
   imageWidth?: number;
   imageHeight?: number;
-  maskShape?: 'circle' | 'square' | 'none';
+  maskShape?: MaskShape;
 }
 
 export const CropViewport = forwardRef<CropViewportHandle, CropViewportProps>(
@@ -38,7 +38,7 @@ export const CropViewport = forwardRef<CropViewportHandle, CropViewportProps>(
       imageUri,
       imageWidth = GALLERY_CONFIG.DEFAULT_IMAGE_DIMENSION,
       imageHeight = GALLERY_CONFIG.DEFAULT_IMAGE_DIMENSION,
-      maskShape = 'circle',
+      maskShape = MASK_SHAPES.CIRCLE,
     },
     ref,
   ) => {
@@ -172,7 +172,7 @@ export const CropViewport = forwardRef<CropViewportHandle, CropViewportProps>(
         )}
 
         {/* Circular Mask Overlay */}
-        {maskShape === 'circle' && (
+        {maskShape === MASK_SHAPES.CIRCLE && (
           <View
             pointerEvents="none"
             style={[StyleSheet.absoluteFill, styles.overlayContainer]}
