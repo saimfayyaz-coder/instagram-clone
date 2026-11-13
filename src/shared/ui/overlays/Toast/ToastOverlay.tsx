@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   StyleSheet,
@@ -6,22 +6,29 @@ import {
 } from 'react-native';
 import { Text } from '@/shared/ui/primitives/Text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useAppDispatch, useAppSelector } from '@/app/store';
-import { hideToast } from '@/shared/lib/toast/toastSlice';
+import { registerToast, ToastPayload } from '@/shared/lib/toast';
 import { TOAST_POSITIONS } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles, palette } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
 
 export const ToastOverlay: React.FC = () => {
-  const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
-  const { visible, message, duration, position } = useAppSelector(state => state.toast);
+  const [toast, setToast] = useState<ToastPayload | null>(null);
+  const visible = toast !== null;
+  const message = toast?.message ?? '';
+  const duration = toast?.duration ?? 3000;
+  const position = toast?.position ?? TOAST_POSITIONS.BOTTOM;
 
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    registerToast(setToast);
+    return () => registerToast(null);
+  }, []);
 
   useEffect(() => {
     if (visible && message) {
@@ -55,7 +62,7 @@ export const ToastOverlay: React.FC = () => {
             useNativeDriver: true,
           }),
         ]).start(() => {
-          dispatch(hideToast());
+          setToast(null);
         });
       }, duration || 3000);
     } else {
@@ -68,7 +75,7 @@ export const ToastOverlay: React.FC = () => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [visible, message, duration, opacity, translateY, dispatch]);
+  }, [visible, message, duration, opacity, translateY]);
 
   if (!visible && !message) {
     return null;

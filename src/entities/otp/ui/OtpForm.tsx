@@ -7,7 +7,8 @@ import { Button, AuthStepHeader } from '@/shared/ui';
 import { BUTTON_VARIANTS } from '@/shared/constants';
 import { OtpCodeInput } from './OtpCodeInput';
 import { OtpResendTimer } from './OtpResendTimer';
-import { useTheme, useToast } from '@/shared/hooks';
+import { useTheme } from '@/shared/hooks';
+import { showToast } from '@/shared/lib/toast';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { executeFormMutation } from '@/shared/lib/forms';
@@ -33,8 +34,6 @@ export const OtpForm: React.FC<OtpFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const { showToast } = useToast();
-
   const [hasError, setHasError] = useState(false);
 
   const [verifyOtp, { isLoading: isVerifying }] = useVerifyOtpMutation();
