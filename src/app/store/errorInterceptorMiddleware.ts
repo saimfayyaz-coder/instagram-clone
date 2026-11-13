@@ -2,11 +2,11 @@ import { isRejectedWithValue, Middleware } from '@reduxjs/toolkit';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { API_ERROR_CODES } from '@/shared/constants';
-import { showToast } from '@/shared/lib/toast/toastSlice';
+import { showToast } from '@/shared/lib/toast';
 
 // Global interceptor for network and 5xx server failures
 export const errorInterceptorMiddleware: Middleware =
-  store => next => action => {
+  _store => next => action => {
     if (isRejectedWithValue(action)) {
       const payload = action.payload as any;
       const skipGlobalErrorToast =
@@ -33,12 +33,10 @@ export const errorInterceptorMiddleware: Middleware =
           '[ErrorInterceptor] Server error:',
           i18n.t(TRANSLATION_KEYS.ERROR_SERVER),
         );
-        store.dispatch(
-          showToast({
-            message: i18n.t(TRANSLATION_KEYS.ERROR_SERVER),
-            type: 'error',
-          }),
-        );
+        showToast({
+          message: i18n.t(TRANSLATION_KEYS.ERROR_SERVER),
+          type: 'error',
+        });
       }
 
       if (status === API_ERROR_CODES.FETCH_ERROR) {
@@ -46,12 +44,10 @@ export const errorInterceptorMiddleware: Middleware =
           '[ErrorInterceptor] Network offline:',
           i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
         );
-        store.dispatch(
-          showToast({
-            message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
-            type: 'error',
-          }),
-        );
+        showToast({
+          message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
+          type: 'error',
+        });
       }
 
       if (status === API_ERROR_CODES.TIMEOUT_ERROR) {
@@ -59,12 +55,10 @@ export const errorInterceptorMiddleware: Middleware =
           '[ErrorInterceptor] Request timeout:',
           i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
         );
-        store.dispatch(
-          showToast({
-            message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
-            type: 'error',
-          }),
-        );
+        showToast({
+          message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
+          type: 'error',
+        });
       }
     }
 

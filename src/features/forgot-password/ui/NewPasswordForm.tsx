@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button, FormField, AuthStepHeader } from '@/shared/ui';
 import { BUTTON_VARIANTS } from '@/shared/constants';
-import { useTheme, useToast } from '@/shared/hooks';
+import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { executeFormMutation } from '@/shared/lib/forms';
@@ -29,7 +29,6 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const { showToast } = useToast();
 
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
@@ -68,7 +67,7 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
       }).unwrap(),
       setError,
       clearErrors,
-      showToast,
+      showToast: true,
       onSuccess: () => {
         onSuccess?.();
       },

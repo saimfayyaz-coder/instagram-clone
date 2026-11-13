@@ -2,6 +2,7 @@ import type { UseFormSetError, UseFormClearErrors, FieldValues } from 'react-hoo
 import { parseApiError, ParsedApiError } from '../errors';
 import { API_ERROR_CODES, HTTP_STATUS } from '@/shared/constants';
 import { FORM_ROOT_ERROR } from './constants';
+import { showToast as showToastMessage } from '../toast';
 
 export interface ExecuteFormMutationOptions<TData, TFieldValues extends FieldValues = any> {
   mutationPromise: Promise<TData>;
@@ -9,7 +10,8 @@ export interface ExecuteFormMutationOptions<TData, TFieldValues extends FieldVal
   onError?: (parsedError: ParsedApiError) => void;
   setError?: UseFormSetError<TFieldValues>;
   clearErrors?: UseFormClearErrors<TFieldValues>;
-  showToast?: (message: string) => void;
+  // Show general errors in a toast
+  showToast?: boolean;
 }
 
 // Unwraps mutation, maps field errors to inputs, and triggers toast for general errors
@@ -57,7 +59,7 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
 
     // 3. Dispatch Toast if not handled globally and not an inline field error
     if (showToast && !isGlobalHandled && !hasFieldErrors) {
-      showToast(parsed.message);
+      showToastMessage({ message: parsed.message, type: 'error' });
     }
 
     if (onError) {

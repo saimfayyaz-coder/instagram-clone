@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button, FormField, Stack } from '@/shared/ui';
-import { useTheme, useToast } from '@/shared/hooks';
+import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { executeFormMutation } from '@/shared/lib/forms';
@@ -24,7 +24,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const { showToast } = useToast();
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -49,7 +48,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       mutationPromise: login(values).unwrap(),
       setError,
       clearErrors,
-      showToast,
+      showToast: true,
       onSuccess: () => {
         onSuccess?.();
       },
