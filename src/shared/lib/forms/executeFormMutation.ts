@@ -1,6 +1,6 @@
 import type { UseFormSetError, UseFormClearErrors, FieldValues } from 'react-hook-form';
 import { parseApiError, ParsedApiError } from '../errors';
-import { API_ERROR_CODES, HTTP_STATUS } from '@/shared/constants';
+import { API_ERROR_CODES, HTTP_STATUS, TOAST_TYPES } from '@/shared/constants';
 import { FORM_ROOT_ERROR } from './constants';
 import { showToast as showToastMessage } from '../toast';
 
@@ -59,7 +59,7 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
 
     // 3. Dispatch Toast if not handled globally and not an inline field error
     if (showToast && !isGlobalHandled && !hasFieldErrors) {
-      showToastMessage({ message: parsed.message, type: 'error' });
+      showToastMessage({ message: parsed.message, type: TOAST_TYPES.ERROR });
     }
 
     if (onError) {

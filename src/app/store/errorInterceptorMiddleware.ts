@@ -1,7 +1,7 @@
 import { isRejectedWithValue, Middleware } from '@reduxjs/toolkit';
 import i18n from '@/shared/lib/i18n/i18n';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { API_ERROR_CODES } from '@/shared/constants';
+import { API_ERROR_CODES, TOAST_TYPES } from '@/shared/constants';
 import { showToast } from '@/shared/lib/toast';
 
 // Global interceptor for network and 5xx server failures
@@ -35,7 +35,7 @@ export const errorInterceptorMiddleware: Middleware =
         );
         showToast({
           message: i18n.t(TRANSLATION_KEYS.ERROR_SERVER),
-          type: 'error',
+          type: TOAST_TYPES.ERROR,
         });
       }
 
@@ -46,7 +46,7 @@ export const errorInterceptorMiddleware: Middleware =
         );
         showToast({
           message: i18n.t(TRANSLATION_KEYS.ERROR_NETWORK),
-          type: 'error',
+          type: TOAST_TYPES.ERROR,
         });
       }
 
@@ -57,7 +57,7 @@ export const errorInterceptorMiddleware: Middleware =
         );
         showToast({
           message: i18n.t(TRANSLATION_KEYS.ERROR_TIMEOUT),
-          type: 'error',
+          type: TOAST_TYPES.ERROR,
         });
       }
     }

@@ -1,4 +1,6 @@
 import { ALERT_BUTTON_STYLES, AlertButtonStyle } from '@/shared/constants/ui';
+import i18n from '../i18n/i18n';
+import { TRANSLATION_KEYS } from '../i18n/translationKeys';
 import { createOverlayController } from '../overlay';
 
 export interface AlertButton {
@@ -13,8 +15,6 @@ export interface AlertPayload {
   buttons?: AlertButton[];
 }
 
-const DEFAULT_BUTTONS: AlertButton[] = [{ text: 'OK', style: ALERT_BUTTON_STYLES.DEFAULT }];
-
 const controller = createOverlayController<AlertPayload>();
 
 export const registerAlert = controller.register;
@@ -22,5 +22,7 @@ export const registerAlert = controller.register;
 export const showAlert = (payload: AlertPayload) =>
   controller.show({
     ...payload,
-    buttons: payload.buttons?.length ? payload.buttons : DEFAULT_BUTTONS,
+    buttons: payload.buttons?.length
+      ? payload.buttons
+      : [{ text: i18n.t(TRANSLATION_KEYS.COMMON_OK), style: ALERT_BUTTON_STYLES.DEFAULT }],
   });

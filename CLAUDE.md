@@ -76,8 +76,8 @@ Layers, top to bottom; a layer imports only from layers below it:
 ## Data, forms, feedback
 
 - API: endpoints are injected into `baseApi` (`shared/api`) per slice: `baseApi.injectEndpoints({ endpoints: builder => … })`, URLs from `API_ENDPOINTS`, methods from `HTTP_METHODS`.
-- Forms: `react-hook-form` + `zodResolver(create*Schema(t))`; schemas live in the slice's `model/`. Submit through `executeFormMutation({ mutationPromise, setError, clearErrors, showToast, onSuccess })` (maps field errors, toasts general errors). Form-level error key: `FORM_ROOT_ERROR`.
-- Feedback: `useToast().showToast(...)`, `useAlert().showAlert(...)` from `@/shared/hooks`; global overlays are already mounted in `App.tsx`.
+- Forms: `react-hook-form` + `zodResolver(create*Schema(t))`; schemas live in the slice's `model/`. Submit through `executeFormMutation({ mutationPromise, setError, clearErrors, showToast: true, onSuccess })` (maps field errors; `showToast: true` toasts general errors). Form-level error key: `FORM_ROOT_ERROR`.
+- Feedback: `showToast(...)` from `@/shared/lib/toast` and `showAlert(...)` from `@/shared/lib/alert`. Plain functions, callable from components, hooks, helpers and middleware. `ToastOverlay`/`AlertOverlay` (mounted in `App.tsx`) keep their own state and register through `createOverlayController` (`shared/lib/overlay`); toast and alert are not in Redux.
 - Redux selectors live in `entities/*/model/selectors.ts`; read state with `useAppSelector`.
 
 ## Naming
