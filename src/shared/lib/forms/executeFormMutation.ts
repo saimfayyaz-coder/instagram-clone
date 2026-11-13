@@ -42,9 +42,8 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
         parsed.status >= HTTP_STATUS.INTERNAL_SERVER_ERROR) ||
       (err as any)?.status === API_ERROR_CODES.PARSING_ERROR;
 
-    const hasFieldErrors = Boolean(
-      parsed.fieldErrors && Object.keys(parsed.fieldErrors).length > 0,
-    );
+    const hasFieldErrors =
+      parsed.fieldErrors && Object.keys(parsed.fieldErrors).length > 0;
 
     // 1. If backend returned field-specific errors, map directly to form inputs
     if (hasFieldErrors && setError) {

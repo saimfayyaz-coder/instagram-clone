@@ -24,7 +24,7 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
         <UserAvatar user={user} size={ms(78)} />
 
         <View style={[commonStyles.flex1, styles.rightContent]}>
-          {Boolean(displayName) && (
+          {displayName && (
             <Text
               variant="body"
               weight="bold"

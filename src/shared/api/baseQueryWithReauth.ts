@@ -116,9 +116,10 @@ export const baseQueryWithReauth = async (
         ? (result.error as any).error
         : '';
 
-    const shouldSkipGlobalToast =
-      Boolean((extraOptions as any)?.skipGlobalErrorToast) ||
-      (typeof args !== 'string' && Boolean((args as any)?.skipGlobalErrorToast));
+    const shouldSkipGlobalToast = Boolean(
+      (extraOptions as any)?.skipGlobalErrorToast ||
+        (typeof args !== 'string' && (args as any)?.skipGlobalErrorToast),
+    );
 
     // React Native Hermes reports AbortError when fetchBaseQuery aborts at 15s
     if (
