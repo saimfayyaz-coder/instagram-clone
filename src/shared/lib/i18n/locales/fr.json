@@ -86,7 +86,14 @@
     "selectLanguage": "Sélectionner la langue",
     "system": "Par défaut du système",
     "light": "Clair",
-    "dark": "Sombre"
+    "dark": "Sombre",
+    "title": "Paramètres et activité",
+    "sectionAccount": "Votre compte",
+    "sectionApp": "Votre application et vos médias",
+    "sectionLogin": "Connexion",
+    "logout": "Se déconnecter",
+    "logoutConfirmTitle": "Se déconnecter de votre compte ?",
+    "logoutConfirmMessage": "Vous devrez vous reconnecter pour utiliser Instagram."
   },
   "profile": {
     "title": "Profil",

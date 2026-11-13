@@ -7,6 +7,14 @@ export const GALLERY_CONFIG = {
   MAX_PINCH_ZOOM: 3.5,
 } as const;
 
+export const MASK_SHAPES = {
+  CIRCLE: 'circle',
+  SQUARE: 'square',
+  NONE: 'none',
+} as const;
+
+export type MaskShape = (typeof MASK_SHAPES)[keyof typeof MASK_SHAPES];
+
 export const CAMERA_ROLL_ASSET_TYPE = {
   PHOTOS: 'Photos',
   VIDEOS: 'Videos',

@@ -23,4 +23,11 @@ export const TEST_IDS = {
     PERMISSION_TURN_ON_BUTTON: 'media-picker-permission-turn-on-button',
     GRID_ITEM: 'media-picker-grid-item',
   },
+  SETTINGS: {
+    EDIT_PROFILE: 'settings-edit-profile',
+    THEME: 'settings-theme',
+    LANGUAGE: 'settings-language',
+    LOGOUT: 'settings-logout',
+    THEME_OPTION: 'settings-theme-option',
+  },
 } as const;

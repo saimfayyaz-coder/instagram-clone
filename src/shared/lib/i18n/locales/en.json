@@ -86,7 +86,14 @@
     "selectLanguage": "Select language",
     "system": "System Default",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "title": "Settings and activity",
+    "sectionAccount": "Your account",
+    "sectionApp": "Your app and media",
+    "sectionLogin": "Login",
+    "logout": "Log out",
+    "logoutConfirmTitle": "Log out of your account?",
+    "logoutConfirmMessage": "You will need to log in again to use Instagram."
   },
   "profile": {
     "title": "Profile",

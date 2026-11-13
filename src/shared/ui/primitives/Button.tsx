@@ -12,12 +12,18 @@ import {
 import { useTheme } from '@/shared/hooks/useTheme';
 import { Text } from './Text';
 import { Loader } from './Loader';
-import { BUTTON_VARIANTS, ButtonVariant, ACCESSIBILITY_ROLES } from '@/shared/constants';
+import {
+  BUTTON_VARIANTS,
+  BUTTON_SIZES,
+  ButtonVariant,
+  ButtonSize,
+  ACCESSIBILITY_ROLES,
+} from '@/shared/constants';
 import { ms } from '@/shared/theme';
 
 export type { ButtonVariant };
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type { ButtonSize };
 
 export interface ButtonProps extends Omit<PressableProps, 'style'> {
   title: string;
@@ -55,7 +61,7 @@ export const Button: React.FC<ButtonProps> = ({
       : theme.borderRadius.full);
 
   const resolvedSize: ButtonSize =
-    size ?? (variant === BUTTON_VARIANTS.SECONDARY ? 'sm' : 'md');
+    size ?? (variant === BUTTON_VARIANTS.SECONDARY ? BUTTON_SIZES.SM : BUTTON_SIZES.MD);
 
   const handlePressIn = (e: GestureResponderEvent) => {
     if (disabled || loading) return;
@@ -144,7 +150,7 @@ export const Button: React.FC<ButtonProps> = ({
     if (variant === BUTTON_VARIANTS.GHOST) {
       return styles.sizeGhost;
     }
-    if (resolvedSize === 'sm') {
+    if (resolvedSize === BUTTON_SIZES.SM) {
       return styles.sizeSm;
     }
     return styles.sizeMd;
