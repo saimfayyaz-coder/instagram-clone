@@ -5,4 +5,3 @@ export * from './camera';
 export * from './gallery';
 export * from './crop';
 export * from './capture';
-export * from './cropUtils';

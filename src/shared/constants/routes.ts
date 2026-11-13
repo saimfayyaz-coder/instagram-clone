@@ -36,6 +36,7 @@ export const MAIN_ROUTES = {
   NOTIFICATIONS: 'Notifications',
   USER_PROFILE: 'UserProfile',
   PROFILE_PHOTO_PICKER: 'ProfilePhotoPicker',
+  CROP_PHOTO: 'CropPhoto',
 } as const;
 
 export type MainRoute = (typeof MAIN_ROUTES)[keyof typeof MAIN_ROUTES];

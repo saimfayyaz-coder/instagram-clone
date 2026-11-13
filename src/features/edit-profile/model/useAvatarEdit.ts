@@ -4,11 +4,18 @@ import {
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
 } from '@/entities/user';
+import { cleanupCameraFiles } from '@/shared/lib/media';
 import { showToast } from '@/shared/lib/toast';
 import { showAlert } from '@/shared/lib/alert';
-import { PickedImage } from '@/shared/hooks/useMediaPicker';
+import { MediaAsset } from '@/shared/types';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { API_ERROR_CODES, isAndroid } from '@/shared/constants';
+import {
+  API_ERROR_CODES,
+  isAndroid,
+  MIME_TYPES,
+  TOAST_POSITIONS,
+  UPLOAD_FIELDS,
+} from '@/shared/constants';
 import { parseApiError } from '@/shared/lib/errors';
 
 export const useAvatarEdit = () => {
@@ -54,23 +61,23 @@ export const useAvatarEdit = () => {
   );
 
   const handleSelectImage = useCallback(
-    async (image: PickedImage) => {
+    async (image: MediaAsset) => {
 
       const formData = new FormData();
       const fileUri =
         isAndroid ? image.uri : image.uri.replace('file://', '');
 
-      formData.append('avatar', {
+      formData.append(UPLOAD_FIELDS.AVATAR, {
         uri: fileUri,
         name: image.fileName || `avatar-${Date.now()}.jpg`,
-        type: image.type || 'image/jpeg',
-      } as any);
+        type: image.mime || MIME_TYPES.JPEG,
+      } as unknown as Blob);
 
       try {
         await uploadAvatar(formData).unwrap();
         showToast({
           message: t(TRANSLATION_KEYS.PROFILE_AVATAR_UPDATE_SUCCESS),
-          position: 'middle',
+          position: TOAST_POSITIONS.MIDDLE,
         });
       } catch (err) {
         const errorMessage = resolveErrorMessage(err);
@@ -79,6 +86,8 @@ export const useAvatarEdit = () => {
           message: errorMessage,
           buttons: [{ text: t(TRANSLATION_KEYS.COMMON_OK) }],
         });
+      } finally {
+        cleanupCameraFiles();
       }
     },
     [uploadAvatar, resolveErrorMessage, t],
@@ -92,7 +101,7 @@ export const useAvatarEdit = () => {
       setShowLoadingHud(false);
       showToast({
         message: t(TRANSLATION_KEYS.PROFILE_AVATAR_REMOVE_SUCCESS),
-        position: 'middle',
+        position: TOAST_POSITIONS.MIDDLE,
       });
     } catch (err) {
       setShowLoadingHud(false);

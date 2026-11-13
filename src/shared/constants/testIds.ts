@@ -17,11 +17,15 @@ export const TEST_IDS = {
     USER_AVATAR: 'user-avatar',
   },
   MEDIA_PICKER: {
-    HEADER_CANCEL: 'media-picker-header-cancel',
     HEADER_DONE: 'media-picker-header-done',
     ALBUM_DROPDOWN_BUTTON: 'media-picker-album-dropdown-button',
-    PERMISSION_TURN_ON_BUTTON: 'media-picker-permission-turn-on-button',
+    PERMISSION_BUTTON: 'media-picker-permission-button',
     GRID_ITEM: 'media-picker-grid-item',
+    CAMERA_BUTTON: 'media-picker-camera-button',
+  },
+  CROP_PHOTO: {
+    DONE: 'crop-photo-done',
+    VIEWPORT: 'crop-photo-viewport',
   },
   SETTINGS: {
     EDIT_PROFILE: 'settings-edit-profile',

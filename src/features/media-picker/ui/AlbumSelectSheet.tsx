@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms, commonStyles, layout } from '@/shared/theme';
-import { APP_ICONS } from '@/shared/constants';
+import { APP_ICONS, GALLERY_CONFIG } from '@/shared/constants';
 import { MediaAlbum } from '@/shared/types';
 
 export interface AlbumSelectSheetProps {
@@ -40,8 +40,12 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
   const renderItem = useCallback(
     ({ item }: { item: MediaAlbum }) => (
       <ListItem
-        title={item.title}
-        subtitle={item.count.toLocaleString()}
+        title={
+          item.title === GALLERY_CONFIG.RECENTS_ALBUM_TITLE
+            ? t(TRANSLATION_KEYS.MEDIA_PICKER_RECENTS)
+            : item.title
+        }
+        subtitle={item.count === undefined ? undefined : item.count.toLocaleString()}
         selected={item.title === selectedAlbum}
         onPress={() => handleSelect(item.title)}
         left={
@@ -65,7 +69,7 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
         }
       />
     ),
-    [selectedAlbum, theme, handleSelect],
+    [selectedAlbum, theme, handleSelect, t],
   );
 
   const keyExtractor = useCallback((item: MediaAlbum) => item.title, []);
