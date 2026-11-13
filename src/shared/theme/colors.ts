@@ -51,6 +51,8 @@ export const lightColors = {
   bottomSheetHandleBar: '#C7C7CC',
   backdropColor: '#000000',
   backdropOverlay: 'rgba(0, 0, 0, 0.4)',
+  // Icons and spinners drawn on backdropOverlay
+  onOverlay: palette.white,
   avatarShimmer: '#E1E1E1',
   shimmerHighlight: '#F5F5F5',
   dialogBg: '#FFFFFF',
@@ -80,6 +82,7 @@ export const darkColors = {
   bottomSheetHandleBar: '#545458',
   backdropColor: '#000000',
   backdropOverlay: 'rgba(0, 0, 0, 0.6)',
+  onOverlay: palette.white,
   avatarShimmer: '#262626',
   shimmerHighlight: '#383838',
   dialogBg: '#262626',

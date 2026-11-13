@@ -1,8 +1,19 @@
-import { userReducer, setUser } from '@/entities/user/model/userSlice';
-import { selectCurrentUser } from '@/entities/user/model/selectors';
+import {
+  userReducer,
+  setUser,
+  setPendingAvatar,
+  clearPendingAvatar,
+} from '@/entities/user/model/userSlice';
+import { selectCurrentUser, selectPendingAvatarUri } from '@/entities/user/model/selectors';
 import type { User, UserState } from '@/entities/user/model/types';
 
-const INITIAL_STATE: UserState = { currentUser: null, isAvatarUpdating: false };
+const INITIAL_STATE: UserState = {
+  currentUser: null,
+  isAvatarUpdating: false,
+  pendingAvatarUri: null,
+};
+
+const LOCAL_PHOTO = 'file:///cache/cropped.jpg';
 
 const MOCK_USER: User = {
   id: 'user-001',
@@ -31,6 +42,26 @@ describe('userSlice — reducers', () => {
     const withUser: UserState = { currentUser: MOCK_USER };
     const state = userReducer(withUser, { type: 'session/clearSession' });
     expect(state.currentUser).toBeNull();
+  });
+});
+
+describe('userSlice — avatar upload preview', () => {
+  it('shows the chosen photo while it uploads', () => {
+    const state = userReducer(INITIAL_STATE, setPendingAvatar(LOCAL_PHOTO));
+    expect(selectPendingAvatarUri({ user: state })).toBe(LOCAL_PHOTO);
+  });
+
+  it('drops the preview when the upload ends', () => {
+    const pending = userReducer(INITIAL_STATE, setPendingAvatar(LOCAL_PHOTO));
+    const state = userReducer(pending, clearPendingAvatar());
+    expect(selectPendingAvatarUri({ user: state })).toBeNull();
+  });
+
+  it('drops the preview on logout', () => {
+    const pending = userReducer(INITIAL_STATE, setPendingAvatar(LOCAL_PHOTO));
+    const state = userReducer(pending, { type: 'session/clearSession' });
+    expect(state.pendingAvatarUri).toBeNull();
+    expect(state.isAvatarUpdating).toBe(false);
   });
 });
 

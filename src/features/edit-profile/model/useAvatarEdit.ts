@@ -1,9 +1,13 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
+import { Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
+  setPendingAvatar,
+  clearPendingAvatar,
 } from '@/entities/user';
+import { useAppDispatch } from '@/app/store/hooks';
 import { cleanupCameraFiles } from '@/shared/lib/media';
 import { showToast } from '@/shared/lib/toast';
 import { showAlert } from '@/shared/lib/alert';
@@ -21,8 +25,7 @@ import { parseApiError } from '@/shared/lib/errors';
 export const useAvatarEdit = () => {
   const { t } = useTranslation();
 
-  const [showLoadingHud, setShowLoadingHud] = useState(false);
-
+  const dispatch = useAppDispatch();
   const [uploadAvatar] = useUploadAvatarMutation();
   const [deleteAvatar] = useDeleteAvatarMutation();
 
@@ -62,6 +65,7 @@ export const useAvatarEdit = () => {
 
   const handleSelectImage = useCallback(
     async (image: MediaAsset) => {
+      dispatch(setPendingAvatar(image.uri));
 
       const formData = new FormData();
       const fileUri =
@@ -74,37 +78,38 @@ export const useAvatarEdit = () => {
       } as unknown as Blob);
 
       try {
-        await uploadAvatar(formData).unwrap();
+        const response = await uploadAvatar(formData).unwrap();
+        const uploadedUrl = response.data.user.avatar?.url;
+        // Swap to the uploaded photo only once it's downloaded, so the avatar doesn't flash
+        if (uploadedUrl) {
+          await Image.prefetch(uploadedUrl).catch(() => false);
+        }
         showToast({
           message: t(TRANSLATION_KEYS.PROFILE_AVATAR_UPDATE_SUCCESS),
           position: TOAST_POSITIONS.MIDDLE,
         });
       } catch (err) {
-        const errorMessage = resolveErrorMessage(err);
         showAlert({
           title: t(TRANSLATION_KEYS.PROFILE_AVATAR_UPDATE_ERROR_TITLE),
-          message: errorMessage,
+          message: resolveErrorMessage(err),
           buttons: [{ text: t(TRANSLATION_KEYS.COMMON_OK) }],
         });
       } finally {
+        dispatch(clearPendingAvatar());
         cleanupCameraFiles();
       }
     },
-    [uploadAvatar, resolveErrorMessage, t],
+    [dispatch, uploadAvatar, resolveErrorMessage, t],
   );
 
   const handleRemoveAvatar = useCallback(async () => {
-    setShowLoadingHud(true);
-
     try {
       await deleteAvatar().unwrap();
-      setShowLoadingHud(false);
       showToast({
         message: t(TRANSLATION_KEYS.PROFILE_AVATAR_REMOVE_SUCCESS),
         position: TOAST_POSITIONS.MIDDLE,
       });
     } catch (err) {
-      setShowLoadingHud(false);
       const errorMessage = resolveErrorMessage(err);
       showAlert({
         title: t(TRANSLATION_KEYS.PROFILE_AVATAR_REMOVE_ERROR_TITLE),
@@ -117,7 +122,6 @@ export const useAvatarEdit = () => {
   return {
     handleSelectImage,
     handleRemoveAvatar,
-    showLoadingHud,
   };
 };
 

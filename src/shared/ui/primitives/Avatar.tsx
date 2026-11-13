@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Image,
@@ -14,6 +14,7 @@ import { ms } from '@/shared/theme/scaling';
 import { ACCESSIBILITY_ROLES, APP_ICONS } from '@/shared/constants';
 import { Icon } from './Icon';
 import { Skeleton } from './Skeleton';
+import { Loader } from './Loader';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 
@@ -21,6 +22,8 @@ export interface AvatarProps {
   uri?: string | null;
   size?: AvatarSize;
   loading?: boolean;
+  // Keeps the photo visible, dimmed with a spinner (e.g. while it uploads)
+  uploading?: boolean;
   showEditBadge?: boolean;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -47,6 +50,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   uri,
   size = 'md',
   loading = false,
+  uploading = false,
   showEditBadge = false,
   onPress,
   style,
@@ -55,6 +59,11 @@ export const Avatar: React.FC<AvatarProps> = ({
 }) => {
   const { theme } = useTheme();
   const [hasError, setHasError] = useState(false);
+
+  // A new photo deserves a fresh try even if the last one failed
+  useEffect(() => {
+    setHasError(false);
+  }, [uri]);
 
   const dimension = resolveDimension(size);
   const borderRadius = dimension / 2;
@@ -105,6 +114,18 @@ export const Avatar: React.FC<AvatarProps> = ({
           onError={() => setHasError(true)}
           resizeMode="cover"
         />
+      )}
+
+      {uploading && !loading && (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            styles.fallbackContainer,
+            { backgroundColor: theme.colors.backdropOverlay },
+          ]}
+        >
+          <Loader size="small" color={theme.colors.onOverlay} />
+        </View>
       )}
 
       {showEditBadge && (

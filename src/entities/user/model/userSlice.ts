@@ -5,6 +5,7 @@ import { userApi } from '../api/userApi';
 const initialState: UserState = {
   currentUser: null,
   isAvatarUpdating: false,
+  pendingAvatarUri: null,
 };
 
 export const userSlice = createSlice({
@@ -18,8 +19,11 @@ export const userSlice = createSlice({
         state.currentUser = { ...(state.currentUser || {}), ...action.payload } as User;
       }
     },
-    setAvatarUpdating: (state, action: PayloadAction<boolean>) => {
-      state.isAvatarUpdating = action.payload;
+    setPendingAvatar: (state, action: PayloadAction<string>) => {
+      state.pendingAvatarUri = action.payload;
+    },
+    clearPendingAvatar: state => {
+      state.pendingAvatarUri = null;
     },
   },
   extraReducers: (builder) => {
@@ -27,6 +31,7 @@ export const userSlice = createSlice({
       .addCase('session/clearSession', (state) => {
         state.currentUser = null;
         state.isAvatarUpdating = false;
+        state.pendingAvatarUri = null;
       })
       .addMatcher(
         isAnyOf(
@@ -65,5 +70,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, setAvatarUpdating } = userSlice.actions;
+export const { setUser, setPendingAvatar, clearPendingAvatar } = userSlice.actions;
 export const userReducer = userSlice.reducer;
