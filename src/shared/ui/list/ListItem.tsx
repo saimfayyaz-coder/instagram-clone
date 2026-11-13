@@ -112,7 +112,7 @@ export const ListItem: React.FC<ListItemProps> = ({
         >
           {title}
         </Text>
-        {Boolean(subtitle) && (
+        {subtitle && (
           <Text
             variant="caption"
             color={theme.colors.textSecondary}
@@ -124,7 +124,7 @@ export const ListItem: React.FC<ListItemProps> = ({
         )}
       </View>
 
-      {Boolean(value) && (
+      {value && (
         <Text
           variant="body"
           color={theme.colors.textSecondary}

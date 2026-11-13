@@ -46,9 +46,7 @@ export const StepPassword: React.FC<StepPasswordProps> = ({
   const passwordsMatch = Boolean(
     password && confirmPassword && password === confirmPassword,
   );
-  const hasConfirmInput = Boolean(
-    confirmPassword && confirmPassword.length > 0,
-  );
+  const hasConfirmInput = Boolean(confirmPassword);
 
   const handleNext = handleSubmit(values => {
     onNext(values.password, values.confirmPassword);

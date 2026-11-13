@@ -57,7 +57,7 @@ export const NewPasswordForm: React.FC<NewPasswordFormProps> = ({
   const passwordsMatch = Boolean(
     password && confirmPassword && password === confirmPassword,
   );
-  const hasConfirmInput = Boolean(confirmPassword && confirmPassword.length > 0);
+  const hasConfirmInput = Boolean(confirmPassword);
 
   const onSubmit = async (values: PasswordSchemaType) => {
     await executeFormMutation({

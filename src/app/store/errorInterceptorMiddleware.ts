@@ -10,9 +10,9 @@ export const errorInterceptorMiddleware: Middleware =
     if (isRejectedWithValue(action)) {
       const payload = action.payload as any;
       const skipGlobalErrorToast =
-        Boolean(payload?.skipGlobalErrorToast) ||
-        Boolean(payload?.data?.skipGlobalErrorToast) ||
-        Boolean((action as any)?.meta?.baseQueryMeta?.skipGlobalErrorToast);
+        payload?.skipGlobalErrorToast ||
+        payload?.data?.skipGlobalErrorToast ||
+        (action as any)?.meta?.baseQueryMeta?.skipGlobalErrorToast;
 
       if (skipGlobalErrorToast) {
         return next(action);
