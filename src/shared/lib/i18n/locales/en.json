@@ -185,6 +185,14 @@
     "permissionSubtitle": "This lets you select photos from your camera roll to share on your profile.",
     "turnOn": "Turn on",
     "noPhotos": "No photos found",
-    "albums": "Albums"
+    "albums": "Albums",
+    "openSettings": "Open Settings",
+    "permissionBlockedSubtitle": "Turn on photo access in Settings to choose a photo.",
+    "cropTitle": "Move and scale",
+    "cameraBlockedTitle": "Camera access is off",
+    "cameraBlockedMessage": "Turn on camera access in Settings to take a photo.",
+    "cameraUnavailable": "Camera isn't available on this device.",
+    "cameraFailed": "Couldn't open the camera. Please try again.",
+    "cropFailed": "Couldn't use this photo. Please try another one."
   }
 }

@@ -4,3 +4,4 @@ export * from './useMediaPicker';
 export * from './useBackHandler';
 export * from './useMediaPermission';
 export * from './useGalleryMedia';
+export * from './usePermission';
