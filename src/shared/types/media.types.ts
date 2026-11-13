@@ -37,3 +37,21 @@ export const MEDIA_PERMISSION_STATUS = {
 
 export type MediaPermissionStatus =
   (typeof MEDIA_PERMISSION_STATUS)[keyof typeof MEDIA_PERMISSION_STATUS];
+
+// A local image file, whatever library produced it
+export interface MediaAsset {
+  uri: string;
+  width: number;
+  height: number;
+  mime?: string;
+  fileName?: string;
+}
+
+export interface CropOptions {
+  // Width divided by height of the crop area
+  aspect: number;
+  mask: MaskShape;
+  // Output width in pixels; height follows the aspect
+  size: number;
+  quality: number;
+}
