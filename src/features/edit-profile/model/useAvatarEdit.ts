@@ -4,7 +4,8 @@ import {
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
 } from '@/entities/user';
-import { useToast, useAlert } from '@/shared/hooks';
+import { showToast } from '@/shared/lib/toast';
+import { showAlert } from '@/shared/lib/alert';
 import { PickedImage } from '@/shared/hooks/useMediaPicker';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { API_ERROR_CODES, isAndroid } from '@/shared/constants';
@@ -12,8 +13,6 @@ import { parseApiError } from '@/shared/lib/errors';
 
 export const useAvatarEdit = () => {
   const { t } = useTranslation();
-  const { showToast } = useToast();
-  const { showAlert } = useAlert();
 
   const [showLoadingHud, setShowLoadingHud] = useState(false);
 
@@ -82,7 +81,7 @@ export const useAvatarEdit = () => {
         });
       }
     },
-    [uploadAvatar, showToast, showAlert, resolveErrorMessage, t],
+    [uploadAvatar, resolveErrorMessage, t],
   );
 
   const handleRemoveAvatar = useCallback(async () => {
@@ -104,7 +103,7 @@ export const useAvatarEdit = () => {
         buttons: [{ text: t(TRANSLATION_KEYS.COMMON_OK) }],
       });
     }
-  }, [deleteAvatar, showToast, showAlert, resolveErrorMessage, t]);
+  }, [deleteAvatar, resolveErrorMessage, t]);
 
   return {
     handleSelectImage,

@@ -1,1 +1,1 @@
-export * from './alertSlice';
+export * from './alert';

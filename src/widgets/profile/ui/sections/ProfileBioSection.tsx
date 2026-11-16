@@ -43,7 +43,7 @@ export const ProfileBioSection: React.FC<ProfileBioSectionProps> = ({
 
   return (
     <Section style={styles.container}>
-      {Boolean(bio) && (
+      {bio && (
         <Text
           variant="body"
           color={theme.colors.textPrimary}

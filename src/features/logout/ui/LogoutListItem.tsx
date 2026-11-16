@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ListItem } from '@/shared/ui';
-import { useAlert } from '@/shared/hooks';
+import { showAlert } from '@/shared/lib/alert';
 import { ALERT_BUTTON_STYLES, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { useLogout } from '../hooks/useLogout';
@@ -9,7 +9,6 @@ import { useLogout } from '../hooks/useLogout';
 // "Log out" row that asks for confirmation before ending the session
 export const LogoutListItem: React.FC = () => {
   const { t } = useTranslation();
-  const { showAlert } = useAlert();
   const { logout, isLoading } = useLogout();
 
   const handlePress = useCallback(() => {
@@ -21,7 +20,7 @@ export const LogoutListItem: React.FC = () => {
         { text: t(TRANSLATION_KEYS.SETTINGS_LOGOUT), style: ALERT_BUTTON_STYLES.DESTRUCTIVE, onPress: logout },
       ],
     });
-  }, [showAlert, logout, t]);
+  }, [logout, t]);
 
   return (
     <ListItem

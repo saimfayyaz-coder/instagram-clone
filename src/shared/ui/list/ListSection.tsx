@@ -22,7 +22,7 @@ export const ListSection: React.FC<ListSectionProps> = ({
   return (
     <>
       <Section style={{ paddingTop: theme.spacing.lg }}>
-        {Boolean(title) && (
+        {title && (
           <Text
             variant="caption"
             weight="semibold"

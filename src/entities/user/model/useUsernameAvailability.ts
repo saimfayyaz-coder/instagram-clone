@@ -90,9 +90,8 @@ export const useUsernameAvailability = ({
           const result = await triggerCheck({ username: trimmed }).unwrap();
           if (currentCheckRef.current === trimmed) {
             setIsChecking(false);
-            const isAvail = Boolean(
-              result.data?.isAvailable ?? (result.data as any)?.available,
-            );
+            const isAvail =
+              result.data?.isAvailable ?? (result.data as any)?.available;
             if (isAvail) {
               setIsAvailable(true);
               setAvailabilityError(null);
@@ -146,9 +145,8 @@ export const useUsernameAvailability = ({
         setIsChecking(true);
         const result = await triggerCheck({ username: trimmed }).unwrap();
         setIsChecking(false);
-        const isAvail = Boolean(
-          result.data?.isAvailable ?? (result.data as any)?.available,
-        );
+        const isAvail =
+          result.data?.isAvailable ?? (result.data as any)?.available;
         if (isAvail) {
           setIsAvailable(true);
           setAvailabilityError(null);

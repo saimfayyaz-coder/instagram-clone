@@ -41,7 +41,7 @@ const { lightTheme, darkTheme } = require('@/shared/theme');
 const { sessionReducer } = require('@/entities/session');
 const { userReducer } = require('@/entities/user');
 const { baseApi } = require('@/shared/api');
-const { alertReducer } = require('@/shared/lib/alert/alertSlice');
+const { registerAlert } = require('@/shared/lib/alert');
 const { MAIN_ROUTES, TEST_IDS, THEME_MODES } = require('@/shared/constants');
 const { SettingsMenuWidget } = require('@/widgets/settings');
 
@@ -50,7 +50,6 @@ const makeStore = () =>
     reducer: combineReducers({
       session: sessionReducer,
       user: userReducer,
-      alert: alertReducer,
       [baseApi.reducerPath]: baseApi.reducer,
     }),
     middleware: (getDefault: any) =>
@@ -116,10 +115,13 @@ describe('SettingsMenuWidget', () => {
   });
 
   it('asks for confirmation before logging out', async () => {
-    const { store, tree } = await renderWidget(THEME_MODES.SYSTEM);
+    // Stands in for AlertOverlay, which isn't rendered here
+    const openAlert = jest.fn();
+    registerAlert(openAlert);
+    const { tree } = await renderWidget(THEME_MODES.SYSTEM);
     await pressById(tree, TEST_IDS.SETTINGS.LOGOUT);
-    const alert = (store.getState() as any).alert;
-    expect(alert.visible).toBe(true);
+    registerAlert(null);
+    const alert = openAlert.mock.calls[0][0];
     expect(alert.title).toBe('Log out of your account?');
     expect(alert.buttons.map((b: any) => b.style)).toEqual(['cancel', 'destructive']);
   });

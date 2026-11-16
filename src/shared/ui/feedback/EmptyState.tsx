@@ -38,7 +38,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         {title}
       </Text>
 
-      {Boolean(subtitle) && (
+      {subtitle && (
         <Text
           variant="caption"
           align="center"

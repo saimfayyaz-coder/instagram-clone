@@ -13,16 +13,12 @@ import { reduxPersistStorage } from '@/shared/lib/storage';
 import { baseApi } from '@/shared/api';
 import { sessionReducer } from '@/entities/session';
 import { userReducer } from '@/entities/user';
-import { toastReducer } from '@/shared/lib/toast/toastSlice';
-import { alertReducer } from '@/shared/lib/alert';
 import { errorInterceptorMiddleware } from './errorInterceptorMiddleware';
 import { authListenerMiddleware } from './authListenerMiddleware';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   user: userReducer,
-  toast: toastReducer,
-  alert: alertReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 });
 

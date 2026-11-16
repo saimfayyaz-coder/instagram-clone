@@ -5,7 +5,6 @@ import {
   useEditLinkMutation,
   useDeleteLinkMutation,
 } from '@/entities/user';
-import { useToast } from '@/shared/hooks';
 import { executeFormMutation } from '@/shared/lib/forms/executeFormMutation';
 import { FORM_ROOT_ERROR } from '@/shared/lib/forms/constants';
 
@@ -17,7 +16,6 @@ export interface SaveLinkPayload {
 
 export const useLinkSubmit = () => {
   const navigation = useNavigation();
-  const { showToast } = useToast();
 
   const [addLink, { isLoading: isAdding }] = useAddLinkMutation();
   const [editLink, { isLoading: isEditing }] = useEditLinkMutation();
@@ -51,17 +49,12 @@ export const useLinkSubmit = () => {
         clearErrors: () => {
           setErrorMessage(undefined);
         },
-        showToast: (message) => {
-          showToast({
-            message,
-            type: 'error',
-          });
-        },
+        showToast: true,
       });
 
       return success;
     },
-    [addLink, editLink, navigation, showToast],
+    [addLink, editLink, navigation],
   );
 
   const removeLink = useCallback(
@@ -85,17 +78,12 @@ export const useLinkSubmit = () => {
         clearErrors: () => {
           setErrorMessage(undefined);
         },
-        showToast: (message) => {
-          showToast({
-            message,
-            type: 'error',
-          });
-        },
+        showToast: true,
       });
 
       return success;
     },
-    [deleteLink, navigation, showToast],
+    [deleteLink, navigation],
   );
 
   return {

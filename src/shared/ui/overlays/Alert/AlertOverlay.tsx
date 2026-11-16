@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Modal,
   View,
@@ -6,39 +6,36 @@ import {
   Dimensions,
 } from 'react-native';
 import { Touchable } from '@/shared/ui/primitives/Touchable';
-import { useAppDispatch, useAppSelector } from '@/app/store';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { Text } from '@/shared/ui/primitives';
-import {
-  hideAlert,
-  triggerAlertButtonCallback,
-  SerializableAlertButton,
-} from '@/shared/lib/alert';
+import { registerAlert, AlertButton, AlertPayload } from '@/shared/lib/alert';
 import { ALERT_BUTTON_STYLES } from '@/shared/constants';
 import { commonStyles, palette, ms } from '@/shared/theme';
 
 export const AlertOverlay: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { theme } = useTheme();
-  const alertState = useAppSelector(state => state.alert);
+  const [alert, setAlert] = useState<AlertPayload | null>(null);
 
-  const visible = alertState?.visible ?? false;
-  const title = alertState?.title;
-  const message = alertState?.message ?? '';
-  const buttons: SerializableAlertButton[] = alertState?.buttons ?? [];
+  useEffect(() => {
+    registerAlert(setAlert);
+    return () => registerAlert(null);
+  }, []);
 
-  if (!visible) {
+  if (!alert) {
     return null;
   }
 
+  const { title, message } = alert;
+  const buttons = alert.buttons ?? [];
+
   const handleButtonPress = (index: number) => {
-    dispatch(hideAlert());
-    triggerAlertButtonCallback(index);
+    setAlert(null);
+    buttons[index].onPress?.();
   };
 
   const isTwoButtons = buttons.length === 2;
 
-  const getButtonTextColor = (button: SerializableAlertButton) => {
+  const getButtonTextColor = (button: AlertButton) => {
     if (button.style === ALERT_BUTTON_STYLES.DESTRUCTIVE) {
       return theme.colors.error;
     }
@@ -50,12 +47,12 @@ export const AlertOverlay: React.FC = () => {
 
   return (
     <Modal
-      visible={visible}
+      visible
       transparent
       animationType="fade"
       statusBarTranslucent
       onRequestClose={() => {
-        dispatch(hideAlert());
+        setAlert(null);
       }}
     >
       <View

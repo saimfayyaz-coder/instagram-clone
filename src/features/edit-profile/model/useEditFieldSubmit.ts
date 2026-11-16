@@ -1,12 +1,10 @@
 import { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useUpdateProfileMutation, UpdateProfilePayload } from '@/entities/user';
-import { useToast } from '@/shared/hooks';
 import { executeFormMutation } from '@/shared/lib/forms/executeFormMutation';
 
 export const useEditFieldSubmit = () => {
   const navigation = useNavigation();
-  const { showToast } = useToast();
   const [updateProfile, { isLoading: isSaving }] = useUpdateProfileMutation();
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
@@ -29,17 +27,12 @@ export const useEditFieldSubmit = () => {
         clearErrors: () => {
           setErrorMessage(undefined);
         },
-        showToast: (message) => {
-          showToast({
-            message,
-            type: 'error',
-          });
-        },
+        showToast: true,
       });
 
       return success;
     },
-    [updateProfile, navigation, showToast],
+    [updateProfile, navigation],
   );
 
   return {

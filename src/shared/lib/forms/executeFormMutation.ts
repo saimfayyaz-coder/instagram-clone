@@ -1,7 +1,8 @@
 import type { UseFormSetError, UseFormClearErrors, FieldValues } from 'react-hook-form';
 import { parseApiError, ParsedApiError } from '../errors';
-import { API_ERROR_CODES, HTTP_STATUS } from '@/shared/constants';
+import { API_ERROR_CODES, HTTP_STATUS, TOAST_TYPES } from '@/shared/constants';
 import { FORM_ROOT_ERROR } from './constants';
+import { showToast as showToastMessage } from '../toast';
 
 export interface ExecuteFormMutationOptions<TData, TFieldValues extends FieldValues = any> {
   mutationPromise: Promise<TData>;
@@ -9,7 +10,8 @@ export interface ExecuteFormMutationOptions<TData, TFieldValues extends FieldVal
   onError?: (parsedError: ParsedApiError) => void;
   setError?: UseFormSetError<TFieldValues>;
   clearErrors?: UseFormClearErrors<TFieldValues>;
-  showToast?: (message: string) => void;
+  // Show general errors in a toast
+  showToast?: boolean;
 }
 
 // Unwraps mutation, maps field errors to inputs, and triggers toast for general errors
@@ -42,9 +44,8 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
         parsed.status >= HTTP_STATUS.INTERNAL_SERVER_ERROR) ||
       (err as any)?.status === API_ERROR_CODES.PARSING_ERROR;
 
-    const hasFieldErrors = Boolean(
-      parsed.fieldErrors && Object.keys(parsed.fieldErrors).length > 0,
-    );
+    const hasFieldErrors =
+      parsed.fieldErrors && Object.keys(parsed.fieldErrors).length > 0;
 
     // 1. If backend returned field-specific errors, map directly to form inputs
     if (hasFieldErrors && setError) {
@@ -58,7 +59,7 @@ export async function executeFormMutation<TData, TFieldValues extends FieldValue
 
     // 3. Dispatch Toast if not handled globally and not an inline field error
     if (showToast && !isGlobalHandled && !hasFieldErrors) {
-      showToast(parsed.message);
+      showToastMessage({ message: parsed.message, type: TOAST_TYPES.ERROR });
     }
 
     if (onError) {
