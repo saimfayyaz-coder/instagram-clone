@@ -194,5 +194,22 @@
     "cameraUnavailable": "L'appareil photo n'est pas disponible sur cet appareil.",
     "cameraFailed": "Impossible d'ouvrir l'appareil photo. Veuillez réessayer.",
     "cropFailed": "Impossible d'utiliser cette photo. Essayez-en une autre."
+  },
+  "feed": {
+    "likes": "{{value}} J’aime",
+    "viewAllComments": "Afficher les {{value}} commentaires",
+    "more": "plus",
+    "like": "J’aime",
+    "unlike": "Je n’aime plus",
+    "save": "Enregistrer",
+    "unsave": "Retirer des enregistrements",
+    "allCaughtUp": "Vous êtes à jour"
+  },
+  "time": {
+    "justNow": "À l’instant",
+    "minutes": "{{value}} min",
+    "hours": "{{value}} h",
+    "days": "{{value}} j",
+    "weeks": "{{value}} sem"
   }
 }

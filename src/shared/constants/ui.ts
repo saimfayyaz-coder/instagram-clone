@@ -115,6 +115,13 @@ export const APP_ICONS = {
   PERSON_CIRCLE: 'person-circle-outline',
   CONTRAST: 'contrast-outline',
   LANGUAGE: 'language-outline',
+  HEART: 'heart-outline',
+  HEART_FILLED: 'heart',
+  COMMENT: 'chatbubble-outline',
+  SEND: 'paper-plane-outline',
+  BOOKMARK: 'bookmark-outline',
+  BOOKMARK_FILLED: 'bookmark',
+  MORE: 'ellipsis-horizontal',
 } as const;
 
 export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];

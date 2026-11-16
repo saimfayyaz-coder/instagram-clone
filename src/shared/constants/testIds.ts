@@ -27,6 +27,13 @@ export const TEST_IDS = {
     DONE: 'crop-photo-done',
     VIEWPORT: 'crop-photo-viewport',
   },
+  FEED: {
+    LIST: 'feed-list',
+    POST: 'feed-post',
+    LIKE_BUTTON: 'feed-post-like-button',
+    SAVE_BUTTON: 'feed-post-save-button',
+    MEDIA: 'feed-post-media',
+  },
   SETTINGS: {
     EDIT_PROFILE: 'settings-edit-profile',
     THEME: 'settings-theme',

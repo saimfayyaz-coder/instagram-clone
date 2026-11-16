@@ -194,5 +194,22 @@
     "cameraUnavailable": "Camera isn't available on this device.",
     "cameraFailed": "Couldn't open the camera. Please try again.",
     "cropFailed": "Couldn't use this photo. Please try another one."
+  },
+  "feed": {
+    "likes": "{{value}} likes",
+    "viewAllComments": "View all {{value}} comments",
+    "more": "more",
+    "like": "Like",
+    "unlike": "Unlike",
+    "save": "Save",
+    "unsave": "Remove from saved",
+    "allCaughtUp": "You're all caught up"
+  },
+  "time": {
+    "justNow": "Just now",
+    "minutes": "{{value}}m",
+    "hours": "{{value}}h",
+    "days": "{{value}}d",
+    "weeks": "{{value}}w"
   }
 }

@@ -165,6 +165,23 @@ export enum TRANSLATION_KEYS {
   MEDIA_PICKER_CAMERA_FAILED = 'mediaPicker.cameraFailed',
   MEDIA_PICKER_CROP_FAILED = 'mediaPicker.cropFailed',
 
+  // Feed
+  FEED_LIKES = 'feed.likes',
+  FEED_VIEW_ALL_COMMENTS = 'feed.viewAllComments',
+  FEED_MORE = 'feed.more',
+  FEED_LIKE = 'feed.like',
+  FEED_UNLIKE = 'feed.unlike',
+  FEED_SAVE = 'feed.save',
+  FEED_UNSAVE = 'feed.unsave',
+  FEED_ALL_CAUGHT_UP = 'feed.allCaughtUp',
+
+  // Relative time
+  TIME_JUST_NOW = 'time.justNow',
+  TIME_MINUTES = 'time.minutes',
+  TIME_HOURS = 'time.hours',
+  TIME_DAYS = 'time.days',
+  TIME_WEEKS = 'time.weeks',
+
   // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',
   ERROR_INCORRECT_PASSWORD = 'errors.INCORRECT_PASSWORD',
