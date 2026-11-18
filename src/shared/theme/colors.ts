@@ -52,6 +52,8 @@ export const lightColors = {
   bottomSheetHandleBar: '#C7C7CC',
   backdropColor: '#000000',
   backdropOverlay: 'rgba(0, 0, 0, 0.4)',
+  // Behind a photo opened full screen (e.g. profile picture)
+  mediaViewerBackdrop: 'rgba(0, 0, 0, 0.85)',
   // Icons and spinners drawn on backdropOverlay
   onOverlay: palette.white,
   // Filled heart on a liked post
@@ -88,6 +90,7 @@ export const darkColors = {
   bottomSheetHandleBar: '#545458',
   backdropColor: '#000000',
   backdropOverlay: 'rgba(0, 0, 0, 0.6)',
+  mediaViewerBackdrop: 'rgba(0, 0, 0, 0.9)',
   onOverlay: palette.white,
   like: palette.redLike,
   dotActive: palette.bluePrimary,

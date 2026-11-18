@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Text, Section, Row } from '@/shared/ui';
-import { UserAvatar, User, getUserDisplayName } from '@/entities/user';
+import { Text, Section, Row, AvatarPreview } from '@/shared/ui';
+import { UserAvatar, User, getUserDisplayName, useUserAvatarUri } from '@/entities/user';
 import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatStat } from '@/shared/lib/formatters';
@@ -17,11 +17,19 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
   const { theme } = useTheme();
 
   const displayName = getUserDisplayName(user);
+  const { uri: avatarUri } = useUserAvatarUri(user);
+  const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = useState(false);
 
   return (
     <Section style={styles.container}>
       <Row>
-        <UserAvatar user={user} size={ms(78)} />
+        <UserAvatar
+          user={user}
+          size={ms(78)}
+          // No photo, nothing to enlarge
+          onPress={avatarUri ? () => setIsAvatarPreviewOpen(true) : undefined}
+          testID="profile-avatar"
+        />
 
         <View style={[commonStyles.flex1, styles.rightContent]}>
           {displayName && (
@@ -65,6 +73,12 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
           </Row>
         </View>
       </Row>
+      <AvatarPreview
+        visible={isAvatarPreviewOpen}
+        uri={avatarUri}
+        onClose={() => setIsAvatarPreviewOpen(false)}
+        testID="profile-avatar-preview"
+      />
     </Section>
   );
 };

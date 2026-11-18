@@ -4,6 +4,7 @@ export * from './model/userSlice';
 export * from './model/selectors';
 export * from './model/userValidation';
 export * from './model/useUsernameAvailability';
+export * from './model/useUserAvatarUri';
 export * from './lib/formatGender';
 export * from './api/userApi';
 export * from './ui/UserAvatar';
