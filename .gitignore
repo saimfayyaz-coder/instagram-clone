@@ -86,3 +86,8 @@ yarn-error.log
 
 # Local notes: PR descriptions, change logs (not committed)
 /.local/
+
+# Detox E2E artifacts (screenshots, videos, logs)
+/artifacts/
+# Detox E2E test account (local only)
+/e2e/.env.e2e

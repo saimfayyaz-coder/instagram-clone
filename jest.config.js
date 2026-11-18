@@ -1,6 +1,8 @@
 module.exports = {
   preset: '@react-native/jest-preset',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  // Detox E2E tests run through e2e/jest.config.js, never with the unit test runner
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   moduleNameMapper: {
     // Path aliases
     '^@/(.*)$': '<rootDir>/src/$1',

@@ -10,6 +10,7 @@ export interface AuthFooterProps {
   buttonText?: string;
   onPressButton?: () => void;
   buttonVariant?: ButtonVariant;
+  buttonTestID?: string;
   // Legacy or inline text prompt
   promptText?: string;
   actionText?: string;
@@ -20,6 +21,7 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
   buttonText,
   onPressButton,
   buttonVariant = 'outline',
+  buttonTestID,
   promptText,
   actionText,
   onPressAction,
@@ -34,6 +36,7 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
           variant={buttonVariant}
           onPress={onPressButton}
           style={commonStyles.fullWidth}
+          testID={buttonTestID}
         />
       ) : null}
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { TAB_ROUTES, isIOS } from '@/shared/constants';
+import { TAB_ROUTES, TEST_IDS, isIOS } from '@/shared/constants';
 import { MainTabParamList } from '@/shared/types';
 import { useTheme } from '@/shared/hooks';
 import { Icon } from '@/shared/ui';
@@ -30,7 +30,14 @@ const TAB_ICONS: Record<keyof MainTabParamList, TabIconConfig> = {
   [TAB_ROUTES.PROFILE]: { active: 'person-circle', inactive: 'person-circle-outline', size: 23 },
 };
 
-const TabBarButton = (props: React.ComponentProps<typeof PlatformPressable>) => (
+const TAB_TEST_IDS: Record<keyof MainTabParamList, string> = {
+  [TAB_ROUTES.FEED]: TEST_IDS.TABS.FEED,
+  [TAB_ROUTES.SEARCH]: TEST_IDS.TABS.SEARCH,
+  [TAB_ROUTES.CHAT]: TEST_IDS.TABS.CHAT,
+  [TAB_ROUTES.PROFILE]: TEST_IDS.TABS.PROFILE,
+};
+
+const TabBarButton =(props: React.ComponentProps<typeof PlatformPressable>) => (
   <PlatformPressable
     {...props}
     android_ripple={{ color: 'transparent' }}
@@ -54,6 +61,7 @@ export const MainTabNavigator: React.FC = () => {
           tabBarActiveTintColor: theme.colors.textPrimary,
           tabBarInactiveTintColor: theme.colors.textPrimary,
           tabBarButton: TabBarButton,
+          tabBarButtonTestID: TAB_TEST_IDS[route.name as keyof MainTabParamList],
           tabBarIcon: ({ focused, color }) => (
             <Icon
               type="Ionicons"

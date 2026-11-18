@@ -8,6 +8,7 @@ import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { APP_ICONS, BUTTON_VARIANTS } from '@/shared/constants/ui';
+import { TEST_IDS } from '@/shared/constants/testIds';
 import { useUsernameAvailability } from '@/entities/user';
 import {
   createStep1UsernameSchema,
@@ -124,6 +125,7 @@ export const StepUsername: React.FC<StepUsernameProps> = ({
             autoCorrect={false}
             rightElement={renderRightElement()}
             floating
+            testID={TEST_IDS.SIGNUP.USERNAME_INPUT}
           />
         )}
       />
