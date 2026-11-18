@@ -7,6 +7,7 @@ import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatStat } from '@/shared/lib/formatters';
 import { commonStyles, ms } from '@/shared/theme';
+import { TEST_IDS } from '@/shared/constants';
 
 export interface ProfileHeaderSectionProps {
   user?: User | null;
@@ -28,7 +29,7 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
           size={ms(78)}
           // No photo, nothing to enlarge
           onPress={avatarUri ? () => setIsAvatarPreviewOpen(true) : undefined}
-          testID="profile-avatar"
+          testID={TEST_IDS.PROFILE.AVATAR}
         />
 
         <View style={[commonStyles.flex1, styles.rightContent]}>
@@ -77,7 +78,7 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
         visible={isAvatarPreviewOpen}
         uri={avatarUri}
         onClose={() => setIsAvatarPreviewOpen(false)}
-        testID="profile-avatar-preview"
+        testID={TEST_IDS.PROFILE.AVATAR_PREVIEW}
       />
     </Section>
   );

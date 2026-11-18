@@ -42,6 +42,10 @@ export const TEST_IDS = {
     GRID_ITEM: 'media-picker-grid-item',
     CAMERA_BUTTON: 'media-picker-camera-button',
   },
+  PROFILE: {
+    AVATAR: 'profile-avatar',
+    AVATAR_PREVIEW: 'profile-avatar-preview',
+  },
   CROP_PHOTO: {
     DONE: 'crop-photo-done',
     VIEWPORT: 'crop-photo-viewport',
