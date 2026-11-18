@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Button, FormField, AuthStepHeader } from '@/shared/ui';
-import { BUTTON_VARIANTS } from '@/shared/constants';
+import { BUTTON_VARIANTS, TEST_IDS } from '@/shared/constants';
 import { useTheme } from '@/shared/hooks';
 import { authStepStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
@@ -68,6 +68,7 @@ export const IdentifierForm: React.FC<IdentifierFormProps> = ({ onSuccess }) => 
             errorMessage={error?.message}
             autoCapitalize="none"
             floating
+            testID={TEST_IDS.FORGOT_PASSWORD.IDENTIFIER_INPUT}
           />
         )}
       />

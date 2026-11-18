@@ -16,6 +16,25 @@ export const TEST_IDS = {
     SCREEN_WRAPPER: 'screen-wrapper',
     USER_AVATAR: 'user-avatar',
   },
+  LOGIN: {
+    IDENTIFIER_INPUT: 'login-identifier-input',
+    PASSWORD_INPUT: 'login-password-input',
+    SUBMIT_BUTTON: 'login-submit-button',
+    FORGOT_PASSWORD_BUTTON: 'login-forgot-password-button',
+    SIGN_UP_BUTTON: 'login-sign-up-button',
+  },
+  SIGNUP: {
+    USERNAME_INPUT: 'signup-username-input',
+  },
+  FORGOT_PASSWORD: {
+    IDENTIFIER_INPUT: 'forgot-password-identifier-input',
+  },
+  TABS: {
+    FEED: 'tab-feed',
+    SEARCH: 'tab-search',
+    CHAT: 'tab-chat',
+    PROFILE: 'tab-profile',
+  },
   MEDIA_PICKER: {
     HEADER_DONE: 'media-picker-header-done',
     ALBUM_DROPDOWN_BUTTON: 'media-picker-album-dropdown-button',
@@ -39,6 +58,11 @@ export const TEST_IDS = {
     THEME: 'settings-theme',
     LANGUAGE: 'settings-language',
     LOGOUT: 'settings-logout',
+    LOGOUT_CONFIRM: 'settings-logout-confirm',
+    LOGOUT_CANCEL: 'settings-logout-cancel',
     THEME_OPTION: 'settings-theme-option',
   },
 } as const;
+
+// Suffix FormField appends to its input testID for the error text (e.g. 'login-password-input-error')
+export const TEST_ID_ERROR_SUFFIX = '-error';

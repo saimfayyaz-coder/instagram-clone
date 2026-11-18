@@ -9,6 +9,7 @@ import {
 } from '@/shared/ui/primitives';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { commonStyles } from '@/shared/theme';
+import { TEST_ID_ERROR_SUFFIX } from '@/shared/constants/testIds';
 
 export interface FormFieldProps
   extends Omit<FloatingInputProps, 'label' | 'onBlur' | 'onPress'>,
@@ -35,6 +36,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   const { theme } = useTheme();
 
   const fieldLabel = label || placeholder || '';
+  const errorTestID = inputProps.testID ? `${inputProps.testID}${TEST_ID_ERROR_SUFFIX}` : undefined;
 
   if (floating) {
     return (
@@ -51,6 +53,7 @@ export const FormField: React.FC<FormFieldProps> = ({
           <Text
             variant="error"
             style={{ marginTop: theme.spacing.xs, marginStart: theme.spacing.xs }}
+            testID={errorTestID}
           >
             {errorMessage}
           </Text>
@@ -83,6 +86,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         <Text
           variant="error"
           style={{ marginTop: theme.spacing.xs, marginStart: theme.spacing.xs }}
+          testID={errorTestID}
         >
           {errorMessage}
         </Text>

@@ -7,6 +7,7 @@ export interface AlertButton {
   text: string;
   style?: AlertButtonStyle;
   onPress?: () => void;
+  testID?: string;
 }
 
 export interface AlertPayload {
