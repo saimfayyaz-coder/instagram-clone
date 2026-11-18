@@ -156,6 +156,31 @@ export enum TRANSLATION_KEYS {
   MEDIA_PICKER_TURN_ON = 'mediaPicker.turnOn',
   MEDIA_PICKER_NO_PHOTOS = 'mediaPicker.noPhotos',
   MEDIA_PICKER_ALBUMS = 'mediaPicker.albums',
+  MEDIA_PICKER_OPEN_SETTINGS = 'mediaPicker.openSettings',
+  MEDIA_PICKER_PERMISSION_BLOCKED_SUBTITLE = 'mediaPicker.permissionBlockedSubtitle',
+  MEDIA_PICKER_CROP_TITLE = 'mediaPicker.cropTitle',
+  MEDIA_PICKER_CAMERA_BLOCKED_TITLE = 'mediaPicker.cameraBlockedTitle',
+  MEDIA_PICKER_CAMERA_BLOCKED_MESSAGE = 'mediaPicker.cameraBlockedMessage',
+  MEDIA_PICKER_CAMERA_UNAVAILABLE = 'mediaPicker.cameraUnavailable',
+  MEDIA_PICKER_CAMERA_FAILED = 'mediaPicker.cameraFailed',
+  MEDIA_PICKER_CROP_FAILED = 'mediaPicker.cropFailed',
+
+  // Feed
+  FEED_LIKES = 'feed.likes',
+  FEED_VIEW_ALL_COMMENTS = 'feed.viewAllComments',
+  FEED_MORE = 'feed.more',
+  FEED_LIKE = 'feed.like',
+  FEED_UNLIKE = 'feed.unlike',
+  FEED_SAVE = 'feed.save',
+  FEED_UNSAVE = 'feed.unsave',
+  FEED_ALL_CAUGHT_UP = 'feed.allCaughtUp',
+
+  // Relative time
+  TIME_JUST_NOW = 'time.justNow',
+  TIME_MINUTES = 'time.minutes',
+  TIME_HOURS = 'time.hours',
+  TIME_DAYS = 'time.days',
+  TIME_WEEKS = 'time.weeks',
 
   // Error codes
   ERROR_INVALID_CREDENTIALS = 'errors.INVALID_CREDENTIALS',

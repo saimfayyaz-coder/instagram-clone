@@ -185,6 +185,31 @@
     "permissionSubtitle": "Esto te permite seleccionar fotos de tu galería para compartirlas en tu perfil.",
     "turnOn": "Activar",
     "noPhotos": "No se encontraron fotos",
-    "albums": "Álbumes"
+    "albums": "Álbumes",
+    "openSettings": "Abrir Configuración",
+    "permissionBlockedSubtitle": "Activa el acceso a las fotos en Configuración para elegir una foto.",
+    "cropTitle": "Mover y escalar",
+    "cameraBlockedTitle": "El acceso a la cámara está desactivado",
+    "cameraBlockedMessage": "Activa el acceso a la cámara en Configuración para tomar una foto.",
+    "cameraUnavailable": "La cámara no está disponible en este dispositivo.",
+    "cameraFailed": "No se pudo abrir la cámara. Inténtalo de nuevo.",
+    "cropFailed": "No se pudo usar esta foto. Prueba con otra."
+  },
+  "feed": {
+    "likes": "{{value}} Me gusta",
+    "viewAllComments": "Ver los {{value}} comentarios",
+    "more": "más",
+    "like": "Me gusta",
+    "unlike": "Ya no me gusta",
+    "save": "Guardar",
+    "unsave": "Quitar de guardados",
+    "allCaughtUp": "Ya estás al día"
+  },
+  "time": {
+    "justNow": "Justo ahora",
+    "minutes": "{{value}} min",
+    "hours": "{{value}} h",
+    "days": "{{value}} d",
+    "weeks": "{{value}} sem"
   }
 }

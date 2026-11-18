@@ -1,28 +1,24 @@
-import React, { useRef, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useState, useCallback, useEffect, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Text, Icon, Loader, Header, Screen, Row } from '@/shared/ui';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import ImagePicker from 'react-native-image-crop-picker';
-import { useTheme } from '@/shared/hooks';
+import { Touchable, Text, Icon, Loader, Header, Screen, Row } from '@/shared/ui';
+import { useTheme, usePermission, useGalleryMedia } from '@/shared/hooks';
 import { ms, commonStyles, layout } from '@/shared/theme';
 import {
   APP_ICONS,
   TEST_IDS,
   MAIN_ROUTES,
   HEADER_BACK_ICON,
-  MEDIA_PICKER_ERROR_CODE,
   GALLERY_CONFIG,
+  PERMISSION_KINDS,
+  TOAST_TYPES,
 } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
-import {
-  useMediaPermission,
-  useGalleryMedia,
-  GalleryPhotoItem,
-} from '@/shared/hooks';
-import { cropImageToSquare } from '@/shared/lib/media';
+import { cropImage, resolveMediaRequest, takePhotoWithPermission } from '@/shared/lib/media';
+import { showToast } from '@/shared/lib/toast';
 import {
   CropViewport,
   CropViewportHandle,
@@ -38,16 +34,16 @@ type ProfilePhotoPickerRouteProp = RouteProp<
 
 export const ProfilePhotoPickerPage: React.FC = () => {
   const navigation = useNavigation();
-  const route = useRoute<ProfilePhotoPickerRouteProp>();
+  const { params } = useRoute<ProfilePhotoPickerRouteProp>();
+  const { requestId, crop } = params;
   const { t } = useTranslation();
   const { theme } = useTheme();
 
   const [isProcessing, setIsProcessing] = useState(false);
-
   const cropViewportRef = useRef<CropViewportHandle>(null);
   const albumBottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const { isGranted, requestPermission } = useMediaPermission();
+  const permission = usePermission(PERMISSION_KINDS.PHOTOS, { requestOnMount: true });
 
   const {
     photos,
@@ -58,76 +54,37 @@ export const ProfilePhotoPickerPage: React.FC = () => {
     selectAlbum,
     loadMorePhotos,
     isLoadingMore,
-  } = useGalleryMedia(isGranted);
+  } = useGalleryMedia(permission.isGranted);
 
-  const handleCancel = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
+  // Leaving without a photo (close button, back gesture) counts as cancel
+  useEffect(() => () => resolveMediaRequest(requestId, null), [requestId]);
+
+  const handleCancel = useCallback(() => navigation.goBack(), [navigation]);
 
   const handleOpenAlbums = useCallback(() => {
     albumBottomSheetRef.current?.present();
   }, []);
 
-  const handleSnapPhoto = useCallback(async () => {
-    try {
-      const captured = await ImagePicker.openCamera({
-        cropping: false,
-        mediaType: 'photo',
-        compressImageQuality: 0.9,
-      });
-
-      if (captured && captured.path) {
-        const snappedPhoto: GalleryPhotoItem = {
-          id: captured.path,
-          uri: captured.path,
-          width: captured.width || GALLERY_CONFIG.DEFAULT_IMAGE_DIMENSION,
-          height: captured.height || GALLERY_CONFIG.DEFAULT_IMAGE_DIMENSION,
-          filename: captured.filename || `camera_${Date.now()}.jpg`,
-          fileSize: captured.size || 0,
-        };
-        setSelectedPhoto(snappedPhoto);
-      }
-    } catch (err: any) {
-      if (err?.code !== MEDIA_PICKER_ERROR_CODE.CANCELLED) {
-        console.warn('Camera error:', err);
-      }
+  const handleTakePhoto = useCallback(async () => {
+    const photo = await takePhotoWithPermission();
+    if (photo) {
+      setSelectedPhoto(photo);
     }
   }, [setSelectedPhoto]);
 
   const handleDone = useCallback(async () => {
-    if (!selectedPhoto || isProcessing) return;
+    const transform = cropViewportRef.current?.getTransform();
+    if (!selectedPhoto || !transform || isProcessing) return;
 
     setIsProcessing(true);
     try {
-      const transforms = cropViewportRef.current?.getTransforms();
-
-      const scale = transforms?.scale ?? 1;
-      const translateX = transforms?.translateX ?? 0;
-      const translateY = transforms?.translateY ?? 0;
-      const viewportSize = transforms?.viewportSize ?? 375;
-
-      const croppedImage = await cropImageToSquare({
-        imageUri: selectedPhoto.uri,
-        originalWidth: selectedPhoto.width,
-        originalHeight: selectedPhoto.height,
-        viewportSize,
-        scale,
-        translateX,
-        translateY,
-        targetSize: GALLERY_CONFIG.DEFAULT_TARGET_SIZE,
-      });
-
-      if (route.params?.onSelectImage) {
-        route.params.onSelectImage(croppedImage);
-      }
-
+      resolveMediaRequest(requestId, await cropImage(selectedPhoto, transform, crop));
       navigation.goBack();
-    } catch (err) {
-      console.error('Failed to crop and finalize image:', err);
-    } finally {
+    } catch {
+      showToast({ message: t(TRANSLATION_KEYS.MEDIA_PICKER_CROP_FAILED), type: TOAST_TYPES.ERROR });
       setIsProcessing(false);
     }
-  }, [selectedPhoto, isProcessing, route.params, navigation]);
+  }, [selectedPhoto, isProcessing, requestId, crop, navigation, t]);
 
   const rightActions = useMemo(
     () => [
@@ -146,13 +103,116 @@ export const ProfilePhotoPickerPage: React.FC = () => {
             }
           />
         ),
-        onPress: selectedPhoto && !isProcessing ? handleDone : () => {},
+        onPress: handleDone,
         accessibilityLabel: t(TRANSLATION_KEYS.COMMON_SAVE),
         testID: TEST_IDS.MEDIA_PICKER.HEADER_DONE,
       },
     ],
     [isProcessing, selectedPhoto, handleDone, theme.colors, t],
   );
+
+  const albumLabel =
+    selectedAlbum === GALLERY_CONFIG.RECENTS_ALBUM_TITLE
+      ? t(TRANSLATION_KEYS.MEDIA_PICKER_RECENTS)
+      : selectedAlbum;
+
+  const renderBody = () => {
+    if (permission.isChecking) {
+      return null;
+    }
+
+    if (!permission.isGranted) {
+      return (
+        <View style={commonStyles.flex1}>
+          <PermissionGuardView
+            blocked={permission.isBlocked}
+            onPress={permission.isBlocked ? permission.openSettings : permission.request}
+          />
+        </View>
+      );
+    }
+
+    return (
+      <View style={commonStyles.flex1}>
+        <CropViewport
+          ref={cropViewportRef}
+          imageUri={selectedPhoto?.uri}
+          imageWidth={selectedPhoto?.width}
+          imageHeight={selectedPhoto?.height}
+          aspect={crop.aspect}
+          mask={crop.mask}
+        />
+
+        <Row
+          justify="space-between"
+          style={[
+            styles.controlBar,
+            {
+              backgroundColor: theme.colors.bgPrimary,
+              borderBottomColor: theme.colors.border,
+            },
+          ]}
+        >
+          <Touchable
+            testID={TEST_IDS.MEDIA_PICKER.ALBUM_DROPDOWN_BUTTON}
+            style={commonStyles.rowCenter}
+            onPress={handleOpenAlbums}
+            activeOpacity={0.7}
+          >
+            <Text
+              variant="body"
+              weight="bold"
+              color={theme.colors.textPrimary}
+              style={styles.albumText}
+            >
+              {albumLabel}
+            </Text>
+            <Icon
+              type="Ionicons"
+              name={APP_ICONS.CHEVRON_DOWN}
+              size={ms(18)}
+              color={theme.colors.textPrimary}
+            />
+          </Touchable>
+
+          <Touchable
+            testID={TEST_IDS.MEDIA_PICKER.CAMERA_BUTTON}
+            style={[
+              commonStyles.center,
+              styles.cameraButton,
+              { backgroundColor: theme.colors.surface },
+            ]}
+            onPress={handleTakePhoto}
+            activeOpacity={0.7}
+          >
+            <Icon
+              type="Ionicons"
+              name={APP_ICONS.CAMERA}
+              size={ms(20)}
+              color={theme.colors.textPrimary}
+            />
+          </Touchable>
+        </Row>
+
+        <View style={commonStyles.flex1}>
+          <MediaGrid
+            photos={photos}
+            selectedPhotoId={selectedPhoto?.uri}
+            onSelectPhoto={setSelectedPhoto}
+            onLoadMorePhotos={loadMorePhotos}
+            isLoadingMore={isLoadingMore}
+          />
+        </View>
+
+        <AlbumSelectSheet
+          bottomSheetRef={albumBottomSheetRef}
+          albums={albums}
+          selectedAlbum={selectedAlbum}
+          onSelectAlbum={selectAlbum}
+        />
+      </View>
+    );
+  };
 
   return (
     <Screen
@@ -166,93 +226,7 @@ export const ProfilePhotoPickerPage: React.FC = () => {
         />
       }
     >
-      {!isGranted ? (
-        <View style={commonStyles.flex1}>
-          <PermissionGuardView onPressTurnOn={requestPermission} />
-          <View style={commonStyles.flex1} />
-        </View>
-      ) : (
-        <View style={commonStyles.flex1}>
-          {/* Top: Interactive Cropper Viewport */}
-          <CropViewport
-            ref={cropViewportRef}
-            imageUri={selectedPhoto?.uri}
-            imageWidth={selectedPhoto?.width}
-            imageHeight={selectedPhoto?.height}
-            maskShape="circle"
-          />
-
-          {/* Middle: Control Bar */}
-          <Row
-            justify="space-between"
-            style={[
-              styles.controlBar,
-              {
-                backgroundColor: theme.colors.bgPrimary,
-                borderBottomColor: theme.colors.border,
-              },
-            ]}
-          >
-            <Touchable
-              testID={TEST_IDS.MEDIA_PICKER.ALBUM_DROPDOWN_BUTTON}
-              style={commonStyles.rowCenter}
-              onPress={handleOpenAlbums}
-              activeOpacity={0.7}
-            >
-              <Text
-                variant="body"
-                weight="bold"
-                color={theme.colors.textPrimary}
-                style={styles.albumText}
-              >
-                {selectedAlbum}
-              </Text>
-              <Icon
-                type="Ionicons"
-                name={APP_ICONS.CHEVRON_DOWN}
-                size={ms(18)}
-                color={theme.colors.textPrimary}
-              />
-            </Touchable>
-
-            <Touchable
-              style={[
-                commonStyles.center,
-                styles.cameraButton,
-                { backgroundColor: theme.colors.surface },
-              ]}
-              onPress={handleSnapPhoto}
-              activeOpacity={0.7}
-            >
-              <Icon
-                type="Ionicons"
-                name={APP_ICONS.CAMERA}
-                size={ms(20)}
-                color={theme.colors.textPrimary}
-              />
-            </Touchable>
-          </Row>
-
-          {/* Bottom: Gallery Photos Grid */}
-          <View style={commonStyles.flex1}>
-            <MediaGrid
-              photos={photos}
-              selectedPhotoId={selectedPhoto?.id}
-              onSelectPhoto={setSelectedPhoto}
-              onLoadMorePhotos={loadMorePhotos}
-              isLoadingMore={isLoadingMore}
-            />
-          </View>
-
-          {/* Albums Bottom Sheet */}
-          <AlbumSelectSheet
-            bottomSheetRef={albumBottomSheetRef}
-            albums={albums}
-            selectedAlbum={selectedAlbum}
-            onSelectAlbum={selectAlbum}
-          />
-        </View>
-      )}
+      {renderBody()}
     </Screen>
   );
 };

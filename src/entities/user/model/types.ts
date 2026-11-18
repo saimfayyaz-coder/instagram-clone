@@ -47,4 +47,6 @@ export interface CheckUsernameResponseData {
 export interface UserState {
   currentUser: User | null;
   isAvatarUpdating?: boolean;
+  // Local file shown in place of the avatar while it uploads
+  pendingAvatarUri?: string | null;
 }

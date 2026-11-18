@@ -3,18 +3,16 @@ import { StyleSheet } from 'react-native';
 import { Sheet, SheetContent, SheetHeader, ListItem } from '@/shared/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useMediaPicker } from '@/shared/hooks/useMediaPicker';
-import { PickedImage, MainStackParamList } from '@/shared/types';
+import { useCaptureMedia } from '@/shared/hooks';
+import { MediaAsset } from '@/shared/types';
 import { ms } from '@/shared/theme';
-import { APP_ICONS, MAIN_ROUTES } from '@/shared/constants';
+import { APP_ICONS, CROP_PRESETS, MEDIA_SOURCES, MediaSource } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface AvatarActionSheetProps {
   bottomSheetRef: React.RefObject<BottomSheetModal | null>;
   hasAvatar: boolean;
-  onSelectImage: (image: PickedImage) => void;
+  onSelectImage: (image: MediaAsset) => void;
   onRemoveAvatar: () => void;
 }
 
@@ -24,28 +22,27 @@ export const AvatarActionSheet: React.FC<AvatarActionSheetProps> = ({
   onSelectImage,
   onRemoveAvatar,
 }) => {
-  const navigation = useNavigation<NativeStackNavigationProp<MainStackParamList>>();
   const { t } = useTranslation();
-  const { captureAvatarFromCamera } = useMediaPicker();
+  const captureMedia = useCaptureMedia();
 
   const handleDismiss = useCallback(() => {
     bottomSheetRef.current?.dismiss();
   }, [bottomSheetRef]);
 
-  const handleTakePhoto = useCallback(async () => {
-    const image = await captureAvatarFromCamera();
-    if (image) {
+  const capture = useCallback(
+    async (source: MediaSource) => {
       handleDismiss();
-      onSelectImage(image);
-    }
-  }, [captureAvatarFromCamera, handleDismiss, onSelectImage]);
+      const image = await captureMedia({ source, crop: CROP_PRESETS.AVATAR });
+      if (image) {
+        onSelectImage(image);
+      }
+    },
+    [captureMedia, handleDismiss, onSelectImage],
+  );
 
-  const handleChooseFromLibrary = useCallback(() => {
-    handleDismiss();
-    navigation.navigate(MAIN_ROUTES.PROFILE_PHOTO_PICKER, {
-      onSelectImage,
-    });
-  }, [navigation, handleDismiss, onSelectImage]);
+  const handleTakePhoto = useCallback(() => capture(MEDIA_SOURCES.CAMERA), [capture]);
+
+  const handleChooseFromLibrary = useCallback(() => capture(MEDIA_SOURCES.LIBRARY), [capture]);
 
   const handleRemove = useCallback(() => {
     handleDismiss();

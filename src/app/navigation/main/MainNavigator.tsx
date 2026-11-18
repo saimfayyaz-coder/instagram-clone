@@ -7,6 +7,7 @@ import { MainTabNavigator } from './MainTabNavigator';
 import { SettingsPage } from '@/pages/main/settings';
 import { ChatConversationPage } from '@/pages/main/chat';
 import { EditProfilePage, UserProfilePage, ProfilePhotoPickerPage } from '@/pages/main/profile';
+import { CropPhotoPage } from '@/pages/main/media';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
@@ -30,6 +31,11 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen
         name={MAIN_ROUTES.PROFILE_PHOTO_PICKER}
         component={ProfilePhotoPickerPage}
+        options={{ animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen
+        name={MAIN_ROUTES.CROP_PHOTO}
+        component={CropPhotoPage}
         options={{ animation: 'slide_from_bottom' }}
       />
     </Stack.Navigator>

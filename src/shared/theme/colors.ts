@@ -3,6 +3,7 @@ export const palette = {
   bluePressed: '#1877F2',
   blueDisabled: '#0095F680',
   redError: '#ED4956',
+  redLike: '#FF3040',
   greenSuccess: '#00BA88',
   white: '#FFFFFF',
   black: '#000000',
@@ -51,6 +52,13 @@ export const lightColors = {
   bottomSheetHandleBar: '#C7C7CC',
   backdropColor: '#000000',
   backdropOverlay: 'rgba(0, 0, 0, 0.4)',
+  // Icons and spinners drawn on backdropOverlay
+  onOverlay: palette.white,
+  // Filled heart on a liked post
+  like: palette.redLike,
+  // Image carousel page dots
+  dotActive: palette.bluePrimary,
+  dotInactive: '#C7C7CC',
   avatarShimmer: '#E1E1E1',
   shimmerHighlight: '#F5F5F5',
   dialogBg: '#FFFFFF',
@@ -80,6 +88,10 @@ export const darkColors = {
   bottomSheetHandleBar: '#545458',
   backdropColor: '#000000',
   backdropOverlay: 'rgba(0, 0, 0, 0.6)',
+  onOverlay: palette.white,
+  like: palette.redLike,
+  dotActive: palette.bluePrimary,
+  dotInactive: '#545458',
   avatarShimmer: '#262626',
   shimmerHighlight: '#383838',
   dialogBg: '#262626',

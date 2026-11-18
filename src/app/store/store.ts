@@ -2,6 +2,8 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
+  createTransform,
+  type PersistConfig,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -12,7 +14,7 @@ import {
 import { reduxPersistStorage } from '@/shared/lib/storage';
 import { baseApi } from '@/shared/api';
 import { sessionReducer } from '@/entities/session';
-import { userReducer } from '@/entities/user';
+import { userReducer, type UserState } from '@/entities/user';
 import { errorInterceptorMiddleware } from './errorInterceptorMiddleware';
 import { authListenerMiddleware } from './authListenerMiddleware';
 
@@ -22,11 +24,19 @@ const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
 });
 
-const persistConfig = {
+// An upload in progress shouldn't survive an app restart
+const dropAvatarUploadState = createTransform<UserState, UserState>(
+  user => ({ ...user, isAvatarUpdating: false, pendingAvatarUri: null }),
+  user => user,
+  { whitelist: ['user'] },
+);
+
+const persistConfig: PersistConfig<ReturnType<typeof rootReducer>> = {
   key: 'root',
   version: 1,
   storage: reduxPersistStorage,
   whitelist: ['user'],
+  transforms: [dropAvatarUploadState],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

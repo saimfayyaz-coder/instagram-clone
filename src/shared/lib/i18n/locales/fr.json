@@ -185,6 +185,31 @@
     "permissionSubtitle": "Cela vous permet de sélectionner des photos depuis votre galerie pour votre profil.",
     "turnOn": "Activer",
     "noPhotos": "Aucune photo trouvée",
-    "albums": "Albums"
+    "albums": "Albums",
+    "openSettings": "Ouvrir les réglages",
+    "permissionBlockedSubtitle": "Activez l'accès aux photos dans les réglages pour choisir une photo.",
+    "cropTitle": "Déplacer et redimensionner",
+    "cameraBlockedTitle": "L'accès à l'appareil photo est désactivé",
+    "cameraBlockedMessage": "Activez l'accès à l'appareil photo dans les réglages pour prendre une photo.",
+    "cameraUnavailable": "L'appareil photo n'est pas disponible sur cet appareil.",
+    "cameraFailed": "Impossible d'ouvrir l'appareil photo. Veuillez réessayer.",
+    "cropFailed": "Impossible d'utiliser cette photo. Essayez-en une autre."
+  },
+  "feed": {
+    "likes": "{{value}} J’aime",
+    "viewAllComments": "Afficher les {{value}} commentaires",
+    "more": "plus",
+    "like": "J’aime",
+    "unlike": "Je n’aime plus",
+    "save": "Enregistrer",
+    "unsave": "Retirer des enregistrements",
+    "allCaughtUp": "Vous êtes à jour"
+  },
+  "time": {
+    "justNow": "À l’instant",
+    "minutes": "{{value}} min",
+    "hours": "{{value}} h",
+    "days": "{{value}} j",
+    "weeks": "{{value}} sem"
   }
 }

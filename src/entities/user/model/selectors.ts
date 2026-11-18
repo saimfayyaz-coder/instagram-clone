@@ -11,6 +11,9 @@ export const selectCurrentUserAvatar = (state: { user: UserState }): string | nu
 export const selectIsAvatarUpdating = (state: { user: UserState }): boolean =>
   Boolean(state.user.isAvatarUpdating);
 
+export const selectPendingAvatarUri = (state: { user: UserState }): string | null =>
+  state.user.pendingAvatarUri ?? null;
+
 export const getUserDisplayName = (user?: User | null): string =>
   user?.name || user?.fullName || '';
 

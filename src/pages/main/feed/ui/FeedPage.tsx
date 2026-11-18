@@ -1,8 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
-import { View } from 'react-native';
-import { Text, InstagramLogo, Header, headerActions, Screen } from '@/shared/ui';
+import { InstagramLogo, Header, headerActions, Screen } from '@/shared/ui';
 import { LOGO_VARIANTS } from '@/shared/constants';
-import { commonStyles } from '@/shared/theme';
+import { FeedWidget } from '@/widgets/feed';
 
 export const FeedPage: React.FC = () => {
   const handleNotifications = useCallback(() => {
@@ -31,11 +30,7 @@ export const FeedPage: React.FC = () => {
 
   return (
     <Screen header={header}>
-      <View style={commonStyles.centerFlex}>
-        <Text variant="heading" align="center">
-          Feed
-        </Text>
-      </View>
+      <FeedWidget />
     </Screen>
   );
 };

@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { Touchable, Text, Loader } from '@/shared/ui';
-import { GalleryPhotoItem } from '@/shared/hooks';
+import { MediaAsset } from '@/shared/types';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles } from '@/shared/theme';
 import { TEST_IDS } from '@/shared/constants';
@@ -15,9 +15,9 @@ import { useTranslation } from 'react-i18next';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface MediaGridProps {
-  photos: GalleryPhotoItem[];
+  photos: MediaAsset[];
   selectedPhotoId?: string;
-  onSelectPhoto: (photo: GalleryPhotoItem) => void;
+  onSelectPhoto: (photo: MediaAsset) => void;
   onLoadMorePhotos: () => void;
   isLoadingMore?: boolean;
 }
@@ -39,8 +39,8 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
   const itemSize = (windowWidth - SPACING * (NUM_COLUMNS - 1)) / NUM_COLUMNS;
 
   const renderItem = useCallback(
-    ({ item }: { item: GalleryPhotoItem }) => {
-      const isSelected = item.id === selectedPhotoId;
+    ({ item }: { item: MediaAsset }) => {
+      const isSelected = item.uri === selectedPhotoId;
 
       return (
         <Touchable
@@ -78,7 +78,7 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
     [itemSize, selectedPhotoId, onSelectPhoto, theme.colors],
   );
 
-  const keyExtractor = useCallback((item: GalleryPhotoItem) => item.id, []);
+  const keyExtractor = useCallback((item: MediaAsset) => item.uri, []);
 
   const renderFooter = useCallback(() => {
     if (!isLoadingMore) return null;

@@ -1,11 +1,11 @@
 import React, { useRef, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Touchable, Text, LoadingHudOverlay } from '@/shared/ui';
+import { Touchable, Text } from '@/shared/ui';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { useAppSelector } from '@/app/store/hooks';
-import { selectCurrentUser, UserAvatar } from '@/entities/user';
+import { selectCurrentUser, selectIsAvatarUpdating, UserAvatar } from '@/entities/user';
 import { useAvatarEdit } from '../model/useAvatarEdit';
 import { AvatarActionSheet } from './AvatarActionSheet';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -18,11 +18,15 @@ export const AvatarEditSection: React.FC = () => {
   const currentUser = useAppSelector(selectCurrentUser);
   const avatarSheetRef = useRef<BottomSheetModal | null>(null);
 
-  const { handleSelectImage, handleRemoveAvatar, showLoadingHud } = useAvatarEdit();
+  const isAvatarUpdating = useAppSelector(selectIsAvatarUpdating);
+  const { handleSelectImage, handleRemoveAvatar } = useAvatarEdit();
 
+  // One avatar change at a time
   const handleOpenSheet = useCallback(() => {
-    avatarSheetRef.current?.present();
-  }, []);
+    if (!isAvatarUpdating) {
+      avatarSheetRef.current?.present();
+    }
+  }, [isAvatarUpdating]);
 
   const hasAvatar = Boolean(currentUser?.avatar?.url || currentUser?.avatarUrl);
 
@@ -60,7 +64,6 @@ export const AvatarEditSection: React.FC = () => {
         onRemoveAvatar={handleRemoveAvatar}
       />
 
-      <LoadingHudOverlay visible={showLoadingHud} />
     </View>
   );
 };

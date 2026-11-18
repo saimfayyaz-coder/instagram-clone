@@ -8,11 +8,14 @@ import { APP_ICONS, TEST_IDS, BUTTON_VARIANTS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export interface PermissionGuardViewProps {
-  onPressTurnOn: () => void;
+  // Only Settings can grant access now, so the button opens Settings
+  blocked: boolean;
+  onPress: () => void;
 }
 
 export const PermissionGuardView: React.FC<PermissionGuardViewProps> = ({
-  onPressTurnOn,
+  blocked,
+  onPress,
 }) => {
   const { width: windowWidth } = useWindowDimensions();
   const { t } = useTranslation();
@@ -52,15 +55,21 @@ export const PermissionGuardView: React.FC<PermissionGuardViewProps> = ({
         color={theme.colors.textSecondary}
         style={styles.subtitle}
       >
-        {t(TRANSLATION_KEYS.MEDIA_PICKER_PERMISSION_SUBTITLE)}
+        {t(
+          blocked
+            ? TRANSLATION_KEYS.MEDIA_PICKER_PERMISSION_BLOCKED_SUBTITLE
+            : TRANSLATION_KEYS.MEDIA_PICKER_PERMISSION_SUBTITLE,
+        )}
       </Text>
 
       <Button
-        testID={TEST_IDS.MEDIA_PICKER.PERMISSION_TURN_ON_BUTTON}
-        title={t(TRANSLATION_KEYS.MEDIA_PICKER_TURN_ON)}
+        testID={TEST_IDS.MEDIA_PICKER.PERMISSION_BUTTON}
+        title={t(
+          blocked ? TRANSLATION_KEYS.MEDIA_PICKER_OPEN_SETTINGS : TRANSLATION_KEYS.MEDIA_PICKER_TURN_ON,
+        )}
         variant={BUTTON_VARIANTS.GHOST}
         textColor={theme.colors.actionPrimary}
-        onPress={onPressTurnOn}
+        onPress={onPress}
         style={styles.button}
       />
     </View>
