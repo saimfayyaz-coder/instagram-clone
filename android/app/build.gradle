@@ -92,6 +92,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        // Detox: which build type the androidTest APK targets (-DtestBuildType=release for CI)
+        testBuildType System.getProperty('testBuildType', 'debug')
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     flavorDimensions "default"
     productFlavors {
@@ -145,6 +148,8 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            // Detox: keep classes Detox needs if minification is turned on
+            proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
         }
     }
 }
@@ -158,6 +163,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // Detox native client, only packaged into the androidTest APK
+    androidTestImplementation("com.wix:detox:+")
 }
 
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle");

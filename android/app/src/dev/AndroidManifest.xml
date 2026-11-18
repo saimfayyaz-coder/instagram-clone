@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <!--
+    dev flavor only: allow plain HTTP in debug AND release builds, because the dev API is
+    http://<LAN IP>. The React Native Gradle plugin forces usesCleartextTraffic=false on every
+    release build; this flavor manifest is merged on top of main and tools:replace makes it win.
+    stage and prod flavors are unaffected (HTTPS only in release).
+    Needed for Detox E2E on release builds (android.emu.release).
+  -->
+  <application
+    android:usesCleartextTraffic="true"
+    tools:replace="android:usesCleartextTraffic" />
+</manifest>

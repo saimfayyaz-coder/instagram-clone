@@ -24,7 +24,11 @@
     "test:reducers": "jest __tests__/unit/entities",
     "test:shared": "jest __tests__/unit/shared",
     "test:hooks": "jest --testPathPattern=\"use\"",
-    "test:schemas": "jest --testPathPattern=\"Schema\""
+    "test:schemas": "jest --testPathPattern=\"Schema\"",
+    "e2e:build": "detox build -c android.emu.debug",
+    "e2e:test": "detox test -c android.emu.debug",
+    "e2e:build:release": "detox build -c android.emu.release",
+    "e2e:test:release": "detox test -c android.emu.release"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "5.2.14",
@@ -82,8 +86,10 @@
     "@types/react-native-vector-icons": "6.4.18",
     "@types/react-test-renderer": "19.1.0",
     "babel-plugin-module-resolver": "5.0.3",
+    "detox": "20.51.4",
     "eslint": "8.57.1",
     "jest": "29.6.3",
+    "jest-junit": "16.0.0",
     "prettier": "2.8.8",
     "react-test-renderer": "19.2.3",
     "typescript": "6.0.3"
