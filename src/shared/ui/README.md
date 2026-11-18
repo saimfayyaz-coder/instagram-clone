@@ -11,7 +11,7 @@ posts or auth state. Domain UI lives in `entities/*/ui`, `features/*/ui` or `wid
 | `layout/`     | `Screen`, `Container`, `Section`, `Stack`, `Row`, `Spacer`, `Divider`, `KeyboardScroll` |
 | `header/`     | `Header`, `HeaderBackButton`, `HeaderActionButton`, `headerActions`       |
 | `form/`       | `FormField`, `ErrorAlert`, `DividerWithText`                              |
-| `list/`       | `ListItem` (rows in lists and sheet options), `ListSection` (titled group) |
+| `list/`       | `ListItem` (rows in lists and sheet options), `ListSection` (titled group), `Grid` (square-tile grid on FlashList) |
 | `feedback/`   | `EmptyState`                                                              |
 | `overlays/`   | `Sheet`, `SheetContent`, `SheetHeader`, `ToastOverlay`, `AlertOverlay`, `LoadingHudOverlay` |
 | `templates/`  | Reusable screen templates: `AuthLayout`, `AuthStepLayout` (+ `AuthHeader`, `AuthFooter`, `AuthStepHeader`, `LanguageDropdownButton`) |
@@ -23,6 +23,7 @@ posts or auth state. Domain UI lives in `entities/*/ui`, `features/*/ui` or `wid
 - Inside `shared/ui`: import a specific group or file, never the root `@/shared/ui` barrel (cycles).
   Import `useTheme` from `@/shared/hooks/useTheme`, not the `@/shared/hooks` barrel.
 - Use `Text` and `Touchable` from the kit, not `Text`/`TouchableOpacity` from `react-native`.
+- Use `Grid` from the kit, not `@shopify/flash-list` directly.
 
 ## Naming conventions
 
@@ -148,6 +149,23 @@ Group rows with `ListSection`: a gray caption title, rows inside the gutter, and
 <ListSection title={t(KEYS.SECTION_LOGIN)} last>
   <ListItem title={t(KEYS.LOGOUT)} destructive onPress={confirmLogout} />
 </ListSection>
+```
+
+### A photo grid
+
+`Grid` lays out equal square tiles with an even gap and recycles tile views while scrolling
+(FlashList). It works out the tile size; `renderItem` gets it as `size`.
+
+```tsx
+<Grid
+  data={photos}
+  numColumns={4}
+  spacing={1.5}
+  keyExtractor={photo => photo.uri}
+  renderItem={({ item, size }) => <Thumbnail uri={item.uri} style={{ width: size, height: size }} />}
+  extraData={selectedId}          // re-render tiles when the selection changes
+  onEndReached={loadMore}
+/>
 ```
 
 ### An empty state

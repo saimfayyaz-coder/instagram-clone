@@ -8,7 +8,7 @@ import {
   clearPendingAvatar,
 } from '@/entities/user';
 import { useAppDispatch } from '@/app/store/hooks';
-import { cleanupCameraFiles } from '@/shared/lib/media';
+import { cleanupCameraFiles, prepareForUpload } from '@/shared/lib/media';
 import { showToast } from '@/shared/lib/toast';
 import { showAlert } from '@/shared/lib/alert';
 import { MediaAsset } from '@/shared/types';
@@ -19,6 +19,7 @@ import {
   MIME_TYPES,
   TOAST_POSITIONS,
   UPLOAD_FIELDS,
+  UPLOAD_PRESETS,
 } from '@/shared/constants';
 import { parseApiError } from '@/shared/lib/errors';
 
@@ -64,9 +65,10 @@ export const useAvatarEdit = () => {
   );
 
   const handleSelectImage = useCallback(
-    async (image: MediaAsset) => {
-      dispatch(setPendingAvatar(image.uri));
+    async (picked: MediaAsset) => {
+      dispatch(setPendingAvatar(picked.uri));
 
+      const image = await prepareForUpload(picked, UPLOAD_PRESETS.AVATAR);
       const formData = new FormData();
       const fileUri =
         isAndroid ? image.uri : image.uri.replace('file://', '');

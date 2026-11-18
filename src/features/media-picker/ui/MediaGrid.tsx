@@ -1,12 +1,6 @@
 import React, { useCallback } from 'react';
-import {
-  View,
-  FlatList,
-  Image,
-  StyleSheet,
-  useWindowDimensions,
-} from 'react-native';
-import { Touchable, Text, Loader } from '@/shared/ui';
+import { View, Image, StyleSheet } from 'react-native';
+import { Touchable, Text, Loader, Grid, GridRenderItemInfo } from '@/shared/ui';
 import { MediaAsset } from '@/shared/types';
 import { useTheme } from '@/shared/hooks';
 import { ms, commonStyles } from '@/shared/theme';
@@ -32,14 +26,11 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
   onLoadMorePhotos,
   isLoadingMore,
 }) => {
-  const { width: windowWidth } = useWindowDimensions();
   const { theme } = useTheme();
   const { t } = useTranslation();
 
-  const itemSize = (windowWidth - SPACING * (NUM_COLUMNS - 1)) / NUM_COLUMNS;
-
   const renderItem = useCallback(
-    ({ item }: { item: MediaAsset }) => {
+    ({ item, size }: GridRenderItemInfo<MediaAsset>) => {
       const isSelected = item.uri === selectedPhotoId;
 
       return (
@@ -50,8 +41,8 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
           style={[
             styles.itemContainer,
             {
-              width: itemSize,
-              height: itemSize,
+              width: size,
+              height: size,
               backgroundColor: theme.colors.avatarShimmer,
             },
           ]}
@@ -75,7 +66,7 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
         </Touchable>
       );
     },
-    [itemSize, selectedPhotoId, onSelectPhoto, theme.colors],
+    [selectedPhotoId, onSelectPhoto, theme.colors],
   );
 
   const keyExtractor = useCallback((item: MediaAsset) => item.uri, []);
@@ -100,29 +91,21 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
   }
 
   return (
-    <FlatList
+    <Grid
       data={photos}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       numColumns={NUM_COLUMNS}
-      columnWrapperStyle={styles.row}
+      spacing={SPACING}
+      extraData={selectedPhotoId}
       onEndReached={onLoadMorePhotos}
       onEndReachedThreshold={0.5}
       ListFooterComponent={renderFooter}
-      showsVerticalScrollIndicator={false}
-      initialNumToRender={20}
-      maxToRenderPerBatch={20}
-      windowSize={7}
-      removeClippedSubviews
     />
   );
 };
 
 const styles = StyleSheet.create({
-  row: {
-    gap: SPACING,
-    marginBottom: SPACING,
-  },
   itemContainer: {
     position: 'relative',
   },
