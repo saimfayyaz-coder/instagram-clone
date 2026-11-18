@@ -22,6 +22,7 @@ export const imageEditorCrop = {
         height: outputHeight,
         mime: MIME_TYPES.JPEG,
         fileName: result.name,
+        fileSize: result.size,
       };
     } catch (error) {
       throw new MediaError(MEDIA_ERROR_CODES.FAILED, (error as Error | null)?.message);
