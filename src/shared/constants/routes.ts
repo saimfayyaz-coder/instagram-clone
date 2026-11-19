@@ -38,6 +38,8 @@ export const MAIN_ROUTES = {
   PROFILE_PHOTO_PICKER: 'ProfilePhotoPicker',
   CROP_PHOTO: 'CropPhoto',
   USER_POSTS_FEED: 'UserPostsFeed',
+  CREATE_POST_SELECT: 'CreatePostSelect',
+  CREATE_POST_DETAILS: 'CreatePostDetails',
 } as const;
 
 export type MainRoute = (typeof MAIN_ROUTES)[keyof typeof MAIN_ROUTES];

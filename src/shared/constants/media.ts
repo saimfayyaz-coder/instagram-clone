@@ -61,6 +61,8 @@ export const IMAGE_FORMATS = {
 
 export const UPLOAD_FIELDS = {
   AVATAR: 'avatar',
+  POST_IMAGE: 'image',
+  ASPECT_RATIO: 'aspectRatio',
 } as const;
 
 // Looks the same as 0.95 on screen at about half the file size
@@ -70,6 +72,11 @@ export const UPLOAD_JPEG_QUALITY = 0.85;
 export const UPLOAD_PRESETS = {
   AVATAR: {
     maxEdge: 500,
+    quality: UPLOAD_JPEG_QUALITY,
+  },
+  // Instagram stores feed photos 1080 px wide
+  POST: {
+    maxEdge: 1080,
     quality: UPLOAD_JPEG_QUALITY,
   },
 } as const;

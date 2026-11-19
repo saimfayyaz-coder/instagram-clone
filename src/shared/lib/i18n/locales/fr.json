@@ -177,7 +177,18 @@
     "NETWORK_ERROR": "Aucune connexion Internet. Veuillez réessayer.",
     "TIMEOUT_ERROR": "Délai d'attente dépassé. Veuillez réessayer.",
     "UNKNOWN": "Une erreur inattendue est survenue.",
-    "POST_NOT_FOUND": "Cette publication n’est plus disponible."
+    "POST_NOT_FOUND": "Cette publication n’est plus disponible.",
+    "POST_MEDIA_REQUIRED": "Ajoutez au moins une photo.",
+    "POST_TOO_MANY_MEDIA": "Cette publication contient trop de photos.",
+    "CAPTION_TOO_LONG": "La légende est trop longue.",
+    "TOO_MANY_HASHTAGS": "La légende contient trop de hashtags.",
+    "TOO_MANY_MENTIONS": "La légende mentionne trop de comptes.",
+    "INVALID_ASPECT_RATIO": "Ce format de photo n’est pas pris en charge.",
+    "MEDIA_NOT_FOUND": "Certaines photos ne sont plus disponibles. Veuillez réessayer.",
+    "INVALID_IMAGE": "Ce fichier n’est pas une image prise en charge.",
+    "FILE_TOO_LARGE": "Cette photo est trop volumineuse.",
+    "UPLOAD_FAILED": "Impossible d’envoyer la photo. Veuillez réessayer.",
+    "RATE_LIMITED": "Vous faites cela trop souvent. Réessayez plus tard."
   },
   "mediaPicker": {
     "profileTitle": "Nouvelle photo de profil",
@@ -223,5 +234,32 @@
     "deleted": "Publication supprimée.",
     "deleteFailedTitle": "Impossible de supprimer la publication",
     "loadFailed": "Impossible de charger les publications."
+  },
+  "createPost": {
+    "title": "Nouvelle publication",
+    "next": "Suivant",
+    "share": "Partager",
+    "selectMultiple": "Sélectionner plusieurs",
+    "changeShape": "Changer la forme du recadrage",
+    "maxImages": "Vous pouvez ajouter jusqu’à {{max}} photos.",
+    "captionPlaceholder": "Écrivez une légende...",
+    "captionTooLong": "La légende doit contenir {{max}} caractères maximum.",
+    "tooManyHashtags": "Vous pouvez utiliser jusqu’à {{max}} hashtags.",
+    "tooManyMentions": "Vous pouvez mentionner jusqu’à {{max}} comptes.",
+    "location": "Ajouter un lieu",
+    "locationTooLong": "Le lieu doit contenir {{max}} caractères maximum.",
+    "altTextTitle": "Texte alternatif",
+    "altTextSubtitle": "Le texte alternatif décrit vos photos pour les personnes malvoyantes.",
+    "altTextPlaceholder": "Texte alternatif pour la photo {{index}}",
+    "altTextTooLong": "Le texte alternatif doit contenir {{max}} caractères maximum.",
+    "photoLabel": "Photo {{index}}",
+    "uploadBusy": "Attendez la fin de votre publication en cours.",
+    "posting": "Publication...",
+    "uploading": "Envoi {{current}} sur {{total}}",
+    "finishing": "Finalisation...",
+    "shared": "Votre publication a été partagée.",
+    "failed": "Échec de la publication",
+    "retry": "Réessayer",
+    "discard": "Abandonner"
   }
 }
