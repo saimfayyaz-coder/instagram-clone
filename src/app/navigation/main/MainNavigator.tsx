@@ -9,6 +9,7 @@ import { ChatConversationPage } from '@/pages/main/chat';
 import { EditProfilePage, UserProfilePage, ProfilePhotoPickerPage } from '@/pages/main/profile';
 import { CropPhotoPage } from '@/pages/main/media';
 import { UserPostsFeedPage } from '@/pages/main/posts';
+import { CreatePostSelectPage, CreatePostDetailsPage } from '@/pages/main/create-post';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
@@ -40,6 +41,12 @@ export const MainNavigator: React.FC = () => {
         options={{ animation: 'slide_from_bottom' }}
       />
       <Stack.Screen name={MAIN_ROUTES.USER_POSTS_FEED} component={UserPostsFeedPage} />
+      <Stack.Screen
+        name={MAIN_ROUTES.CREATE_POST_SELECT}
+        component={CreatePostSelectPage}
+        options={{ animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name={MAIN_ROUTES.CREATE_POST_DETAILS} component={CreatePostDetailsPage} />
     </Stack.Navigator>
   );
 };
