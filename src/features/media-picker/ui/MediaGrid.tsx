@@ -14,10 +14,15 @@ export interface MediaGridProps {
   onSelectPhoto: (photo: MediaAsset) => void;
   onLoadMorePhotos: () => void;
   isLoadingMore?: boolean;
+  // Shows a numbered circle on every tile; selectionOrder lists picked uris in pick order
+  multiSelect?: boolean;
+  selectionOrder?: string[];
 }
 
 const NUM_COLUMNS = 4;
 const SPACING = 1.5;
+const BADGE_SIZE = ms(22);
+const NO_SELECTION: string[] = [];
 
 export const MediaGrid: React.FC<MediaGridProps> = ({
   photos,
@@ -25,9 +30,38 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
   onSelectPhoto,
   onLoadMorePhotos,
   isLoadingMore,
+  multiSelect = false,
+  selectionOrder = NO_SELECTION,
 }) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
+
+  // Pick number when chosen, an empty circle otherwise
+  const renderBadge = useCallback(
+    (orderIndex: number) => {
+      const isPicked = orderIndex >= 0;
+      return (
+        <View
+          pointerEvents="none"
+          style={[
+            commonStyles.center,
+            styles.badge,
+            {
+              borderColor: theme.colors.onOverlay,
+              backgroundColor: isPicked ? theme.colors.actionPrimary : theme.colors.backdropOverlay,
+            },
+          ]}
+        >
+          {isPicked && (
+            <Text variant="caption" weight="semibold" color={theme.colors.onPrimary}>
+              {orderIndex + 1}
+            </Text>
+          )}
+        </View>
+      );
+    },
+    [theme.colors],
+  );
 
   const renderItem = useCallback(
     ({ item, size }: GridRenderItemInfo<MediaAsset>) => {
@@ -63,10 +97,11 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
               ]}
             />
           )}
+          {multiSelect && renderBadge(selectionOrder.indexOf(item.uri))}
         </Touchable>
       );
     },
-    [selectedPhotoId, onSelectPhoto, theme.colors],
+    [selectedPhotoId, onSelectPhoto, theme.colors, multiSelect, selectionOrder, renderBadge],
   );
 
   const keyExtractor = useCallback((item: MediaAsset) => item.uri, []);
@@ -97,7 +132,7 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
       keyExtractor={keyExtractor}
       numColumns={NUM_COLUMNS}
       spacing={SPACING}
-      extraData={selectedPhotoId}
+      extraData={multiSelect ? selectionOrder : selectedPhotoId}
       onEndReached={onLoadMorePhotos}
       onEndReachedThreshold={0.5}
       ListFooterComponent={renderFooter}
@@ -115,6 +150,15 @@ const styles = StyleSheet.create({
   selectedOverlay: {
     ...StyleSheet.absoluteFill,
     borderWidth: 2,
+  },
+  badge: {
+    position: 'absolute',
+    top: ms(6),
+    end: ms(6),
+    width: BADGE_SIZE,
+    height: BADGE_SIZE,
+    borderRadius: BADGE_SIZE / 2,
+    borderWidth: 1.5,
   },
   emptyContainer: {
     paddingVertical: ms(40),
