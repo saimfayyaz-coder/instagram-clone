@@ -1,10 +1,10 @@
 import React, { memo, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Avatar, Icon, Row, Section, Stack, Text } from '@/shared/ui';
+import { Avatar, Icon, Row, Section, Stack, Text, Touchable } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { spacing } from '@/shared/theme';
-import { APP_ICONS, TEST_IDS } from '@/shared/constants';
+import { ACCESSIBILITY_ROLES, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatRelativeTime } from '@/shared/lib/formatters';
 import { Post } from '../model/types';
@@ -12,13 +12,17 @@ import { POST_CONFIG } from '../model/constants';
 import { PostMediaCarousel } from './PostMediaCarousel';
 import { PostActions } from './PostActions';
 
+const MORE_HIT_SLOP = { top: 12, bottom: 12, left: 12, right: 12 };
+
 export interface PostCardProps {
   post: Post;
   onToggleLike: (postId: string) => void;
   onToggleSave: (postId: string) => void;
+  // Shows the options button when given
+  onPressMore?: (post: Post) => void;
 }
 
-export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onToggleSave }) => {
+export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onToggleSave, onPressMore }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,6 +39,7 @@ export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onT
   }, [onToggleLike, post.id, post.isLiked]);
 
   const handleExpandCaption = useCallback(() => setIsCaptionExpanded(true), []);
+  const handlePressMore = useCallback(() => onPressMore?.(post), [onPressMore, post]);
 
   const isCaptionLong = post.caption.length > POST_CONFIG.CAPTION_PREVIEW_LENGTH;
   const isCaptionCut = isCaptionLong && !isCaptionExpanded;
@@ -59,7 +64,19 @@ export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onT
               ) : null}
             </View>
           </Row>
-          <Icon type="Ionicons" name={APP_ICONS.MORE} size={20} color={theme.colors.textPrimary} />
+          {onPressMore ? (
+            <Touchable
+              onPress={handlePressMore}
+              hitSlop={MORE_HIT_SLOP}
+              accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+              accessibilityLabel={t(TRANSLATION_KEYS.POST_OPTIONS)}
+              testID={TEST_IDS.POST.MORE_BUTTON}
+            >
+              <Icon type="Ionicons" name={APP_ICONS.MORE} size={20} color={theme.colors.textPrimary} />
+            </Touchable>
+          ) : (
+            <Icon type="Ionicons" name={APP_ICONS.MORE} size={20} color={theme.colors.textPrimary} />
+          )}
         </Row>
       </Section>
 

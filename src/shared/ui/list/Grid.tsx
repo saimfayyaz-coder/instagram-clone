@@ -1,12 +1,19 @@
 import React, { useCallback, useState } from 'react';
-import { LayoutChangeEvent, StyleSheet, View, useWindowDimensions } from 'react-native';
+import {
+  LayoutChangeEvent,
+  RefreshControlProps,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import { FlashList, ListRenderItemInfo } from '@shopify/flash-list';
 
 export interface GridRenderItemInfo<T> {
   item: T;
   index: number;
-  // Width and height of a square tile, in pixels
+  // Tile width in pixels (and height, for square tiles)
   size: number;
+  height: number;
 }
 
 export interface GridProps<T> {
@@ -16,16 +23,22 @@ export interface GridProps<T> {
   numColumns: number;
   // Gap between tiles, both across and down
   spacing?: number;
+  // Width divided by height of each tile; square by default
+  tileAspectRatio?: number;
   // Anything outside `data` that changes how tiles look (e.g. the selected id)
   extraData?: unknown;
   onEndReached?: () => void;
   onEndReachedThreshold?: number;
   ListFooterComponent?: React.ComponentType | React.ReactElement | null;
   ListEmptyComponent?: React.ComponentType | React.ReactElement | null;
+  // Scrolls with the tiles and spans the full width (e.g. a profile header)
+  ListHeaderComponent?: React.ComponentType | React.ReactElement | null;
+  refreshControl?: React.ReactElement<RefreshControlProps>;
+  contentContainerStyle?: { paddingBottom?: number; paddingTop?: number };
   testID?: string;
 }
 
-// A grid of equal square tiles (photo pickers, profile post grids). Built on FlashList, which
+// A grid of equal tiles (photo pickers, profile post grids). Built on FlashList, which
 // recycles tile views while scrolling instead of creating new ones, so long grids stay smooth.
 export const Grid = <T,>({
   data,
@@ -33,11 +46,15 @@ export const Grid = <T,>({
   keyExtractor,
   numColumns,
   spacing = 0,
+  tileAspectRatio = 1,
   extraData,
   onEndReached,
   onEndReachedThreshold,
   ListFooterComponent,
   ListEmptyComponent,
+  ListHeaderComponent,
+  refreshControl,
+  contentContainerStyle,
   testID,
 }: GridProps<T>) => {
   const { width: windowWidth } = useWindowDimensions();
@@ -49,6 +66,7 @@ export const Grid = <T,>({
   }, []);
 
   const size = (width - spacing * (numColumns - 1)) / numColumns;
+  const height = size / tileAspectRatio;
 
   const renderCell = useCallback(
     ({ item, index }: ListRenderItemInfo<T>) => {
@@ -57,11 +75,11 @@ export const Grid = <T,>({
       const offset = ((index % numColumns) * spacing) / numColumns;
       return (
         <View style={{ marginLeft: offset, marginBottom: spacing }}>
-          {renderItem({ item, index, size })}
+          {renderItem({ item, index, size, height })}
         </View>
       );
     },
-    [numColumns, renderItem, size, spacing],
+    [height, numColumns, renderItem, size, spacing],
   );
 
   return (
@@ -76,6 +94,9 @@ export const Grid = <T,>({
         onEndReachedThreshold={onEndReachedThreshold}
         ListFooterComponent={ListFooterComponent}
         ListEmptyComponent={ListEmptyComponent}
+        ListHeaderComponent={ListHeaderComponent}
+        refreshControl={refreshControl}
+        contentContainerStyle={contentContainerStyle}
         showsVerticalScrollIndicator={false}
       />
     </View>

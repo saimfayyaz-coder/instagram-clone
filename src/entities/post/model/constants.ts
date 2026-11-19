@@ -9,6 +9,11 @@ export const POST_CONFIG = {
   CAPTION_PREVIEW_LENGTH: 90,
 } as const;
 
+export const USER_POSTS_CONFIG = {
+  // Six rows of the three-column profile grid
+  PAGE_SIZE: 18,
+} as const;
+
 export const FEED_CONFIG = {
   PAGE_SIZE: 6,
   // Fake network time for the mock feed

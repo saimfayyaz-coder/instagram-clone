@@ -1,6 +1,6 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import {
-  ScrollView,
+  View,
   StyleSheet,
   Linking,
   RefreshControl,
@@ -8,17 +8,23 @@ import {
   ViewStyle,
 } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useTranslation } from 'react-i18next';
 import { User, UserLink } from '@/entities/user';
+import { Post, PostGridTile, useUserPosts } from '@/entities/post';
+import { EmptyState, Grid, GridRenderItemInfo, Loader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { sanitizeUrl } from '@/shared/lib/formatters';
+import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ProfileHeaderSection } from './sections/ProfileHeaderSection';
 import { ProfileBioSection } from './sections/ProfileBioSection';
 import { ProfileActionsSection } from './sections/ProfileActionsSection';
 import { ProfileTabsBar } from './tabs/ProfileTabsBar';
 import { ProfilePostsEmptyState } from './tabs/ProfilePostsEmptyState';
 import { ProfileLinksSheet } from './sheets/ProfileLinksSheet';
-import { PROFILE_TABS, ProfileTabType } from '@/shared/constants';
-import { commonStyles, layout } from '@/shared/theme';
+import { APP_ICONS, PROFILE_GRID, PROFILE_TABS, ProfileTabType, TEST_IDS } from '@/shared/constants';
+import { commonStyles, layout, spacing } from '@/shared/theme';
+
+const NO_POSTS: Post[] = [];
 
 export interface ProfileMainWidgetProps {
   user?: User | null;
@@ -29,8 +35,8 @@ export interface ProfileMainWidgetProps {
   onFollowToggle?: () => void;
   onMessage?: () => void;
   onShareFirstPhoto?: () => void;
+  onPressPost?: (post: Post) => void;
   onRefresh?: () => Promise<void> | void;
-  isRefreshing?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -43,15 +49,27 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
   onFollowToggle,
   onMessage,
   onShareFirstPhoto,
+  onPressPost,
   onRefresh,
-  isRefreshing = false,
   style,
 }) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const linksSheetRef = useRef<BottomSheetModal>(null);
   const [activeTab, setActiveTab] = useState<ProfileTabType>(PROFILE_TABS.GRID);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const {
+    posts,
+    isLoading: isPostsLoading,
+    isError: isPostsError,
+    isLoadingMore,
+    loadMore,
+    refetch: refetchPosts,
+  } = useUserPosts(user?.id);
 
   const links: UserLink[] = user?.links || [];
+  const isGridTab = activeTab === PROFILE_TABS.GRID;
 
   const handleOpenLinksSheet = useCallback(() => {
     linksSheetRef.current?.present();
@@ -66,23 +84,30 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
     }
   }, []);
 
-  return (
-    <>
-      <ScrollView
-        style={[commonStyles.flex1, style]}
-        contentContainerStyle={styles.contentContainer}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          onRefresh ? (
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={onRefresh}
-              tintColor={theme.colors.textSecondary}
-              colors={[theme.colors.actionPrimary]}
-            />
-          ) : undefined
-        }
-      >
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([onRefresh?.(), refetchPosts?.()]);
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [onRefresh, refetchPosts]);
+
+  const handlePressPost = useCallback((post: Post) => onPressPost?.(post), [onPressPost]);
+
+  const renderTile = useCallback(
+    ({ item, size, height }: GridRenderItemInfo<Post>) => (
+      <PostGridTile post={item} width={size} height={height} onPress={handlePressPost} />
+    ),
+    [handlePressPost],
+  );
+
+  const keyExtractor = useCallback((item: Post) => item.id, []);
+
+  // Built once per change so the list header isn't remounted while scrolling
+  const listHeader = useMemo(
+    () => (
+      <>
         <ProfileHeaderSection user={user} />
 
         <ProfileBioSection
@@ -100,22 +125,75 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
           onMessage={onMessage}
         />
 
-        <ProfileTabsBar
-          activeTab={activeTab}
-          onSelectTab={setActiveTab}
-        />
+        <ProfileTabsBar activeTab={activeTab} onSelectTab={setActiveTab} />
+      </>
+    ),
+    [
+      user,
+      handleOpenLinksSheet,
+      handleOpenLinkUrl,
+      isCurrentUser,
+      isFollowing,
+      onEditProfile,
+      onShareProfile,
+      onFollowToggle,
+      onMessage,
+      activeTab,
+    ],
+  );
 
-        {activeTab === PROFILE_TABS.GRID ? (
-          <ProfilePostsEmptyState
-            isCurrentUser={isCurrentUser}
-            onShareFirstPhoto={onShareFirstPhoto}
+  const listEmpty = useMemo(() => {
+    if (!isGridTab) {
+      return <ProfilePostsEmptyState isCurrentUser={isCurrentUser} />;
+    }
+    if (isPostsLoading) {
+      return <Loader style={styles.status} />;
+    }
+    if (isPostsError) {
+      return (
+        <EmptyState
+          icon={APP_ICONS.IMAGES}
+          title={t(TRANSLATION_KEYS.POST_LOAD_FAILED)}
+          actionLabel={t(TRANSLATION_KEYS.COMMON_TRY_AGAIN)}
+          onAction={refetchPosts}
+        />
+      );
+    }
+    return (
+      <ProfilePostsEmptyState isCurrentUser={isCurrentUser} onShareFirstPhoto={onShareFirstPhoto} />
+    );
+  }, [isGridTab, isPostsLoading, isPostsError, isCurrentUser, onShareFirstPhoto, refetchPosts, t]);
+
+  const listFooter = useMemo(
+    () => (isGridTab && isLoadingMore ? <Loader style={styles.status} /> : null),
+    [isGridTab, isLoadingMore],
+  );
+
+  return (
+    <View style={[commonStyles.flex1, style]}>
+      <Grid
+        data={isGridTab ? posts : NO_POSTS}
+        renderItem={renderTile}
+        keyExtractor={keyExtractor}
+        numColumns={PROFILE_GRID.COLUMNS}
+        spacing={PROFILE_GRID.SPACING}
+        tileAspectRatio={PROFILE_GRID.TILE_ASPECT_RATIO}
+        onEndReached={isGridTab ? loadMore : undefined}
+        onEndReachedThreshold={0.5}
+        ListHeaderComponent={listHeader}
+        ListEmptyComponent={listEmpty}
+        ListFooterComponent={listFooter}
+        contentContainerStyle={styles.contentContainer}
+        testID={TEST_IDS.PROFILE.POSTS_GRID}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
+            tintColor={theme.colors.textSecondary}
+            colors={[theme.colors.actionPrimary]}
           />
-        ) : (
-          <ProfilePostsEmptyState
-            isCurrentUser={isCurrentUser}
-          />
-        )}
-      </ScrollView>
+        }
+      />
 
       {links.length > 1 && (
         <ProfileLinksSheet
@@ -124,12 +202,15 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
           onSelectLink={handleOpenLinkUrl}
         />
       )}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   contentContainer: {
     paddingBottom: layout.screenBottom,
+  },
+  status: {
+    paddingVertical: spacing.xl,
   },
 });

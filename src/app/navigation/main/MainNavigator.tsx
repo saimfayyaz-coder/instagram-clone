@@ -8,6 +8,7 @@ import { SettingsPage } from '@/pages/main/settings';
 import { ChatConversationPage } from '@/pages/main/chat';
 import { EditProfilePage, UserProfilePage, ProfilePhotoPickerPage } from '@/pages/main/profile';
 import { CropPhotoPage } from '@/pages/main/media';
+import { UserPostsFeedPage } from '@/pages/main/posts';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
@@ -38,6 +39,7 @@ export const MainNavigator: React.FC = () => {
         component={CropPhotoPage}
         options={{ animation: 'slide_from_bottom' }}
       />
+      <Stack.Screen name={MAIN_ROUTES.USER_POSTS_FEED} component={UserPostsFeedPage} />
     </Stack.Navigator>
   );
 };
