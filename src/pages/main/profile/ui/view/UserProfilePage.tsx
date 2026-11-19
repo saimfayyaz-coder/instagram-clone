@@ -7,6 +7,7 @@ import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
 import { selectCurrentUser, User } from '@/entities/user';
 import { ProfileMainWidget } from '@/widgets/profile';
+import { Post } from '@/entities/post';
 import { MAIN_ROUTES, HEADER_BACK_ICON } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
@@ -59,6 +60,18 @@ export const UserProfilePage: React.FC = () => {
     }
   }, [displayUser?.username]);
 
+  const handlePressPost = useCallback(
+    (post: Post) => {
+      if (displayUser?.id) {
+        navigation.navigate(MAIN_ROUTES.USER_POSTS_FEED, {
+          userId: displayUser.id,
+          postId: post.id,
+        });
+      }
+    },
+    [displayUser?.id, navigation],
+  );
+
   const handleMessage = useCallback(() => {
     if (displayUser?.username) {
       navigation.navigate(MAIN_ROUTES.CHAT_CONVERSATION, {
@@ -99,6 +112,7 @@ export const UserProfilePage: React.FC = () => {
         onEditProfile={handleNavigateToEditProfile}
         onShareProfile={handleShareProfile}
         onMessage={handleMessage}
+        onPressPost={handlePressPost}
       />
     </Screen>
   );

@@ -7,6 +7,7 @@ import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
 import { selectCurrentUser } from '@/entities/user';
 import { ProfileMainWidget } from '@/widgets/profile';
+import { Post } from '@/entities/post';
 import { MAIN_ROUTES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
@@ -23,6 +24,18 @@ export const ProfilePage: React.FC = () => {
   const handleNavigateToEditProfile = useCallback(() => {
     navigation.navigate(MAIN_ROUTES.EDIT_PROFILE);
   }, [navigation]);
+
+  const handlePressPost = useCallback(
+    (post: Post) => {
+      if (currentUser?.id) {
+        navigation.navigate(MAIN_ROUTES.USER_POSTS_FEED, {
+          userId: currentUser.id,
+          postId: post.id,
+        });
+      }
+    },
+    [currentUser?.id, navigation],
+  );
 
   const handleShareProfile = useCallback(async () => {
     const username = currentUser?.username;
@@ -59,6 +72,7 @@ export const ProfilePage: React.FC = () => {
         isCurrentUser={true}
         onEditProfile={handleNavigateToEditProfile}
         onShareProfile={handleShareProfile}
+        onPressPost={handlePressPost}
       />
     </Screen>
   );
