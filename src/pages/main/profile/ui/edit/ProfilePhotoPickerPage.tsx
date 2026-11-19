@@ -1,11 +1,11 @@
 import React, { useRef, useState, useCallback, useEffect, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Touchable, Text, Icon, Loader, Header, Screen, Row } from '@/shared/ui';
+import { Icon, Loader, Header, Screen } from '@/shared/ui';
 import { useTheme, usePermission, useGalleryMedia } from '@/shared/hooks';
-import { ms, commonStyles, layout } from '@/shared/theme';
+import { commonStyles } from '@/shared/theme';
 import {
   APP_ICONS,
   TEST_IDS,
@@ -25,6 +25,7 @@ import {
   MediaGrid,
   AlbumSelectSheet,
   PermissionGuardView,
+  MediaPickerControlBar,
 } from '@/features/media-picker';
 
 type ProfilePhotoPickerRouteProp = RouteProp<
@@ -143,56 +144,11 @@ export const ProfilePhotoPickerPage: React.FC = () => {
           mask={crop.mask}
         />
 
-        <Row
-          justify="space-between"
-          style={[
-            styles.controlBar,
-            {
-              backgroundColor: theme.colors.bgPrimary,
-              borderBottomColor: theme.colors.border,
-            },
-          ]}
-        >
-          <Touchable
-            testID={TEST_IDS.MEDIA_PICKER.ALBUM_DROPDOWN_BUTTON}
-            style={commonStyles.rowCenter}
-            onPress={handleOpenAlbums}
-            activeOpacity={0.7}
-          >
-            <Text
-              variant="body"
-              weight="bold"
-              color={theme.colors.textPrimary}
-              style={styles.albumText}
-            >
-              {albumLabel}
-            </Text>
-            <Icon
-              type="Ionicons"
-              name={APP_ICONS.CHEVRON_DOWN}
-              size={ms(18)}
-              color={theme.colors.textPrimary}
-            />
-          </Touchable>
-
-          <Touchable
-            testID={TEST_IDS.MEDIA_PICKER.CAMERA_BUTTON}
-            style={[
-              commonStyles.center,
-              styles.cameraButton,
-              { backgroundColor: theme.colors.surface },
-            ]}
-            onPress={handleTakePhoto}
-            activeOpacity={0.7}
-          >
-            <Icon
-              type="Ionicons"
-              name={APP_ICONS.CAMERA}
-              size={ms(20)}
-              color={theme.colors.textPrimary}
-            />
-          </Touchable>
-        </Row>
+        <MediaPickerControlBar
+          albumLabel={albumLabel}
+          onOpenAlbums={handleOpenAlbums}
+          onTakePhoto={handleTakePhoto}
+        />
 
         <View style={commonStyles.flex1}>
           <MediaGrid
@@ -230,19 +186,3 @@ export const ProfilePhotoPickerPage: React.FC = () => {
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  controlBar: {
-    height: ms(44),
-    paddingHorizontal: layout.gutter,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  albumText: {
-    marginRight: ms(4),
-  },
-  cameraButton: {
-    width: ms(32),
-    height: ms(32),
-    borderRadius: ms(16),
-  },
-});

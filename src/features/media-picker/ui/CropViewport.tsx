@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, forwardRef } from 'react';
 import { View, StyleSheet, useWindowDimensions, Image } from 'react-native';
 import {
   GestureDetector,
@@ -32,6 +32,8 @@ export interface CropViewportProps {
   // Width divided by height of the crop area
   aspect: number;
   mask: MaskShape;
+  // Framing to restore when an image is shown again; centred when missing
+  initialTransform?: Pick<CropTransform, 'scale' | 'translateX' | 'translateY'>;
   testID?: string;
 }
 
@@ -48,6 +50,7 @@ export const CropViewport = forwardRef<CropViewportHandle, CropViewportProps>(
       imageHeight = GALLERY_CONFIG.DEFAULT_IMAGE_DIMENSION,
       aspect,
       mask,
+      initialTransform,
       testID,
     },
     ref,
@@ -63,15 +66,20 @@ export const CropViewport = forwardRef<CropViewportHandle, CropViewportProps>(
     const translateY = useSharedValue(0);
     const savedTranslateY = useSharedValue(0);
 
-    // Start from the centre every time a new image is shown
+    // Read when the image or shape changes, not on every new object the parent passes
+    const initialTransformRef = useRef(initialTransform);
+    initialTransformRef.current = initialTransform;
+
+    // Start from the centre (or the saved framing) every time a new image is shown
     useEffect(() => {
-      scale.value = withTiming(1, { duration: RESET_DURATION });
-      translateX.value = withTiming(0, { duration: RESET_DURATION });
-      translateY.value = withTiming(0, { duration: RESET_DURATION });
-      savedScale.value = 1;
-      savedTranslateX.value = 0;
-      savedTranslateY.value = 0;
-    }, [imageUri, scale, savedScale, translateX, savedTranslateX, translateY, savedTranslateY]);
+      const target = initialTransformRef.current ?? { scale: 1, translateX: 0, translateY: 0 };
+      scale.value = withTiming(target.scale, { duration: RESET_DURATION });
+      translateX.value = withTiming(target.translateX, { duration: RESET_DURATION });
+      translateY.value = withTiming(target.translateY, { duration: RESET_DURATION });
+      savedScale.value = target.scale;
+      savedTranslateX.value = target.translateX;
+      savedTranslateY.value = target.translateY;
+    }, [imageUri, aspect, scale, savedScale, translateX, savedTranslateX, translateY, savedTranslateY]);
 
     useImperativeHandle(ref, () => ({
       getTransform: () => ({
