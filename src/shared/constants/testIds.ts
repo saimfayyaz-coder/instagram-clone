@@ -45,6 +45,13 @@ export const TEST_IDS = {
   PROFILE: {
     AVATAR: 'profile-avatar',
     AVATAR_PREVIEW: 'profile-avatar-preview',
+    POSTS_GRID: 'profile-posts-grid',
+    POST_TILE: 'profile-post-tile',
+  },
+  POST: {
+    MORE_BUTTON: 'post-more-button',
+    DELETE_OPTION: 'post-delete-option',
+    USER_POSTS_LIST: 'user-posts-list',
   },
   CROP_PHOTO: {
     DONE: 'crop-photo-done',

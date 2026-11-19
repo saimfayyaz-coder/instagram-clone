@@ -175,6 +175,17 @@ export enum TRANSLATION_KEYS {
   FEED_UNSAVE = 'feed.unsave',
   FEED_ALL_CAUGHT_UP = 'feed.allCaughtUp',
 
+  // Posts
+  POST_POSTS_TITLE = 'post.postsTitle',
+  POST_OPTIONS = 'post.options',
+  POST_OPEN = 'post.open',
+  POST_DELETE = 'post.delete',
+  POST_DELETE_CONFIRM_TITLE = 'post.deleteConfirmTitle',
+  POST_DELETE_CONFIRM_MESSAGE = 'post.deleteConfirmMessage',
+  POST_DELETED = 'post.deleted',
+  POST_DELETE_FAILED_TITLE = 'post.deleteFailedTitle',
+  POST_LOAD_FAILED = 'post.loadFailed',
+
   // Relative time
   TIME_JUST_NOW = 'time.justNow',
   TIME_MINUTES = 'time.minutes',
@@ -203,6 +214,7 @@ export enum TRANSLATION_KEYS {
   ERROR_REFRESH_TOKEN_EXPIRED = 'errors.REFRESH_TOKEN_EXPIRED',
   ERROR_INVALID_RESET_TOKEN = 'errors.INVALID_RESET_TOKEN',
   ERROR_SERVER = 'errors.SERVER_ERROR',
+  ERROR_POST_NOT_FOUND = 'errors.POST_NOT_FOUND',
   ERROR_FORBIDDEN = 'errors.FORBIDDEN',
   ERROR_NETWORK = 'errors.NETWORK_ERROR',
   ERROR_TIMEOUT = 'errors.TIMEOUT_ERROR',

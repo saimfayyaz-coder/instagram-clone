@@ -42,6 +42,7 @@ export type MainStackParamList = {
   [MAIN_ROUTES.USER_PROFILE]?: { userId?: string; username?: string };
   [MAIN_ROUTES.PROFILE_PHOTO_PICKER]: { requestId: string; crop: CropOptions };
   [MAIN_ROUTES.CROP_PHOTO]: { requestId: string; asset: MediaAsset; crop: CropOptions };
+  [MAIN_ROUTES.USER_POSTS_FEED]: { userId: string; postId: string };
 };
 
 export type RootStackParamList = {

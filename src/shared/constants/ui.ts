@@ -122,6 +122,7 @@ export const APP_ICONS = {
   BOOKMARK: 'bookmark-outline',
   BOOKMARK_FILLED: 'bookmark',
   MORE: 'ellipsis-horizontal',
+  CAROUSEL: 'copy',
 } as const;
 
 export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];
@@ -132,5 +133,12 @@ export const PROFILE_TABS = {
 } as const;
 
 export const PROFILE_TAB = PROFILE_TABS;
+
+export const PROFILE_GRID = {
+  COLUMNS: 3,
+  SPACING: 1,
+  // Instagram profile tiles are 3:4 (width / height)
+  TILE_ASPECT_RATIO: 3 / 4,
+} as const;
 
 export type ProfileTabType = (typeof PROFILE_TABS)[keyof typeof PROFILE_TABS];

@@ -176,7 +176,8 @@
     "FORBIDDEN": "No tienes permiso para hacer esto.",
     "NETWORK_ERROR": "Sin conexión a internet. Intenta nuevamente.",
     "TIMEOUT_ERROR": "Se agotó el tiempo de espera. Inténtalo de nuevo.",
-    "UNKNOWN": "Ocurrió un error inesperado."
+    "UNKNOWN": "Ocurrió un error inesperado.",
+    "POST_NOT_FOUND": "Esta publicación ya no está disponible."
   },
   "mediaPicker": {
     "profileTitle": "Nueva foto de perfil",
@@ -211,5 +212,16 @@
     "hours": "{{value}} h",
     "days": "{{value}} d",
     "weeks": "{{value}} sem"
+  },
+  "post": {
+    "postsTitle": "Publicaciones",
+    "options": "Más opciones",
+    "open": "Abrir publicación",
+    "delete": "Eliminar",
+    "deleteConfirmTitle": "¿Eliminar publicación?",
+    "deleteConfirmMessage": "No podrás restaurar esta publicación.",
+    "deleted": "Publicación eliminada.",
+    "deleteFailedTitle": "No se pudo eliminar la publicación",
+    "loadFailed": "No se pudieron cargar las publicaciones."
   }
 }

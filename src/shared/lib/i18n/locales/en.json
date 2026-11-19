@@ -176,7 +176,8 @@
     "FORBIDDEN": "You don't have permission to do this.",
     "NETWORK_ERROR": "No internet connection. Please try again.",
     "TIMEOUT_ERROR": "Request timed out. Please try again.",
-    "UNKNOWN": "An unexpected error occurred."
+    "UNKNOWN": "An unexpected error occurred.",
+    "POST_NOT_FOUND": "This post is no longer available."
   },
   "mediaPicker": {
     "profileTitle": "New profile picture",
@@ -211,5 +212,16 @@
     "hours": "{{value}}h",
     "days": "{{value}}d",
     "weeks": "{{value}}w"
+  },
+  "post": {
+    "postsTitle": "Posts",
+    "options": "More options",
+    "open": "Open post",
+    "delete": "Delete",
+    "deleteConfirmTitle": "Delete post?",
+    "deleteConfirmMessage": "You won't be able to restore this post.",
+    "deleted": "Post deleted.",
+    "deleteFailedTitle": "Couldn't delete post",
+    "loadFailed": "Couldn't load posts."
   }
 }

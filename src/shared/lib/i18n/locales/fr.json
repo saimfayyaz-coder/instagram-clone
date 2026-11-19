@@ -176,7 +176,8 @@
     "FORBIDDEN": "Vous n'avez pas la permission d'effectuer cette action.",
     "NETWORK_ERROR": "Aucune connexion Internet. Veuillez réessayer.",
     "TIMEOUT_ERROR": "Délai d'attente dépassé. Veuillez réessayer.",
-    "UNKNOWN": "Une erreur inattendue est survenue."
+    "UNKNOWN": "Une erreur inattendue est survenue.",
+    "POST_NOT_FOUND": "Cette publication n’est plus disponible."
   },
   "mediaPicker": {
     "profileTitle": "Nouvelle photo de profil",
@@ -211,5 +212,16 @@
     "hours": "{{value}} h",
     "days": "{{value}} j",
     "weeks": "{{value}} sem"
+  },
+  "post": {
+    "postsTitle": "Publications",
+    "options": "Plus d’options",
+    "open": "Ouvrir la publication",
+    "delete": "Supprimer",
+    "deleteConfirmTitle": "Supprimer la publication ?",
+    "deleteConfirmMessage": "Vous ne pourrez pas restaurer cette publication.",
+    "deleted": "Publication supprimée.",
+    "deleteFailedTitle": "Impossible de supprimer la publication",
+    "loadFailed": "Impossible de charger les publications."
   }
 }
