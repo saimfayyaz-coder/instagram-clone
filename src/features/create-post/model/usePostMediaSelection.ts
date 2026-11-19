@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CropViewportHandle } from '@/features/media-picker';
 import { POST_ASPECT_RATIO_CYCLE, POST_LIMITS, PostAspectRatio } from '@/entities/post';
 import { cropImage, CropTransform } from '@/shared/lib/media';
 import { showToast } from '@/shared/lib/toast';
@@ -10,13 +9,17 @@ import { POST_CROP_BASE } from './constants';
 
 type Framing = Pick<CropTransform, 'scale' | 'translateX' | 'translateY'>;
 
+// What the hook needs from the crop viewport; matches media-picker's CropViewportHandle
+interface FramingSource {
+  getTransform: () => CropTransform;
+}
+
 const CENTRED: Framing = { scale: 1, translateX: 0, translateY: 0 };
 
-// Which photos are picked (in order), which one is in the preview, the post shape,
-// and how each photo is framed. The first photo's shape applies to the whole post.
+// Picked photos in order, the previewed one, each one's framing, and the post shape
 export const usePostMediaSelection = (firstGalleryPhoto: MediaAsset | undefined) => {
   const { t } = useTranslation();
-  const viewportRef = useRef<CropViewportHandle>(null);
+  const viewportRef = useRef<FramingSource>(null);
   // Framing per photo uri, so switching photos keeps each one's crop
   const framings = useRef(new Map<string, CropTransform>());
 

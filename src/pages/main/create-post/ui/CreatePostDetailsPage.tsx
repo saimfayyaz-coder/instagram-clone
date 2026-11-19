@@ -153,9 +153,11 @@ export const CreatePostDetailsPage: React.FC = () => {
               )}
             />
             {captionLength >= CAPTION_COUNTER_FROM && (
-              <Text variant="caption" align="right">
-                {`${captionLength} / ${POST_LIMITS.CAPTION_MAX_LENGTH}`}
-              </Text>
+              <View style={styles.counterRow}>
+                <Text variant="caption">
+                  {`${captionLength} / ${POST_LIMITS.CAPTION_MAX_LENGTH}`}
+                </Text>
+              </View>
             )}
           </View>
         </Row>
@@ -239,6 +241,10 @@ const styles = StyleSheet.create({
   },
   captionInput: {
     flex: 1,
+  },
+  // flex-end follows the layout direction, so the counter sits on the left in Urdu
+  counterRow: {
+    alignItems: 'flex-end',
   },
   altRow: {
     alignItems: 'flex-start',

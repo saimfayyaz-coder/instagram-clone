@@ -125,7 +125,6 @@ export const APP_ICONS = {
   CAROUSEL: 'copy',
   MULTI_SELECT: 'copy-outline',
   CROP_SHAPE: 'expand-outline',
-  LOCATION: 'location-outline',
   REFRESH: 'refresh',
 } as const;
 

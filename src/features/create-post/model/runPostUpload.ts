@@ -17,8 +17,7 @@ import { PostComposerState } from './types';
 
 type GetState = () => { postComposer: PostComposerState };
 
-// Uploads the photos one at a time (so a weak phone never holds them all), then creates the post.
-// Safe to run again after a failure: photos that already made it are skipped.
+// Uploads photos one at a time, then creates the post; a rerun skips photos already uploaded
 export const runPostUpload = () => async (dispatch: AppDispatch, getState: GetState) => {
   const runId = getState().postComposer.upload?.id;
   if (!runId) return;
