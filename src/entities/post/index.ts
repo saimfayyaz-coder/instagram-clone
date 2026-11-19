@@ -4,6 +4,7 @@ export * from './model/tags';
 export * from './model/useUserPosts';
 export * from './lib/mapApiPost';
 export * from './lib/isServerId';
+export * from './lib/countCaptionTags';
 export * from './api/fetchFeedPage';
 export * from './api/postApi';
 export * from './ui/PostCard';

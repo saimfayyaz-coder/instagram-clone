@@ -123,6 +123,9 @@ export const APP_ICONS = {
   BOOKMARK_FILLED: 'bookmark',
   MORE: 'ellipsis-horizontal',
   CAROUSEL: 'copy',
+  MULTI_SELECT: 'copy-outline',
+  CROP_SHAPE: 'expand-outline',
+  REFRESH: 'refresh',
 } as const;
 
 export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];

@@ -2,6 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { InstagramLogo, Header, headerActions, Screen } from '@/shared/ui';
 import { LOGO_VARIANTS } from '@/shared/constants';
 import { FeedWidget } from '@/widgets/feed';
+import { PostUploadBanner } from '@/features/create-post';
 
 export const FeedPage: React.FC = () => {
   const handleNotifications = useCallback(() => {
@@ -30,6 +31,7 @@ export const FeedPage: React.FC = () => {
 
   return (
     <Screen header={header}>
+      <PostUploadBanner />
       <FeedWidget />
     </Screen>
   );
