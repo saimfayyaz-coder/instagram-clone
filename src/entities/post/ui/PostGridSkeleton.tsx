@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Skeleton } from '@/shared/ui';
 import { PROFILE_GRID } from '@/shared/constants';
 
@@ -9,38 +9,37 @@ export interface PostGridSkeletonProps {
   rows?: number;
 }
 
-// Gray tiles in the profile grid's shape while its first page loads
-export const PostGridSkeleton: React.FC<PostGridSkeletonProps> = ({ rows = DEFAULT_ROWS }) => {
-  const { width } = useWindowDimensions();
-  const { COLUMNS, SPACING, TILE_ASPECT_RATIO } = PROFILE_GRID;
-  const tileWidth = (width - SPACING * (COLUMNS - 1)) / COLUMNS;
-  const tileHeight = tileWidth / TILE_ASPECT_RATIO;
-
-  return (
-    <View style={styles.grid}>
-      {Array.from({ length: rows * COLUMNS }, (_, index) => (
-        <Skeleton
-          key={index}
-          width={tileWidth}
-          height={tileHeight}
-          borderRadius={0}
-          style={index % COLUMNS === COLUMNS - 1 ? styles.lastTile : styles.tile}
-        />
-      ))}
-    </View>
-  );
-};
+// Gray tiles in the profile grid's shape while its first page loads.
+// Built row by row with flexible tiles, so rounding can never push a tile onto the next line.
+export const PostGridSkeleton: React.FC<PostGridSkeletonProps> = ({ rows = DEFAULT_ROWS }) => (
+  <View>
+    {Array.from({ length: rows }, (_, row) => (
+      <View key={row} style={styles.row}>
+        {Array.from({ length: PROFILE_GRID.COLUMNS }, (__, column) => (
+          <View
+            key={column}
+            style={column === PROFILE_GRID.COLUMNS - 1 ? styles.lastTile : styles.tile}
+          >
+            <Skeleton width="100%" height="100%" borderRadius={0} />
+          </View>
+        ))}
+      </View>
+    ))}
+  </View>
+);
 
 const styles = StyleSheet.create({
-  grid: {
+  row: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    marginBottom: PROFILE_GRID.SPACING,
   },
   tile: {
+    flex: 1,
+    aspectRatio: PROFILE_GRID.TILE_ASPECT_RATIO,
     marginEnd: PROFILE_GRID.SPACING,
-    marginBottom: PROFILE_GRID.SPACING,
   },
   lastTile: {
-    marginBottom: PROFILE_GRID.SPACING,
+    flex: 1,
+    aspectRatio: PROFILE_GRID.TILE_ASPECT_RATIO,
   },
 });
