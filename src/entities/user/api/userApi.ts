@@ -1,11 +1,17 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
-import { API_ENDPOINTS, HTTP_METHODS } from '@/shared/constants';
+import { API_ENDPOINTS, FOLLOW_LIST_TYPES, HTTP_METHODS } from '@/shared/constants';
 import {
   User,
   UpdateProfilePayload,
   CheckUsernameResponseData,
+  FollowListArgs,
+  PublicProfile,
+  UserSummary,
+  UserSummaryPage,
 } from '../model/types';
+import { USER_LIST_CONFIG } from '../model/constants';
+import { followListTag, publicProfileTag } from '../model/tags';
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -102,6 +108,56 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+
+    getPublicProfile: builder.query<PublicProfile, string>({
+      query: username => ({
+        url: API_ENDPOINTS.USERS.PUBLIC_PROFILE(username),
+        method: HTTP_METHODS.GET,
+      }),
+      transformResponse: (response: ApiSuccessResponse<{ user: PublicProfile }>) =>
+        response.data.user,
+      extraOptions: {
+        skipGlobalErrorToast: true,
+      },
+      providesTags: (_result, _error, username) => [publicProfileTag(username)],
+    }),
+
+    // Pages are fetched by cursor, newest follow first
+    getFollowList: builder.infiniteQuery<UserSummaryPage, FollowListArgs, string | null>({
+      infiniteQueryOptions: {
+        initialPageParam: null,
+        getNextPageParam: lastPage => lastPage.nextCursor,
+      },
+      query: ({ queryArg: { userId, type }, pageParam }) => ({
+        url:
+          type === FOLLOW_LIST_TYPES.FOLLOWERS
+            ? API_ENDPOINTS.USERS.FOLLOWERS(userId)
+            : API_ENDPOINTS.USERS.FOLLOWING(userId),
+        method: HTTP_METHODS.GET,
+        params: {
+          limit: USER_LIST_CONFIG.PAGE_SIZE,
+          ...(pageParam ? { cursor: pageParam } : {}),
+        },
+      }),
+      transformResponse: (response: ApiSuccessResponse<UserSummaryPage>) => response.data,
+      extraOptions: {
+        skipGlobalErrorToast: true,
+      },
+      providesTags: (_result, _error, { userId, type }) => [followListTag(type, userId)],
+    }),
+
+    searchUsers: builder.query<UserSummary[], string>({
+      query: q => ({
+        url: API_ENDPOINTS.USERS.SEARCH,
+        method: HTTP_METHODS.GET,
+        params: { q },
+      }),
+      transformResponse: (response: ApiSuccessResponse<{ users: UserSummary[] }>) =>
+        response.data.users,
+      extraOptions: {
+        skipGlobalErrorToast: true,
+      },
+    }),
   }),
 });
 
@@ -116,4 +172,7 @@ export const {
   useAddLinkMutation,
   useEditLinkMutation,
   useDeleteLinkMutation,
+  useGetPublicProfileQuery,
+  useGetFollowListInfiniteQuery,
+  useSearchUsersQuery,
 } = userApi;

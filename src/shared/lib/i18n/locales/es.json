@@ -150,7 +150,12 @@
     "shareFirstPhoto": "Comparte tu primera foto",
     "moreLinks": "y {{count}} más",
     "tabPosts": "Cuadrícula de publicaciones",
-    "tabTagged": "Publicaciones etiquetadas"
+    "tabTagged": "Publicaciones etiquetadas",
+    "followersEmpty": "Aún no tiene seguidores.",
+    "followingEmpty": "Aún no sigue a nadie.",
+    "usersLoadFailed": "No se pudo cargar esta lista.",
+    "loadFailed": "No se pudo cargar este perfil.",
+    "menu": "Menú"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos.",
@@ -188,7 +193,8 @@
     "INVALID_IMAGE": "Este archivo no es una imagen compatible.",
     "FILE_TOO_LARGE": "Esta foto es demasiado grande.",
     "UPLOAD_FAILED": "No se pudo subir la foto. Inténtalo de nuevo.",
-    "RATE_LIMITED": "Lo estás haciendo con demasiada frecuencia. Inténtalo más tarde."
+    "RATE_LIMITED": "Lo estás haciendo con demasiada frecuencia. Inténtalo más tarde.",
+    "CANNOT_FOLLOW_SELF": "No puedes seguirte a ti mismo."
   },
   "mediaPicker": {
     "profileTitle": "Nueva foto de perfil",
@@ -261,5 +267,13 @@
     "failed": "No se pudo publicar",
     "retry": "Reintentar",
     "discard": "Descartar"
+  },
+  "search": {
+    "placeholder": "Buscar",
+    "promptTitle": "Busca personas",
+    "promptSubtitle": "Encuentra amigos por nombre de usuario o nombre.",
+    "noResults": "No hay resultados para \"{{query}}\"",
+    "failed": "No se pudo buscar ahora.",
+    "clear": "Borrar búsqueda"
   }
 }

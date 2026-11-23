@@ -150,7 +150,12 @@
     "shareFirstPhoto": "Share your first photo",
     "moreLinks": "and {{count}} more",
     "tabPosts": "Posts grid",
-    "tabTagged": "Tagged posts"
+    "tabTagged": "Tagged posts",
+    "followersEmpty": "No followers yet.",
+    "followingEmpty": "Not following anyone yet.",
+    "usersLoadFailed": "Couldn't load this list.",
+    "loadFailed": "Couldn't load this profile.",
+    "menu": "Menu"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Invalid username or password.",
@@ -188,7 +193,8 @@
     "INVALID_IMAGE": "This file isn't a supported image.",
     "FILE_TOO_LARGE": "This photo is too large.",
     "UPLOAD_FAILED": "Couldn't upload the photo. Please try again.",
-    "RATE_LIMITED": "You're doing that too often. Try again later."
+    "RATE_LIMITED": "You're doing that too often. Try again later.",
+    "CANNOT_FOLLOW_SELF": "You can't follow yourself."
   },
   "mediaPicker": {
     "profileTitle": "New profile picture",
@@ -261,5 +267,13 @@
     "failed": "Couldn't post",
     "retry": "Retry",
     "discard": "Discard"
+  },
+  "search": {
+    "placeholder": "Search",
+    "promptTitle": "Search for people",
+    "promptSubtitle": "Find friends by username or name.",
+    "noResults": "No results for \"{{query}}\"",
+    "failed": "Couldn't search right now.",
+    "clear": "Clear search"
   }
 }

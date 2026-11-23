@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Text, Section, Row, AvatarPreview } from '@/shared/ui';
+import { Text, Section, Row, AvatarPreview, Touchable } from '@/shared/ui';
 import { UserAvatar, User, getUserDisplayName, useUserAvatarUri } from '@/entities/user';
 import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatStat } from '@/shared/lib/formatters';
 import { commonStyles, ms } from '@/shared/theme';
-import { TEST_IDS } from '@/shared/constants';
+import { ACCESSIBILITY_ROLES, TEST_IDS } from '@/shared/constants';
 
 export interface ProfileHeaderSectionProps {
   user?: User | null;
+  onPressFollowers?: () => void;
+  onPressFollowing?: () => void;
 }
 
-export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user }) => {
+export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({
+  user,
+  onPressFollowers,
+  onPressFollowing,
+}) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
@@ -54,23 +60,35 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({ user
               </Text>
             </View>
 
-            <View style={[commonStyles.flex1, commonStyles.alignCenter]}>
+            <Touchable
+              onPress={onPressFollowers}
+              disabled={!onPressFollowers}
+              accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+              testID={TEST_IDS.PROFILE.FOLLOWERS_STAT}
+              style={[commonStyles.flex1, commonStyles.alignCenter]}
+            >
               <Text variant="body" weight="bold">
                 {formatStat(user?.followersCount ?? 0)}
               </Text>
               <Text variant="caption" color={theme.colors.textSecondary}>
                 {t(TRANSLATION_KEYS.PROFILE_FOLLOWERS)}
               </Text>
-            </View>
+            </Touchable>
 
-            <View style={[commonStyles.flex1, commonStyles.alignCenter]}>
+            <Touchable
+              onPress={onPressFollowing}
+              disabled={!onPressFollowing}
+              accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+              testID={TEST_IDS.PROFILE.FOLLOWING_STAT}
+              style={[commonStyles.flex1, commonStyles.alignCenter]}
+            >
               <Text variant="body" weight="bold">
                 {formatStat(user?.followingCount ?? 0)}
               </Text>
               <Text variant="caption" color={theme.colors.textSecondary}>
                 {t(TRANSLATION_KEYS.PROFILE_FOLLOWING)}
               </Text>
-            </View>
+            </Touchable>
           </Row>
         </View>
       </Row>

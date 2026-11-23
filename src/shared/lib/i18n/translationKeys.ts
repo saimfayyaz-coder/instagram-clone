@@ -147,6 +147,19 @@ export enum TRANSLATION_KEYS {
   PROFILE_MORE_LINKS = 'profile.moreLinks',
   PROFILE_TAB_POSTS = 'profile.tabPosts',
   PROFILE_TAB_TAGGED = 'profile.tabTagged',
+  PROFILE_FOLLOWERS_EMPTY = 'profile.followersEmpty',
+  PROFILE_FOLLOWING_EMPTY = 'profile.followingEmpty',
+  PROFILE_USERS_LOAD_FAILED = 'profile.usersLoadFailed',
+  PROFILE_LOAD_FAILED = 'profile.loadFailed',
+  PROFILE_MENU = 'profile.menu',
+
+  // Search
+  SEARCH_PLACEHOLDER = 'search.placeholder',
+  SEARCH_PROMPT_TITLE = 'search.promptTitle',
+  SEARCH_PROMPT_SUBTITLE = 'search.promptSubtitle',
+  SEARCH_NO_RESULTS = 'search.noResults',
+  SEARCH_FAILED = 'search.failed',
+  SEARCH_CLEAR = 'search.clear',
 
   // Media Picker
   MEDIA_PICKER_PROFILE_TITLE = 'mediaPicker.profileTitle',
@@ -253,6 +266,7 @@ export enum TRANSLATION_KEYS {
   ERROR_FILE_TOO_LARGE = 'errors.FILE_TOO_LARGE',
   ERROR_UPLOAD_FAILED = 'errors.UPLOAD_FAILED',
   ERROR_RATE_LIMITED = 'errors.RATE_LIMITED',
+  ERROR_CANNOT_FOLLOW_SELF = 'errors.CANNOT_FOLLOW_SELF',
   ERROR_FORBIDDEN = 'errors.FORBIDDEN',
   ERROR_NETWORK = 'errors.NETWORK_ERROR',
   ERROR_TIMEOUT = 'errors.TIMEOUT_ERROR',

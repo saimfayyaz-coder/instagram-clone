@@ -40,6 +40,7 @@ export const MAIN_ROUTES = {
   USER_POSTS_FEED: 'UserPostsFeed',
   CREATE_POST_SELECT: 'CreatePostSelect',
   CREATE_POST_DETAILS: 'CreatePostDetails',
+  FOLLOW_LIST: 'FollowList',
 } as const;
 
 export type MainRoute = (typeof MAIN_ROUTES)[keyof typeof MAIN_ROUTES];

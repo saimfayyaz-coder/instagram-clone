@@ -34,6 +34,8 @@ export interface ProfileMainWidgetProps {
   onShareProfile?: () => void;
   onFollowToggle?: () => void;
   onMessage?: () => void;
+  onPressFollowers?: () => void;
+  onPressFollowing?: () => void;
   onShareFirstPhoto?: () => void;
   onPressPost?: (post: Post) => void;
   onRefresh?: () => Promise<void> | void;
@@ -48,6 +50,8 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
   onShareProfile,
   onFollowToggle,
   onMessage,
+  onPressFollowers,
+  onPressFollowing,
   onShareFirstPhoto,
   onPressPost,
   onRefresh,
@@ -108,7 +112,11 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
   const listHeader = useMemo(
     () => (
       <>
-        <ProfileHeaderSection user={user} />
+        <ProfileHeaderSection
+          user={user}
+          onPressFollowers={onPressFollowers}
+          onPressFollowing={onPressFollowing}
+        />
 
         <ProfileBioSection
           user={user}
@@ -130,6 +138,8 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
     ),
     [
       user,
+      onPressFollowers,
+      onPressFollowing,
       handleOpenLinksSheet,
       handleOpenLinkUrl,
       isCurrentUser,

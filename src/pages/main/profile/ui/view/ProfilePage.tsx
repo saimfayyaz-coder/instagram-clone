@@ -5,12 +5,12 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Header, headerActions, Screen } from '@/shared/ui';
 import { useAppSelector } from '@/app/store/hooks';
 import { useTranslation } from 'react-i18next';
-import { selectCurrentUser } from '@/entities/user';
+import { selectCurrentUser, useLazyGetCurrentUserQuery } from '@/entities/user';
 import { ProfileMainWidget } from '@/widgets/profile';
 import { Post } from '@/entities/post';
 import { PostUploadBanner, selectIsPostUploadBusy } from '@/features/create-post';
 import { showToast } from '@/shared/lib/toast';
-import { MAIN_ROUTES } from '@/shared/constants';
+import { FOLLOW_LIST_TYPES, FollowListType, MAIN_ROUTES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
 
@@ -19,6 +19,7 @@ export const ProfilePage: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackParamList>>();
   const currentUser = useAppSelector(selectCurrentUser);
   const isUploadBusy = useAppSelector(selectIsPostUploadBusy);
+  const [loadCurrentUser] = useLazyGetCurrentUserQuery();
 
   const handleOpenSettings = useCallback(() => {
     navigation.navigate(MAIN_ROUTES.SETTINGS);
@@ -48,6 +49,34 @@ export const ProfilePage: React.FC = () => {
     [currentUser?.id, navigation],
   );
 
+  const openFollowList = useCallback(
+    (type: FollowListType) => {
+      if (currentUser?.id) {
+        navigation.navigate(MAIN_ROUTES.FOLLOW_LIST, {
+          userId: currentUser.id,
+          username: currentUser.username,
+          type,
+        });
+      }
+    },
+    [currentUser?.id, currentUser?.username, navigation],
+  );
+
+  const handlePressFollowers = useCallback(
+    () => openFollowList(FOLLOW_LIST_TYPES.FOLLOWERS),
+    [openFollowList],
+  );
+
+  const handlePressFollowing = useCallback(
+    () => openFollowList(FOLLOW_LIST_TYPES.FOLLOWING),
+    [openFollowList],
+  );
+
+  // Follower counts change when other people follow, so pull to refresh reloads them
+  const handleRefresh = useCallback(async () => {
+    await loadCurrentUser();
+  }, [loadCurrentUser]);
+
   const handleShareProfile = useCallback(async () => {
     const username = currentUser?.username;
     if (!username) return;
@@ -66,7 +95,7 @@ export const ProfilePage: React.FC = () => {
         accessibilityLabel: t(TRANSLATION_KEYS.CREATE_POST_TITLE),
       }),
       headerActions.menu(handleOpenSettings, {
-        accessibilityLabel: 'Menu',
+        accessibilityLabel: t(TRANSLATION_KEYS.PROFILE_MENU),
       }),
     ],
     [handleCreatePost, handleOpenSettings, t],
@@ -88,6 +117,9 @@ export const ProfilePage: React.FC = () => {
         onEditProfile={handleNavigateToEditProfile}
         onShareProfile={handleShareProfile}
         onPressPost={handlePressPost}
+        onPressFollowers={handlePressFollowers}
+        onPressFollowing={handlePressFollowing}
+        onRefresh={handleRefresh}
         onShareFirstPhoto={handleCreatePost}
       />
     </Screen>
