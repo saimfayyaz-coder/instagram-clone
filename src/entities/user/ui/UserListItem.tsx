@@ -27,3 +27,5 @@ export const UserListItem: React.FC<UserListItemProps> = memo(({ user, right, on
     />
   );
 });
+
+UserListItem.displayName = 'UserListItem';

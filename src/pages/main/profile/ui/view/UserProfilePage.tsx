@@ -3,12 +3,12 @@ import { Share, StyleSheet, View } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
-import { EmptyState, Header, headerActions, Loader, Screen } from '@/shared/ui';
+import { EmptyState, Header, headerActions, Screen } from '@/shared/ui';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectCurrentUser, useGetPublicProfileQuery } from '@/entities/user';
 import { useFollowToggle } from '@/features/follow-user';
-import { ProfileMainWidget } from '@/widgets/profile';
-import { Post } from '@/entities/post';
+import { ProfileHeaderSkeleton, ProfileMainWidget } from '@/widgets/profile';
+import { Post, PostGridSkeleton } from '@/entities/post';
 import {
   APP_ICONS,
   FOLLOW_LIST_TYPES,
@@ -18,7 +18,6 @@ import {
 } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
-import { commonStyles } from '@/shared/theme';
 
 type UserProfileRouteProp = RouteProp<MainStackParamList, typeof MAIN_ROUTES.USER_PROFILE>;
 
@@ -118,8 +117,9 @@ export const UserProfilePage: React.FC = () => {
   const renderContent = () => {
     if (!isCurrentUser && isLoading) {
       return (
-        <View style={commonStyles.centerFlex}>
-          <Loader size="large" />
+        <View style={styles.skeleton}>
+          <ProfileHeaderSkeleton />
+          <PostGridSkeleton />
         </View>
       );
     }
@@ -170,5 +170,9 @@ export const UserProfilePage: React.FC = () => {
 const styles = StyleSheet.create({
   error: {
     flex: 1,
+  },
+  skeleton: {
+    flex: 1,
+    overflow: 'hidden',
   },
 });

@@ -9,3 +9,5 @@ export * from './lib/countCaptionTags';
 export * from './api/postApi';
 export * from './ui/PostCard';
 export * from './ui/PostGridTile';
+export * from './ui/PostCardSkeleton';
+export * from './ui/PostGridSkeleton';

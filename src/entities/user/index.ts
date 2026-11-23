@@ -11,3 +11,4 @@ export * from './lib/formatGender';
 export * from './api/userApi';
 export * from './ui/UserAvatar';
 export * from './ui/UserListItem';
+export * from './ui/UserListItemSkeleton';

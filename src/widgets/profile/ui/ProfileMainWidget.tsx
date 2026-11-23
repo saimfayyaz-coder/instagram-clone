@@ -10,7 +10,7 @@ import {
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { User, UserLink } from '@/entities/user';
-import { Post, PostGridTile, useUserPosts } from '@/entities/post';
+import { Post, PostGridSkeleton, PostGridTile, useUserPosts } from '@/entities/post';
 import { EmptyState, Grid, GridRenderItemInfo, Loader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { sanitizeUrl } from '@/shared/lib/formatters';
@@ -157,7 +157,7 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
       return <ProfilePostsEmptyState isCurrentUser={isCurrentUser} />;
     }
     if (isPostsLoading) {
-      return <Loader style={styles.status} />;
+      return <PostGridSkeleton />;
     }
     if (isPostsError) {
       return (

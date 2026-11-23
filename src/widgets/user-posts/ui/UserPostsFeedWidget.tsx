@@ -1,13 +1,20 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Post, PostCard, useLocalPostToggles, useUserPosts } from '@/entities/post';
+import {
+  Post,
+  PostCard,
+  PostCardSkeleton,
+  useLocalPostToggles,
+  useUserPosts,
+} from '@/entities/post';
 import { PostOptionsSheet, useDeletePost } from '@/features/delete-post';
 import { Loader } from '@/shared/ui';
-import { commonStyles, layout, spacing } from '@/shared/theme';
+import { layout, spacing } from '@/shared/theme';
 import { TEST_IDS } from '@/shared/constants';
 
 const MIN_INITIAL_RENDER = 3;
+const SKELETON_POSTS = 2;
 
 export interface UserPostsFeedWidgetProps {
   userId: string;
@@ -92,8 +99,10 @@ export const UserPostsFeedWidget: React.FC<UserPostsFeedWidgetProps> = ({
 
   if (isLoading) {
     return (
-      <View style={commonStyles.centerFlex}>
-        <Loader size="large" />
+      <View style={styles.skeleton}>
+        {Array.from({ length: SKELETON_POSTS }, (_, index) => (
+          <PostCardSkeleton key={index} />
+        ))}
       </View>
     );
   }
@@ -130,5 +139,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingVertical: spacing.xl,
+  },
+  skeleton: {
+    flex: 1,
+    overflow: 'hidden',
   },
 });
