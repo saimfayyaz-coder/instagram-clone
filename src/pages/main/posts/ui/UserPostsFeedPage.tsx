@@ -27,7 +27,7 @@ export const UserPostsFeedPage: React.FC = () => {
         userId={params.userId}
         initialPostId={params.postId}
         isOwnPosts={params.userId === currentUser?.id}
-        onEmpty={handleGoBack}
+        onDeleted={handleGoBack}
       />
     </Screen>
   );
