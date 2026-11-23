@@ -7,7 +7,7 @@ import { useTheme } from '@/shared/hooks';
 import { commonStyles } from '@/shared/theme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { executeFormMutation } from '@/shared/lib/forms';
-import { API_ERROR_CODES, BUTTON_VARIANTS } from '@/shared/constants';
+import { API_ERROR_CODES, BUTTON_VARIANTS, TEST_IDS } from '@/shared/constants';
 import { useLoginMutation } from '../api/loginApi';
 import { createLoginSchema, LoginSchemaType } from '../model/loginSchema';
 
@@ -80,6 +80,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             autoCapitalize="none"
             autoCorrect={false}
             floating
+            testID={TEST_IDS.LOGIN.IDENTIFIER_INPUT}
           />
         )}
       />
@@ -97,6 +98,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             isPassword
             autoCapitalize="none"
             floating
+            testID={TEST_IDS.LOGIN.PASSWORD_INPUT}
           />
         )}
       />
@@ -107,6 +109,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         loading={isLoading}
         onPress={() => handleSubmit(onSubmit)()}
         style={{ marginTop: theme.spacing.sm }}
+        testID={TEST_IDS.LOGIN.SUBMIT_BUTTON}
       />
 
       <Button
@@ -114,6 +117,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         variant={BUTTON_VARIANTS.GHOST}
         onPress={onForgotPasswordPress}
         style={{ marginTop: theme.spacing.md }}
+        testID={TEST_IDS.LOGIN.FORGOT_PASSWORD_BUTTON}
       />
     </Stack>
   );

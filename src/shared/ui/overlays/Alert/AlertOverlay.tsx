@@ -106,6 +106,7 @@ export const AlertOverlay: React.FC = () => {
                 activeOpacity={0.7}
                 style={[styles.button, styles.flexButton]}
                 onPress={() => handleButtonPress(0)}
+                testID={buttons[0].testID}
               >
                 <Text
                   variant="body"
@@ -128,6 +129,7 @@ export const AlertOverlay: React.FC = () => {
                 activeOpacity={0.7}
                 style={[styles.button, styles.flexButton]}
                 onPress={() => handleButtonPress(1)}
+                testID={buttons[1].testID}
               >
                 <Text
                   variant="body"
@@ -155,6 +157,7 @@ export const AlertOverlay: React.FC = () => {
                     activeOpacity={0.7}
                     style={styles.button}
                     onPress={() => handleButtonPress(index)}
+                    testID={btn.testID}
                   >
                     <Text
                       variant="body"

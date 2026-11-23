@@ -25,6 +25,15 @@ export const userSlice = createSlice({
     clearPendingAvatar: state => {
       state.pendingAvatarUri = null;
     },
+    // Keeps the profile count right after creating or deleting a post, without refetching the user
+    adjustPostsCount: (state, action: PayloadAction<number>) => {
+      if (state.currentUser) {
+        state.currentUser.postsCount = Math.max(
+          0,
+          (state.currentUser.postsCount ?? 0) + action.payload,
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -70,5 +79,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, setPendingAvatar, clearPendingAvatar } = userSlice.actions;
+export const { setUser, setPendingAvatar, clearPendingAvatar, adjustPostsCount } =
+  userSlice.actions;
 export const userReducer = userSlice.reducer;

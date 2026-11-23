@@ -9,6 +9,14 @@ export interface MediaAsset {
   height: number;
   mime?: string;
   fileName?: string;
+  // Bytes on disk, when the library that wrote the file reports it
+  fileSize?: number;
+}
+
+export interface UploadPreset {
+  // Longest side, in pixels, the image is sent at
+  maxEdge: number;
+  quality: number;
 }
 
 export interface MediaAlbum {

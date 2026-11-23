@@ -16,6 +16,10 @@ module.exports = {
                 importNames: ['Text', 'TouchableOpacity'],
                 message: 'Use Text and Touchable from @/shared/ui.',
               },
+              {
+                name: '@shopify/flash-list',
+                message: 'Use Grid from @/shared/ui.',
+              },
             ],
             patterns: [
               {

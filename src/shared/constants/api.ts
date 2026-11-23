@@ -20,6 +20,8 @@ export const API_ERROR_CODES = {
   PARSING_ERROR: 'PARSING_ERROR',
   SERVER_ERROR: 'SERVER_ERROR',
   VALIDATION_FAILED: 'VALIDATION_FAILED',
+  POST_NOT_FOUND: 'POST_NOT_FOUND',
+  MEDIA_NOT_FOUND: 'MEDIA_NOT_FOUND',
   UNKNOWN: 'UNKNOWN',
 } as const;
 
@@ -27,6 +29,8 @@ export type ApiErrorCode =
   (typeof API_ERROR_CODES)[keyof typeof API_ERROR_CODES];
 
 export const API_TIMEOUT_MS = 15000;
+// Photo uploads on a slow connection need longer than normal requests
+export const UPLOAD_TIMEOUT_MS = 60000;
 
 // Substrings in a FETCH_ERROR message that mean the request was aborted or timed out
 export const TIMEOUT_ERROR_MESSAGES = ['Abort', 'timeout'];
@@ -71,6 +75,14 @@ export const API_ENDPOINTS = {
     AVATAR: '/users/profile/avatar',
     LINKS: '/users/profile/links',
     LINK: (linkId: string) => `/users/profile/links/${linkId}`,
+    POSTS: (userId: string) => `/users/${userId}/posts`,
+  },
+  POSTS: {
+    CREATE: '/posts',
+    BY_ID: (postId: string) => `/posts/${postId}`,
+  },
+  MEDIA: {
+    POST_IMAGES: '/media/images',
   },
 } as const;
 

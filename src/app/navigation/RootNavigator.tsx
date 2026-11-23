@@ -10,6 +10,11 @@ import {
 } from '@/shared/theme';
 import { selectIsAuthenticated } from '@/entities/session';
 import { selectCurrentUser } from '@/entities/user';
+import {
+  navigationRef,
+  navigationStateMemory,
+  notifyNavigationReady,
+} from '@/shared/lib/navigation';
 
 export const RootNavigator: React.FC = () => {
   const { isDark } = useTheme();
@@ -22,7 +27,14 @@ export const RootNavigator: React.FC = () => {
     : customNavigationLightTheme;
 
   return (
-    <NavigationContainer theme={navigationTheme}>
+    <NavigationContainer
+      ref={navigationRef}
+      theme={navigationTheme}
+      // Only read on mount: brings the user back to where they were if Android rebuilt the screen
+      initialState={navigationStateMemory.get()}
+      onStateChange={navigationStateMemory.set}
+      onReady={notifyNavigationReady}
+    >
       {isAuthenticated ? <MainNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );

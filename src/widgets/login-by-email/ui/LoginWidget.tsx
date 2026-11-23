@@ -3,7 +3,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LoginForm } from '@/features/login-by-email';
 import { AuthHeader, AuthFooter, AuthLayout } from '@/shared/ui';
 import { LanguageSelectSheet } from '@/features/language-select';
-import { BUTTON_VARIANTS } from '@/shared/constants';
+import { BUTTON_VARIANTS, TEST_IDS } from '@/shared/constants';
 import { useTranslation } from 'react-i18next';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
@@ -40,6 +40,7 @@ export const LoginWidget: React.FC<LoginWidgetProps> = ({
             buttonText={t(TRANSLATION_KEYS.AUTH_LOGIN_SIGN_UP)}
             buttonVariant={BUTTON_VARIANTS.OUTLINE}
             onPressButton={onNavigateToSignUp}
+            buttonTestID={TEST_IDS.LOGIN.SIGN_UP_BUTTON}
           />
         }
       >

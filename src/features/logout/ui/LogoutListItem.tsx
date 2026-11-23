@@ -16,8 +16,17 @@ export const LogoutListItem: React.FC = () => {
       title: t(TRANSLATION_KEYS.SETTINGS_LOGOUT_CONFIRM_TITLE),
       message: t(TRANSLATION_KEYS.SETTINGS_LOGOUT_CONFIRM_MESSAGE),
       buttons: [
-        { text: t(TRANSLATION_KEYS.COMMON_CANCEL), style: ALERT_BUTTON_STYLES.CANCEL },
-        { text: t(TRANSLATION_KEYS.SETTINGS_LOGOUT), style: ALERT_BUTTON_STYLES.DESTRUCTIVE, onPress: logout },
+        {
+          text: t(TRANSLATION_KEYS.COMMON_CANCEL),
+          style: ALERT_BUTTON_STYLES.CANCEL,
+          testID: TEST_IDS.SETTINGS.LOGOUT_CANCEL,
+        },
+        {
+          text: t(TRANSLATION_KEYS.SETTINGS_LOGOUT),
+          style: ALERT_BUTTON_STYLES.DESTRUCTIVE,
+          onPress: logout,
+          testID: TEST_IDS.SETTINGS.LOGOUT_CONFIRM,
+        },
       ],
     });
   }, [logout, t]);

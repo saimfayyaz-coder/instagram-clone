@@ -15,12 +15,15 @@ import { reduxPersistStorage } from '@/shared/lib/storage';
 import { baseApi } from '@/shared/api';
 import { sessionReducer } from '@/entities/session';
 import { userReducer, type UserState } from '@/entities/user';
+import { postComposerReducer } from '@/features/create-post';
 import { errorInterceptorMiddleware } from './errorInterceptorMiddleware';
 import { authListenerMiddleware } from './authListenerMiddleware';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   user: userReducer,
+  // Not in the persist whitelist: an upload doesn't survive a restart
+  postComposer: postComposerReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 });
 
