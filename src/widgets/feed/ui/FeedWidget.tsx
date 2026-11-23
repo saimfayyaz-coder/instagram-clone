@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem, RefreshControl, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Loader, Text } from '@/shared/ui';
+import { EmptyState, Loader, Text } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { commonStyles, layout, spacing } from '@/shared/theme';
-import { TEST_IDS } from '@/shared/constants';
+import { APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { Post, PostCard } from '@/entities/post';
 import { useFeed } from '../model/useFeed';
@@ -12,12 +12,19 @@ import { useFeed } from '../model/useFeed';
 // Starts loading the next page about one post before the end
 const END_REACHED_THRESHOLD = 1;
 
-export const FeedWidget: React.FC = () => {
+export interface FeedWidgetProps {
+  onPressAuthor?: (post: Post) => void;
+  // Shown on an empty feed, e.g. to open search
+  onFindPeople?: () => void;
+}
+
+export const FeedWidget: React.FC<FeedWidgetProps> = ({ onPressAuthor, onFindPeople }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const {
     posts,
     isLoading,
+    isError,
     isLoadingMore,
     isRefreshing,
     hasMore,
@@ -28,9 +35,40 @@ export const FeedWidget: React.FC = () => {
   } = useFeed();
 
   const renderPost: ListRenderItem<Post> = useCallback(
-    ({ item }) => <PostCard post={item} onToggleLike={toggleLike} onToggleSave={toggleSave} />,
-    [toggleLike, toggleSave],
+    ({ item }) => (
+      <PostCard
+        post={item}
+        onToggleLike={toggleLike}
+        onToggleSave={toggleSave}
+        onPressAuthor={onPressAuthor}
+      />
+    ),
+    [onPressAuthor, toggleLike, toggleSave],
   );
+
+  const renderEmpty = useCallback(() => {
+    if (isError) {
+      return (
+        <EmptyState
+          icon={APP_ICONS.IMAGES}
+          title={t(TRANSLATION_KEYS.POST_LOAD_FAILED)}
+          actionLabel={t(TRANSLATION_KEYS.COMMON_TRY_AGAIN)}
+          onAction={refresh}
+          style={commonStyles.flex1}
+        />
+      );
+    }
+    return (
+      <EmptyState
+        icon={APP_ICONS.PEOPLE}
+        title={t(TRANSLATION_KEYS.FEED_EMPTY_TITLE)}
+        subtitle={t(TRANSLATION_KEYS.FEED_EMPTY_SUBTITLE)}
+        actionLabel={onFindPeople ? t(TRANSLATION_KEYS.FEED_FIND_PEOPLE) : undefined}
+        onAction={onFindPeople}
+        style={commonStyles.flex1}
+      />
+    );
+  }, [isError, onFindPeople, refresh, t]);
 
   const renderFooter = useCallback(() => {
     if (isLoadingMore) {
@@ -64,6 +102,7 @@ export const FeedWidget: React.FC = () => {
       onEndReached={loadMore}
       onEndReachedThreshold={END_REACHED_THRESHOLD}
       ListFooterComponent={renderFooter}
+      ListEmptyComponent={renderEmpty}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
       refreshControl={
@@ -81,6 +120,7 @@ export const FeedWidget: React.FC = () => {
 
 const styles = StyleSheet.create({
   content: {
+    flexGrow: 1,
     paddingBottom: layout.screenBottom,
   },
   footer: {

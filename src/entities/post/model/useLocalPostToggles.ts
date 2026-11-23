@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Post } from '@/entities/post';
+import { Post } from './types';
 
 interface Toggles {
   isLiked: boolean;

@@ -1,7 +1,7 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
 import { API_ENDPOINTS, HTTP_METHODS, UPLOAD_TIMEOUT_MS } from '@/shared/constants';
-import { ApiPost, userPostsTag } from '@/entities/post';
+import { ApiPost, FEED_TAG, userPostsTag } from '@/entities/post';
 
 export interface UploadedPostImage {
   id: string;
@@ -44,7 +44,8 @@ export const createPostApi = baseApi.injectEndpoints({
       extraOptions: {
         skipGlobalErrorToast: true,
       },
-      invalidatesTags: result => (result ? [userPostsTag(result.data.post.author.id)] : []),
+      invalidatesTags: result =>
+        result ? [userPostsTag(result.data.post.author.id), FEED_TAG] : [],
     }),
   }),
 });

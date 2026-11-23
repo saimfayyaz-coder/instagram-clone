@@ -1,12 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Post, PostCard, useUserPosts } from '@/entities/post';
+import { Post, PostCard, useLocalPostToggles, useUserPosts } from '@/entities/post';
 import { PostOptionsSheet, useDeletePost } from '@/features/delete-post';
 import { Loader } from '@/shared/ui';
 import { commonStyles, layout, spacing } from '@/shared/theme';
 import { TEST_IDS } from '@/shared/constants';
-import { useLocalPostToggles } from '../model/useLocalPostToggles';
 
 const MIN_INITIAL_RENDER = 3;
 

@@ -187,6 +187,9 @@ export enum TRANSLATION_KEYS {
   FEED_SAVE = 'feed.save',
   FEED_UNSAVE = 'feed.unsave',
   FEED_ALL_CAUGHT_UP = 'feed.allCaughtUp',
+  FEED_EMPTY_TITLE = 'feed.emptyTitle',
+  FEED_EMPTY_SUBTITLE = 'feed.emptySubtitle',
+  FEED_FIND_PEOPLE = 'feed.findPeople',
 
   // Posts
   POST_POSTS_TITLE = 'post.postsTitle',

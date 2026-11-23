@@ -53,14 +53,9 @@ export interface ApiPost {
   isSaved: boolean;
 }
 
-export interface UserPostsPage {
+// One page of a post list (a profile grid or the home feed)
+export interface PostsPage {
   posts: Post[];
   // Null when there are no more posts
   nextCursor: string | null;
-}
-
-export interface FeedPage {
-  posts: Post[];
-  // Null when there are no more posts
-  nextCursor: number | null;
 }

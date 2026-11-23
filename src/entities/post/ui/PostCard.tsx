@@ -20,9 +20,10 @@ export interface PostCardProps {
   onToggleSave: (postId: string) => void;
   // Shows the options button when given
   onPressMore?: (post: Post) => void;
+  onPressAuthor?: (post: Post) => void;
 }
 
-export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onToggleSave, onPressMore }) => {
+export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onToggleSave, onPressMore, onPressAuthor }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -40,6 +41,7 @@ export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onT
 
   const handleExpandCaption = useCallback(() => setIsCaptionExpanded(true), []);
   const handlePressMore = useCallback(() => onPressMore?.(post), [onPressMore, post]);
+  const handlePressAuthor = useCallback(() => onPressAuthor?.(post), [onPressAuthor, post]);
 
   const isCaptionLong = post.caption.length > POST_CONFIG.CAPTION_PREVIEW_LENGTH;
   const isCaptionCut = isCaptionLong && !isCaptionExpanded;
@@ -51,19 +53,28 @@ export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onT
     <View style={styles.container} testID={TEST_IDS.FEED.POST}>
       <Section>
         <Row justify="space-between" style={styles.header}>
-          <Row gap="sm" style={styles.author}>
-            <Avatar uri={post.author.avatarUrl} size="sm" />
-            <View style={styles.author}>
-              <Text weight="semibold" numberOfLines={1}>
-                {post.author.username}
-              </Text>
-              {post.location ? (
-                <Text variant="caption" color={theme.colors.textPrimary} numberOfLines={1}>
-                  {post.location}
+          <Touchable
+            onPress={handlePressAuthor}
+            disabled={!onPressAuthor}
+            accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+            accessibilityLabel={post.author.username}
+            testID={TEST_IDS.FEED.AUTHOR}
+            style={styles.author}
+          >
+            <Row gap="sm">
+              <Avatar uri={post.author.avatarUrl} size="sm" />
+              <View style={styles.author}>
+                <Text weight="semibold" numberOfLines={1}>
+                  {post.author.username}
                 </Text>
-              ) : null}
-            </View>
-          </Row>
+                {post.location ? (
+                  <Text variant="caption" color={theme.colors.textPrimary} numberOfLines={1}>
+                    {post.location}
+                  </Text>
+                ) : null}
+              </View>
+            </Row>
+          </Touchable>
           {onPressMore ? (
             <Touchable
               onPress={handlePressMore}

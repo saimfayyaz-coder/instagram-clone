@@ -2,6 +2,7 @@ import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
 import { API_ENDPOINTS, FOLLOW_LIST_TYPES, HTTP_METHODS } from '@/shared/constants';
 import { followListTag, userApi } from '@/entities/user';
+import { FEED_TAG } from '@/entities/post';
 import { FollowState, SetFollowArgs } from '../model/types';
 
 export const followApi = baseApi.injectEndpoints({
@@ -77,6 +78,7 @@ export const followApi = baseApi.injectEndpoints({
           : [
               followListTag(FOLLOW_LIST_TYPES.FOLLOWERS, userId),
               followListTag(FOLLOW_LIST_TYPES.FOLLOWING, viewerId),
+              FEED_TAG,
             ],
     }),
   }),

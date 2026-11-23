@@ -34,7 +34,5 @@ export const USER_POSTS_CONFIG = {
 } as const;
 
 export const FEED_CONFIG = {
-  PAGE_SIZE: 6,
-  // Fake network time for the mock feed
-  MOCK_DELAY_MS: 800,
+  PAGE_SIZE: 10,
 } as const;

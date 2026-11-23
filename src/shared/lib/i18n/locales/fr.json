@@ -221,7 +221,10 @@
     "unlike": "Je n’aime plus",
     "save": "Enregistrer",
     "unsave": "Retirer des enregistrements",
-    "allCaughtUp": "Vous êtes à jour"
+    "allCaughtUp": "Vous êtes à jour",
+    "emptyTitle": "Bienvenue sur Instagram",
+    "emptySubtitle": "Suivez des personnes pour voir leurs photos ici.",
+    "findPeople": "Trouver des personnes"
   },
   "time": {
     "justNow": "À l’instant",

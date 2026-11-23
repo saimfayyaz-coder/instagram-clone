@@ -85,6 +85,7 @@ export const TEST_IDS = {
   FEED: {
     LIST: 'feed-list',
     POST: 'feed-post',
+    AUTHOR: 'feed-post-author',
     LIKE_BUTTON: 'feed-post-like-button',
     SAVE_BUTTON: 'feed-post-save-button',
     MEDIA: 'feed-post-media',

@@ -221,7 +221,10 @@
     "unlike": "Unlike",
     "save": "Save",
     "unsave": "Remove from saved",
-    "allCaughtUp": "You're all caught up"
+    "allCaughtUp": "You're all caught up",
+    "emptyTitle": "Welcome to Instagram",
+    "emptySubtitle": "Follow people to see their photos here.",
+    "findPeople": "Find people"
   },
   "time": {
     "justNow": "Just now",

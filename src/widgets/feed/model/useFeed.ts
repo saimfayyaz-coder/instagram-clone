@@ -1,79 +1,42 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { Post, fetchFeedPage } from '@/entities/post';
+import { useCallback, useMemo, useState } from 'react';
+import { Post, useGetFeedInfiniteQuery, useLocalPostToggles } from '@/entities/post';
 
+const EMPTY_POSTS: Post[] = [];
+
+// The home feed as a flat list; likes and saves stay on this screen until they have an API
 export const useFeed = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [nextCursor, setNextCursor] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const query = useGetFeedInfiniteQuery();
+  const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage, refetch } = query;
   const [isRefreshing, setIsRefreshing] = useState(false);
-  // A refresh makes a page that is still loading outdated; only the latest request may write
-  const latestRequest = useRef(0);
 
-  const loadFirstPage = useCallback(async () => {
-    const request = ++latestRequest.current;
-    const page = await fetchFeedPage();
-    if (request === latestRequest.current) {
-      setPosts(page.posts);
-      setNextCursor(page.nextCursor);
-      setIsLoadingMore(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    loadFirstPage().finally(() => setIsLoading(false));
-  }, [loadFirstPage]);
+  const feedPosts = useMemo(
+    () => (data ? data.pages.flatMap(page => page.posts) : EMPTY_POSTS),
+    [data],
+  );
+  const { posts, toggleLike, toggleSave } = useLocalPostToggles(feedPosts);
 
   const refresh = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      await loadFirstPage();
+      await refetch();
     } finally {
       setIsRefreshing(false);
     }
-  }, [loadFirstPage]);
+  }, [refetch]);
 
-  const loadMore = useCallback(async () => {
-    if (isLoading || isLoadingMore || isRefreshing || nextCursor === null) {
-      return;
+  const loadMore = useCallback(() => {
+    if (hasNextPage && !isFetching) {
+      fetchNextPage();
     }
-    const request = ++latestRequest.current;
-    setIsLoadingMore(true);
-    try {
-      const page = await fetchFeedPage(nextCursor);
-      if (request === latestRequest.current) {
-        setPosts(current => [...current, ...page.posts]);
-        setNextCursor(page.nextCursor);
-      }
-    } finally {
-      if (request === latestRequest.current) {
-        setIsLoadingMore(false);
-      }
-    }
-  }, [isLoading, isLoadingMore, isRefreshing, nextCursor]);
-
-  const toggleLike = useCallback((postId: string) => {
-    setPosts(current =>
-      current.map(post =>
-        post.id === postId
-          ? { ...post, isLiked: !post.isLiked, likeCount: post.likeCount + (post.isLiked ? -1 : 1) }
-          : post,
-      ),
-    );
-  }, []);
-
-  const toggleSave = useCallback((postId: string) => {
-    setPosts(current =>
-      current.map(post => (post.id === postId ? { ...post, isSaved: !post.isSaved } : post)),
-    );
-  }, []);
+  }, [fetchNextPage, hasNextPage, isFetching]);
 
   return {
     posts,
-    isLoading,
-    isLoadingMore,
+    isLoading: query.isLoading,
+    isError: query.isError && posts.length === 0,
+    isLoadingMore: isFetchingNextPage,
     isRefreshing,
-    hasMore: nextCursor !== null,
+    hasMore: Boolean(hasNextPage),
     refresh,
     loadMore,
     toggleLike,

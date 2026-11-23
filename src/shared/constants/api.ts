@@ -84,6 +84,7 @@ export const API_ENDPOINTS = {
   },
   POSTS: {
     CREATE: '/posts',
+    FEED: '/posts/feed',
     BY_ID: (postId: string) => `/posts/${postId}`,
   },
   MEDIA: {
