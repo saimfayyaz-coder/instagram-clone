@@ -5,7 +5,18 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Divider, FormField, Header, Row, Screen, Section, Stack, Text, Touchable } from '@/shared/ui';
+import {
+  Divider,
+  FormField,
+  Header,
+  Row,
+  Screen,
+  Section,
+  Skeleton,
+  Stack,
+  Text,
+  Touchable,
+} from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { ms, spacing } from '@/shared/theme';
 import {
@@ -13,6 +24,7 @@ import {
   MAIN_ROUTES,
   TAB_ROUTES,
   TEST_IDS,
+  TOAST_TYPES,
 } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
@@ -43,7 +55,16 @@ export const CreatePostDetailsPage: React.FC = () => {
   const isUploadBusy = useAppSelector(selectIsPostUploadBusy);
   const storedDraft = useAppSelector(selectPostDraft);
   // Kept locally so clearing the store on Share doesn't empty this screen while it closes
-  const [draft] = useState(storedDraft);
+  const [draft, setDraft] = useState(storedDraft);
+  const images = draft?.images ?? null;
+  const isCropping = !images;
+
+  // Picks up the cropped photos once they're ready
+  useEffect(() => {
+    if (storedDraft) {
+      setDraft(storedDraft);
+    }
+  }, [storedDraft]);
 
   const schema = useMemo(() => createPostDetailsSchema(t), [t]);
   const { control, handleSubmit, watch } = useForm<PostDetailsSchemaType>({
@@ -51,7 +72,7 @@ export const CreatePostDetailsPage: React.FC = () => {
     defaultValues: {
       caption: '',
       location: '',
-      altTexts: draft ? draft.images.map(() => '') : [],
+      altTexts: Array.from({ length: draft?.imageCount ?? 0 }, () => ''),
     },
   });
   const captionLength = watch('caption').length;
@@ -63,12 +84,20 @@ export const CreatePostDetailsPage: React.FC = () => {
     }
   }, [draft, navigation]);
 
+  useEffect(() => {
+    if (draft?.cropFailed) {
+      showToast({ message: t(TRANSLATION_KEYS.MEDIA_PICKER_CROP_FAILED), type: TOAST_TYPES.ERROR });
+      dispatch(clearPostDraft());
+      navigation.goBack();
+    }
+  }, [dispatch, draft?.cropFailed, navigation, t]);
+
   const handleBack = useCallback(() => navigation.goBack(), [navigation]);
 
   const handleShare = useMemo(
     () =>
       handleSubmit(values => {
-        if (!draft) return;
+        if (!draft || !images) return;
         if (isUploadBusy) {
           showToast({ message: t(TRANSLATION_KEYS.CREATE_POST_UPLOAD_BUSY) });
           return;
@@ -77,7 +106,7 @@ export const CreatePostDetailsPage: React.FC = () => {
         dispatch(
           postUploadStarted({
             id: createClientRequestId(),
-            images: draft.images,
+            images,
             aspectRatio: draft.aspectRatio,
             caption: values.caption.trim(),
             location: values.location,
@@ -89,22 +118,27 @@ export const CreatePostDetailsPage: React.FC = () => {
         // Back to the profile, where the banner shows progress and the post appears
         navigation.popTo(MAIN_ROUTES.TABS, { screen: TAB_ROUTES.PROFILE });
       }),
-    [dispatch, draft, handleSubmit, isUploadBusy, navigation, t],
+    [dispatch, draft, handleSubmit, images, isUploadBusy, navigation, t],
   );
 
   const headerRight = useMemo(
     () => (
       <Touchable
         onPress={() => handleShare()}
+        // Cropping usually finishes before the caption is written
+        disabled={isCropping}
         accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
         testID={TEST_IDS.CREATE_POST.SHARE}
       >
-        <Text weight="semibold" color={theme.colors.actionPrimary}>
+        <Text
+          weight="semibold"
+          color={isCropping ? theme.colors.actionPrimaryDisabled : theme.colors.actionPrimary}
+        >
           {t(TRANSLATION_KEYS.CREATE_POST_SHARE)}
         </Text>
       </Touchable>
     ),
-    [handleShare, t, theme.colors.actionPrimary],
+    [handleShare, isCropping, t, theme.colors],
   );
 
   if (!draft) {
@@ -125,16 +159,24 @@ export const CreatePostDetailsPage: React.FC = () => {
     >
       <Section style={styles.section}>
         <Row gap="md" style={styles.captionRow}>
-          <Image
-            source={{ uri: draft.images[0].uri }}
-            style={[
-              styles.captionThumb,
-              {
-                height: CAPTION_THUMB_WIDTH / draft.aspectRatio,
-                backgroundColor: theme.colors.bgSecondary,
-              },
-            ]}
-          />
+          {images ? (
+            <Image
+              source={{ uri: images[0].uri }}
+              style={[
+                styles.captionThumb,
+                {
+                  height: CAPTION_THUMB_WIDTH / draft.aspectRatio,
+                  backgroundColor: theme.colors.bgSecondary,
+                },
+              ]}
+            />
+          ) : (
+            <Skeleton
+              width={CAPTION_THUMB_WIDTH}
+              height={CAPTION_THUMB_WIDTH / draft.aspectRatio}
+              borderRadius={0}
+            />
+          )}
           <View style={styles.captionInput}>
             <Controller
               control={control}
@@ -193,12 +235,16 @@ export const CreatePostDetailsPage: React.FC = () => {
             <Text variant="caption">{t(TRANSLATION_KEYS.CREATE_POST_ALT_TEXT_SUBTITLE)}</Text>
           </View>
 
-          {draft.images.map((image, index) => (
-            <Row key={image.uri} gap="md" style={styles.altRow}>
-              <Image
-                source={{ uri: image.uri }}
-                style={[styles.altThumb, { backgroundColor: theme.colors.bgSecondary }]}
-              />
+          {Array.from({ length: draft.imageCount }, (_, index) => (
+            <Row key={index} gap="md" style={styles.altRow}>
+              {images ? (
+                <Image
+                  source={{ uri: images[index].uri }}
+                  style={[styles.altThumb, { backgroundColor: theme.colors.bgSecondary }]}
+                />
+              ) : (
+                <Skeleton width={ALT_THUMB_SIZE} height={ALT_THUMB_SIZE} borderRadius={0} />
+              )}
               <View style={styles.captionInput}>
                 <Controller
                   control={control}

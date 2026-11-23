@@ -1,10 +1,10 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Header, Icon, Loader, Screen, Text, Touchable } from '@/shared/ui';
+import { Header, Icon, Screen, Text, Touchable } from '@/shared/ui';
 import { useGalleryMedia, usePermission, useTheme } from '@/shared/hooks';
 import { commonStyles, spacing } from '@/shared/theme';
 import {
@@ -16,12 +16,10 @@ import {
   MASK_SHAPES,
   PERMISSION_KINDS,
   TEST_IDS,
-  TOAST_TYPES,
 } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
 import { takePhotoWithPermission } from '@/shared/lib/media';
-import { showToast } from '@/shared/lib/toast';
 import { useAppDispatch } from '@/app/store/hooks';
 import {
   AlbumSelectSheet,
@@ -31,7 +29,13 @@ import {
   MediaPickerControlBar,
   PermissionGuardView,
 } from '@/features/media-picker';
-import { setPostDraft, usePostMediaSelection } from '@/features/create-post';
+import {
+  createClientRequestId,
+  postDraftCropFailed,
+  postDraftCropped,
+  postDraftStarted,
+  usePostMediaSelection,
+} from '@/features/create-post';
 
 const ICON_SIZE = 18;
 
@@ -41,7 +45,6 @@ export const CreatePostSelectPage: React.FC = () => {
   const { theme } = useTheme();
   const dispatch = useAppDispatch();
   const albumSheetRef = useRef<BottomSheetModal>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
 
   const permission = usePermission(PERMISSION_KINDS.PHOTOS, { requestOnMount: true });
   const { photos, albums, selectedAlbum, selectAlbum, loadMorePhotos, isLoadingMore } =
@@ -73,43 +76,39 @@ export const CreatePostSelectPage: React.FC = () => {
     }
   }, [selectPhoto]);
 
-  const handleNext = useCallback(async () => {
-    if (!hasSelection || isProcessing) return;
+  // Opens the caption screen at once; the photos keep cropping in the background
+  const handleNext = useCallback(() => {
+    if (!hasSelection) return;
 
-    setIsProcessing(true);
-    try {
-      const images = await cropSelected();
-      if (images.length > 0) {
-        dispatch(setPostDraft({ images, aspectRatio }));
-        navigation.navigate(MAIN_ROUTES.CREATE_POST_DETAILS);
-      }
-    } catch {
-      showToast({ message: t(TRANSLATION_KEYS.MEDIA_PICKER_CROP_FAILED), type: TOAST_TYPES.ERROR });
-    } finally {
-      setIsProcessing(false);
-    }
-  }, [aspectRatio, cropSelected, dispatch, hasSelection, isProcessing, navigation, t]);
+    const id = createClientRequestId();
+    dispatch(postDraftStarted({ id, aspectRatio, imageCount: selected.length }));
+    cropSelected()
+      .then(images =>
+        dispatch(
+          images.length > 0 ? postDraftCropped({ id, images }) : postDraftCropFailed({ id }),
+        ),
+      )
+      .catch(() => dispatch(postDraftCropFailed({ id })));
+    navigation.navigate(MAIN_ROUTES.CREATE_POST_DETAILS);
+  }, [aspectRatio, cropSelected, dispatch, hasSelection, navigation, selected.length]);
 
   const headerRight = useMemo(
-    () =>
-      isProcessing ? (
-        <Loader size="small" />
-      ) : (
-        <Touchable
-          onPress={handleNext}
-          disabled={!hasSelection}
-          accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
-          testID={TEST_IDS.CREATE_POST.NEXT}
+    () => (
+      <Touchable
+        onPress={handleNext}
+        disabled={!hasSelection}
+        accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+        testID={TEST_IDS.CREATE_POST.NEXT}
+      >
+        <Text
+          weight="semibold"
+          color={hasSelection ? theme.colors.actionPrimary : theme.colors.actionPrimaryDisabled}
         >
-          <Text
-            weight="semibold"
-            color={hasSelection ? theme.colors.actionPrimary : theme.colors.actionPrimaryDisabled}
-          >
-            {t(TRANSLATION_KEYS.CREATE_POST_NEXT)}
-          </Text>
-        </Touchable>
-      ),
-    [handleNext, hasSelection, isProcessing, t, theme.colors],
+          {t(TRANSLATION_KEYS.CREATE_POST_NEXT)}
+        </Text>
+      </Touchable>
+    ),
+    [handleNext, hasSelection, t, theme.colors],
   );
 
   const multiSelectButton = (
