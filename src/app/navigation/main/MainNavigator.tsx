@@ -10,6 +10,7 @@ import { EditProfilePage, UserProfilePage, ProfilePhotoPickerPage } from '@/page
 import { CropPhotoPage } from '@/pages/main/media';
 import { UserPostsFeedPage } from '@/pages/main/posts';
 import { CreatePostSelectPage, CreatePostDetailsPage } from '@/pages/main/create-post';
+import { FollowListPage } from '@/pages/main/follow-list';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
@@ -30,6 +31,7 @@ export const MainNavigator: React.FC = () => {
         options={{ animation: 'slide_from_bottom' }}
       />
       <Stack.Screen name={MAIN_ROUTES.USER_PROFILE} component={UserProfilePage} />
+      <Stack.Screen name={MAIN_ROUTES.FOLLOW_LIST} component={FollowListPage} />
       <Stack.Screen
         name={MAIN_ROUTES.PROFILE_PHOTO_PICKER}
         component={ProfilePhotoPickerPage}
