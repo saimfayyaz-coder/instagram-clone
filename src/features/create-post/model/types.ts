@@ -1,10 +1,21 @@
 import { MediaAsset } from '@/shared/types';
 import { PostUploadStatus } from './constants';
 
-// Cropped photos waiting for a caption
-export interface PostDraft {
+// Cropped photos, ready to upload
+export interface PostMedia {
   images: MediaAsset[];
   aspectRatio: number;
+}
+
+// Photos picked for a new post; they're cropped in the background while the caption is written
+export interface PostDraft {
+  // Tells a late crop result apart from a newer draft
+  id: string;
+  aspectRatio: number;
+  imageCount: number;
+  // Null until cropping finishes
+  images: MediaAsset[] | null;
+  cropFailed: boolean;
 }
 
 export interface PostDetails {
@@ -13,7 +24,7 @@ export interface PostDetails {
   altTexts: string[];
 }
 
-export interface PostUpload extends PostDraft, PostDetails {
+export interface PostUpload extends PostMedia, PostDetails {
   // Also sent as clientRequestId, so a retried create can't make a second post
   id: string;
   status: PostUploadStatus;

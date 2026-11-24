@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SESSION_ACTION_TYPES } from '@/shared/constants';
 import { POST_UPLOAD_STATUS } from './constants';
-import { PostComposerState, PostDetails, PostDraft } from './types';
+import { MediaAsset } from '@/shared/types';
+import { PostComposerState, PostDetails, PostMedia } from './types';
 
 const initialState: PostComposerState = {
   draft: null,
@@ -13,15 +14,28 @@ export const postComposerSlice = createSlice({
   name: 'postComposer',
   initialState,
   reducers: {
-    setPostDraft: (state, action: PayloadAction<PostDraft>) => {
-      state.draft = action.payload;
+    postDraftStarted: (
+      state,
+      action: PayloadAction<{ id: string; aspectRatio: number; imageCount: number }>,
+    ) => {
+      state.draft = { ...action.payload, images: null, cropFailed: false };
+    },
+    postDraftCropped: (state, action: PayloadAction<{ id: string; images: MediaAsset[] }>) => {
+      if (state.draft?.id === action.payload.id) {
+        state.draft.images = action.payload.images;
+      }
+    },
+    postDraftCropFailed: (state, action: PayloadAction<{ id: string }>) => {
+      if (state.draft?.id === action.payload.id) {
+        state.draft.cropFailed = true;
+      }
     },
     clearPostDraft: state => {
       state.draft = null;
     },
     postUploadStarted: (
       state,
-      action: PayloadAction<PostDraft & PostDetails & { id: string }>,
+      action: PayloadAction<PostMedia & PostDetails & { id: string }>,
     ) => {
       state.upload = {
         ...action.payload,
@@ -73,7 +87,9 @@ export const postComposerSlice = createSlice({
 });
 
 export const {
-  setPostDraft,
+  postDraftStarted,
+  postDraftCropped,
+  postDraftCropFailed,
   clearPostDraft,
   postUploadStarted,
   postMediaUploaded,

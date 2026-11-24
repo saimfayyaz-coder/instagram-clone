@@ -7,6 +7,7 @@ import {
   MAIN_ROUTES,
 } from '../constants/routes';
 import type { OtpFlowContext } from '../constants/auth';
+import type { FollowListType } from '../constants/ui';
 
 export type AuthStackParamList = {
   [AUTH_ROUTES.LOGIN]: undefined;
@@ -39,12 +40,13 @@ export type MainStackParamList = {
   [MAIN_ROUTES.EDIT_PROFILE_BIO]?: undefined;
   [MAIN_ROUTES.EDIT_PROFILE_LINKS]?: undefined;
   [MAIN_ROUTES.NOTIFICATIONS]?: undefined;
-  [MAIN_ROUTES.USER_PROFILE]?: { userId?: string; username?: string };
+  [MAIN_ROUTES.USER_PROFILE]: { username: string; userId?: string };
   [MAIN_ROUTES.PROFILE_PHOTO_PICKER]: { requestId: string; crop: CropOptions };
   [MAIN_ROUTES.CROP_PHOTO]: { requestId: string; asset: MediaAsset; crop: CropOptions };
   [MAIN_ROUTES.USER_POSTS_FEED]: { userId: string; postId: string };
   [MAIN_ROUTES.CREATE_POST_SELECT]: undefined;
   [MAIN_ROUTES.CREATE_POST_DETAILS]: undefined;
+  [MAIN_ROUTES.FOLLOW_LIST]: { userId: string; username: string; type: FollowListType };
 };
 
 export type RootStackParamList = {

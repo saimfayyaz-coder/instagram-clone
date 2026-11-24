@@ -1,34 +1,40 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Post, PostCard, useUserPosts } from '@/entities/post';
+import {
+  Post,
+  PostCard,
+  PostCardSkeleton,
+  useLocalPostToggles,
+  USER_POSTS_CONFIG,
+  useUserPosts,
+} from '@/entities/post';
 import { PostOptionsSheet, useDeletePost } from '@/features/delete-post';
 import { Loader } from '@/shared/ui';
-import { commonStyles, layout, spacing } from '@/shared/theme';
+import { layout, spacing } from '@/shared/theme';
 import { TEST_IDS } from '@/shared/constants';
-import { useLocalPostToggles } from '../model/useLocalPostToggles';
-
-const MIN_INITIAL_RENDER = 3;
 
 export interface UserPostsFeedWidgetProps {
   userId: string;
   // The post tapped in the grid; the list opens scrolled to it
   initialPostId: string;
   isOwnPosts: boolean;
-  // Called when the last post is deleted, so the screen can close
-  onEmpty: () => void;
+  // Called as soon as a delete is confirmed, so the screen can close like Instagram
+  onDeleted: () => void;
 }
 
 export const UserPostsFeedWidget: React.FC<UserPostsFeedWidgetProps> = ({
   userId,
   initialPostId,
   isOwnPosts,
-  onEmpty,
+  onDeleted,
 }) => {
   const listRef = useRef<FlatList<Post>>(null);
   const optionsSheetRef = useRef<BottomSheetModal>(null);
   const hasScrolledToInitial = useRef(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  // Kept while the screen closes, so the deleted post doesn't vanish from under the user
+  const [closingPosts, setClosingPosts] = useState<Post[] | null>(null);
 
   const { posts: cachedPosts, isLoading, isLoadingMore, loadMore } = useUserPosts(userId);
   const { posts, toggleLike, toggleSave } = useLocalPostToggles(cachedPosts);
@@ -66,9 +72,11 @@ export const UserPostsFeedWidget: React.FC<UserPostsFeedWidgetProps> = ({
 
   const handleDelete = useCallback(() => {
     if (!selectedPost) return;
-    const isLastPost = cachedPosts.length === 1;
-    confirmDelete(selectedPost, isLastPost ? onEmpty : undefined);
-  }, [cachedPosts.length, confirmDelete, onEmpty, selectedPost]);
+    confirmDelete(selectedPost, () => {
+      setClosingPosts(posts);
+      onDeleted();
+    });
+  }, [confirmDelete, onDeleted, posts, selectedPost]);
 
   const renderPost: ListRenderItem<Post> = useCallback(
     ({ item }) => (
@@ -89,8 +97,10 @@ export const UserPostsFeedWidget: React.FC<UserPostsFeedWidgetProps> = ({
 
   if (isLoading) {
     return (
-      <View style={commonStyles.centerFlex}>
-        <Loader size="large" />
+      <View style={styles.skeleton}>
+        {Array.from({ length: USER_POSTS_CONFIG.FEED_SKELETON_POSTS }, (_, index) => (
+          <PostCardSkeleton key={index} />
+        ))}
       </View>
     );
   }
@@ -99,10 +109,10 @@ export const UserPostsFeedWidget: React.FC<UserPostsFeedWidgetProps> = ({
     <>
       <FlatList
         ref={listRef}
-        data={posts}
+        data={closingPosts ?? posts}
         keyExtractor={item => item.id}
         renderItem={renderPost}
-        initialNumToRender={Math.max(initialIndex + 1, MIN_INITIAL_RENDER)}
+        initialNumToRender={Math.max(initialIndex + 1, USER_POSTS_CONFIG.FEED_MIN_INITIAL_RENDER)}
         onContentSizeChange={scrollToInitialPost}
         onScrollToIndexFailed={handleScrollToIndexFailed}
         onEndReached={loadMore}
@@ -127,5 +137,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingVertical: spacing.xl,
+  },
+  skeleton: {
+    flex: 1,
+    overflow: 'hidden',
   },
 });

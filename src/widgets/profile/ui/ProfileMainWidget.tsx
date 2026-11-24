@@ -10,7 +10,7 @@ import {
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 import { User, UserLink } from '@/entities/user';
-import { Post, PostGridTile, useUserPosts } from '@/entities/post';
+import { Post, PostGridSkeleton, PostGridTile, useUserPosts } from '@/entities/post';
 import { EmptyState, Grid, GridRenderItemInfo, Loader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
 import { sanitizeUrl } from '@/shared/lib/formatters';
@@ -34,6 +34,8 @@ export interface ProfileMainWidgetProps {
   onShareProfile?: () => void;
   onFollowToggle?: () => void;
   onMessage?: () => void;
+  onPressFollowers?: () => void;
+  onPressFollowing?: () => void;
   onShareFirstPhoto?: () => void;
   onPressPost?: (post: Post) => void;
   onRefresh?: () => Promise<void> | void;
@@ -48,6 +50,8 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
   onShareProfile,
   onFollowToggle,
   onMessage,
+  onPressFollowers,
+  onPressFollowing,
   onShareFirstPhoto,
   onPressPost,
   onRefresh,
@@ -108,7 +112,11 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
   const listHeader = useMemo(
     () => (
       <>
-        <ProfileHeaderSection user={user} />
+        <ProfileHeaderSection
+          user={user}
+          onPressFollowers={onPressFollowers}
+          onPressFollowing={onPressFollowing}
+        />
 
         <ProfileBioSection
           user={user}
@@ -130,6 +138,8 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
     ),
     [
       user,
+      onPressFollowers,
+      onPressFollowing,
       handleOpenLinksSheet,
       handleOpenLinkUrl,
       isCurrentUser,
@@ -147,7 +157,7 @@ export const ProfileMainWidget: React.FC<ProfileMainWidgetProps> = ({
       return <ProfilePostsEmptyState isCurrentUser={isCurrentUser} />;
     }
     if (isPostsLoading) {
-      return <Loader style={styles.status} />;
+      return <PostGridSkeleton />;
     }
     if (isPostsError) {
       return (

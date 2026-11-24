@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Avatar, Icon, Row, Section, Stack, Text, Touchable } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { spacing } from '@/shared/theme';
+import { hitSlop, spacing } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatRelativeTime } from '@/shared/lib/formatters';
@@ -12,17 +12,16 @@ import { POST_CONFIG } from '../model/constants';
 import { PostMediaCarousel } from './PostMediaCarousel';
 import { PostActions } from './PostActions';
 
-const MORE_HIT_SLOP = { top: 12, bottom: 12, left: 12, right: 12 };
-
 export interface PostCardProps {
   post: Post;
   onToggleLike: (postId: string) => void;
   onToggleSave: (postId: string) => void;
   // Shows the options button when given
   onPressMore?: (post: Post) => void;
+  onPressAuthor?: (post: Post) => void;
 }
 
-export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onToggleSave, onPressMore }) => {
+export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onToggleSave, onPressMore, onPressAuthor }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -40,6 +39,7 @@ export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onT
 
   const handleExpandCaption = useCallback(() => setIsCaptionExpanded(true), []);
   const handlePressMore = useCallback(() => onPressMore?.(post), [onPressMore, post]);
+  const handlePressAuthor = useCallback(() => onPressAuthor?.(post), [onPressAuthor, post]);
 
   const isCaptionLong = post.caption.length > POST_CONFIG.CAPTION_PREVIEW_LENGTH;
   const isCaptionCut = isCaptionLong && !isCaptionExpanded;
@@ -51,23 +51,32 @@ export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onT
     <View style={styles.container} testID={TEST_IDS.FEED.POST}>
       <Section>
         <Row justify="space-between" style={styles.header}>
-          <Row gap="sm" style={styles.author}>
-            <Avatar uri={post.author.avatarUrl} size="sm" />
-            <View style={styles.author}>
-              <Text weight="semibold" numberOfLines={1}>
-                {post.author.username}
-              </Text>
-              {post.location ? (
-                <Text variant="caption" color={theme.colors.textPrimary} numberOfLines={1}>
-                  {post.location}
+          <Touchable
+            onPress={handlePressAuthor}
+            disabled={!onPressAuthor}
+            accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
+            accessibilityLabel={post.author.username}
+            testID={TEST_IDS.FEED.AUTHOR}
+            style={styles.author}
+          >
+            <Row gap="sm">
+              <Avatar uri={post.author.avatarUrl} size="sm" />
+              <View style={styles.author}>
+                <Text weight="semibold" numberOfLines={1}>
+                  {post.author.username}
                 </Text>
-              ) : null}
-            </View>
-          </Row>
+                {post.location ? (
+                  <Text variant="caption" color={theme.colors.textPrimary} numberOfLines={1}>
+                    {post.location}
+                  </Text>
+                ) : null}
+              </View>
+            </Row>
+          </Touchable>
           {onPressMore ? (
             <Touchable
               onPress={handlePressMore}
-              hitSlop={MORE_HIT_SLOP}
+              hitSlop={hitSlop.lg}
               accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
               accessibilityLabel={t(TRANSLATION_KEYS.POST_OPTIONS)}
               testID={TEST_IDS.POST.MORE_BUTTON}

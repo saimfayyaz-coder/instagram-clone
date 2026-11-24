@@ -20,13 +20,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Icon, Text } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { commonStyles, ms, spacing } from '@/shared/theme';
+import { commonStyles, iconSize, motion, ms, spacing } from '@/shared/theme';
 import { APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { PostImage } from '../model/types';
-
-const HEART_SIZE = 96;
-const HEART_HOLD_MS = 500;
-const HEART_FADE_MS = 200;
 
 export interface PostMediaCarouselProps {
   images: PostImage[];
@@ -51,7 +47,7 @@ export const PostMediaCarousel: React.FC<PostMediaCarouselProps> = ({
   const handleDoubleTap = useCallback(() => {
     heartScale.value = withSequence(
       withSpring(1),
-      withDelay(HEART_HOLD_MS, withTiming(0, { duration: HEART_FADE_MS })),
+      withDelay(motion.hold, withTiming(0, { duration: motion.normal })),
     );
     onDoubleTap();
   }, [heartScale, onDoubleTap]);
@@ -114,7 +110,7 @@ export const PostMediaCarousel: React.FC<PostMediaCarouselProps> = ({
             <Icon
               type="Ionicons"
               name={APP_ICONS.HEART_FILLED}
-              size={HEART_SIZE}
+              size={iconSize.hero}
               color={theme.colors.onOverlay}
             />
           </Animated.View>

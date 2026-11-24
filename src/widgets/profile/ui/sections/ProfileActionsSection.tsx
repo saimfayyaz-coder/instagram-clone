@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, Section, Row } from '@/shared/ui';
-import { BUTTON_VARIANTS } from '@/shared/constants';
+import { FollowButton } from '@/features/follow-user';
+import { BUTTON_VARIANTS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ms } from '@/shared/theme';
 
@@ -51,17 +52,14 @@ export const ProfileActionsSection: React.FC<ProfileActionsSectionProps> = ({
   return (
     <Section style={styles.container}>
       <Row gap="sm">
-        <Button
-          title={
-            isFollowing
-              ? t(TRANSLATION_KEYS.PROFILE_FOLLOWING)
-              : t(TRANSLATION_KEYS.PROFILE_FOLLOW)
-          }
-          variant={isFollowing ? BUTTON_VARIANTS.SECONDARY : BUTTON_VARIANTS.PRIMARY}
-          size="sm"
-          onPress={onFollowToggle}
-          style={styles.actionBtn}
-        />
+        {onFollowToggle && (
+          <FollowButton
+            isFollowing={isFollowing}
+            onPress={onFollowToggle}
+            style={styles.actionBtn}
+            testID={TEST_IDS.PROFILE.FOLLOW_BUTTON}
+          />
+        )}
         <Button
           title={t(TRANSLATION_KEYS.PROFILE_MESSAGE)}
           variant={BUTTON_VARIANTS.SECONDARY}

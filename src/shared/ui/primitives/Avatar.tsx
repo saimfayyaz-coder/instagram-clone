@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Touchable } from './Touchable';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { palette } from '@/shared/theme';
+import { avatarSize, palette } from '@/shared/theme';
 import { ms } from '@/shared/theme/scaling';
 import { ACCESSIBILITY_ROLES, APP_ICONS } from '@/shared/constants';
 import { Icon } from './Icon';
@@ -32,11 +32,11 @@ export interface AvatarProps {
 }
 
 const SIZE_MAP: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number> = {
-  xs: 24,
-  sm: 32,
-  md: 56,
-  lg: 86,
-  xl: 100,
+  xs: avatarSize.xs,
+  sm: avatarSize.sm,
+  md: avatarSize.md,
+  lg: avatarSize.lg,
+  xl: avatarSize.xl,
 };
 
 const resolveDimension = (size: AvatarSize): number => {
@@ -138,7 +138,7 @@ export const Avatar: React.FC<AvatarProps> = ({
             },
           ]}
         >
-          <Icon type="Ionicons" name={APP_ICONS.CAMERA_FILLED} size={ms(12)} color={palette.white} />
+          <Icon type="Ionicons" name={APP_ICONS.CAMERA_FILLED} size={12} color={palette.white} />
         </View>
       )}
     </View>

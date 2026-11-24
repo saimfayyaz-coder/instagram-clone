@@ -1,12 +1,12 @@
 import { baseApi } from '@/shared/api';
 import { ApiSuccessResponse } from '@/shared/types';
 import { API_ENDPOINTS, HTTP_METHODS } from '@/shared/constants';
-import { ApiPost, UserPostsPage } from '../model/types';
-import { USER_POSTS_CONFIG } from '../model/constants';
-import { userPostsTag } from '../model/tags';
+import { ApiPost, PostsPage } from '../model/types';
+import { FEED_CONFIG, USER_POSTS_CONFIG } from '../model/constants';
+import { FEED_TAG, userPostsTag } from '../model/tags';
 import { mapApiPost } from '../lib/mapApiPost';
 
-interface ApiUserPostsPage {
+interface ApiPostsPage {
   posts: ApiPost[];
   nextCursor: string | null;
 }
@@ -19,7 +19,7 @@ export interface DeletePostArgs {
 export const postApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     // Arg is the user id; pages are fetched by cursor, newest first
-    getUserPosts: builder.infiniteQuery<UserPostsPage, string, string | null>({
+    getUserPosts: builder.infiniteQuery<PostsPage, string, string | null>({
       infiniteQueryOptions: {
         initialPageParam: null,
         getNextPageParam: lastPage => lastPage.nextCursor,
@@ -32,7 +32,7 @@ export const postApi = baseApi.injectEndpoints({
           ...(pageParam ? { cursor: pageParam } : {}),
         },
       }),
-      transformResponse: (response: ApiSuccessResponse<ApiUserPostsPage>) => ({
+      transformResponse: (response: ApiSuccessResponse<ApiPostsPage>) => ({
         posts: response.data.posts.map(mapApiPost),
         nextCursor: response.data.nextCursor,
       }),
@@ -40,6 +40,30 @@ export const postApi = baseApi.injectEndpoints({
         skipGlobalErrorToast: true,
       },
       providesTags: (_result, _error, userId) => [userPostsTag(userId)],
+    }),
+
+    // Posts from followed users plus the user's own, newest first
+    getFeed: builder.infiniteQuery<PostsPage, void, string | null>({
+      infiniteQueryOptions: {
+        initialPageParam: null,
+        getNextPageParam: lastPage => lastPage.nextCursor,
+      },
+      query: ({ pageParam }) => ({
+        url: API_ENDPOINTS.POSTS.FEED,
+        method: HTTP_METHODS.GET,
+        params: {
+          limit: FEED_CONFIG.PAGE_SIZE,
+          ...(pageParam ? { cursor: pageParam } : {}),
+        },
+      }),
+      transformResponse: (response: ApiSuccessResponse<ApiPostsPage>) => ({
+        posts: response.data.posts.map(mapApiPost),
+        nextCursor: response.data.nextCursor,
+      }),
+      extraOptions: {
+        skipGlobalErrorToast: true,
+      },
+      providesTags: [FEED_TAG],
     }),
 
     deletePost: builder.mutation<ApiSuccessResponse<{ postId: string }>, DeletePostArgs>({
@@ -52,21 +76,24 @@ export const postApi = baseApi.injectEndpoints({
       },
       // Removes the post right away; puts it back if the server refuses
       async onQueryStarted({ postId, userId }, { dispatch, queryFulfilled }) {
-        const patch = dispatch(
-          postApi.util.updateQueryData('getUserPosts', userId, draft => {
-            draft.pages.forEach(page => {
-              page.posts = page.posts.filter(post => post.id !== postId);
-            });
-          }),
-        );
+        const removePost = (draft: { pages: PostsPage[] }) => {
+          draft.pages.forEach(page => {
+            page.posts = page.posts.filter(post => post.id !== postId);
+          });
+        };
+        const patches = [
+          dispatch(postApi.util.updateQueryData('getUserPosts', userId, removePost)),
+          dispatch(postApi.util.updateQueryData('getFeed', undefined, removePost)),
+        ];
         try {
           await queryFulfilled;
         } catch {
-          patch.undo();
+          patches.forEach(patch => patch.undo());
         }
       },
     }),
   }),
 });
 
-export const { useGetUserPostsInfiniteQuery, useDeletePostMutation } = postApi;
+export const { useGetUserPostsInfiniteQuery, useGetFeedInfiniteQuery, useDeletePostMutation } =
+  postApi;

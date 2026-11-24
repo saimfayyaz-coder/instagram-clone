@@ -76,9 +76,15 @@ export const API_ENDPOINTS = {
     LINKS: '/users/profile/links',
     LINK: (linkId: string) => `/users/profile/links/${linkId}`,
     POSTS: (userId: string) => `/users/${userId}/posts`,
+    PUBLIC_PROFILE: (username: string) => `/users/${encodeURIComponent(username)}`,
+    FOLLOW: (userId: string) => `/users/${userId}/follow`,
+    FOLLOWERS: (userId: string) => `/users/${userId}/followers`,
+    FOLLOWING: (userId: string) => `/users/${userId}/following`,
+    SEARCH: '/users/search',
   },
   POSTS: {
     CREATE: '/posts',
+    FEED: '/posts/feed',
     BY_ID: (postId: string) => `/posts/${postId}`,
   },
   MEDIA: {

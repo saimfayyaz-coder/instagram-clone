@@ -9,26 +9,24 @@ import { parseApiError } from '@/shared/lib/errors';
 import { API_ERROR_CODES, ALERT_BUTTON_STYLES, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
-// Asks first, then deletes; the post leaves the lists at once and returns if the server refuses
+// Asks first; onConfirmed runs before the request so the screen can close right away
 export const useDeletePost = (userId: string) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [deletePost] = useDeletePostMutation();
 
   const runDelete = useCallback(
-    async (post: Post, onDeleted?: () => void) => {
+    async (post: Post) => {
+      // Drops with the grid tile; restored below if the server refuses
+      dispatch(adjustPostsCount(-1));
       try {
         await deletePost({ postId: post.id, userId }).unwrap();
-        dispatch(adjustPostsCount(-1));
         showToast({ message: t(TRANSLATION_KEYS.POST_DELETED) });
-        onDeleted?.();
       } catch (error) {
         const parsed = parseApiError(error);
         // Already gone on the server, which is what the user wanted
-        if (parsed.code === API_ERROR_CODES.POST_NOT_FOUND) {
-          onDeleted?.();
-          return;
-        }
+        if (parsed.code === API_ERROR_CODES.POST_NOT_FOUND) return;
+        dispatch(adjustPostsCount(1));
         showAlert({
           title: t(TRANSLATION_KEYS.POST_DELETE_FAILED_TITLE),
           message: parsed.message,
@@ -39,7 +37,7 @@ export const useDeletePost = (userId: string) => {
   );
 
   const confirmDelete = useCallback(
-    (post: Post, onDeleted?: () => void) => {
+    (post: Post, onConfirmed?: () => void) => {
       showAlert({
         title: t(TRANSLATION_KEYS.POST_DELETE_CONFIRM_TITLE),
         message: t(TRANSLATION_KEYS.POST_DELETE_CONFIRM_MESSAGE),
@@ -49,7 +47,10 @@ export const useDeletePost = (userId: string) => {
             text: t(TRANSLATION_KEYS.POST_DELETE),
             style: ALERT_BUTTON_STYLES.DESTRUCTIVE,
             testID: TEST_IDS.POST.DELETE_OPTION,
-            onPress: () => runDelete(post, onDeleted),
+            onPress: () => {
+              onConfirmed?.();
+              runDelete(post);
+            },
           },
         ],
       });

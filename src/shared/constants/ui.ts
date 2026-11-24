@@ -126,6 +126,8 @@ export const APP_ICONS = {
   MULTI_SELECT: 'copy-outline',
   CROP_SHAPE: 'expand-outline',
   REFRESH: 'refresh',
+  SEARCH: 'search-outline',
+  PEOPLE: 'people-outline',
 } as const;
 
 export type AppIconName = (typeof APP_ICONS)[keyof typeof APP_ICONS];
@@ -136,6 +138,13 @@ export const PROFILE_TABS = {
 } as const;
 
 export const PROFILE_TAB = PROFILE_TABS;
+
+export const FOLLOW_LIST_TYPES = {
+  FOLLOWERS: 'followers',
+  FOLLOWING: 'following',
+} as const;
+
+export type FollowListType = (typeof FOLLOW_LIST_TYPES)[keyof typeof FOLLOW_LIST_TYPES];
 
 export const PROFILE_GRID = {
   COLUMNS: 3,

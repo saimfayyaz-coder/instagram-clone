@@ -47,6 +47,18 @@ export const TEST_IDS = {
     AVATAR_PREVIEW: 'profile-avatar-preview',
     POSTS_GRID: 'profile-posts-grid',
     POST_TILE: 'profile-post-tile',
+    FOLLOWERS_STAT: 'profile-followers-stat',
+    FOLLOWING_STAT: 'profile-following-stat',
+    FOLLOW_BUTTON: 'profile-follow-button',
+  },
+  USER_LIST: {
+    LIST: 'user-list',
+    ROW: 'user-list-row',
+    FOLLOW_BUTTON: 'user-list-follow-button',
+  },
+  SEARCH: {
+    INPUT: 'search-input',
+    CLEAR: 'search-clear',
   },
   CREATE_POST: {
     NEXT: 'create-post-next',
@@ -73,6 +85,7 @@ export const TEST_IDS = {
   FEED: {
     LIST: 'feed-list',
     POST: 'feed-post',
+    AUTHOR: 'feed-post-author',
     LIKE_BUTTON: 'feed-post-like-button',
     SAVE_BUTTON: 'feed-post-save-button',
     MEDIA: 'feed-post-media',

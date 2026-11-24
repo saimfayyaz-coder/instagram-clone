@@ -34,6 +34,15 @@ export const userSlice = createSlice({
         );
       }
     },
+    // Same idea for following someone, so the profile count moves with the Follow button
+    adjustFollowingCount: (state, action: PayloadAction<number>) => {
+      if (state.currentUser) {
+        state.currentUser.followingCount = Math.max(
+          0,
+          (state.currentUser.followingCount ?? 0) + action.payload,
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -79,6 +88,11 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, setPendingAvatar, clearPendingAvatar, adjustPostsCount } =
-  userSlice.actions;
+export const {
+  setUser,
+  setPendingAvatar,
+  clearPendingAvatar,
+  adjustPostsCount,
+  adjustFollowingCount,
+} = userSlice.actions;
 export const userReducer = userSlice.reducer;

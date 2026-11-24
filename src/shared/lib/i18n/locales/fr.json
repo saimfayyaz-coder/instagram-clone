@@ -150,7 +150,12 @@
     "shareFirstPhoto": "Partagez votre première photo",
     "moreLinks": "et {{count}} de plus",
     "tabPosts": "Grille des publications",
-    "tabTagged": "Publications identifiées"
+    "tabTagged": "Publications identifiées",
+    "followersEmpty": "Aucun abonné pour l'instant.",
+    "followingEmpty": "Aucun abonnement pour l'instant.",
+    "usersLoadFailed": "Impossible de charger cette liste.",
+    "loadFailed": "Impossible de charger ce profil.",
+    "menu": "Menu"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Identifiants invalides.",
@@ -188,7 +193,8 @@
     "INVALID_IMAGE": "Ce fichier n’est pas une image prise en charge.",
     "FILE_TOO_LARGE": "Cette photo est trop volumineuse.",
     "UPLOAD_FAILED": "Impossible d’envoyer la photo. Veuillez réessayer.",
-    "RATE_LIMITED": "Vous faites cela trop souvent. Réessayez plus tard."
+    "RATE_LIMITED": "Vous faites cela trop souvent. Réessayez plus tard.",
+    "CANNOT_FOLLOW_SELF": "Vous ne pouvez pas vous suivre vous-même."
   },
   "mediaPicker": {
     "profileTitle": "Nouvelle photo de profil",
@@ -215,7 +221,10 @@
     "unlike": "Je n’aime plus",
     "save": "Enregistrer",
     "unsave": "Retirer des enregistrements",
-    "allCaughtUp": "Vous êtes à jour"
+    "allCaughtUp": "Vous êtes à jour",
+    "emptyTitle": "Bienvenue sur Instagram",
+    "emptySubtitle": "Suivez des personnes pour voir leurs photos ici.",
+    "findPeople": "Trouver des personnes"
   },
   "time": {
     "justNow": "À l’instant",
@@ -261,5 +270,13 @@
     "failed": "Échec de la publication",
     "retry": "Réessayer",
     "discard": "Abandonner"
+  },
+  "search": {
+    "placeholder": "Rechercher",
+    "promptTitle": "Rechercher des personnes",
+    "promptSubtitle": "Trouvez des amis par nom d'utilisateur ou par nom.",
+    "noResults": "Aucun résultat pour « {{query}} »",
+    "failed": "Recherche impossible pour le moment.",
+    "clear": "Effacer la recherche"
   }
 }
