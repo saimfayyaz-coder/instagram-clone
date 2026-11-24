@@ -1,5 +1,5 @@
 import { device } from 'detox';
-import { TEST_ACCOUNT } from './env';
+import { TestApi, TestUser } from './testApi';
 import { LoginScreen } from '../screens/LoginScreen';
 import { TabBar } from '../screens/MainScreens';
 
@@ -11,8 +11,11 @@ export const launchLoggedOut = async () => {
   await LoginScreen.waitUntilVisible();
 };
 
-export const launchLoggedIn = async () => {
+// Creates a fresh user through the test API, logs in as them and returns the user
+export const launchLoggedIn = async (options?: { withPost?: boolean }): Promise<TestUser> => {
+  const user = await TestApi.createUser(options);
   await launchLoggedOut();
-  await LoginScreen.login(TEST_ACCOUNT.username, TEST_ACCOUNT.password);
+  await LoginScreen.login(user.username, user.password);
   await TabBar.waitUntilVisible();
+  return user;
 };

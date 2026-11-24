@@ -7,7 +7,7 @@ export const FeedScreen = {
   firstLikeButton: () => element(by.id(TEST_IDS.FEED.LIKE_BUTTON)).atIndex(0),
 
   async waitUntilLoaded() {
-    // Mock feed resolves after a short delay
+    // The feed loads from the API; the test user is created with one post
     await waitFor(this.firstLikeButton()).toBeVisible().withTimeout(15000);
   },
 

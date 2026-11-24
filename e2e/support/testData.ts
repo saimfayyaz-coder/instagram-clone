@@ -1,6 +1,6 @@
-// Fixed values used by E2E tests. The test account itself comes from env.ts (.env.e2e or CI secrets).
+// Fixed values used by E2E tests. Users are created per test file through the test API (testApi.ts).
 export const TEST_DATA = {
-  // Never a real password for the test account
+  // Never a real password: test users get random ones
   INVALID_PASSWORD: 'wrong-password-123',
   // Accessibility labels (en) of the post like button
   LIKE_LABELS: {

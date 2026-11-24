@@ -4,8 +4,9 @@ module.exports = {
   testMatch: ['<rootDir>/e2e/**/*.test.ts'],
   testTimeout: 120000,
   maxWorkers: 1,
-  globalSetup: 'detox/runners/jest/globalSetup',
-  globalTeardown: 'detox/runners/jest/globalTeardown',
+  // Wrap Detox's setup/teardown: create a run id + clean old test users, then delete this run's users
+  globalSetup: '<rootDir>/e2e/support/globalSetup.ts',
+  globalTeardown: '<rootDir>/e2e/support/globalTeardown.ts',
   reporters: [
     'detox/runners/jest/reporter',
     // JUnit XML report (artifacts/junit.xml): CI shows it as a pass/fail table

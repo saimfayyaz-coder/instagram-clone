@@ -7,12 +7,13 @@ const { LIKE, UNLIKE } = TEST_DATA.LIKE_LABELS;
 
 describe('Feed: like a post', () => {
   beforeAll(async () => {
-    await launchLoggedIn();
+    // The feed shows only own posts and followed users' posts, so the user gets one post
+    await launchLoggedIn({ withPost: true });
     await FeedScreen.waitUntilLoaded();
   });
 
   it('toggles the like on the first post and back', async () => {
-    // Mock data may start liked or not, so compare against the starting state
+    // Likes are local-only for now, so compare against the starting state
     const before = await FeedScreen.firstLikeLabel();
     const toggled = before === LIKE ? UNLIKE : LIKE;
 

@@ -23,11 +23,12 @@ const required = (name: string): string => {
   return value;
 };
 
-export const TEST_ACCOUNT = {
-  get username() {
-    return required('E2E_USERNAME');
+// Where the backend's test-data API lives and the secret it expects
+export const E2E_ENV = {
+  get apiUrl() {
+    return required('E2E_API_URL').replace(/\/+$/, '');
   },
-  get password() {
-    return required('E2E_PASSWORD');
+  get testToken() {
+    return required('E2E_TEST_TOKEN');
   },
 };
