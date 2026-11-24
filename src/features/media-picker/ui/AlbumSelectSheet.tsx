@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { ms, commonStyles, layout } from '@/shared/theme';
+import { ms, commonStyles, iconSize, layout } from '@/shared/theme';
 import { APP_ICONS, GALLERY_CONFIG } from '@/shared/constants';
 import { MediaAlbum } from '@/shared/types';
 
@@ -62,7 +62,7 @@ export const AlbumSelectSheet: React.FC<AlbumSelectSheetProps> = ({
             <Icon
               type="Ionicons"
               name={APP_ICONS.IMAGES}
-              size={ms(22)}
+              size={iconSize.md}
               color={theme.colors.textPrimary}
             />
           </View>

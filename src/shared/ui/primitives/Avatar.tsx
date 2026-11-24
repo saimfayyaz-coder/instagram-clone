@@ -138,7 +138,7 @@ export const Avatar: React.FC<AvatarProps> = ({
             },
           ]}
         >
-          <Icon type="Ionicons" name={APP_ICONS.CAMERA_FILLED} size={ms(12)} color={palette.white} />
+          <Icon type="Ionicons" name={APP_ICONS.CAMERA_FILLED} size={12} color={palette.white} />
         </View>
       )}
     </View>

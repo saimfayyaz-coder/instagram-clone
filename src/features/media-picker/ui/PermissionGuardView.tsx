@@ -36,7 +36,7 @@ export const PermissionGuardView: React.FC<PermissionGuardViewProps> = ({
         <Icon
           type="Ionicons"
           name={APP_ICONS.IMAGES}
-          size={ms(40)}
+          size={40}
           color={theme.colors.textPrimary}
         />
       </View>

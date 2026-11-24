@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Touchable, Text, Icon, Row } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { ms, commonStyles, layout, sizes } from '@/shared/theme';
+import { ms, commonStyles, iconSize, layout, sizes } from '@/shared/theme';
 import { APP_ICONS, TEST_IDS } from '@/shared/constants';
 
 export interface MediaPickerControlBarProps {
@@ -36,7 +36,7 @@ export const MediaPickerControlBar: React.FC<MediaPickerControlBarProps> = ({
       <Icon
         type="Ionicons"
         name={APP_ICONS.CAMERA}
-        size={ms(20)}
+        size={20}
         color={theme.colors.textPrimary}
       />
     </Touchable>
@@ -70,7 +70,7 @@ export const MediaPickerControlBar: React.FC<MediaPickerControlBarProps> = ({
         <Icon
           type="Ionicons"
           name={APP_ICONS.CHEVRON_DOWN}
-          size={ms(18)}
+          size={iconSize.sm}
           color={theme.colors.textPrimary}
         />
       </Touchable>

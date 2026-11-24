@@ -11,7 +11,7 @@ import { useDebouncedCallback, useTheme } from '@/shared/hooks';
 import { ACCESSIBILITY_ROLES, APP_ICONS, MAIN_ROUTES, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
-import { ms, spacing } from '@/shared/theme';
+import { iconSize, spacing } from '@/shared/theme';
 
 const NO_USERS: UserSummary[] = [];
 
@@ -75,7 +75,7 @@ export const SearchPage: React.FC = () => {
                 <Icon
                   type="Ionicons"
                   name={APP_ICONS.CLOSE_CIRCLE}
-                  size={ms(18)}
+                  size={iconSize.sm}
                   color={theme.colors.textSecondary}
                 />
               </Touchable>

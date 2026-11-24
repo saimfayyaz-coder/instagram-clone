@@ -32,7 +32,7 @@ export const ProfileHeaderSection: React.FC<ProfileHeaderSectionProps> = ({
       <Row>
         <UserAvatar
           user={user}
-          size={ms(78)}
+          size={78}
           // No photo, nothing to enlarge
           onPress={avatarUri ? () => setIsAvatarPreviewOpen(true) : undefined}
           testID={TEST_IDS.PROFILE.AVATAR}
