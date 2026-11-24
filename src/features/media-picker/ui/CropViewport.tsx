@@ -13,12 +13,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import Svg, { Defs, Mask, Rect, Circle } from 'react-native-svg';
 import { useTheme } from '@/shared/hooks';
-import { commonStyles } from '@/shared/theme';
+import { commonStyles, motion } from '@/shared/theme';
 import { GALLERY_CONFIG, MASK_SHAPES, MaskShape } from '@/shared/constants';
 import { CropTransform, getCoverScale, getPanLimits } from '@/shared/lib/media';
 
-const RESET_DURATION = 150;
-const SNAP_DURATION = 200;
 const MASK_ID = 'cropMask';
 
 export interface CropViewportHandle {
@@ -73,9 +71,9 @@ export const CropViewport = forwardRef<CropViewportHandle, CropViewportProps>(
     // Start from the centre (or the saved framing) every time a new image is shown
     useEffect(() => {
       const target = initialTransformRef.current ?? { scale: 1, translateX: 0, translateY: 0 };
-      scale.value = withTiming(target.scale, { duration: RESET_DURATION });
-      translateX.value = withTiming(target.translateX, { duration: RESET_DURATION });
-      translateY.value = withTiming(target.translateY, { duration: RESET_DURATION });
+      scale.value = withTiming(target.scale, { duration: motion.fast });
+      translateX.value = withTiming(target.translateX, { duration: motion.fast });
+      translateY.value = withTiming(target.translateY, { duration: motion.fast });
       savedScale.value = target.scale;
       savedTranslateX.value = target.translateX;
       savedTranslateY.value = target.translateY;
@@ -114,8 +112,8 @@ export const CropViewport = forwardRef<CropViewportHandle, CropViewportProps>(
         });
         savedTranslateX.value = clamp(translateX.value, limits.x);
         savedTranslateY.value = clamp(translateY.value, limits.y);
-        translateX.value = withTiming(savedTranslateX.value, { duration: SNAP_DURATION });
-        translateY.value = withTiming(savedTranslateY.value, { duration: SNAP_DURATION });
+        translateX.value = withTiming(savedTranslateX.value, { duration: motion.normal });
+        translateY.value = withTiming(savedTranslateY.value, { duration: motion.normal });
       },
     });
 

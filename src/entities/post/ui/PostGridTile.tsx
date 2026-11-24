@@ -3,12 +3,10 @@ import { Image, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Icon, Touchable } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { spacing } from '@/shared/theme';
+import { iconSize, spacing } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { Post } from '../model/types';
-
-const CAROUSEL_ICON_SIZE = 18;
 
 export interface PostGridTileProps {
   post: Post;
@@ -46,7 +44,7 @@ export const PostGridTile: React.FC<PostGridTileProps> = memo(({ post, width, he
           <Icon
             type="Ionicons"
             name={APP_ICONS.CAROUSEL}
-            size={CAROUSEL_ICON_SIZE}
+            size={iconSize.sm}
             color={theme.colors.onOverlay}
           />
         </View>

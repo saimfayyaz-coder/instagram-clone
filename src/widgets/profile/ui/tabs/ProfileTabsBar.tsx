@@ -11,15 +11,13 @@ import {
   AppIconName,
 } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { ms } from '@/shared/theme';
+import { iconSize, ms } from '@/shared/theme';
 
 interface TabItemConfig {
   id: ProfileTabType;
   icon: AppIconName;
   labelKey: string;
 }
-
-const TAB_ICON_SIZE = 23;
 
 const PROFILE_TAB_ITEMS: readonly TabItemConfig[] = [
   {
@@ -74,7 +72,7 @@ export const ProfileTabsBar: React.FC<ProfileTabsBarProps> = ({
               <Icon
                 type="Ionicons"
                 name={icon}
-                size={TAB_ICON_SIZE}
+                size={iconSize.tabBar}
                 color={isActive ? theme.colors.textPrimary : theme.colors.textSecondary}
               />
             </Touchable>

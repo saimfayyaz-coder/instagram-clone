@@ -3,8 +3,8 @@ import { View, Image, StyleSheet } from 'react-native';
 import { Touchable, Text, Loader, Grid, GridRenderItemInfo } from '@/shared/ui';
 import { MediaAsset } from '@/shared/types';
 import { useTheme } from '@/shared/hooks';
-import { ms, commonStyles } from '@/shared/theme';
-import { TEST_IDS } from '@/shared/constants';
+import { commonStyles, ms, sizes } from '@/shared/theme';
+import { GALLERY_CONFIG, TEST_IDS } from '@/shared/constants';
 import { useTranslation } from 'react-i18next';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
@@ -19,9 +19,6 @@ export interface MediaGridProps {
   selectionOrder?: string[];
 }
 
-const NUM_COLUMNS = 4;
-const SPACING = 1.5;
-const BADGE_SIZE = ms(22);
 const NO_SELECTION: string[] = [];
 
 export const MediaGrid: React.FC<MediaGridProps> = ({
@@ -130,8 +127,8 @@ export const MediaGrid: React.FC<MediaGridProps> = ({
       data={photos}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
-      numColumns={NUM_COLUMNS}
-      spacing={SPACING}
+      numColumns={GALLERY_CONFIG.GRID_COLUMNS}
+      spacing={GALLERY_CONFIG.GRID_SPACING}
       extraData={multiSelect ? selectionOrder : selectedPhotoId}
       onEndReached={onLoadMorePhotos}
       onEndReachedThreshold={0.5}
@@ -155,9 +152,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: ms(6),
     end: ms(6),
-    width: BADGE_SIZE,
-    height: BADGE_SIZE,
-    borderRadius: BADGE_SIZE / 2,
+    width: sizes.badge,
+    height: sizes.badge,
+    borderRadius: sizes.badge / 2,
     borderWidth: 1.5,
   },
   emptyContainer: {

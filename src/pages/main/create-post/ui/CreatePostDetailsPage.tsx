@@ -18,7 +18,7 @@ import {
   Touchable,
 } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { ms, spacing } from '@/shared/theme';
+import { sizes, spacing } from '@/shared/theme';
 import {
   ACCESSIBILITY_ROLES,
   MAIN_ROUTES,
@@ -30,7 +30,7 @@ import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { MainStackParamList } from '@/shared/types';
 import { showToast } from '@/shared/lib/toast';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { POST_LIMITS } from '@/entities/post';
+import { POST_CONFIG, POST_LIMITS } from '@/entities/post';
 import {
   PostDetailsSchemaType,
   clearPostDraft,
@@ -41,11 +41,6 @@ import {
   selectIsPostUploadBusy,
   selectPostDraft,
 } from '@/features/create-post';
-
-const CAPTION_THUMB_WIDTH = ms(64);
-const ALT_THUMB_SIZE = ms(44);
-// Show the caption counter once the caption gets close to the limit
-const CAPTION_COUNTER_FROM = POST_LIMITS.CAPTION_MAX_LENGTH - 200;
 
 export const CreatePostDetailsPage: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackParamList>>();
@@ -165,15 +160,15 @@ export const CreatePostDetailsPage: React.FC = () => {
               style={[
                 styles.captionThumb,
                 {
-                  height: CAPTION_THUMB_WIDTH / draft.aspectRatio,
+                  height: sizes.thumbLg / draft.aspectRatio,
                   backgroundColor: theme.colors.bgSecondary,
                 },
               ]}
             />
           ) : (
             <Skeleton
-              width={CAPTION_THUMB_WIDTH}
-              height={CAPTION_THUMB_WIDTH / draft.aspectRatio}
+              width={sizes.thumbLg}
+              height={sizes.thumbLg / draft.aspectRatio}
               borderRadius={0}
             />
           )}
@@ -194,7 +189,7 @@ export const CreatePostDetailsPage: React.FC = () => {
                 />
               )}
             />
-            {captionLength >= CAPTION_COUNTER_FROM && (
+            {captionLength >= POST_CONFIG.CAPTION_COUNTER_FROM && (
               <View style={styles.counterRow}>
                 <Text variant="caption">
                   {`${captionLength} / ${POST_LIMITS.CAPTION_MAX_LENGTH}`}
@@ -243,7 +238,7 @@ export const CreatePostDetailsPage: React.FC = () => {
                   style={[styles.altThumb, { backgroundColor: theme.colors.bgSecondary }]}
                 />
               ) : (
-                <Skeleton width={ALT_THUMB_SIZE} height={ALT_THUMB_SIZE} borderRadius={0} />
+                <Skeleton width={sizes.thumbMd} height={sizes.thumbMd} borderRadius={0} />
               )}
               <View style={styles.captionInput}>
                 <Controller
@@ -283,7 +278,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   captionThumb: {
-    width: CAPTION_THUMB_WIDTH,
+    width: sizes.thumbLg,
   },
   captionInput: {
     flex: 1,
@@ -296,7 +291,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   altThumb: {
-    width: ALT_THUMB_SIZE,
-    height: ALT_THUMB_SIZE,
+    width: sizes.thumbMd,
+    height: sizes.thumbMd,
   },
 });

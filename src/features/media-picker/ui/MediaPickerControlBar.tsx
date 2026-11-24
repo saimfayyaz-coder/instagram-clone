@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Touchable, Text, Icon, Row } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { ms, commonStyles, layout } from '@/shared/theme';
+import { ms, commonStyles, layout, sizes } from '@/shared/theme';
 import { APP_ICONS, TEST_IDS } from '@/shared/constants';
 
 export interface MediaPickerControlBarProps {
@@ -87,8 +87,6 @@ export const MediaPickerControlBar: React.FC<MediaPickerControlBarProps> = ({
   );
 };
 
-export const MEDIA_PICKER_ROUND_BUTTON_SIZE = ms(32);
-
 const styles = StyleSheet.create({
   controlBar: {
     height: ms(44),
@@ -99,8 +97,8 @@ const styles = StyleSheet.create({
     marginRight: ms(4),
   },
   roundButton: {
-    width: MEDIA_PICKER_ROUND_BUTTON_SIZE,
-    height: MEDIA_PICKER_ROUND_BUTTON_SIZE,
-    borderRadius: MEDIA_PICKER_ROUND_BUTTON_SIZE / 2,
+    width: sizes.roundButton,
+    height: sizes.roundButton,
+    borderRadius: sizes.roundButton / 2,
   },
 });

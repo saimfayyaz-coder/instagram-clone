@@ -26,13 +26,25 @@ export const POST_LIMITS = {
 export const POST_CONFIG = {
   // Longer captions are cut with a "more" button
   CAPTION_PREVIEW_LENGTH: 90,
+  // The caption counter appears once the caption is this long
+  CAPTION_COUNTER_FROM: POST_LIMITS.CAPTION_MAX_LENGTH - 200,
 } as const;
 
 export const USER_POSTS_CONFIG = {
   // Six rows of the three-column profile grid
   PAGE_SIZE: 18,
+  // Skeleton rows on the profile grid while the first page loads
+  GRID_SKELETON_ROWS: 4,
+  // Skeleton cards on a user's post feed while it loads
+  FEED_SKELETON_POSTS: 2,
+  // Least posts the user's post feed renders on open
+  FEED_MIN_INITIAL_RENDER: 3,
 } as const;
 
 export const FEED_CONFIG = {
   PAGE_SIZE: 10,
+  // Starts loading the next page about one post before the end
+  END_REACHED_THRESHOLD: 1,
+  // Enough to fill the screen on first load
+  SKELETON_POSTS: 2,
 } as const;

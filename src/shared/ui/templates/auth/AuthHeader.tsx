@@ -5,7 +5,7 @@ import { InstagramLogo, Text } from '@/shared/ui/primitives';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { commonStyles } from '@/shared/theme';
+import { commonStyles, hitSlop } from '@/shared/theme';
 import { LanguageDropdownButton } from './LanguageDropdownButton';
 
 export interface AuthHeaderProps {
@@ -46,7 +46,7 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
       {onBackPress && (
         <Touchable
           onPress={onBackPress}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          hitSlop={hitSlop.md}
           style={styles.backButton}
           accessibilityLabel={t(TRANSLATION_KEYS.COMMON_BACK)}
         >

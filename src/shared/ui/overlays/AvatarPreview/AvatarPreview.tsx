@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { commonStyles } from '@/shared/theme';
+import { commonStyles, motion } from '@/shared/theme';
 
 export interface AvatarPreviewProps {
   visible: boolean;
@@ -16,7 +16,6 @@ export interface AvatarPreviewProps {
 
 // Share of the screen's shorter side the photo fills
 const PREVIEW_SCALE = 0.8;
-const ZOOM_DURATION_MS = 200;
 
 // Shows a profile picture large and round over a dark backdrop; any tap or Back closes it
 export const AvatarPreview: React.FC<AvatarPreviewProps> = ({ visible, uri, onClose, testID }) => {
@@ -45,7 +44,7 @@ export const AvatarPreview: React.FC<AvatarPreviewProps> = ({ visible, uri, onCl
         accessibilityLabel={t(TRANSLATION_KEYS.COMMON_CLOSE)}
         testID={testID}
       >
-        <Animated.View entering={ZoomIn.duration(ZOOM_DURATION_MS)}>
+        <Animated.View entering={ZoomIn.duration(motion.normal)}>
           <Image
             source={{ uri }}
             style={[

@@ -1,8 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { Avatar, ListItem } from '@/shared/ui';
+import { avatarSize } from '@/shared/theme';
 import { UserSummary } from '../model/types';
-
-const AVATAR_SIZE = 44;
 
 export interface UserListItemProps {
   user: UserSummary;
@@ -17,7 +16,7 @@ export const UserListItem: React.FC<UserListItemProps> = memo(({ user, right, on
 
   return (
     <ListItem
-      left={<Avatar uri={user.avatarUrl} size={AVATAR_SIZE} />}
+      left={<Avatar uri={user.avatarUrl} size={avatarSize.listItem} />}
       title={user.username}
       subtitle={user.name || undefined}
       titleWeight="semibold"

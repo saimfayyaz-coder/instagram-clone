@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/shared/hooks/useTheme';
-import { ms } from '@/shared/theme';
+import { hitSlop, ms } from '@/shared/theme';
 import { Text } from './Text';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { ACCESSIBILITY_ROLES } from '@/shared/constants';
@@ -229,7 +229,7 @@ export const FloatingInput: React.FC<FloatingInputProps> = ({
       ) : hasPasswordMode ? (
         <Pressable
           onPress={() => setShowPassword(prev => !prev)}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          hitSlop={hitSlop.md}
           style={{ marginStart: theme.spacing.sm }}
         >
           <Text

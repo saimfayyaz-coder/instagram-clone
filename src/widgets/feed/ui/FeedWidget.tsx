@@ -6,13 +6,8 @@ import { useTheme } from '@/shared/hooks';
 import { commonStyles, layout, spacing } from '@/shared/theme';
 import { APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-import { Post, PostCard, PostCardSkeleton } from '@/entities/post';
+import { FEED_CONFIG, Post, PostCard, PostCardSkeleton } from '@/entities/post';
 import { useFeed } from '../model/useFeed';
-
-// Starts loading the next page about one post before the end
-const END_REACHED_THRESHOLD = 1;
-// Enough to fill the screen on first load
-const SKELETON_POSTS = 2;
 
 export interface FeedWidgetProps {
   onPressAuthor?: (post: Post) => void;
@@ -91,7 +86,7 @@ export const FeedWidget: React.FC<FeedWidgetProps> = ({ onPressAuthor, onFindPeo
   if (isLoading) {
     return (
       <View style={styles.skeleton}>
-        {Array.from({ length: SKELETON_POSTS }, (_, index) => (
+        {Array.from({ length: FEED_CONFIG.SKELETON_POSTS }, (_, index) => (
           <PostCardSkeleton key={index} />
         ))}
       </View>
@@ -104,7 +99,7 @@ export const FeedWidget: React.FC<FeedWidgetProps> = ({ onPressAuthor, onFindPeo
       keyExtractor={item => item.id}
       renderItem={renderPost}
       onEndReached={loadMore}
-      onEndReachedThreshold={END_REACHED_THRESHOLD}
+      onEndReachedThreshold={FEED_CONFIG.END_REACHED_THRESHOLD}
       ListFooterComponent={renderFooter}
       ListEmptyComponent={renderEmpty}
       contentContainerStyle={styles.content}

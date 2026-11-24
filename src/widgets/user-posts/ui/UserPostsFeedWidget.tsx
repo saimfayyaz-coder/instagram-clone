@@ -6,15 +6,13 @@ import {
   PostCard,
   PostCardSkeleton,
   useLocalPostToggles,
+  USER_POSTS_CONFIG,
   useUserPosts,
 } from '@/entities/post';
 import { PostOptionsSheet, useDeletePost } from '@/features/delete-post';
 import { Loader } from '@/shared/ui';
 import { layout, spacing } from '@/shared/theme';
 import { TEST_IDS } from '@/shared/constants';
-
-const MIN_INITIAL_RENDER = 3;
-const SKELETON_POSTS = 2;
 
 export interface UserPostsFeedWidgetProps {
   userId: string;
@@ -100,7 +98,7 @@ export const UserPostsFeedWidget: React.FC<UserPostsFeedWidgetProps> = ({
   if (isLoading) {
     return (
       <View style={styles.skeleton}>
-        {Array.from({ length: SKELETON_POSTS }, (_, index) => (
+        {Array.from({ length: USER_POSTS_CONFIG.FEED_SKELETON_POSTS }, (_, index) => (
           <PostCardSkeleton key={index} />
         ))}
       </View>
@@ -114,7 +112,7 @@ export const UserPostsFeedWidget: React.FC<UserPostsFeedWidgetProps> = ({
         data={closingPosts ?? posts}
         keyExtractor={item => item.id}
         renderItem={renderPost}
-        initialNumToRender={Math.max(initialIndex + 1, MIN_INITIAL_RENDER)}
+        initialNumToRender={Math.max(initialIndex + 1, USER_POSTS_CONFIG.FEED_MIN_INITIAL_RENDER)}
         onContentSizeChange={scrollToInitialPost}
         onScrollToIndexFailed={handleScrollToIndexFailed}
         onEndReached={loadMore}

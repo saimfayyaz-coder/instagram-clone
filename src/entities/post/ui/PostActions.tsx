@@ -3,12 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Icon, Row, Touchable } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { commonStyles, ms, spacing } from '@/shared/theme';
+import { commonStyles, iconSize, sizes, spacing } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
-
-const ICON_SIZE = 26;
-const DOT_SIZE = ms(6);
 
 export interface PostActionsProps {
   isLiked: boolean;
@@ -42,12 +39,12 @@ export const PostActions: React.FC<PostActionsProps> = ({
           <Icon
             type="Ionicons"
             name={isLiked ? APP_ICONS.HEART_FILLED : APP_ICONS.HEART}
-            size={ICON_SIZE}
+            size={iconSize.lg}
             color={isLiked ? theme.colors.like : theme.colors.textPrimary}
           />
         </Touchable>
-        <Icon type="Ionicons" name={APP_ICONS.COMMENT} size={ICON_SIZE} color={theme.colors.textPrimary} />
-        <Icon type="Ionicons" name={APP_ICONS.SEND} size={ICON_SIZE} color={theme.colors.textPrimary} />
+        <Icon type="Ionicons" name={APP_ICONS.COMMENT} size={iconSize.lg} color={theme.colors.textPrimary} />
+        <Icon type="Ionicons" name={APP_ICONS.SEND} size={iconSize.lg} color={theme.colors.textPrimary} />
       </Row>
 
       {/* Centered on the whole row, independent of the icons on either side */}
@@ -79,7 +76,7 @@ export const PostActions: React.FC<PostActionsProps> = ({
         <Icon
           type="Ionicons"
           name={isSaved ? APP_ICONS.BOOKMARK_FILLED : APP_ICONS.BOOKMARK}
-          size={ICON_SIZE}
+          size={iconSize.lg}
           color={theme.colors.textPrimary}
         />
       </Touchable>
@@ -92,8 +89,8 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   dot: {
-    width: DOT_SIZE,
-    height: DOT_SIZE,
-    borderRadius: DOT_SIZE / 2,
+    width: sizes.dot,
+    height: sizes.dot,
+    borderRadius: sizes.dot / 2,
   },
 });

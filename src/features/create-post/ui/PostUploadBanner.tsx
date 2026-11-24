@@ -4,18 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { Icon, Loader, Row, Section, Text, Touchable } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { ms, spacing } from '@/shared/theme';
+import { hitSlop, iconSize, ms, sizes, spacing } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { POST_UPLOAD_STATUS } from '../model/constants';
 import { selectPostUpload } from '../model/selectors';
 import { postUploadCleared, postUploadRetried } from '../model/postComposerSlice';
 import { runPostUpload } from '../model/runPostUpload';
-
-const THUMB_SIZE = ms(40);
-const PROGRESS_HEIGHT = ms(2);
-const ACTION_ICON_SIZE = 22;
-const ACTION_HIT_SLOP = { top: 10, bottom: 10, left: 10, right: 10 };
 
 // "Posting…" strip shown at the top of Feed and Profile while a post uploads in the background
 export const PostUploadBanner: React.FC = () => {
@@ -88,7 +83,7 @@ export const PostUploadBanner: React.FC = () => {
             <Row gap="lg">
               <Touchable
                 onPress={handleRetry}
-                hitSlop={ACTION_HIT_SLOP}
+                hitSlop={hitSlop.md}
                 accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
                 accessibilityLabel={t(TRANSLATION_KEYS.CREATE_POST_RETRY)}
                 testID={TEST_IDS.CREATE_POST.UPLOAD_RETRY}
@@ -96,13 +91,13 @@ export const PostUploadBanner: React.FC = () => {
                 <Icon
                   type="Ionicons"
                   name={APP_ICONS.REFRESH}
-                  size={ACTION_ICON_SIZE}
+                  size={iconSize.md}
                   color={theme.colors.textPrimary}
                 />
               </Touchable>
               <Touchable
                 onPress={handleDiscard}
-                hitSlop={ACTION_HIT_SLOP}
+                hitSlop={hitSlop.md}
                 accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
                 accessibilityLabel={t(TRANSLATION_KEYS.CREATE_POST_DISCARD)}
                 testID={TEST_IDS.CREATE_POST.UPLOAD_DISCARD}
@@ -110,7 +105,7 @@ export const PostUploadBanner: React.FC = () => {
                 <Icon
                   type="Ionicons"
                   name={APP_ICONS.CLOSE}
-                  size={ACTION_ICON_SIZE}
+                  size={iconSize.md}
                   color={theme.colors.textPrimary}
                 />
               </Touchable>
@@ -119,7 +114,7 @@ export const PostUploadBanner: React.FC = () => {
             <Icon
               type="Ionicons"
               name={APP_ICONS.CHECKMARK_CIRCLE}
-              size={ACTION_ICON_SIZE}
+              size={iconSize.md}
               color={theme.colors.success}
             />
           ) : (
@@ -150,17 +145,17 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   thumb: {
-    width: THUMB_SIZE,
-    height: THUMB_SIZE,
+    width: sizes.thumbSm,
+    height: sizes.thumbSm,
     borderRadius: ms(4),
   },
   texts: {
     flex: 1,
   },
   track: {
-    height: PROGRESS_HEIGHT,
+    height: sizes.progressBar,
   },
   fill: {
-    height: PROGRESS_HEIGHT,
+    height: sizes.progressBar,
   },
 });

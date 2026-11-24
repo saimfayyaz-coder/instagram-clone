@@ -5,6 +5,8 @@ export const GALLERY_CONFIG = {
   DEFAULT_TARGET_SIZE: 500,
   MIN_PINCH_ZOOM: 1.0,
   MAX_PINCH_ZOOM: 3.5,
+  GRID_COLUMNS: 4,
+  GRID_SPACING: 1.5,
 } as const;
 
 export const MASK_SHAPES = {

@@ -2,6 +2,8 @@ import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 
 export const USER_LIST_CONFIG = {
   PAGE_SIZE: 20,
+  // Enough rows to fill the screen while the first page loads
+  SKELETON_ROWS: 8,
 } as const;
 
 export const USER_SEARCH_CONFIG = {

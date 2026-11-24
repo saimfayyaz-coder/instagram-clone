@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Header, Icon, Screen, Text, Touchable } from '@/shared/ui';
 import { useGalleryMedia, usePermission, useTheme } from '@/shared/hooks';
-import { commonStyles, spacing } from '@/shared/theme';
+import { commonStyles, iconSize, sizes, spacing } from '@/shared/theme';
 import {
   ACCESSIBILITY_ROLES,
   APP_ICONS,
@@ -24,7 +24,6 @@ import { useAppDispatch } from '@/app/store/hooks';
 import {
   AlbumSelectSheet,
   CropViewport,
-  MEDIA_PICKER_ROUND_BUTTON_SIZE,
   MediaGrid,
   MediaPickerControlBar,
   PermissionGuardView,
@@ -36,8 +35,6 @@ import {
   postDraftStarted,
   usePostMediaSelection,
 } from '@/features/create-post';
-
-const ICON_SIZE = 18;
 
 export const CreatePostSelectPage: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackParamList>>();
@@ -128,7 +125,7 @@ export const CreatePostSelectPage: React.FC = () => {
       <Icon
         type="Ionicons"
         name={APP_ICONS.MULTI_SELECT}
-        size={ICON_SIZE}
+        size={iconSize.sm}
         color={isMultiSelect ? theme.colors.onPrimary : theme.colors.textPrimary}
       />
     </Touchable>
@@ -183,7 +180,7 @@ export const CreatePostSelectPage: React.FC = () => {
             <Icon
               type="Ionicons"
               name={APP_ICONS.CROP_SHAPE}
-              size={ICON_SIZE}
+              size={iconSize.sm}
               color={theme.colors.onOverlay}
             />
           </Touchable>
@@ -237,9 +234,9 @@ export const CreatePostSelectPage: React.FC = () => {
 
 const styles = StyleSheet.create({
   roundButton: {
-    width: MEDIA_PICKER_ROUND_BUTTON_SIZE,
-    height: MEDIA_PICKER_ROUND_BUTTON_SIZE,
-    borderRadius: MEDIA_PICKER_ROUND_BUTTON_SIZE / 2,
+    width: sizes.roundButton,
+    height: sizes.roundButton,
+    borderRadius: sizes.roundButton / 2,
   },
   shapeButton: {
     position: 'absolute',

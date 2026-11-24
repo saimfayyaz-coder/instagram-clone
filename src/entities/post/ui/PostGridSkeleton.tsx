@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Skeleton } from '@/shared/ui';
 import { PROFILE_GRID } from '@/shared/constants';
-
-const DEFAULT_ROWS = 4;
+import { USER_POSTS_CONFIG } from '../model/constants';
 
 export interface PostGridSkeletonProps {
   rows?: number;
@@ -11,7 +10,9 @@ export interface PostGridSkeletonProps {
 
 // Gray tiles in the profile grid's shape while its first page loads.
 // Built row by row with flexible tiles, so rounding can never push a tile onto the next line.
-export const PostGridSkeleton: React.FC<PostGridSkeletonProps> = ({ rows = DEFAULT_ROWS }) => (
+export const PostGridSkeleton: React.FC<PostGridSkeletonProps> = ({
+  rows = USER_POSTS_CONFIG.GRID_SKELETON_ROWS,
+}) => (
   <View>
     {Array.from({ length: rows }, (_, row) => (
       <View key={row} style={styles.row}>

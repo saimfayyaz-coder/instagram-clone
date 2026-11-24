@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Avatar, Icon, Row, Section, Stack, Text, Touchable } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
-import { spacing } from '@/shared/theme';
+import { hitSlop, spacing } from '@/shared/theme';
 import { ACCESSIBILITY_ROLES, APP_ICONS, TEST_IDS } from '@/shared/constants';
 import { TRANSLATION_KEYS } from '@/shared/lib/i18n/translationKeys';
 import { formatRelativeTime } from '@/shared/lib/formatters';
@@ -11,8 +11,6 @@ import { Post } from '../model/types';
 import { POST_CONFIG } from '../model/constants';
 import { PostMediaCarousel } from './PostMediaCarousel';
 import { PostActions } from './PostActions';
-
-const MORE_HIT_SLOP = { top: 12, bottom: 12, left: 12, right: 12 };
 
 export interface PostCardProps {
   post: Post;
@@ -78,7 +76,7 @@ export const PostCard: React.FC<PostCardProps> = memo(({ post, onToggleLike, onT
           {onPressMore ? (
             <Touchable
               onPress={handlePressMore}
-              hitSlop={MORE_HIT_SLOP}
+              hitSlop={hitSlop.lg}
               accessibilityRole={ACCESSIBILITY_ROLES.BUTTON}
               accessibilityLabel={t(TRANSLATION_KEYS.POST_OPTIONS)}
               testID={TEST_IDS.POST.MORE_BUTTON}

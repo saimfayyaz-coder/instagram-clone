@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { FlatList, ListRenderItem, RefreshControl, StyleSheet, View } from 'react-native';
-import { UserListItem, UserListItemSkeleton, UserSummary } from '@/entities/user';
+import { USER_LIST_CONFIG, UserListItem, UserListItemSkeleton, UserSummary } from '@/entities/user';
 import { FollowButton, useFollowToggle } from '@/features/follow-user';
 import { EmptyState, Loader } from '@/shared/ui';
 import { useTheme } from '@/shared/hooks';
@@ -22,9 +22,6 @@ export interface UserListWidgetProps {
   errorTitle: string;
   retryLabel?: string;
 }
-
-// Enough rows to fill the screen while the first page loads
-const SKELETON_ROWS = 8;
 
 // People with a Follow button on each row; used by followers, following and search
 export const UserListWidget: React.FC<UserListWidgetProps> = ({
@@ -80,7 +77,7 @@ export const UserListWidget: React.FC<UserListWidgetProps> = ({
     if (isLoading) {
       return (
         <View>
-          {Array.from({ length: SKELETON_ROWS }, (_, index) => (
+          {Array.from({ length: USER_LIST_CONFIG.SKELETON_ROWS }, (_, index) => (
             <UserListItemSkeleton key={index} />
           ))}
         </View>
